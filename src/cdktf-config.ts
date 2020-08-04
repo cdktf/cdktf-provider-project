@@ -2,11 +2,21 @@ import { JsonFile, Semver, JsiiProject } from 'projen';
 
 const CDKTF_JSON_FILE = 'cdktf.json';
 
+interface CdktfConfigOptions {
+  terraformProvider: string;
+}
+
 export class CdktfConfig {
-  constructor(project: JsiiProject) {
+  constructor(project: JsiiProject, options: CdktfConfigOptions) {
+    const { terraformProvider } = options;
+
     project.addPeerDependencies({cdktf: Semver.caret('0.0.13')})
     project.addPeerDependencies({constructs: Semver.caret('3.0.4')})
-    project.addScriptCommand('fetch', 'rm -rf ./lib/* && cdktf get && cp -R .gen/providers/aws/* ./lib/')
+    project.addScriptCommand('fetch', 'rm -rf ./src/* && cdktf get && cp -R .gen/providers/aws/* ./src/')
+    project.addScriptCommand('commit', 'git add -A && git commit -am "Update provider" || echo "No changes to commit"')
+    project.replaceScript('build', 'yarn fetch && yarn compile && yarn test && yarn run package && yarn run commit')
+    project.replaceScript('compile', 'jsii --silence-warnings=reserved-word')
+    project.replaceScript('test', 'jest --passWithNoTests')
 
     project.addDevDependencies({cdktf: Semver.caret('0.0.13')})
     project.addDevDependencies({'cdktf-cli': Semver.caret('0.0.13')})
@@ -25,7 +35,7 @@ export class CdktfConfig {
       obj: {
         language: 'typescript',
         app: 'echo noop',
-        terraformProviders: ['aws@~> 2.0'],
+        terraformProviders: [terraformProvider],
       },
     });
   }
