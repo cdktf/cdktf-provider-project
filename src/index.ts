@@ -1,4 +1,5 @@
-import { JsiiProject, JsiiProjectOptions, Semver } from 'projen';
+import { JsiiProject, JsiiProjectOptions } from 'projen';
+import { CdktfConfig } from './cdktf-config'
 
 export class CdktfProviderProject extends JsiiProject {
 
@@ -7,8 +8,6 @@ export class CdktfProviderProject extends JsiiProject {
       ...options,
     });
 
-    this.addPeerDependencies({cdktf: Semver.caret('0.13')})
-    this.addPeerDependencies({constructs: Semver.caret('3.0')})
-    this.addScriptCommand('fetch', 'rm -rf ./lib/* && cdktf get && cp -R .gen/providers/aws/* ./lib/')
+    new CdktfConfig(this)
   }
 }

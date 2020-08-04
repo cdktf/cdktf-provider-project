@@ -1,10 +1,9 @@
-import { JsonFile, Semver } from 'projen';
-import { CdktfProviderProject } from './cdktf-provider-project'
+import { JsonFile, Semver, JsiiProject } from 'projen';
 
 const CDKTF_JSON_FILE = 'cdktf.json';
 
 export class CdktfConfig {
-  constructor(project: CdktfProviderProject) {
+  constructor(project: JsiiProject) {
     project.addPeerDependencies({cdktf: Semver.caret('0.13')})
     project.addPeerDependencies({constructs: Semver.caret('3.0')})
     project.addScriptCommand('fetch', 'rm -rf ./lib/* && cdktf get && cp -R .gen/providers/aws/* ./lib/')
