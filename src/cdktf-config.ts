@@ -4,12 +4,12 @@ const CDKTF_JSON_FILE = 'cdktf.json';
 
 export class CdktfConfig {
   constructor(project: JsiiProject) {
-    project.addPeerDependencies({cdktf: Semver.caret('0.13')})
-    project.addPeerDependencies({constructs: Semver.caret('3.0')})
+    project.addPeerDependencies({cdktf: Semver.caret('0.0.13')})
+    project.addPeerDependencies({constructs: Semver.caret('3.0.4')})
     project.addScriptCommand('fetch', 'rm -rf ./lib/* && cdktf get && cp -R .gen/providers/aws/* ./lib/')
 
-    project.addDevDependencies({cdktf: Semver.caret('0.13')})
-    project.addDevDependencies({'cdktf-cli': Semver.caret('0.13')})
+    project.addDevDependencies({cdktf: Semver.caret('0.0.13')})
+    project.addDevDependencies({'cdktf-cli': Semver.caret('0.0.13')})
 
     project.npmignore.comment('cdktf config');
     project.npmignore.exclude(CDKTF_JSON_FILE);

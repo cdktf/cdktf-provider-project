@@ -5,10 +5,9 @@ const project = new TypeScriptProject({
   authorName: "Sebastian Korfmann",
   authorEmail: "sebastian@korfmann.net",
   repository: "https://github.com/skorfmann/cdktf-provider.git",
-  dependencies: {
+  peerDependencies: {
     projen: Semver.caret('0.3.21')
   },
-  projenDevDependency: false,
   license: "MPL-2.0",
   releaseToNpm: true,
   minNodeVersion: '10.17.0',
