@@ -12,11 +12,11 @@ export class CdktfConfig {
 
     project.addPeerDependencies({cdktf: Semver.caret('0.0.13')})
     project.addPeerDependencies({constructs: Semver.caret('3.0.4')})
-    project.addScriptCommand('fetch', 'rm -rf ./src/* && cdktf get && cp -R .gen/providers/aws/* ./src/')
-    project.addScriptCommand('commit', 'git add -A && git commit -am "Update provider" || echo "No changes to commit"')
-    project.replaceScript('build', 'yarn fetch && yarn compile && yarn test && yarn run package && yarn run commit')
-    project.replaceScript('compile', 'jsii --silence-warnings=reserved-word')
-    project.replaceScript('test', 'jest --passWithNoTests')
+    project.addScript('fetch', 'rm -rf ./src/* && cdktf get && cp -R .gen/providers/aws/* ./src/')
+    project.addScript('commit', 'git add -A && git commit -am "Update provider" || echo "No changes to commit"')
+    project.addScript('build', 'yarn fetch && yarn compile && yarn test && yarn run package && yarn run commit')
+    project.addScript('compile', 'jsii --silence-warnings=reserved-word')
+    project.addScript('test', 'jest --passWithNoTests')
 
     project.addDevDependencies({cdktf: Semver.caret('0.0.13')})
     project.addDevDependencies({'cdktf-cli': Semver.caret('0.0.13')})
