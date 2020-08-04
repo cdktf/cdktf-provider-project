@@ -1,6 +1,8 @@
 import { JsiiProject, JsiiProjectOptions, Semver } from 'projen';
 import { CdktfConfig } from './cdktf-config'
 
+const PROJEN_VERSION = '@0.3.23'
+
 interface CdktfProviderProjectOptions extends JsiiProjectOptions {
   terraformProvider: string;
 }
@@ -19,6 +21,7 @@ export class CdktfProviderProject extends JsiiProject {
       devDependencies: {
         'cdktf-provider': Semver.caret('0.0.3'),
       },
+      workflowBootstrapSteps: [{ run: 'npm install cdktf-provider' }, { run: `npx projen${PROJEN_VERSION}` }, { run: 'yarn install --frozen-lockfile' }],
     });
 
     const {  terraformProvider } = options;
