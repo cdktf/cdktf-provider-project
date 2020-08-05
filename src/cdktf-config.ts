@@ -31,6 +31,7 @@ export class CdktfConfig {
     project.gitignore.comment('ignore cdktf builds')
     project.gitignore.exclude('.gen');
     project.gitignore.exclude('.terraform');
+    project.gitignore.exclude('package-lock.json');
 
     new JsonFile(project, CDKTF_JSON_FILE, {
       obj: {
