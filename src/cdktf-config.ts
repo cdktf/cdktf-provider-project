@@ -17,6 +17,7 @@ export class CdktfConfig {
     project.addScript('prebump', 'yarn fetch && yarn compile && yarn run commit')
     project.addScript('compile', 'jsii --silence-warnings=reserved-word')
     project.addScript('test', 'jest --passWithNoTests')
+    project.addFields({publishConfig: {access: 'public'}})
 
     project.addDevDependencies({cdktf: Semver.caret('0.0.13')})
     project.addDevDependencies({'cdktf-cli': Semver.caret('0.0.13')})
