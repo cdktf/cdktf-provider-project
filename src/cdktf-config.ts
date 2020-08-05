@@ -14,7 +14,7 @@ export class CdktfConfig {
     project.addPeerDependencies({constructs: Semver.caret('3.0.4')})
     project.addScript('fetch', 'rm -rf ./src/* && cdktf get && cp -R .gen/providers/aws/* ./src/')
     project.addScript('commit', 'git add -A && git commit -am "Update provider" || echo "No changes to commit"')
-    project.addScript('build', 'yarn fetch && yarn compile && yarn test && yarn run package && yarn run commit')
+    project.addScript('prebump', 'yarn fetch && yarn compile && yarn run commit')
     project.addScript('compile', 'jsii --silence-warnings=reserved-word')
     project.addScript('test', 'jest --passWithNoTests')
 

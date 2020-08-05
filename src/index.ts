@@ -19,7 +19,7 @@ export class CdktfProviderProject extends JsiiProject {
       releaseToNpm: true,
       minNodeVersion: '10.17.0',
       devDependencies: {
-        'cdktf-provider': Semver.caret('0.0.8'),
+        'cdktf-provider': Semver.caret('0.0.9'),
       },
       workflowBootstrapSteps: [{ run: 'npm install cdktf-provider@latest' }, { run: `npx projen${PROJEN_VERSION}` }, { run: 'yarn install --frozen-lockfile' }],
     });
