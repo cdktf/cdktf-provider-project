@@ -7,10 +7,10 @@ interface CdktfProviderProjectOptions extends JsiiProjectOptions {
   terraformProvider: string;
 }
 
-const authorName = 'Sebastian Korfmann'
-const authorEmail = 'sebastian@korfmann.net'
-const namespace = 'skorfmann'
-const githubNamespace = 'skorfmann'
+const authorName = 'HashiCorp'
+const authorUrl = 'https://hashicorp.com"
+const namespace = 'cdktf'
+const githubNamespace = 'terraform-cdk-providers'
 
 export class CdktfProviderProject extends JsiiProject {
 
@@ -29,11 +29,12 @@ export class CdktfProviderProject extends JsiiProject {
         'dot-prop': Semver.caret('5.2.0'),
       },
       workflowBootstrapSteps: [{ run: 'npm install cdktf-provider@latest' }, { run: `npx projen${PROJEN_VERSION}` }, { run: 'yarn install --frozen-lockfile' }],
-      name: `@${namespace}/cdktf-provider-${providerName}`,
+      name: `@${namespace}/provider-${providerName}`,
       description: `Prebuilt ${providerName} Provider for Terraform CDK (cdktf)`,
       keywords: ['cdktf', 'terraform', 'cdk', 'provider', providerName],
       authorName,
-      authorEmail,
+      authorUrl,
+      authorOrganization: true,
       repository: `https://github.com/${githubNamespace}/cdktf-provider-${providerName}.git`,
       python: {
         distName: `${namespace}-cdktf-provider-aws`,
