@@ -26,7 +26,7 @@
   "author": {
     "name": "HashiCorp",
     "url": "https://hashicorp.com",
-    "organization": false
+    "organization": true
   },
   "devDependencies": {
     "projen": "^0.3.23",
@@ -74,5 +74,8 @@
         "tsConfig": "tsconfig.jest.json"
       }
     }
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

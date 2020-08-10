@@ -5,6 +5,7 @@ const project = new TypeScriptProject({
   authorName: "HashiCorp",
   authorUrl: "https://hashicorp.com",
   repository: "https://github.com/terraform-cdk-providers/cdktf-provider-project.git",
+  authorOrganization: true,
   peerDependencies: {
     projen: Semver.caret('0.3.26')
   },
@@ -17,4 +18,5 @@ const project = new TypeScriptProject({
   }
 });
 
+project.addFields({ publishConfig: { access: 'public' } })
 project.synth();
