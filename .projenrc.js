@@ -1,12 +1,12 @@
 const { TypeScriptProject, Semver } = require('projen');
 
 const project = new TypeScriptProject({
-  name: "cdktf-provider",
-  authorName: "Sebastian Korfmann",
-  authorEmail: "sebastian@korfmann.net",
-  repository: "https://github.com/skorfmann/cdktf-provider.git",
+  name: "@cdktf/provider-project",
+  authorName: "HashiCorp",
+  authorUrl: "https://hashicorp.com",
+  repository: "https://github.com/terraform-cdk-providers/cdktf-provider-project.git",
   peerDependencies: {
-    projen: Semver.caret('0.3.23')
+    projen: Semver.caret('0.3.26')
   },
   license: "MPL-2.0",
   releaseToNpm: true,
