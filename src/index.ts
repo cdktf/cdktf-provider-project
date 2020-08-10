@@ -1,7 +1,7 @@
 import { JsiiProject, JsiiProjectOptions, Semver } from 'projen';
 import { CdktfConfig } from './cdktf-config'
 
-const PROJEN_VERSION = '@0.3.23'
+const PROJEN_VERSION = '@0.3.26'
 
 interface CdktfProviderProjectOptions extends JsiiProjectOptions {
   terraformProvider: string;
