@@ -1,9 +1,12 @@
 import { JsonFile, Semver, JsiiProject } from 'projen';
+import { ReadmeFile } from './readme';
 
 const CDKTF_JSON_FILE = 'cdktf.json';
 
 interface CdktfConfigOptions {
   terraformProvider: string;
+  providerName: string;
+  providerVersion: string;
 }
 
 export class CdktfConfig {
@@ -40,5 +43,7 @@ export class CdktfConfig {
         terraformProviders: [terraformProvider],
       },
     });
+
+    new ReadmeFile(project, 'README.md', options)
   }
 }
