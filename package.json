@@ -28,7 +28,7 @@
     "organization": true
   },
   "devDependencies": {
-    "projen": "^0.3.23",
+    "projen": "^0.3.28",
     "standard-version": "^8.0.1",
     "typescript": "^3.9.5",
     "@typescript-eslint/eslint-plugin": "^2.31.0",
