@@ -8,7 +8,7 @@ const project = new TypeScriptProject({
   authorOrganization: true,
   projenUpgrade: false,
   peerDependencies: {
-    projen: Semver.caret('0.3.26')
+    projen: Semver.caret('0.3.28')
   },
   license: "MPL-2.0",
   releaseToNpm: true,
