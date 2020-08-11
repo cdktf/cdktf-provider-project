@@ -12,7 +12,6 @@
     "no-changes": "(git log --oneline -1 | grep -q \"chore(release):\") && echo \"No changes to release.\"",
     "bump": "yarn --silent no-changes || standard-version",
     "release": "yarn --silent no-changes || (yarn bump && git push --follow-tags origin master)",
-    "projen:upgrade": "chmod +w package.json && yarn upgrade -L projen && chmod -w package.json && yarn projen",
     "eslint:fix": "eslint . --ext .ts --fix",
     "compile": "tsc",
     "watch": "tsc -w",
