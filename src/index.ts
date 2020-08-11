@@ -25,10 +25,10 @@ export class CdktfProviderProject extends JsiiProject {
       releaseToNpm: true,
       minNodeVersion: '10.17.0',
       devDependencies: {
-        'cdktf-provider': Semver.caret('0.0.14'),
+        '@cdktf/provider-project': Semver.caret('0.0.19'),
         'dot-prop': Semver.caret('5.2.0'),
       },
-      workflowBootstrapSteps: [{ run: 'npm install cdktf-provider@latest' }, { run: `npx projen${PROJEN_VERSION}` }, { run: 'yarn install --frozen-lockfile' }],
+      workflowBootstrapSteps: [{ run: 'npm install @cdktf/provider-project@latest' }, { run: `npx projen${PROJEN_VERSION}` }, { run: 'yarn install --frozen-lockfile' }],
       name: `@${namespace}/provider-${providerName}`,
       description: `Prebuilt ${providerName} Provider for Terraform CDK (cdktf)`,
       keywords: ['cdktf', 'terraform', 'cdk', 'provider', providerName],
