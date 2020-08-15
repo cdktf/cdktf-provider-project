@@ -7,7 +7,7 @@ const project = new TypeScriptProject({
   repository: "https://github.com/terraform-cdk-providers/cdktf-provider-project.git",
   authorOrganization: true,
   peerDependencies: {
-    projen: Semver.caret('0.3.28')
+    projen: Semver.caret('0.3.34')
   },
   license: "MPL-2.0",
   releaseToNpm: true,
