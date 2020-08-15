@@ -25,13 +25,10 @@ export class CdktfConfig {
     project.addDevDependencies({cdktf: Semver.caret('0.0.14')})
     project.addDevDependencies({'cdktf-cli': Semver.caret('0.0.14')})
 
-    project.npmignore.comment('cdktf config');
     project.npmignore.exclude(CDKTF_JSON_FILE);
     project.npmignore.exclude('.gen');
     project.npmignore.exclude('.terraform');
     project.npmignore.exclude('cdktf.json');
-
-    project.gitignore.comment('ignore cdktf builds')
     project.gitignore.exclude('.gen');
     project.gitignore.exclude('.terraform');
     project.gitignore.exclude('package-lock.json');
