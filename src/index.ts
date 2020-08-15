@@ -35,7 +35,6 @@ export class CdktfProviderProject extends JsiiProject {
       authorName,
       authorUrl,
       authorOrganization: true,
-      projenUpgrade: false,
       repository: `https://github.com/${githubNamespace}/cdktf-provider-${providerName}.git`,
       python: {
         distName: `${namespace}-cdktf-provider-aws`,

@@ -6,7 +6,6 @@ const project = new TypeScriptProject({
   authorUrl: "https://hashicorp.com",
   repository: "https://github.com/terraform-cdk-providers/cdktf-provider-project.git",
   authorOrganization: true,
-  projenUpgrade: false,
   peerDependencies: {
     projen: Semver.caret('0.3.28')
   },
