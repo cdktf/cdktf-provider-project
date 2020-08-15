@@ -45,7 +45,7 @@
     "@types/node": "^10.17.0"
   },
   "peerDependencies": {
-    "projen": "^0.3.28"
+    "projen": "^0.3.34"
   },
   "dependencies": {},
   "bundledDependencies": [],
