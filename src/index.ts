@@ -1,7 +1,13 @@
 import { JsiiProject, JsiiProjectOptions, Semver } from 'projen';
 import { CdktfConfig } from './cdktf-config'
+import * as path from 'path'
+import * as fs from 'fs'
 
-const PROJEN_VERSION = '@0.3.34'
+const config = JSON.parse(fs.readFileSync(require.resolve(path.join(__dirname, '..', 'package.json'))).toString())
+const version = config.version
+const projenVersion = config.peerDependencies.projen as string
+
+const PROJEN_VERSION = `@${projenVersion.replace('^', '')}`
 
 interface CdktfProviderProjectOptions extends JsiiProjectOptions {
   terraformProvider: string;
@@ -25,7 +31,7 @@ export class CdktfProviderProject extends JsiiProject {
       releaseToNpm: true,
       minNodeVersion: '10.17.0',
       devDependencies: {
-        '@cdktf/provider-project': Semver.caret('0.0.21'),
+        '@cdktf/provider-project': Semver.caret(version),
         'dot-prop': Semver.caret('5.2.0'),
       },
       workflowBootstrapSteps: [{ run: 'npm install @cdktf/provider-project@latest' }, { run: `npx projen${PROJEN_VERSION}` }, { run: 'yarn install --frozen-lockfile' }],
