@@ -1,5 +1,6 @@
 import { JsiiProject, JsiiProjectOptions, Semver } from 'projen';
 import { CdktfConfig } from './cdktf-config'
+import { ProviderUpgrade } from './provider-upgrade'
 import * as path from 'path'
 import * as fs from 'fs'
 
@@ -54,5 +55,6 @@ export class CdktfProviderProject extends JsiiProject {
     });
 
     new CdktfConfig(this, { terraformProvider, providerName, providerVersion })
+    new ProviderUpgrade(this)
   }
 }
