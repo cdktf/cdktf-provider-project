@@ -19,7 +19,7 @@ export class ProviderUpgrade {
           ...project.workflowBootstrapSteps,
 
           // upgrade
-          { run: `yarn fetch` },
+          { run: 'yarn fetch' },
 
           // submit a PR
           {
