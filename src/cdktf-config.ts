@@ -13,7 +13,9 @@ export class CdktfConfig {
   constructor(project: JsiiProject, options: CdktfConfigOptions) {
     const { terraformProvider, providerName } = options;
 
-    project.addPeerDependencies({cdktf: Semver.caret('0.0.15')})
+    const cdktfVersion = Semver.caret('0.0.15')
+
+    project.addPeerDependencies({cdktf: cdktfVersion})
     project.addPeerDependencies({constructs: Semver.caret('3.0.4')})
     project.addScript('fetch', `rm -rf ./src/* && cdktf get && cp -R .gen/providers/${providerName}/* ./src/`)
     project.addScript('commit', 'git add -A && git commit -am "Update provider" || echo "No changes to commit"')
@@ -22,8 +24,8 @@ export class CdktfConfig {
     project.addScript('test', 'jest --passWithNoTests')
     project.addFields({publishConfig: {access: 'public'}})
 
-    project.addDevDependencies({cdktf: Semver.caret('0.0.14')})
-    project.addDevDependencies({'cdktf-cli': Semver.caret('0.0.14')})
+    project.addDevDependencies({cdktf: cdktfVersion})
+    project.addDevDependencies({'cdktf-cli': cdktfVersion})
 
     project.npmignore.exclude(CDKTF_JSON_FILE);
     project.npmignore.exclude('.gen');
