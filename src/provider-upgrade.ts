@@ -1,14 +1,14 @@
 import { NodeProject, GithubWorkflow } from 'projen';
 
 /**
- * Checks for new versions of projen and creates a PR with an upgrade change.
+ * Checks for new versions of the given provider and creates a PR with an upgrade change if there are changes.
  */
 export class ProviderUpgrade {
   constructor(project: NodeProject) {
     const workflow = new GithubWorkflow(project, 'ProviderUpgrade');
 
     workflow.on({
-      schedule: [ { cron: '30 20 * * *' } ], // 6am every day
+      schedule: [ { cron: '0 */4 * * *' } ], // Run every 4 hours
       workflow_dispatch: {},               // allow manual triggering
     });
 
