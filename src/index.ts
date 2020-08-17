@@ -22,7 +22,12 @@ export class CdktfProviderProject extends JsiiProject {
 
   constructor(options: CdktfProviderProjectOptions) {
     const  { terraformProvider, workflowContainerImage = 'hashicorp/jsii-terraform' } = options;
-    const [providerName, providerVersion] = terraformProvider.split('@')
+    const [fqproviderName, providerVersion] = terraformProvider.split('@')
+    const providerName = fqproviderName.split('/').pop()
+
+    if (!providerName) {
+      throw new Error(`${terraformProvider} doesn't seem to be valid`)
+    }
 
     super({
       ...options,
