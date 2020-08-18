@@ -29,7 +29,7 @@
     "organization": true
   },
   "devDependencies": {
-    "projen": "^0.3.34",
+    "projen": "^0.3.37",
     "standard-version": "^8.0.1",
     "typescript": "^3.9.5",
     "@typescript-eslint/eslint-plugin": "^2.31.0",
@@ -45,7 +45,7 @@
     "@types/node": "^10.17.0"
   },
   "peerDependencies": {
-    "projen": "^0.3.34"
+    "projen": "^0.3.37"
   },
   "dependencies": {},
   "bundledDependencies": [],

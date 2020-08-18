@@ -1,14 +1,11 @@
+/* eslint-disable @typescript-eslint/no-require-imports */
 import { JsiiProject, JsiiProjectOptions, Semver } from 'projen';
 import { CdktfConfig } from './cdktf-config'
 import { ProviderUpgrade } from './provider-upgrade'
-import * as path from 'path'
-import * as fs from 'fs'
 
-const config = JSON.parse(fs.readFileSync(require.resolve(path.join(__dirname, '..', 'package.json'))).toString())
-const version = config.version
-const projenVersion = config.peerDependencies.projen as string
-
-const PROJEN_VERSION = `@${projenVersion.replace('^', '')}`
+const projenVersion = require('projen/version.json').version;
+const version = require('../version.json').version;
+const PROJEN_VERSION = `@${projenVersion}`
 
 interface CdktfProviderProjectOptions extends JsiiProjectOptions {
   terraformProvider: string;
@@ -40,6 +37,7 @@ export class CdktfProviderProject extends JsiiProject {
         '@cdktf/provider-project': Semver.caret(version),
         'dot-prop': Semver.caret('5.2.0'),
       },
+      projenVersion: Semver.caret(projenVersion),
       workflowBootstrapSteps: [{ run: 'npm install @cdktf/provider-project@latest' }, { run: `npx projen${PROJEN_VERSION}` }, { run: 'yarn install --frozen-lockfile' }],
       name: `@${namespace}/provider-${providerName}`,
       description: `Prebuilt ${providerName} Provider for Terraform CDK (cdktf)`,

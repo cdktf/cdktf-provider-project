@@ -1,4 +1,5 @@
 const { TypeScriptProject, Semver } = require('projen');
+const version = require('projen/version.json');
 
 const project = new TypeScriptProject({
   name: "@cdktf/provider-project",
@@ -7,7 +8,7 @@ const project = new TypeScriptProject({
   repository: "https://github.com/terraform-cdk-providers/cdktf-provider-project.git",
   authorOrganization: true,
   peerDependencies: {
-    projen: Semver.caret('0.3.34')
+    projen: Semver.caret(version.version)
   },
   license: "MPL-2.0",
   releaseToNpm: true,
