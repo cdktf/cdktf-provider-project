@@ -19,7 +19,9 @@ export class CdktfConfig {
     project.addPeerDependencies({constructs: Semver.caret('3.0.4')})
     project.addScript('fetch', `rm -rf ./src/* && cdktf get && cp -R .gen/providers/${providerName}/* ./src/`)
     project.addScript('commit', 'git add -A && git commit -am "Update provider" || echo "No changes to commit"')
-    project.addScript('prebump', 'yarn fetch && yarn compile && yarn run commit')
+    // eslint-disable-next-line quotes
+    project.addScript('should-release', `! git diff --exit-code v$(cat version.json | jq -r '.version') ./src ./package.json`)
+    project.addScript('prebump', 'yarn fetch && yarn compile && yarn run commit && yarn run should-release')
     project.addScript('compile', 'jsii --silence-warnings=reserved-word')
     project.addScript('test', 'jest --passWithNoTests')
     project.addFields({publishConfig: {access: 'public'}})
