@@ -1,5 +1,6 @@
-import { JsonFile, Semver, JsiiProject } from 'projen';
+import { JsonFile, JsiiProject } from 'projen';
 import { ReadmeFile } from './readme';
+import { Semver } from './semver';
 
 const CDKTF_JSON_FILE = 'cdktf.json';
 
@@ -15,7 +16,7 @@ export class CdktfConfig {
 
     const cdktfVersion = Semver.caret('0.0')
 
-    project.addPeerDependencies({cdktf: cdktfVersion})
+    project.addPeerDependencies({cdktf: cdktfVersion}, {pinnedDevDependency: false})
     project.addPeerDependencies({constructs: Semver.caret('3.0.4')})
     project.addScript('fetch', `rm -rf ./src/* && cdktf get && cp -R .gen/providers/${providerName}/* ./src/`)
     project.addScript('commit', 'git add -A && git commit -am "Update provider" || echo "No changes to commit"')
@@ -27,7 +28,6 @@ export class CdktfConfig {
     project.addFields({publishConfig: {access: 'public'}})
 
     project.addDevDependencies({cdktf: cdktfVersion})
-    project.addDevDependencies({'cdktf-cli': cdktfVersion})
 
     project.npmignore.exclude(CDKTF_JSON_FILE);
     project.npmignore.exclude('.gen');

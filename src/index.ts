@@ -1,7 +1,8 @@
 /* eslint-disable @typescript-eslint/no-require-imports */
-import { JsiiProject, JsiiProjectOptions, Semver } from 'projen';
+import { JsiiProject, JsiiProjectOptions } from 'projen';
 import { CdktfConfig } from './cdktf-config'
 import { ProviderUpgrade } from './provider-upgrade'
+import { Semver } from './semver'
 
 const projenVersion = require('projen/version.json').version;
 const version = require('../version.json').version;
