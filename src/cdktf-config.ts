@@ -28,6 +28,7 @@ export class CdktfConfig {
     project.addFields({publishConfig: {access: 'public'}})
 
     project.addDevDependencies({cdktf: cdktfVersion})
+    project.addDevDependencies({'cdktf-cli': cdktfVersion})
 
     project.npmignore.exclude(CDKTF_JSON_FILE);
     project.npmignore.exclude('.gen');
