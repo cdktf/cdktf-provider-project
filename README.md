@@ -4,9 +4,13 @@ A project template for [project](https://github.com/eladb/projen) to create repo
 
 ## Usage
 
+The provider repos are entirely auto generated from the configuration contained in this repo here. There's no manual interaction necessary, except for creating the initial repository - using this repo. The `cdktf get` command is executed as part of the build pipeline in Github Actions. These jobs are executed on a schedule. Hence, new provider changes will be picked up automatically.
+
 ### Creating a new provider
 
-In the repository where it's going to be used, all we need is a `.projenrc.js` file like this:
+Add a new repository [over here](https://github.com/terraform-cdk-providers/repository-manager).
+
+In the newly created repository, all we need is a `.projenrc.js` file like this:
 
 ```js
 const { CdktfProviderProject } = require('@cdktf/provider-project');
