@@ -31,11 +31,16 @@ npx projen
 yarn install
 ```
 
-This will generate an entire repository ready to be published, including Github Workflows for publishing NPM and Pypi packages. The only thing which is needed to be set manually are the tokens for these registries:
+This will generate an entire repository ready to be published, including Github Workflows for publishing NPM, Pypi and maven packages. The only thing which is needed to be set manually are the tokens for these registries:
 
 - `NPM_TOKEN`
 - `TWINE_PASSWORD`
 - `TWINE_USERNAME`
+- `MAVEN_GPG_PRIVATE_KEY`
+- `MAVEN_GPG_PRIVATE_KEY_PASSPHRASE`
+- `MAVEN_PASSWORD`
+- `MAVEN_USERNAME`
+- `MAVEN_STAGING_PROFILE_ID`
 
 ### Updating an existing Provider
 
