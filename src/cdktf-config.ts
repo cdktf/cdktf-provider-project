@@ -14,7 +14,7 @@ export class CdktfConfig {
   constructor(project: JsiiProject, options: CdktfConfigOptions) {
     const { terraformProvider, providerName } = options;
 
-    const cdktfVersion = Semver.caret('0.0')
+    const cdktfVersion = Semver.caret('0.1')
 
     project.addPeerDependencies({cdktf: cdktfVersion}, {pinnedDevDependency: false})
     project.addPeerDependencies({constructs: Semver.caret('3.0.4')})
