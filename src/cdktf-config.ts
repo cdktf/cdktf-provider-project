@@ -1,6 +1,5 @@
 import { JsonFile, JsiiProject } from 'projen';
 import { ReadmeFile } from './readme';
-import { Semver } from './semver';
 
 const CDKTF_JSON_FILE = 'cdktf.json';
 
@@ -14,7 +13,7 @@ export class CdktfConfig {
   constructor(project: JsiiProject, options: CdktfConfigOptions) {
     const { terraformProvider, providerName } = options;
 
-    const cdktfVersion = Semver.caret('0.1');
+    const cdktfVersion = '^0.1';
 
     project.addPeerDeps(`cdktf@^${cdktfVersion}`);
     project.addPeerDeps('constructs@^3.0.4');
