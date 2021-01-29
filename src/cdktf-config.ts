@@ -15,7 +15,7 @@ export class CdktfConfig {
 
     const cdktfVersion = '^0.1';
 
-    project.addPeerDeps(`cdktf@^${cdktfVersion}`);
+    project.addPeerDeps(`cdktf@${cdktfVersion}`);
     project.addPeerDeps('constructs@^3.0.4');
     project.setScript('fetch', `rm -rf ./src/* && cdktf get && cp -R .gen/providers/${providerName}/* ./src/`);
     project.setScript('commit', 'git add -A && git commit -am "Update provider" || echo "No changes to commit"');
@@ -26,8 +26,8 @@ export class CdktfConfig {
     project.setScript('test', 'jest --passWithNoTests');
     project.addFields({ publishConfig: { access: 'public' } });
 
-    project.addDevDeps(`cdktf@^${cdktfVersion}`);
-    project.addDevDeps(`cdktf-cli@^${cdktfVersion}`);
+    project.addDevDeps(`cdktf@${cdktfVersion}`);
+    project.addDevDeps(`cdktf-cli@${cdktfVersion}`);
 
     if (project.npmignore) {
       project.npmignore.exclude(CDKTF_JSON_FILE);
