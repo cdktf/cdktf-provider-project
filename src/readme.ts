@@ -1,5 +1,4 @@
-import { FileBase, FileBaseOptions, IResolver } from 'projen';
-import { Project } from 'projen';
+import { FileBase, FileBaseOptions, IResolver, Project } from 'projen';
 
 export interface ReadmeFileOptions extends FileBaseOptions {
   terraformProvider: string;
@@ -16,7 +15,7 @@ export class ReadmeFile extends FileBase {
   }
 
   protected synthesizeContent(resolver: IResolver) {
-    const { providerName, providerVersion } = resolver.resolve(this.options)
+    const { providerName, providerVersion } = resolver.resolve(this.options);
 
     return `
 # Terraform CDK ${providerName} Provider ${providerVersion}
@@ -61,6 +60,6 @@ There's a custom [project builder](https://github.com/skorfmann/cdktf-provider-p
 
 The provider version can be adjusted in [./.projenrc.js](./.projenrc.js).
 
-`
+`;
   }
 }

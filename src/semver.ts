@@ -1,4 +1,4 @@
-const ALLOWED_MODES = [ '~', '^' ];
+const ALLOWED_MODES = ['~', '^'];
 
 export class Semver {
   /**
