@@ -18,6 +18,7 @@ export class ProviderUpgrade {
       upgrade: {
         'runs-on': 'ubuntu-latest',
         'steps': [
+          { run: 'yarn install' },
           { run: 'yarn fetch' },
 
           // submit a PR
