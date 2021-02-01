@@ -18,6 +18,11 @@ export class ProviderUpgrade {
       upgrade: {
         'runs-on': 'ubuntu-latest',
         'steps': [
+          {
+            name: 'Checkout',
+            uses: 'actions/checkout@v2',
+          },
+          { run: 'yarn install' },
           { run: 'yarn fetch' },
 
           // submit a PR
