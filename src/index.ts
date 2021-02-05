@@ -2,6 +2,7 @@
 import { JsiiProject, JsiiProjectOptions } from 'projen';
 import { CdktfConfig } from './cdktf-config';
 import { ProviderUpgrade } from './provider-upgrade';
+import { pascalCase } from 'change-case';
 
 const version = require('../version.json').version;
 
@@ -25,6 +26,8 @@ export class CdktfProviderProject extends JsiiProject {
       throw new Error(`${terraformProvider} doesn't seem to be valid`);
     }
 
+    const nugetName = `HashiCorp.${pascalCase(namespace)}.Provider${pascalCase(providerName)}`;
+
     super({
       ...options,
       workflowContainerImage,
@@ -45,6 +48,10 @@ export class CdktfProviderProject extends JsiiProject {
       python: {
         distName: `${namespace}-cdktf-provider-${providerName}`,
         module: `${namespace}_cdktf_provider_${providerName}`,
+      },
+      publishToNuget: {
+        dotNetNamespace: nugetName,
+        packageId: nugetName,
       },
     });
 
