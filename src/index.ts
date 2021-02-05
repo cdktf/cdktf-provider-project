@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-require-imports */
+import { pascalCase } from 'change-case';
 import { JsiiProject, JsiiProjectOptions } from 'projen';
 import { CdktfConfig } from './cdktf-config';
 import { ProviderUpgrade } from './provider-upgrade';
-import { pascalCase } from 'change-case';
 
 const version = require('../version.json').version;
 
