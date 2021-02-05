@@ -47,6 +47,9 @@
   "peerDependencies": {
     "projen": "^0.15.13"
   },
+  "dependencies": {
+    "change-case": "^4.1.2"
+  },
   "bundledDependencies": [],
   "engines": {
     "node": ">= 10.17.0"

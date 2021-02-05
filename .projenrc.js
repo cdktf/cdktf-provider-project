@@ -10,6 +10,9 @@ const project = new TypeScriptProject({
   peerDeps: [
     `projen@^${version.version}`,
   ],
+  deps: [
+    'change-case',
+  ],
   license: 'MPL-2.0',
   releaseToNpm: true,
   minNodeVersion: '10.17.0',
