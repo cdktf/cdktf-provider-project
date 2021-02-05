@@ -26,7 +26,7 @@ export class CdktfProviderProject extends JsiiProject {
       throw new Error(`${terraformProvider} doesn't seem to be valid`);
     }
 
-    const nugetName = `HashiCorp.${pascalCase(namespace)}.Provider${pascalCase(providerName)}`;
+    const nugetName = `HashiCorp.${pascalCase(namespace)}.Providers.${pascalCase(providerName)}`;
 
     super({
       ...options,
