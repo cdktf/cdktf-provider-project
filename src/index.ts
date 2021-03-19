@@ -21,12 +21,18 @@ export class CdktfProviderProject extends JsiiProject {
     const { terraformProvider, workflowContainerImage = 'hashicorp/jsii-terraform' } = options;
     const [fqproviderName, providerVersion] = terraformProvider.split('@');
     const providerName = fqproviderName.split('/').pop();
-
+    let nugetName: string;
     if (!providerName) {
       throw new Error(`${terraformProvider} doesn't seem to be valid`);
     }
 
-    const nugetName = `HashiCorp.${pascalCase(namespace)}.Providers.${pascalCase(providerName)}`;
+    // Workaround for error from nuget.org when trying to publish with package id "HashiCorp.Cdktf.Providers.Aws":
+    // "Response status code does not indicate success: 409 (The package ID is reserved. You can upload your package with a different package ID. Reach out to support@nuget.org if you have questions.)."
+    if (pascalCase(providerName) === 'Aws') {
+      nugetName = `HashiCorp.${pascalCase(namespace)}.Providers.AwsProvider`;
+    } else {
+      nugetName = `HashiCorp.${pascalCase(namespace)}.Providers.${pascalCase(providerName)}`;
+    }
 
     super({
       ...options,
