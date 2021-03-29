@@ -24,7 +24,9 @@ export class ProviderUpgrade {
           },
           { run: 'yarn install' },
           { run: 'yarn fetch' },
-          { run: 'yarn compile' }, // generate docs
+          // generate docs
+          { run: 'yarn compile' },
+          { run: 'yarn docgen' },
 
           // submit a PR
           {
