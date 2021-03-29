@@ -26,6 +26,12 @@ Current build targets are:
 
 - npm
 - Pypi
+- Nuget
+- Maven
+
+## Docs
+
+Find auto-generated docs for this provider here: [./API.md](./API.md)
 
 ## Versioning
 
