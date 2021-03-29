@@ -29,7 +29,7 @@ export class CdktfProviderProject extends JsiiProject {
     // Workaround for error from nuget.org when trying to publish with package id "HashiCorp.Cdktf.Providers.Aws":
     // "Response status code does not indicate success: 409 (The package ID is reserved. You can upload your package with a different package ID. Reach out to support@nuget.org if you have questions.)."
     if (pascalCase(providerName) === 'Aws') {
-      nugetName = `HashiCorp.${pascalCase(namespace)}.Providers.AwsProvider`;
+      nugetName = `HashiCorp.${pascalCase(namespace)}.Providers.ProviderAws`;
       dotNetNamespace = `HashiCorp.${pascalCase(namespace)}.Providers.${pascalCase(providerName)}`;
     } else {
       nugetName = `HashiCorp.${pascalCase(namespace)}.Providers.${pascalCase(providerName)}`;
