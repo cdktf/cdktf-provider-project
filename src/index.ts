@@ -52,6 +52,9 @@ export class CdktfProviderProject extends JsiiProject {
         dotNetNamespace: nugetName,
         packageId: nugetName,
       },
+      peerDependencyOptions: {
+        pinnedDevDependency: false,
+      },
     });
 
     new CdktfConfig(this, { terraformProvider, providerName, providerVersion });
