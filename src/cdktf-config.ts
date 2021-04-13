@@ -13,7 +13,7 @@ export class CdktfConfig {
   constructor(project: JsiiProject, options: CdktfConfigOptions) {
     const { terraformProvider, providerName } = options;
 
-    const cdktfVersion = '^0.x';
+    const cdktfVersion = '^0.2';
 
     project.addPeerDeps(`cdktf@${cdktfVersion}`);
     project.addPeerDeps('constructs@^3.0.4');
