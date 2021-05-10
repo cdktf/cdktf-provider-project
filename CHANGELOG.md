@@ -2,6 +2,30 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.66](https://github.com/terraform-cdk-providers/cdktf-provider-project/compare/v0.1.65...v0.1.66) (2021-05-10)
+
+### [0.1.65](https://github.com/terraform-cdk-providers/cdktf-provider-project/compare/v0.1.64...v0.1.65) (2021-05-06)
+
+### [0.1.64](https://github.com/terraform-cdk-providers/cdktf-provider-project/compare/v0.1.63...v0.1.64) (2021-05-05)
+
+### [0.1.63](https://github.com/terraform-cdk-providers/cdktf-provider-project/compare/v0.1.62...v0.1.63) (2021-05-05)
+
+### [0.1.62](https://github.com/terraform-cdk-providers/cdktf-provider-project/compare/v0.1.61...v0.1.62) (2021-05-05)
+
+### [0.1.61](https://github.com/terraform-cdk-providers/cdktf-provider-project/compare/v0.1.60...v0.1.61) (2021-04-28)
+
+### [0.1.60](https://github.com/terraform-cdk-providers/cdktf-provider-project/compare/v0.1.59...v0.1.60) (2021-04-27)
+
+### [0.1.59](https://github.com/terraform-cdk-providers/cdktf-provider-project/compare/v0.1.58...v0.1.59) (2021-04-26)
+
+### [0.1.58](https://github.com/terraform-cdk-providers/cdktf-provider-project/compare/v0.1.57...v0.1.58) (2021-04-21)
+
+### [0.1.57](https://github.com/terraform-cdk-providers/cdktf-provider-project/compare/v0.1.56...v0.1.57) (2021-04-16)
+
+### [0.1.56](https://github.com/terraform-cdk-providers/cdktf-provider-project/compare/v0.1.55...v0.1.56) (2021-04-16)
+
+### [0.1.55](https://github.com/terraform-cdk-providers/cdktf-provider-project/compare/v0.1.54...v0.1.55) (2021-04-15)
+
 ### [0.1.54](https://github.com/terraform-cdk-providers/cdktf-provider-project/compare/v0.1.53...v0.1.54) (2021-04-13)
 
 ### [0.1.53](https://github.com/terraform-cdk-providers/cdktf-provider-project/compare/v0.1.52...v0.1.53) (2021-04-13)
