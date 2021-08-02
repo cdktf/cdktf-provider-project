@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.2.0](https://github.com/terraform-cdk-providers/cdktf-provider-project/compare/v0.1.110...v0.2.0) (2021-08-02)
+
+
+### ⚠ BREAKING CHANGES
+
+* Upgrade to cdktf 0.5 
+* upgrade to 0.5
+
+* Merge pull request #174 from terraform-cdk-providers/upgrade-it ([58e8a6e](https://github.com/terraform-cdk-providers/cdktf-provider-project/commit/58e8a6ee99c20fa2cb118fa0d4fcdbbf41b2bf88)), closes [#174](https://github.com/terraform-cdk-providers/cdktf-provider-project/issues/174)
+* BREAKING CHANGE: Upgrade to cdktf 0.5 ([db0201e](https://github.com/terraform-cdk-providers/cdktf-provider-project/commit/db0201e443ef04c7c31f14ee19c4f12a67df879d))
+
 ### [0.1.110](https://github.com/terraform-cdk-providers/cdktf-provider-project/compare/v0.1.109...v0.1.110) (2021-08-02)
 
 ### [0.1.109](https://github.com/terraform-cdk-providers/cdktf-provider-project/compare/v0.1.108...v0.1.109) (2021-07-27)
