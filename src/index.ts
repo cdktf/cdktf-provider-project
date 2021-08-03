@@ -31,7 +31,7 @@ export class CdktfProviderProject extends JsiiProject {
       workflowContainerImage,
       license: 'MPL-2.0',
       releaseToNpm: true,
-      minNodeVersion: '12.0.0',
+      minNodeVersion: '12.22.4',
       devDeps: [
         `@cdktf/provider-project@^${version}`,
         'dot-prop@^5.2.0',
