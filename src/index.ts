@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-require-imports */
 import { pascalCase } from 'change-case';
 import { JsiiProject, JsiiProjectOptions } from 'projen';
+import { AutoMerge } from './auto-merge';
 import { CdktfConfig } from './cdktf-config';
 import { ProviderUpgrade } from './provider-upgrade';
 
@@ -59,5 +60,6 @@ export class CdktfProviderProject extends JsiiProject {
 
     new CdktfConfig(this, { terraformProvider, providerName, providerVersion });
     new ProviderUpgrade(this);
+    new AutoMerge(this);
   }
 }

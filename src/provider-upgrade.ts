@@ -37,7 +37,7 @@ export class ProviderUpgrade {
               'branch': 'auto/provider-upgrade',
               'title': 'chore: upgrade provider',
               'body': 'This PR upgrades provider to the latest version',
-              'labels': 'auto-merge',
+              'labels': 'automerge',
             },
           },
         ],
