@@ -39,7 +39,7 @@ export class AutoMerge {
             name: 'automerge',
             uses: 'pascalgn/automerge-action@v0.14.2',
             env: {
-              GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}',
+              GITHUB_TOKEN: '${{ secrets.GH_TOKEN }}',
             },
           },
         ],
