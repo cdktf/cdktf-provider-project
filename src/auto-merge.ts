@@ -10,7 +10,7 @@ export class AutoMerge {
     if (!workflow) throw new Error('no workflow defined');
 
     workflow.on({
-      pull_request: {
+      pullRequest: {
         types: [
           'labeled',
           'unlabeled',
@@ -22,10 +22,10 @@ export class AutoMerge {
           'unlocked',
         ],
       },
-      pull_request_review: {
+      pullRequestReview: {
         types: ['submitted'],
       },
-      check_suite: {
+      checkSuite: {
         types: ['completed'],
       },
       status: {},
@@ -33,8 +33,8 @@ export class AutoMerge {
 
     workflow.addJobs({
       automerge: {
-        'runs-on': 'ubuntu-latest',
-        'steps': [
+        runsOn: 'ubuntu-latest',
+        steps: [
           {
             name: 'automerge',
             uses: 'pascalgn/automerge-action@v0.14.2',
@@ -43,6 +43,7 @@ export class AutoMerge {
             },
           },
         ],
+        permissions: {},
       },
     });
   }
