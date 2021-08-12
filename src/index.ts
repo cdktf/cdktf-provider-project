@@ -46,6 +46,7 @@ export class CdktfProviderProject extends JsiiProject {
       defaultReleaseBranch: 'main',
       repository: `https://github.com/${githubNamespace}/cdktf-provider-${providerName}.git`,
       mergify: false,
+      eslint: false,
       python: {
         distName: `${namespace}-cdktf-provider-${providerName}`,
         module: `${namespace}_cdktf_provider_${providerName}`,
