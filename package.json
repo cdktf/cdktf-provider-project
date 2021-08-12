@@ -2,7 +2,7 @@
   "name": "@cdktf/provider-project",
   "repository": {
     "type": "git",
-    "url": "https://github.com/terraform-cdk-providers/cdktf-provider-project.git"
+    "url": "https://github.com/hashicorp/cdktf-provider-project.git"
   },
   "scripts": {
     "clobber": "npx projen clobber",
