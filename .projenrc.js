@@ -20,6 +20,7 @@ const project = new JsiiProject({
   releaseToNpm: true,
   minNodeVersion: '12.19.0',
   compileBeforeTest: true,
+  mergify: false,
   scripts: {
     'eslint:fix': 'eslint . --ext .ts --fix',
   },
