@@ -47,8 +47,8 @@
       "type": "build"
     },
     {
-      "name": "projen",
-      "version": "^0.17.52",
+      "name": "npm-check-updates",
+      "version": "^11",
       "type": "build"
     },
     {
