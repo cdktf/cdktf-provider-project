@@ -1,6 +1,6 @@
-const { TypeScriptProject } = require('projen');
+const { JsiiProject } = require('projen');
 
-const project = new TypeScriptProject({
+const project = new JsiiProject({
   name: '@cdktf/provider-project',
   authorName: 'HashiCorp',
   authorUrl: 'https://hashicorp.com',
@@ -10,6 +10,9 @@ const project = new TypeScriptProject({
     'projen@^0.27',
   ],
   deps: [
+    'change-case',
+  ],
+  bundledDeps: [
     'change-case',
   ],
   license: 'MPL-2.0',
