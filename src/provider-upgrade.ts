@@ -1,4 +1,5 @@
 import { NodeProject } from 'projen';
+import { JobPermission } from 'projen/lib/github/workflows-model';
 
 /**
  * Checks for new versions of the given provider and creates a PR with an upgrade change if there are changes.
@@ -11,13 +12,13 @@ export class ProviderUpgrade {
 
     workflow.on({
       schedule: [{ cron: '0 */4 * * *' }], // Run every 4 hours
-      workflow_dispatch: {}, // allow manual triggering
+      workflowDispatch: {}, // allow manual triggering
     });
 
     workflow.addJobs({
       upgrade: {
-        'runs-on': 'ubuntu-latest',
-        'steps': [
+        runsOn: 'ubuntu-latest',
+        steps: [
           {
             name: 'Checkout',
             uses: 'actions/checkout@v2',
@@ -41,6 +42,9 @@ export class ProviderUpgrade {
             },
           },
         ],
+        permissions: {
+          pullRequests: JobPermission.WRITE,
+        },
       },
     });
   }

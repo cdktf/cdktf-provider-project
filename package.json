@@ -11,14 +11,18 @@
     "test:compile": "npx projen test:compile",
     "test": "npx projen test",
     "build": "npx projen build",
-    "bump": "npx projen bump",
-    "release": "npx projen release",
     "test:watch": "npx projen test:watch",
     "test:update": "npx projen test:update",
-    "projen:upgrade": "npx projen projen:upgrade",
+    "bump": "npx projen bump",
+    "unbump": "npx projen unbump",
+    "publish:npm": "npx projen publish:npm",
+    "upgrade-dependencies": "npx projen upgrade-dependencies",
+    "upgrade-projen": "npx projen upgrade-projen",
+    "default": "npx projen default",
     "watch": "npx projen watch",
     "package": "npx projen package",
     "eslint": "npx projen eslint",
+    "release": "npx projen release",
     "projen": "npx projen",
     "start": "npx projen start"
   },
@@ -29,7 +33,7 @@
   },
   "devDependencies": {
     "@types/jest": "^26.0.20",
-    "@types/node": "^10.17.0",
+    "@types/node": "^12.19.0",
     "@typescript-eslint/eslint-plugin": "^4.3.0",
     "@typescript-eslint/parser": "^4.3.0",
     "eslint": "^7.18.0",
@@ -39,27 +43,28 @@
     "jest": "^26.6.3",
     "jest-junit": "^12",
     "json-schema": "^0.3.0",
-    "projen": "0.17.52",
+    "npm-check-updates": "^11",
+    "projen": "0.27.0",
     "standard-version": "^9",
     "ts-jest": "^26.5.0",
     "typescript": "^4.2.3"
   },
   "peerDependencies": {
-    "projen": "^0.17.52"
+    "projen": "^0.27"
   },
   "dependencies": {
     "change-case": "^4.1.2"
   },
   "bundledDependencies": [],
   "engines": {
-    "node": ">= 10.17.0"
+    "node": ">= 12.19.0"
   },
   "main": "lib/index.js",
   "license": "MPL-2.0",
-  "version": "0.2.8",
   "publishConfig": {
     "access": "public"
   },
+  "version": "0.0.0",
   "jest": {
     "testMatch": [
       "**/__tests__/**/*.ts?(x)",
