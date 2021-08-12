@@ -1,5 +1,4 @@
 const { TypeScriptProject } = require('projen');
-const version = require('projen/version.json');
 
 const project = new TypeScriptProject({
   name: '@cdktf/provider-project',
@@ -8,7 +7,7 @@ const project = new TypeScriptProject({
   repository: 'https://github.com/hashicorp/cdktf-provider-project.git',
   authorOrganization: true,
   peerDeps: [
-    `projen@^${version.version}`,
+    'projen@^0.27',
   ],
   deps: [
     'change-case',
@@ -16,7 +15,7 @@ const project = new TypeScriptProject({
   license: 'MPL-2.0',
   defaultReleaseBranch: 'main',
   releaseToNpm: true,
-  minNodeVersion: '10.17.0',
+  minNodeVersion: '12.19.0',
   compileBeforeTest: true,
   scripts: {
     'eslint:fix': 'eslint . --ext .ts --fix',
