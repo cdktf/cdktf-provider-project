@@ -12,7 +12,7 @@ export interface CdktfProviderProjectOptions extends JsiiProjectOptions {
 }
 
 const authorName = 'HashiCorp';
-const authorUrl = 'https://hashicorp.com';
+const authorAddress = 'https://hashicorp.com';
 const namespace = 'cdktf';
 const githubNamespace = 'hashicorp';
 
@@ -40,8 +40,8 @@ export class CdktfProviderProject extends JsiiProject {
       name: `@${namespace}/provider-${providerName}`,
       description: `Prebuilt ${providerName} Provider for Terraform CDK (cdktf)`,
       keywords: ['cdktf', 'terraform', 'cdk', 'provider', providerName],
+      authorAddress,
       authorName,
-      authorUrl,
       authorOrganization: true,
       defaultReleaseBranch: 'main',
       repository: `https://github.com/${githubNamespace}/cdktf-provider-${providerName}.git`,
