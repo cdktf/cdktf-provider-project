@@ -7,8 +7,8 @@ import { ProviderUpgrade } from './provider-upgrade';
 
 const version = require('../version.json').version;
 
-interface CdktfProviderProjectOptions extends JsiiProjectOptions {
-  terraformProvider: string;
+export interface CdktfProviderProjectOptions extends JsiiProjectOptions {
+  readonly terraformProvider: string;
 }
 
 const authorName = 'HashiCorp';

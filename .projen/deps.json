@@ -43,6 +43,22 @@
       "type": "build"
     },
     {
+      "name": "jsii",
+      "type": "build"
+    },
+    {
+      "name": "jsii-diff",
+      "type": "build"
+    },
+    {
+      "name": "jsii-docgen",
+      "type": "build"
+    },
+    {
+      "name": "jsii-pacmak",
+      "type": "build"
+    },
+    {
       "name": "json-schema",
       "type": "build"
     },
@@ -68,6 +84,10 @@
     {
       "name": "typescript",
       "type": "build"
+    },
+    {
+      "name": "change-case",
+      "type": "bundled"
     },
     {
       "name": "projen",
