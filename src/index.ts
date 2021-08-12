@@ -14,7 +14,7 @@ interface CdktfProviderProjectOptions extends JsiiProjectOptions {
 const authorName = 'HashiCorp';
 const authorUrl = 'https://hashicorp.com';
 const namespace = 'cdktf';
-const githubNamespace = 'terraform-cdk-providers';
+const githubNamespace = 'hashicorp';
 
 export class CdktfProviderProject extends JsiiProject {
 
