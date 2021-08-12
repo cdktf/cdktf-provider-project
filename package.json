@@ -11,20 +11,16 @@
     "test:compile": "npx projen test:compile",
     "test": "npx projen test",
     "build": "npx projen build",
+    "bump": "npx projen bump",
+    "release": "npx projen release",
     "test:watch": "npx projen test:watch",
     "test:update": "npx projen test:update",
-    "bump": "npx projen bump",
-    "unbump": "npx projen unbump",
-    "publish:github": "npx projen publish:github",
-    "publish:npm": "npx projen publish:npm",
-    "upgrade": "npx projen upgrade",
-    "upgrade-projen": "npx projen upgrade-projen",
-    "default": "npx projen default",
+    "projen:upgrade": "npx projen projen:upgrade",
     "watch": "npx projen watch",
     "package": "npx projen package",
     "eslint": "npx projen eslint",
-    "release": "npx projen release",
-    "projen": "npx projen"
+    "projen": "npx projen",
+    "start": "npx projen start"
   },
   "author": {
     "name": "HashiCorp",
@@ -43,7 +39,6 @@
     "jest": "^26.6.3",
     "jest-junit": "^12",
     "json-schema": "^0.3.0",
-    "npm-check-updates": "^11",
     "projen": "0.17.52",
     "standard-version": "^9",
     "ts-jest": "^26.5.0",
@@ -61,10 +56,10 @@
   },
   "main": "lib/index.js",
   "license": "MPL-2.0",
+  "version": "0.2.7",
   "publishConfig": {
     "access": "public"
   },
-  "version": "0.0.0",
   "jest": {
     "testMatch": [
       "**/__tests__/**/*.ts?(x)",
