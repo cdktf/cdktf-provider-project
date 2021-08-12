@@ -14,7 +14,7 @@ const project = new TypeScriptProject({
     'change-case',
   ],
   license: 'MPL-2.0',
-  defaultReleaseBranch: 'master',
+  defaultReleaseBranch: 'main',
   releaseToNpm: true,
   minNodeVersion: '10.17.0',
   compileBeforeTest: true,
