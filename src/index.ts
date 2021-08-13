@@ -41,6 +41,7 @@ export class CdktfProviderProject extends JsiiProject {
       description: `Prebuilt ${providerName} Provider for Terraform CDK (cdktf)`,
       keywords: ['cdktf', 'terraform', 'cdk', 'provider', providerName],
       sampleCode: false,
+      jest: false,
       authorAddress,
       authorName,
       authorOrganization: true,
