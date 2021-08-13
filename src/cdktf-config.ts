@@ -22,12 +22,14 @@ export class CdktfConfig {
     project.addDevDeps(`cdktf-cli@${cdktfVersion}`);
     project.addDevDeps('constructs@^3.0.4');
 
-    project.setScript('fetch', `rm -rf ./src/* && cdktf get && cp -R .gen/providers/${providerName}/* ./src/`);
+    project.setScript('fetch', `mkdir -p src && rm -rf ./src/* && cdktf get && cp -R .gen/providers/${providerName}/* ./src/`);
     project.setScript('commit', 'git add -A && git commit -am "Update provider" || echo "No changes to commit"');
     // eslint-disable-next-line quotes
     project.setScript('should-release', `! git diff --exit-code v$(cat version.json | jq -r '.version') ./src ./package.json`);
     project.setScript('prebump', 'yarn fetch && yarn compile && yarn run commit && yarn run should-release');
     project.setScript('compile', 'jsii --silence-warnings=reserved-word');
+
+    project.setScript('build-provider', 'yarn fetch && yarn compile && yarn docgen');
     project.setScript('test', 'jest --passWithNoTests');
     project.addFields({ publishConfig: { access: 'public' } });
 
