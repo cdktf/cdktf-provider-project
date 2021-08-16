@@ -44,6 +44,9 @@ export class ProviderUpgrade {
         ],
         permissions: {
           pullRequests: JobPermission.WRITE,
+          issues: JobPermission.WRITE,
+          contents: JobPermission.WRITE,
+          statuses: JobPermission.WRITE,
         },
       },
     });
