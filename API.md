@@ -1226,6 +1226,18 @@ Publish to pypi.
 
 ---
 
+##### `cdktfVersion`<sup>Required</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.cdktfVersion"></a>
+
+- *Type:* `string`
+
+---
+
+##### `constructsVersion`<sup>Required</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.constructsVersion"></a>
+
+- *Type:* `string`
+
+---
+
 ##### `terraformProvider`<sup>Required</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.terraformProvider"></a>
 
 - *Type:* `string`
