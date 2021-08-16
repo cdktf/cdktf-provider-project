@@ -9,6 +9,8 @@ const version = require('../version.json').version;
 
 export interface CdktfProviderProjectOptions extends JsiiProjectOptions {
   readonly terraformProvider: string;
+  readonly cdktfVersion: string;
+  readonly constructsVersion: string;
 }
 
 const authorName = 'HashiCorp';
@@ -19,7 +21,13 @@ const githubNamespace = 'hashicorp';
 export class CdktfProviderProject extends JsiiProject {
 
   constructor(options: CdktfProviderProjectOptions) {
-    const { terraformProvider, workflowContainerImage = 'hashicorp/jsii-terraform' } = options;
+    const {
+      terraformProvider,
+      workflowContainerImage = 'hashicorp/jsii-terraform',
+      cdktfVersion,
+      constructsVersion,
+      minNodeVersion,
+    } = options;
     const [fqproviderName, providerVersion] = terraformProvider.split('@');
     const providerName = fqproviderName.split('/').pop();
     if (!providerName) {
@@ -32,7 +40,7 @@ export class CdktfProviderProject extends JsiiProject {
       workflowContainerImage,
       license: 'MPL-2.0',
       releaseToNpm: true,
-      minNodeVersion: '12.19.0',
+      minNodeVersion,
       devDeps: [
         `@cdktf/provider-project@^${version}`,
         'dot-prop@^5.2.0',
@@ -62,7 +70,7 @@ export class CdktfProviderProject extends JsiiProject {
       },
     });
 
-    new CdktfConfig(this, { terraformProvider, providerName, providerVersion });
+    new CdktfConfig(this, { terraformProvider, providerName, providerVersion, cdktfVersion, constructsVersion });
     new ProviderUpgrade(this);
     new AutoMerge(this);
   }
