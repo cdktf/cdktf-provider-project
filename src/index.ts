@@ -65,14 +65,14 @@ export class CdktfProviderProject extends JsiiProject {
         dotNetNamespace: nugetName,
         packageId: nugetName,
       },
-      java: {
-        javaPackage: `${namespace}.cdktf.provider.${providerName}`,
-        mavenGroupId: `${namespace}`,
+      publishToMaven: {
+        javaPackage: `com.${githubNamespace}.cdktf.providers.${providerName}`,
+        mavenGroupId: `com.${githubNamespace}`,
         mavenArtifactId: `cdktf-provider-${providerName}`,
       },
       peerDependencyOptions: {
         pinnedDevDependency: false,
-      }
+      },
     });
 
     new CdktfConfig(this, { terraformProvider, providerName, providerVersion, cdktfVersion, constructsVersion });
