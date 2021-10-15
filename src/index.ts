@@ -65,6 +65,11 @@ export class CdktfProviderProject extends JsiiProject {
         dotNetNamespace: nugetName,
         packageId: nugetName,
       },
+      publishToMaven: {
+        javaPackage: `com.${githubNamespace}.cdktf.providers.${providerName}`,
+        mavenGroupId: `com.${githubNamespace}`,
+        mavenArtifactId: `cdktf-provider-${providerName}`,
+      },
       peerDependencyOptions: {
         pinnedDevDependency: false,
       },
