@@ -1,4 +1,5 @@
 import { JsonFile, JsiiProject } from 'projen';
+import { PackageInfo } from './package-info';
 import { ReadmeFile } from './readme';
 
 const CDKTF_JSON_FILE = 'cdktf.json';
@@ -9,6 +10,7 @@ interface CdktfConfigOptions {
   providerVersion: string;
   cdktfVersion: string;
   constructsVersion: string;
+  packageInfo: PackageInfo;
 }
 
 export class CdktfConfig {
