@@ -7,7 +7,7 @@ const project = new JsiiProject({
   repository: 'https://github.com/hashicorp/cdktf-provider-project.git',
   authorOrganization: true,
   peerDeps: [
-    'projen@^0.27',
+    'projen@^0.31.12',
   ],
   deps: [
     'change-case',

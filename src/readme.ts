@@ -1,9 +1,11 @@
 import { FileBase, FileBaseOptions, IResolver, Project } from 'projen';
+import { PackageInfo } from './package-info';
 
 export interface ReadmeFileOptions extends FileBaseOptions {
   terraformProvider: string;
   providerName: string;
   providerVersion: string;
+  packageInfo: PackageInfo;
 }
 
 export class ReadmeFile extends FileBase {
@@ -15,19 +17,44 @@ export class ReadmeFile extends FileBase {
   }
 
   protected synthesizeContent(resolver: IResolver) {
-    const { providerName, providerVersion } = resolver.resolve(this.options);
+    const { providerName, providerVersion, packageInfo } = resolver.resolve(this.options) as ReadmeFileOptions;
 
     return `
 # Terraform CDK ${providerName} Provider ${providerVersion}
 
 This repo builds and publishes the Terraform ${providerName} Provider bindings for [cdktf](https://cdk.tf).
 
-Current build targets are:
+## Available Packages
 
-- npm
-- Pypi
-- Nuget
-- Maven
+### NPM
+
+The npm package is available at [https://www.npmjs.com/package/${packageInfo.npm.name}](https://www.npmjs.com/package/${packageInfo.npm.name}).
+
+\`npm install ${packageInfo.npm.name}\`
+
+### PyPI
+
+The PyPI package is available at [https://pypi.org/project/${packageInfo.python.distName}](https://pypi.org/project/${packageInfo.python.distName}).
+
+\`pipenv install ${packageInfo.python.distName}\`
+
+### Nuget
+
+The Nuget package is available at [https://www.nuget.org/packages/${packageInfo.publishToNuget.packageId}](https://www.nuget.org/packages/${packageInfo.publishToNuget.packageId}).
+
+\`dotnet add package ${packageInfo.publishToNuget.packageId}\`
+
+### Maven
+
+The Maven package is available at [https://mvnrepository.com/artifact/${packageInfo.publishToMaven.mavenGroupId}/${packageInfo.publishToMaven.mavenArtifactId}](https://mvnrepository.com/artifact/${packageInfo.publishToMaven.mavenGroupId}/${packageInfo.publishToMaven.mavenArtifactId}).
+
+\`\`\`
+<dependency>
+    <groupId>${packageInfo.publishToMaven.mavenGroupId}</groupId>
+    <artifactId>${packageInfo.publishToMaven.mavenArtifactId}</artifactId>
+    <version>[REPLACE WITH DESIRED VERSION]</version>
+</dependency>
+\`\`\`
 
 ## Docs
 
@@ -54,18 +81,21 @@ Please report bugs and issues to the [terraform cdk](https://cdk.tf) project:
 
 ## Contributing
 
-## projen
+### projen
 
 This is mostly based on [projen](https://github.com/eladb/projen), which takes care of generating the entire repository.
 
-## cdktf-provider-project based on projen
+### cdktf-provider-project based on projen
 
-There's a custom [project builder](https://github.com/terraform-cdk-providers/cdktf-provider-project) which encapsulate the common settings for all \`cdktf\` providers.
+There's a custom [project builder](https://github.com/hashicorp/cdktf-provider-project) which encapsulate the common settings for all \`cdktf\` providers.
 
-## provider version
+### Provider Version
 
 The provider version can be adjusted in [./.projenrc.js](./.projenrc.js).
 
+### Repository Management
+
+The repository is managed by [Repository Manager](https://github.com/hashicorp/cdktf-repository-manager/)
 `;
   }
 }

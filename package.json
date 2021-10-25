@@ -8,15 +8,13 @@
     "clobber": "npx projen clobber",
     "eslint:fix": "npx projen eslint:fix",
     "compile": "npx projen compile",
-    "test:compile": "npx projen test:compile",
     "test": "npx projen test",
     "build": "npx projen build",
     "test:watch": "npx projen test:watch",
     "test:update": "npx projen test:update",
     "bump": "npx projen bump",
     "unbump": "npx projen unbump",
-    "upgrade-dependencies": "npx projen upgrade-dependencies",
-    "upgrade-projen": "npx projen upgrade-projen",
+    "publish:github": "npx projen publish:github",
     "default": "npx projen default",
     "watch": "npx projen watch",
     "package": "npx projen package",
@@ -25,8 +23,9 @@
     "publish:npm": "npx projen publish:npm",
     "docgen": "npx projen docgen",
     "release": "npx projen release",
-    "projen": "npx projen",
-    "start": "npx projen start"
+    "upgrade": "npx projen upgrade",
+    "upgrade-projen": "npx projen upgrade-projen",
+    "projen": "npx projen"
   },
   "author": {
     "name": "HashiCorp",
@@ -50,13 +49,13 @@
     "jsii-pacmak": "^1.39.0",
     "json-schema": "^0.3.0",
     "npm-check-updates": "^11",
-    "projen": "0.27.0",
+    "projen": "0.31.12",
     "standard-version": "^9",
     "ts-jest": "^26.5.6",
     "typescript": "^4.4.4"
   },
   "peerDependencies": {
-    "projen": "^0.27"
+    "projen": "^0.31.12"
   },
   "dependencies": {
     "change-case": "^4.1.2"
@@ -108,7 +107,7 @@
     "preset": "ts-jest",
     "globals": {
       "ts-jest": {
-        "tsconfig": "tsconfig.jest.json"
+        "tsconfig": "tsconfig.dev.json"
       }
     }
   },
