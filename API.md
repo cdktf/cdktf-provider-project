@@ -13,19 +13,6 @@ import { CdktfProviderProjectOptions } from '@cdktf/provider-project'
 const cdktfProviderProjectOptions: CdktfProviderProjectOptions = { ... }
 ```
 
-##### `mergify`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.mergify"></a>
-
-```typescript
-public readonly mergify: boolean;
-```
-
-- *Type:* `boolean`
-- *Default:* true
-
-Whether mergify should be enabled on this repository or not.
-
----
-
 ##### `name`<sup>Required</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.name"></a>
 
 ```typescript
@@ -36,6 +23,76 @@ public readonly name: string;
 - *Default:* $BASEDIR
 
 This is the name of your project.
+
+---
+
+##### `logging`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.logging"></a>
+
+```typescript
+public readonly logging: LoggerOptions;
+```
+
+- *Type:* [`projen.LoggerOptions`](#projen.LoggerOptions)
+- *Default:* {}
+
+Configure logging options such as verbosity.
+
+---
+
+##### `outdir`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.outdir"></a>
+
+```typescript
+public readonly outdir: string;
+```
+
+- *Type:* `string`
+- *Default:* "."
+
+The root directory of the project.
+
+Relative to this directory, all files are synthesized.
+
+If this project has a parent, this directory is relative to the parent
+directory and it cannot be the same as the parent or any of it's other
+sub-projects.
+
+---
+
+##### `parent`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.parent"></a>
+
+```typescript
+public readonly parent: Project;
+```
+
+- *Type:* [`projen.Project`](#projen.Project)
+
+The parent project, if this project is part of a bigger project.
+
+---
+
+##### `projenrcJson`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.projenrcJson"></a>
+
+```typescript
+public readonly projenrcJson: boolean;
+```
+
+- *Type:* `boolean`
+- *Default:* false
+
+Generate (once) .projenrc.json (in JSON). Set to `false` in order to disable .projenrc.json generation.
+
+---
+
+##### `projenrcJsonOptions`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.projenrcJsonOptions"></a>
+
+```typescript
+public readonly projenrcJsonOptions: ProjenrcOptions;
+```
+
+- *Type:* [`projen.json.ProjenrcOptions`](#projen.json.ProjenrcOptions)
+- *Default:* default options
+
+Options for .projenrc.json.
 
 ---
 
@@ -94,6 +151,34 @@ Add a VSCode development environment (used for GitHub Codespaces).
 
 ---
 
+##### `github`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.github"></a>
+
+```typescript
+public readonly github: boolean;
+```
+
+- *Type:* `boolean`
+- *Default:* true
+
+Enable GitHub integration.
+
+Enabled by default for root projects. Disabled for non-root projects.
+
+---
+
+##### `githubOptions`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.githubOptions"></a>
+
+```typescript
+public readonly githubOptions: GitHubOptions;
+```
+
+- *Type:* [`projen.github.GitHubOptions`](#projen.github.GitHubOptions)
+- *Default:* see GitHubOptions
+
+Options for GitHub integration.
+
+---
+
 ##### `gitpod`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.gitpod"></a>
 
 ```typescript
@@ -107,51 +192,24 @@ Add a Gitpod development environment.
 
 ---
 
-##### `logging`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.logging"></a>
+##### ~~`mergify`~~<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.mergify"></a>
+
+- *Deprecated:* use `githubOptions.mergify` instead
 
 ```typescript
-public readonly logging: LoggerOptions;
+public readonly mergify: boolean;
 ```
 
-- *Type:* [`projen.LoggerOptions`](#projen.LoggerOptions)
-- *Default:* {}
+- *Type:* `boolean`
+- *Default:* true
 
-Configure logging options such as verbosity.
+Whether mergify should be enabled on this repository or not.
 
 ---
 
-##### `outdir`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.outdir"></a>
+##### ~~`projectType`~~<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.projectType"></a>
 
-```typescript
-public readonly outdir: string;
-```
-
-- *Type:* `string`
-- *Default:* "."
-
-The root directory of the project.
-
-Relative to this directory, all files are synthesized.
-
-If this project has a parent, this directory is relative to the parent
-directory and it cannot be the same as the parent or any of it's other
-sub-projects.
-
----
-
-##### `parent`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.parent"></a>
-
-```typescript
-public readonly parent: Project;
-```
-
-- *Type:* [`projen.Project`](#projen.Project)
-
-The parent project, if this project is part of a bigger project.
-
----
-
-##### `projectType`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.projectType"></a>
+- *Deprecated:* no longer supported at the base project level
 
 ```typescript
 public readonly projectType: ProjectType;
@@ -204,6 +262,21 @@ public readonly staleOptions: StaleOptions;
 Auto-close stale issues and pull requests.
 
 To disable set `stale` to `false`.
+
+---
+
+##### `vscode`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.vscode"></a>
+
+```typescript
+public readonly vscode: boolean;
+```
+
+- *Type:* `boolean`
+- *Default:* true
+
+Enable VSCode integration.
+
+Enabled by default for root projects. Disabled for non-root projects.
 
 ---
 
@@ -432,7 +505,7 @@ public readonly license: string;
 
 License's SPDX identifier.
 
-See https://github.com/projen/projen/tree/master/license-text for a list of supported licenses.
+See https://github.com/projen/projen/tree/main/license-text for a list of supported licenses.
 Use the `licensed` option if you want to no license to be specified.
 
 ---
@@ -795,7 +868,9 @@ be provided for the default branch.
 
 ---
 
-##### `releaseEveryCommit`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.releaseEveryCommit"></a>
+##### ~~`releaseEveryCommit`~~<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.releaseEveryCommit"></a>
+
+- *Deprecated:* Use `releaseTrigger: ReleaseTrigger.continuous()` instead
 
 ```typescript
 public readonly releaseEveryCommit: boolean;
@@ -808,7 +883,37 @@ Automatically release new versions every commit to one of branches in `releaseBr
 
 ---
 
-##### `releaseSchedule`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.releaseSchedule"></a>
+##### `releaseFailureIssue`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.releaseFailureIssue"></a>
+
+```typescript
+public readonly releaseFailureIssue: boolean;
+```
+
+- *Type:* `boolean`
+- *Default:* false
+
+Create a github issue on every failed publishing task.
+
+---
+
+##### `releaseFailureIssueLabel`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.releaseFailureIssueLabel"></a>
+
+```typescript
+public readonly releaseFailureIssueLabel: string;
+```
+
+- *Type:* `string`
+- *Default:* "failed-release"
+
+The label to apply to issues indicating publish failures.
+
+Only applies if `releaseFailureIssue` is true.
+
+---
+
+##### ~~`releaseSchedule`~~<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.releaseSchedule"></a>
+
+- *Deprecated:* Use `releaseTrigger: ReleaseTrigger.scheduled()` instead
 
 ```typescript
 public readonly releaseSchedule: string;
@@ -818,6 +923,37 @@ public readonly releaseSchedule: string;
 - *Default:* no scheduled releases
 
 CRON schedule to trigger new releases.
+
+---
+
+##### `releaseTagPrefix`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.releaseTagPrefix"></a>
+
+```typescript
+public readonly releaseTagPrefix: string;
+```
+
+- *Type:* `string`
+- *Default:* no prefix
+
+Automatically add the given prefix to release tags. Useful if you are releasing on multiple branches with overlapping version numbers.
+
+Note: this prefix is used to detect the latest tagged version
+when bumping, so if you change this on a project with an existing version
+history, you may need to manually tag your latest release
+with the new prefix.
+
+---
+
+##### `releaseTrigger`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.releaseTrigger"></a>
+
+```typescript
+public readonly releaseTrigger: ReleaseTrigger;
+```
+
+- *Type:* [`projen.release.ReleaseTrigger`](#projen.release.ReleaseTrigger)
+- *Default:* Continuous releases (`ReleaseTrigger.continuous()`)
+
+The release trigger to use.
 
 ---
 
@@ -967,9 +1103,7 @@ The copyright years to put in the LICENSE file.
 
 ---
 
-##### ~~`dependabot`~~<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.dependabot"></a>
-
-- *Deprecated:* - use `depsUpgrade: DependenciesUpgradeMechanism.dependabot()`
+##### `dependabot`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.dependabot"></a>
 
 ```typescript
 public readonly dependabot: boolean;
@@ -978,13 +1112,13 @@ public readonly dependabot: boolean;
 - *Type:* `boolean`
 - *Default:* false
 
-Include dependabot configuration.
+Use dependabot to handle dependency upgrades.
+
+Cannot be used in conjunction with `depsUpgrade`.
 
 ---
 
-##### ~~`dependabotOptions`~~<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.dependabotOptions"></a>
-
-- *Deprecated:* - use `depsUpgrade: DependenciesUpgradeMechanism.dependabot()`
+##### `dependabotOptions`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.dependabotOptions"></a>
 
 ```typescript
 public readonly dependabotOptions: DependabotOptions;
@@ -1000,13 +1134,28 @@ Options for dependabot.
 ##### `depsUpgrade`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.depsUpgrade"></a>
 
 ```typescript
-public readonly depsUpgrade: DependenciesUpgradeMechanism;
+public readonly depsUpgrade: boolean;
 ```
 
-- *Type:* [`projen.DependenciesUpgradeMechanism`](#projen.DependenciesUpgradeMechanism)
-- *Default:* DependenciesUpgradeMechanism.dependabot if dependabot is true, otherwise a DependenciesUpgradeMechanism.githubWorkflow configured from other passed-in NodeProjectOptions
+- *Type:* `boolean`
+- *Default:* true
 
-How to handle dependency upgrades.
+Use github workflows to handle dependency upgrades.
+
+Cannot be used in conjunction with `dependabot`.
+
+---
+
+##### `depsUpgradeOptions`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.depsUpgradeOptions"></a>
+
+```typescript
+public readonly depsUpgradeOptions: UpgradeDependenciesOptions;
+```
+
+- *Type:* [`projen.UpgradeDependenciesOptions`](#projen.UpgradeDependenciesOptions)
+- *Default:* default options
+
+Options for depsUpgrade.
 
 ---
 
@@ -1080,7 +1229,9 @@ Implies that PR builds do not have anti-tamper checks.
 
 ---
 
-##### `npmignore`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.npmignore"></a>
+##### ~~`npmignore`~~<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.npmignore"></a>
+
+- *Deprecated:* - use `project.addPackageIgnore`
 
 ```typescript
 public readonly npmignore: string[];
@@ -1143,7 +1294,7 @@ public readonly projenrcJs: boolean;
 ```
 
 - *Type:* `boolean`
-- *Default:* true
+- *Default:* true if projenrcJson is false
 
 Generate (once) .projenrc.js (in JavaScript). Set to `false` in order to disable .projenrc.js generation.
 
@@ -1242,10 +1393,10 @@ Include a GitHub pull request template.
 ##### `pullRequestTemplateContents`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.pullRequestTemplateContents"></a>
 
 ```typescript
-public readonly pullRequestTemplateContents: string;
+public readonly pullRequestTemplateContents: string[];
 ```
 
-- *Type:* `string`
+- *Type:* `string`[]
 - *Default:* default content
 
 The contents of the pull request template.
@@ -1306,6 +1457,19 @@ Workflow steps to use in order to bootstrap this repo.
 
 ---
 
+##### `workflowGitIdentity`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.workflowGitIdentity"></a>
+
+```typescript
+public readonly workflowGitIdentity: GitIdentity;
+```
+
+- *Type:* [`projen.github.GitIdentity`](#projen.github.GitIdentity)
+- *Default:* GitHub Actions
+
+The git identity to use in workflows.
+
+---
+
 ##### `workflowNodeVersion`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.workflowNodeVersion"></a>
 
 ```typescript
@@ -1326,7 +1490,7 @@ public readonly compileBeforeTest: boolean;
 ```
 
 - *Type:* `boolean`
-- *Default:* if `testdir` is under `src/**`, the default is `true`, otherwise the default is `false.
+- *Default:* if `testdir` is under `src/**`, the default is `true`, otherwise the default is `false`.
 
 Compile the code before running tests.
 
@@ -1512,8 +1676,35 @@ public readonly tsconfig: TypescriptConfigOptions;
 ```
 
 - *Type:* [`projen.TypescriptConfigOptions`](#projen.TypescriptConfigOptions)
+- *Default:* default options
 
 Custom TSConfig.
+
+---
+
+##### `tsconfigDev`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.tsconfigDev"></a>
+
+```typescript
+public readonly tsconfigDev: TypescriptConfigOptions;
+```
+
+- *Type:* [`projen.TypescriptConfigOptions`](#projen.TypescriptConfigOptions)
+- *Default:* use the production tsconfig options
+
+Custom tsconfig options for the development tsconfig.json file (used for testing).
+
+---
+
+##### `tsconfigDevFile`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.tsconfigDevFile"></a>
+
+```typescript
+public readonly tsconfigDevFile: string;
+```
+
+- *Type:* `string`
+- *Default:* "tsconfig.dev.json"
+
+The name of the development tsconfig.json file.
 
 ---
 

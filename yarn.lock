@@ -1503,7 +1503,7 @@ chalk@^2.0.0, chalk@^2.4.2:
     escape-string-regexp "^1.0.5"
     supports-color "^5.3.0"
 
-chalk@^4.0.0, chalk@^4.1.0, chalk@^4.1.1, chalk@^4.1.2:
+chalk@^4.0.0, chalk@^4.1.0, chalk@^4.1.2:
   version "4.1.2"
   resolved "https://registry.yarnpkg.com/chalk/-/chalk-4.1.2.tgz#aac4e2b7734a740867aeb16bf02aad556a1e7a01"
   integrity sha512-oKnbhFyRIXpUuez8iBMmyEa4nbj4IOQyuhc/wy9kY7/WVPcwIO9VA668Pu8RkO7+0G76SLROeyw9CpQ061i4mA==
@@ -5619,13 +5619,13 @@ progress@^2.0.0, progress@^2.0.3:
   resolved "https://registry.yarnpkg.com/progress/-/progress-2.0.3.tgz#7e8cf8d8f5b8f239c1bc68beb4eb78567d572ef8"
   integrity sha512-7PiHtLll5LdnKIMw100I+8xJXR5gW2QwWYkT6iJva0bXitZKa/XMrSbdmg3r2Xnaidz9Qumd0VPaMrZlF9V9sA==
 
-projen@0.27.0:
-  version "0.27.0"
-  resolved "https://registry.yarnpkg.com/projen/-/projen-0.27.0.tgz#0be71c49d1f33e8eb0038e308cf1c4b565e61323"
-  integrity sha512-NeegocKVBBbyFh1pUvWmNyol0DA3LjW57fV/eDsJ2jzESs2XWpseOZcPP+TB1gLqMLNRJpOzzeYRT/1KtS+ENA==
+projen@0.31.12:
+  version "0.31.12"
+  resolved "https://registry.yarnpkg.com/projen/-/projen-0.31.12.tgz#854015af1d7bb2b842720d0e2e42eaa4d70b39bc"
+  integrity sha512-PLmf58kjUblEBXnGbAQBDl+KHJMQg5lAPHAYwjBjzXkPXTlzDU6wWh8e8b4kWnoUQGGQ+LJOvWOmE1F7NKN5gQ==
   dependencies:
     "@iarna/toml" "^2.2.5"
-    chalk "^4.1.1"
+    chalk "^4.1.2"
     decamelize "^4.0.0"
     fs-extra "^9.1.0"
     glob "^7"

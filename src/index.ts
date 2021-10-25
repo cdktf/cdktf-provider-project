@@ -88,6 +88,10 @@ export class CdktfProviderProject extends JsiiProject {
       peerDependencyOptions: {
         pinnedDevDependency: false,
       },
+      workflowGitIdentity: {
+        name: 'team-tf-cdk',
+        email: 'github-team-tf-cdk@hashicorp.com',
+      },
     });
 
     new CdktfConfig(this, { terraformProvider, providerName, providerVersion, cdktfVersion, constructsVersion, packageInfo });
