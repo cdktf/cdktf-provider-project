@@ -84,6 +84,11 @@ export class CdktfProviderProject extends JsiiProject {
       repository: `https://github.com/${githubNamespace}/cdktf-provider-${providerName}.git`,
       mergify: false,
       eslint: false,
+      depsUpgradeOptions: {
+        workflowOptions: {
+          labels: ['automerge'],
+        },
+      },
       python: packageInfo.python,
       publishToNuget: packageInfo.publishToNuget,
       publishToMaven: packageInfo.publishToMaven,
