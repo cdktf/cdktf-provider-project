@@ -11,11 +11,12 @@ interface CdktfConfigOptions {
   cdktfVersion: string;
   constructsVersion: string;
   packageInfo: PackageInfo;
+  jsiiVersion?: string;
 }
 
 export class CdktfConfig {
   constructor(project: JsiiProject, options: CdktfConfigOptions) {
-    const { terraformProvider, providerName } = options;
+    const { terraformProvider, providerName, jsiiVersion } = options;
 
     const cdktfVersion = options.cdktfVersion;
     const constructsVersion = options.constructsVersion;
@@ -26,6 +27,10 @@ export class CdktfConfig {
     project.addDevDeps(`cdktf@${cdktfVersion}`);
     project.addDevDeps(`cdktf-cli@${cdktfVersion}`);
     project.addDevDeps(`constructs@${constructsVersion}`);
+
+    if (jsiiVersion) {
+      project.addDevDeps(`jsii@${jsiiVersion}`);
+    }
 
     project.setScript('fetch', `mkdir -p src && rm -rf ./src/* && cdktf get && cp -R .gen/providers/${providerName}/* ./src/`);
     project.setScript('commit', 'git add -A && git commit -am "Update provider" || echo "No changes to commit"');

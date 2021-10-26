@@ -12,6 +12,7 @@ export interface CdktfProviderProjectOptions extends JsiiProjectOptions {
   readonly terraformProvider: string;
   readonly cdktfVersion: string;
   readonly constructsVersion: string;
+  readonly jsiiVersion?: string;
 }
 
 const authorName = 'HashiCorp';
@@ -31,6 +32,7 @@ export class CdktfProviderProject extends JsiiProject {
       cdktfVersion,
       constructsVersion,
       minNodeVersion,
+      jsiiVersion,
     } = options;
     const [fqproviderName, providerVersion] = terraformProvider.split('@');
     const providerName = fqproviderName.split('/').pop();
@@ -82,6 +84,11 @@ export class CdktfProviderProject extends JsiiProject {
       repository: `https://github.com/${githubNamespace}/cdktf-provider-${providerName}.git`,
       mergify: false,
       eslint: false,
+      depsUpgradeOptions: {
+        workflowOptions: {
+          labels: ['automerge'],
+        },
+      },
       python: packageInfo.python,
       publishToNuget: packageInfo.publishToNuget,
       publishToMaven: packageInfo.publishToMaven,
@@ -94,7 +101,7 @@ export class CdktfProviderProject extends JsiiProject {
       },
     });
 
-    new CdktfConfig(this, { terraformProvider, providerName, providerVersion, cdktfVersion, constructsVersion, packageInfo });
+    new CdktfConfig(this, { terraformProvider, providerName, providerVersion, cdktfVersion, constructsVersion, jsiiVersion, packageInfo });
     new ProviderUpgrade(this);
     new AutoMerge(this);
   }

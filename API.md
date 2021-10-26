@@ -1927,6 +1927,16 @@ public readonly terraformProvider: string;
 
 ---
 
+##### `jsiiVersion`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.jsiiVersion"></a>
+
+```typescript
+public readonly jsiiVersion: string;
+```
+
+- *Type:* `string`
+
+---
+
 ## Classes <a name="Classes"></a>
 
 ### CdktfProviderProject <a name="@cdktf/provider-project.CdktfProviderProject"></a>
