@@ -18,7 +18,7 @@ const project = new cdk.JsiiProject({
   license: 'MPL-2.0',
   defaultReleaseBranch: 'main',
   releaseToNpm: true,
-  minNodeVersion: '12.19.0',
+  minNodeVersion: '14.17.0',
   compileBeforeTest: true,
   mergify: false,
   scripts: {
