@@ -70,6 +70,21 @@ The parent project, if this project is part of a bigger project.
 
 ---
 
+##### `projenCommand`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.projenCommand"></a>
+
+```typescript
+public readonly projenCommand: string;
+```
+
+- *Type:* `string`
+- *Default:* "npx projen"
+
+The shell command to use in order to run the projen CLI.
+
+Can be used to customize in special environments.
+
+---
+
 ##### `projenrcJson`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.projenrcJson"></a>
 
 ```typescript
@@ -89,7 +104,7 @@ Generate (once) .projenrc.json (in JSON). Set to `false` in order to disable .pr
 public readonly projenrcJsonOptions: ProjenrcOptions;
 ```
 
-- *Type:* [`projen.json.ProjenrcOptions`](#projen.json.ProjenrcOptions)
+- *Type:* [`projen.ProjenrcOptions`](#projen.ProjenrcOptions)
 - *Default:* default options
 
 Options for .projenrc.json.
@@ -204,6 +219,21 @@ public readonly mergify: boolean;
 - *Default:* true
 
 Whether mergify should be enabled on this repository or not.
+
+---
+
+##### ~~`mergifyOptions`~~<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.mergifyOptions"></a>
+
+- *Deprecated:* use `githubOptions.mergifyOptions` instead
+
+```typescript
+public readonly mergifyOptions: MergifyOptions;
+```
+
+- *Type:* [`projen.github.MergifyOptions`](#projen.github.MergifyOptions)
+- *Default:* default options
+
+Options for mergify.
 
 ---
 
@@ -396,6 +426,19 @@ this will be what you `package.json` will eventually include.
 
 ---
 
+##### `codeArtifactOptions`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.codeArtifactOptions"></a>
+
+```typescript
+public readonly codeArtifactOptions: CodeArtifactOptions;
+```
+
+- *Type:* [`projen.javascript.CodeArtifactOptions`](#projen.javascript.CodeArtifactOptions)
+- *Default:* undefined
+
+Options for publishing npm package to AWS CodeArtifact.
+
+---
+
 ##### `deps`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.deps"></a>
 
 ```typescript
@@ -555,7 +598,7 @@ Minimum Node.js version to require via package.json `engines` (inclusive).
 public readonly npmAccess: NpmAccess;
 ```
 
-- *Type:* [`projen.NpmAccess`](#projen.NpmAccess)
+- *Type:* [`projen.javascript.NpmAccess`](#projen.javascript.NpmAccess)
 - *Default:* for scoped packages (e.g. `foo@bar`), the default is
 `NpmAccess.RESTRICTED`, for non-scoped packages, the default is
 `NpmAccess.PUBLIC`.
@@ -638,7 +681,7 @@ GitHub secret which contains the NPM token to use when publishing packages.
 public readonly packageManager: NodePackageManager;
 ```
 
-- *Type:* [`projen.NodePackageManager`](#projen.NodePackageManager)
+- *Type:* [`projen.javascript.NodePackageManager`](#projen.javascript.NodePackageManager)
 - *Default:* NodePackageManager.YARN
 
 The Node Package Manager used to execute scripts.
@@ -664,7 +707,7 @@ The "name" in package.json.
 public readonly peerDependencyOptions: PeerDependencyOptions;
 ```
 
-- *Type:* [`projen.PeerDependencyOptions`](#projen.PeerDependencyOptions)
+- *Type:* [`projen.javascript.PeerDependencyOptions`](#projen.javascript.PeerDependencyOptions)
 
 Options for `peerDeps`.
 
@@ -694,21 +737,6 @@ Unless `peerDependencyOptions.pinnedDevDependency` is disabled (it is
 enabled by default), projen will automatically add a dev dependency with a
 pinned version for each peer dependency. This will ensure that you build &
 test your module against the lowest peer version required.
-
----
-
-##### `projenCommand`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.projenCommand"></a>
-
-```typescript
-public readonly projenCommand: string;
-```
-
-- *Type:* `string`
-- *Default:* "npx projen"
-
-The shell command to use in order to run the projen CLI.
-
-Can be used to customize in special environments.
 
 ---
 
@@ -982,6 +1010,21 @@ A set of workflow steps to execute in order to setup the workflow container.
 
 ---
 
+##### `versionrcOptions`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.versionrcOptions"></a>
+
+```typescript
+public readonly versionrcOptions: {[ key: string ]: any};
+```
+
+- *Type:* {[ key: string ]: `any`}
+- *Default:* standard configuration applicable for GitHub repositories
+
+Custom configuration used when creating changelog with standard-version package.
+
+Given values either append to default configuration or overwrite values in it.
+
+---
+
 ##### `workflowContainerImage`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.workflowContainerImage"></a>
 
 ```typescript
@@ -992,6 +1035,19 @@ public readonly workflowContainerImage: string;
 - *Default:* default image
 
 Container image to use for GitHub workflows.
+
+---
+
+##### `workflowRunsOn`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.workflowRunsOn"></a>
+
+```typescript
+public readonly workflowRunsOn: string[];
+```
+
+- *Type:* `string`[]
+- *Default:* ["ubuntu-latest"]
+
+Github Runner selection labels.
 
 ---
 
@@ -1048,6 +1104,18 @@ public readonly buildWorkflow: boolean;
 - *Default:* true if not a subproject
 
 Define a GitHub workflow for building PRs.
+
+---
+
+##### `bundlerOptions`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.bundlerOptions"></a>
+
+```typescript
+public readonly bundlerOptions: BundlerOptions;
+```
+
+- *Type:* [`projen.javascript.BundlerOptions`](#projen.javascript.BundlerOptions)
+
+Options for `Bundler`.
 
 ---
 
@@ -1152,7 +1220,7 @@ Cannot be used in conjunction with `dependabot`.
 public readonly depsUpgradeOptions: UpgradeDependenciesOptions;
 ```
 
-- *Type:* [`projen.UpgradeDependenciesOptions`](#projen.UpgradeDependenciesOptions)
+- *Type:* [`projen.javascript.UpgradeDependenciesOptions`](#projen.javascript.UpgradeDependenciesOptions)
 - *Default:* default options
 
 Options for depsUpgrade.
@@ -1190,23 +1258,10 @@ Setup jest unit tests.
 public readonly jestOptions: JestOptions;
 ```
 
-- *Type:* [`projen.JestOptions`](#projen.JestOptions)
+- *Type:* [`projen.javascript.JestOptions`](#projen.javascript.JestOptions)
 - *Default:* default options
 
 Jest options.
-
----
-
-##### `mergifyOptions`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.mergifyOptions"></a>
-
-```typescript
-public readonly mergifyOptions: MergifyOptions;
-```
-
-- *Type:* [`projen.github.MergifyOptions`](#projen.github.MergifyOptions)
-- *Default:* default options
-
-Options for mergify.
 
 ---
 
@@ -1266,24 +1321,6 @@ public readonly projenDevDependency: boolean;
 - *Default:* true
 
 Indicates of "projen" should be installed as a devDependency.
-
----
-
-##### `projenDuringBuild`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.projenDuringBuild"></a>
-
-```typescript
-public readonly projenDuringBuild: boolean;
-```
-
-- *Type:* `boolean`
-- *Default:* true
-
-Execute `projen` as the first step of the `build` task to synthesize project files.
-
-This applies both to local builds and to CI builds.
-
-Disabling this feature is NOT RECOMMENDED and means that manual changes to
-synthesized project files will be persisted.
 
 ---
 
@@ -1483,19 +1520,6 @@ The node version to use in GitHub workflows.
 
 ---
 
-##### `compileBeforeTest`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.compileBeforeTest"></a>
-
-```typescript
-public readonly compileBeforeTest: boolean;
-```
-
-- *Type:* `boolean`
-- *Default:* if `testdir` is under `src/**`, the default is `true`, otherwise the default is `false`.
-
-Compile the code before running tests.
-
----
-
 ##### `disableTsconfig`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.disableTsconfig"></a>
 
 ```typescript
@@ -1567,7 +1591,7 @@ Setup eslint.
 public readonly eslintOptions: EslintOptions;
 ```
 
-- *Type:* [`projen.EslintOptions`](#projen.EslintOptions)
+- *Type:* [`projen.javascript.EslintOptions`](#projen.javascript.EslintOptions)
 - *Default:* opinionated default options
 
 Eslint options.
@@ -1675,7 +1699,7 @@ compile the code in-memory.
 public readonly tsconfig: TypescriptConfigOptions;
 ```
 
-- *Type:* [`projen.TypescriptConfigOptions`](#projen.TypescriptConfigOptions)
+- *Type:* [`projen.javascript.TypescriptConfigOptions`](#projen.javascript.TypescriptConfigOptions)
 - *Default:* default options
 
 Custom TSConfig.
@@ -1688,7 +1712,7 @@ Custom TSConfig.
 public readonly tsconfigDev: TypescriptConfigOptions;
 ```
 
-- *Type:* [`projen.TypescriptConfigOptions`](#projen.TypescriptConfigOptions)
+- *Type:* [`projen.javascript.TypescriptConfigOptions`](#projen.javascript.TypescriptConfigOptions)
 - *Default:* use the production tsconfig options
 
 Custom tsconfig options for the development tsconfig.json file (used for testing).
@@ -1800,7 +1824,7 @@ Name of the ignore file for API compatibility tests.
 public readonly dotnet: JsiiDotNetTarget;
 ```
 
-- *Type:* [`projen.JsiiDotNetTarget`](#projen.JsiiDotNetTarget)
+- *Type:* [`projen.cdk.JsiiDotNetTarget`](#projen.cdk.JsiiDotNetTarget)
 
 ---
 
@@ -1828,7 +1852,7 @@ that cannot be compiled with jsii's compiler settings.
 public readonly publishToGo: JsiiGoTarget;
 ```
 
-- *Type:* [`projen.JsiiGoTarget`](#projen.JsiiGoTarget)
+- *Type:* [`projen.cdk.JsiiGoTarget`](#projen.cdk.JsiiGoTarget)
 - *Default:* no publishing
 
 Publish Go bindings to a git repository.
@@ -1841,7 +1865,7 @@ Publish Go bindings to a git repository.
 public readonly publishToMaven: JsiiJavaTarget;
 ```
 
-- *Type:* [`projen.JsiiJavaTarget`](#projen.JsiiJavaTarget)
+- *Type:* [`projen.cdk.JsiiJavaTarget`](#projen.cdk.JsiiJavaTarget)
 - *Default:* no publishing
 
 Publish to maven.
@@ -1854,7 +1878,7 @@ Publish to maven.
 public readonly publishToNuget: JsiiDotNetTarget;
 ```
 
-- *Type:* [`projen.JsiiDotNetTarget`](#projen.JsiiDotNetTarget)
+- *Type:* [`projen.cdk.JsiiDotNetTarget`](#projen.cdk.JsiiDotNetTarget)
 - *Default:* no publishing
 
 Publish to NuGet.
@@ -1867,7 +1891,7 @@ Publish to NuGet.
 public readonly publishToPypi: JsiiPythonTarget;
 ```
 
-- *Type:* [`projen.JsiiPythonTarget`](#projen.JsiiPythonTarget)
+- *Type:* [`projen.cdk.JsiiPythonTarget`](#projen.cdk.JsiiPythonTarget)
 - *Default:* no publishing
 
 Publish to pypi.
@@ -1882,7 +1906,7 @@ Publish to pypi.
 public readonly python: JsiiPythonTarget;
 ```
 
-- *Type:* [`projen.JsiiPythonTarget`](#projen.JsiiPythonTarget)
+- *Type:* [`projen.cdk.JsiiPythonTarget`](#projen.cdk.JsiiPythonTarget)
 
 ---
 
