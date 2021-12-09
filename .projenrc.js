@@ -7,7 +7,7 @@ const project = new cdk.JsiiProject({
   repository: 'https://github.com/hashicorp/cdktf-provider-project.git',
   authorOrganization: true,
   peerDeps: [
-    'projen@^0.31.12',
+    'projen@^0.39.4',
   ],
   deps: [
     'change-case',
