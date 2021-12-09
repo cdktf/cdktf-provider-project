@@ -1,6 +1,6 @@
-const { JsiiProject } = require('projen');
+const { cdk } = require('projen');
 
-const project = new JsiiProject({
+const project = new cdk.JsiiProject({
   name: '@cdktf/provider-project',
   authorName: 'HashiCorp',
   authorUrl: 'https://hashicorp.com',
