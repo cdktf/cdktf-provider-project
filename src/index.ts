@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-require-imports */
 import { pascalCase } from 'change-case';
-import { JsiiProject, JsiiProjectOptions } from 'projen';
+import { cdk } from 'projen';
 import { AutoMerge } from './auto-merge';
 import { CdktfConfig } from './cdktf-config';
 import { PackageInfo } from './package-info';
@@ -8,7 +8,7 @@ import { ProviderUpgrade } from './provider-upgrade';
 
 const version = require('../version.json').version;
 
-export interface CdktfProviderProjectOptions extends JsiiProjectOptions {
+export interface CdktfProviderProjectOptions extends cdk.JsiiProjectOptions {
   readonly terraformProvider: string;
   readonly cdktfVersion: string;
   readonly constructsVersion: string;
@@ -23,7 +23,7 @@ const githubNamespace = 'hashicorp';
 const getMavenName = (providerName: string): string => {
   return ['null', 'random'].includes(providerName) ? `${providerName}_provider` : providerName;
 };
-export class CdktfProviderProject extends JsiiProject {
+export class CdktfProviderProject extends cdk.JsiiProject {
 
   constructor(options: CdktfProviderProjectOptions) {
     const {
