@@ -1,18 +1,10 @@
+import { cdk } from 'projen';
+
 export interface PackageInfo {
   npm: {
     name: string;
   };
-  python: {
-    distName: string;
-    module: string;
-  };
-  publishToNuget: {
-    dotNetNamespace: string;
-    packageId: string;
-  };
-  publishToMaven: {
-    javaPackage: string;
-    mavenGroupId: string;
-    mavenArtifactId: string;
-  };
-};
+  python: NonNullable<cdk.JsiiProjectOptions['python']>;
+  publishToNuget: NonNullable<cdk.JsiiProjectOptions['publishToNuget']>;
+  publishToMaven: NonNullable<cdk.JsiiProjectOptions['publishToMaven']>;
+}
