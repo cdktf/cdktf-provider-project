@@ -59,6 +59,7 @@ export class CdktfProviderProject extends cdk.JsiiProject {
         javaPackage: mavenName,
         mavenGroupId: `com.${githubNamespace}`,
         mavenArtifactId: `cdktf-provider-${providerName}`,
+        mavenEndpoint: 'https://hashicorp.oss.sonatype.org',
       },
     };
 
