@@ -1,5 +1,5 @@
-import { FileBase, FileBaseOptions, IResolver, Project } from 'projen';
-import { PackageInfo } from './package-info';
+import { FileBase, FileBaseOptions, IResolver, Project } from "projen";
+import { PackageInfo } from "./package-info";
 
 export interface ReadmeFileOptions extends FileBaseOptions {
   terraformProvider: string;
@@ -17,7 +17,9 @@ export class ReadmeFile extends FileBase {
   }
 
   protected synthesizeContent(resolver: IResolver) {
-    const { providerName, providerVersion, packageInfo } = resolver.resolve(this.options) as ReadmeFileOptions;
+    const { providerName, providerVersion, packageInfo } = resolver.resolve(
+      this.options
+    ) as ReadmeFileOptions;
 
     return `
 # Terraform CDK ${providerName} Provider ${providerVersion}

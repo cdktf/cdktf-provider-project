@@ -252,6 +252,22 @@ Which type of project this is (library/app).
 
 ---
 
+##### `projenTokenSecret`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.projenTokenSecret"></a>
+
+```typescript
+public readonly projenTokenSecret: string;
+```
+
+- *Type:* `string`
+- *Default:* "PROJEN_GITHUB_TOKEN"
+
+The name of a secret which includes a GitHub Personal Access Token to be used by projen workflows.
+
+This token needs to have the `repo`, `workflows`
+and `packages` scope.
+
+---
+
 ##### `readme`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.readme"></a>
 
 ```typescript
@@ -403,6 +419,30 @@ executable file under `bin` will automatically be added to this section.
 
 ---
 
+##### `bugsEmail`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.bugsEmail"></a>
+
+```typescript
+public readonly bugsEmail: string;
+```
+
+- *Type:* `string`
+
+The email address to which issues should be reported.
+
+---
+
+##### `bugsUrl`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.bugsUrl"></a>
+
+```typescript
+public readonly bugsUrl: string;
+```
+
+- *Type:* `string`
+
+The url to your project's issue tracker.
+
+---
+
 ##### `bundledDeps`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.bundledDeps"></a>
 
 ```typescript
@@ -414,7 +454,7 @@ public readonly bundledDeps: string[];
 List of dependencies to bundle into this module.
 
 These modules will be
-added both to the `dependencies` section and `peerDependencies` section of
+added both to the `dependencies` section and `bundledDependencies` section of
 your `package.json`.
 
 The recommendation is to only specify the module name here (e.g.
@@ -607,30 +647,6 @@ Access level of the npm package.
 
 ---
 
-##### `npmDistTag`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.npmDistTag"></a>
-
-```typescript
-public readonly npmDistTag: string;
-```
-
-- *Type:* `string`
-- *Default:* "latest"
-
-Tags can be used to provide an alias instead of version numbers.
-
-For example, a project might choose to have multiple streams of development
-and use a different tag for each stream, e.g., stable, beta, dev, canary.
-
-By default, the `latest` tag is used by npm to identify the current version
-of a package, and `npm install <pkg>` (without any `@<version>` or `@<tag>`
-specifier) installs the latest tag. Typically, projects only use the
-`latest` tag for stable release versions, and use other tags for unstable
-versions such as prereleases.
-
-The `next` tag is used by some projects to identify the upcoming version.
-
----
-
 ##### ~~`npmRegistry`~~<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.npmRegistry"></a>
 
 - *Deprecated:* use `npmRegistryUrl` instead
@@ -794,32 +810,6 @@ Package's Stability.
 
 ---
 
-##### `antitamper`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.antitamper"></a>
-
-```typescript
-public readonly antitamper: boolean;
-```
-
-- *Type:* `boolean`
-- *Default:* true
-
-Checks that after build there are no modified files on git.
-
----
-
-##### `artifactsDirectory`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.artifactsDirectory"></a>
-
-```typescript
-public readonly artifactsDirectory: string;
-```
-
-- *Type:* `string`
-- *Default:* "dist"
-
-A directory which will contain artifacts to be published to npm.
-
----
-
 ##### `jsiiReleaseVersion`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.jsiiReleaseVersion"></a>
 
 ```typescript
@@ -849,6 +839,22 @@ If not specified, we bump the global latest version.
 
 ---
 
+##### `npmDistTag`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.npmDistTag"></a>
+
+```typescript
+public readonly npmDistTag: string;
+```
+
+- *Type:* `string`
+- *Default:* "latest"
+
+The npmDistTag to use when publishing from the default branch.
+
+To set the npm dist-tag for release branches, set the `npmDistTag` property
+for each branch.
+
+---
+
 ##### `postBuildSteps`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.postBuildSteps"></a>
 
 ```typescript
@@ -872,6 +878,35 @@ public readonly prerelease: string;
 - *Default:* normal semantic versions
 
 Bump versions from the default branch as pre-releases (e.g. "beta", "alpha", "pre").
+
+---
+
+##### `publishDryRun`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.publishDryRun"></a>
+
+```typescript
+public readonly publishDryRun: boolean;
+```
+
+- *Type:* `boolean`
+- *Default:* false
+
+Instead of actually publishing to package managers, just print the publishing command.
+
+---
+
+##### `publishTasks`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.publishTasks"></a>
+
+```typescript
+public readonly publishTasks: boolean;
+```
+
+- *Type:* `boolean`
+- *Default:* false
+
+Define publishing tasks that can be executed manually as well as workflows.
+
+Normally, publishing only happens within automated workflows. Enable this
+in order to create a publishing task for each publishing activity.
 
 ---
 
@@ -1061,6 +1096,19 @@ public readonly defaultReleaseBranch: string;
 - *Default:* "main"
 
 The name of the main release branch.
+
+---
+
+##### `artifactsDirectory`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.artifactsDirectory"></a>
+
+```typescript
+public readonly artifactsDirectory: string;
+```
+
+- *Type:* `string`
+- *Default:* "dist"
+
+A directory which will contain build artifacts.
 
 ---
 
@@ -1311,6 +1359,45 @@ Defines an .npmignore file. Normally this is only needed for libraries that are 
 
 ---
 
+##### `package`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.package"></a>
+
+```typescript
+public readonly package: boolean;
+```
+
+- *Type:* `boolean`
+- *Default:* true
+
+Defines a `package` task that will produce an npm tarball under the artifacts directory (e.g. `dist`).
+
+---
+
+##### `prettier`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.prettier"></a>
+
+```typescript
+public readonly prettier: boolean;
+```
+
+- *Type:* `boolean`
+- *Default:* false
+
+Setup prettier.
+
+---
+
+##### `prettierOptions`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.prettierOptions"></a>
+
+```typescript
+public readonly prettierOptions: PrettierOptions;
+```
+
+- *Type:* [`projen.javascript.PrettierOptions`](#projen.javascript.PrettierOptions)
+- *Default:* default options
+
+Prettier options.
+
+---
+
 ##### `projenDevDependency`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.projenDevDependency"></a>
 
 ```typescript
@@ -1380,7 +1467,9 @@ Customize the projenUpgrade schedule in cron expression.
 
 ---
 
-##### `projenUpgradeSecret`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.projenUpgradeSecret"></a>
+##### ~~`projenUpgradeSecret`~~<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.projenUpgradeSecret"></a>
+
+- *Deprecated:* use `githubTokenSecret` instead.
 
 ```typescript
 public readonly projenUpgradeSecret: string;
@@ -1608,19 +1697,6 @@ public readonly libdir: string;
 - *Default:* "lib"
 
 Typescript  artifacts output directory.
-
----
-
-##### `package`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.package"></a>
-
-```typescript
-public readonly package: boolean;
-```
-
-- *Type:* `boolean`
-- *Default:* true
-
-Defines a `yarn package` command that will produce a tarball and place it under `dist/js`.
 
 ---
 
