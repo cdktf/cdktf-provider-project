@@ -21,3 +21,11 @@ test("synths with minimal options", () => {
 
   expect(snapshot).toMatchSnapshot();
 });
+
+test("build runs without telemetry", () => {
+  const snapshot = synthSnapshot(getProject());
+
+  expect(snapshot[".github/workflows/build.yml"]).toContain(
+    `CHECKPOINT_DISABLE: "1"`
+  );
+});
