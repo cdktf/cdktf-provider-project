@@ -1,19 +1,23 @@
-import { CdktfProviderProject } from "../src";
+import { CdktfProviderProject, CdktfProviderProjectOptions } from "../src";
 import { synthSnapshot } from "./utils";
 
+const getProject = (
+  opts: Partial<CdktfProviderProjectOptions> = {}
+): CdktfProviderProject =>
+  new CdktfProviderProject({
+    name: "test",
+    terraformProvider: "random",
+    author: "cdktf-team",
+    authorAddress: "cdktf-team address",
+    cdktfVersion: "0.8.6",
+    constructsVersion: "10.0.0",
+    defaultReleaseBranch: "main",
+    repositoryUrl: "github.com/cdktf/cdktf",
+    ...opts,
+  });
+
 test("synths with minimal options", () => {
-  const snapshot = synthSnapshot(
-    new CdktfProviderProject({
-      name: "test",
-      terraformProvider: "random",
-      author: "cdktf-team",
-      authorAddress: "cdktf-team address",
-      cdktfVersion: "0.8.6",
-      constructsVersion: "10.0.0",
-      defaultReleaseBranch: "main",
-      repositoryUrl: "github.com/cdktf/cdktf",
-    })
-  );
+  const snapshot = synthSnapshot(getProject());
 
   expect(snapshot).toMatchSnapshot();
 });
