@@ -8,6 +8,7 @@ const project = new cdk.JsiiProject({
   authorOrganization: true,
   peerDeps: ["projen@^0.50.21"],
   deps: ["change-case"],
+  devDeps: ["fs-extra", "@types/fs-extra", "glob"],
   bundledDeps: ["change-case"],
   license: "MPL-2.0",
   defaultReleaseBranch: "main",
