@@ -1,8 +1,8 @@
-import { JsonFile, cdk } from 'projen';
-import { PackageInfo } from './package-info';
-import { ReadmeFile } from './readme';
+import { JsonFile, cdk } from "projen";
+import { PackageInfo } from "./package-info";
+import { ReadmeFile } from "./readme";
 
-const CDKTF_JSON_FILE = 'cdktf.json';
+const CDKTF_JSON_FILE = "cdktf.json";
 
 interface CdktfConfigOptions {
   terraformProvider: string;
@@ -32,35 +32,50 @@ export class CdktfConfig {
       project.addDevDeps(`jsii@${jsiiVersion}`);
     }
 
-    project.setScript('fetch', `mkdir -p src && rm -rf ./src/* && cdktf get && cp -R .gen/providers/${providerName}/* ./src/`);
-    project.setScript('commit', 'git add -A && git commit -am "Update provider" || echo "No changes to commit"');
+    project.setScript(
+      "fetch",
+      `mkdir -p src && rm -rf ./src/* && cdktf get && cp -R .gen/providers/${providerName}/* ./src/`
+    );
+    project.setScript(
+      "commit",
+      'git add -A && git commit -am "Update provider" || echo "No changes to commit"'
+    );
     // eslint-disable-next-line quotes
-    project.setScript('should-release', `! git diff --exit-code v$(cat version.json | jq -r '.version') ./src ./package.json`);
-    project.setScript('prebump', 'yarn fetch && yarn compile && yarn run commit && yarn run should-release');
-    project.setScript('compile', 'jsii --silence-warnings=reserved-word');
+    project.setScript(
+      "should-release",
+      `! git diff --exit-code v$(cat version.json | jq -r '.version') ./src ./package.json`
+    );
+    project.setScript(
+      "prebump",
+      "yarn fetch && yarn compile && yarn run commit && yarn run should-release"
+    );
+    project.setScript("compile", "jsii --silence-warnings=reserved-word");
 
-    project.setScript('build-provider', 'yarn fetch && yarn compile && yarn docgen');
-    project.setScript('test', 'jest --passWithNoTests');
-    project.addFields({ publishConfig: { access: 'public' } });
+    project.setScript(
+      "build-provider",
+      "yarn fetch && yarn compile && yarn docgen"
+    );
+    project.setScript("test", "jest --passWithNoTests");
+    project.addFields({ publishConfig: { access: "public" } });
 
     if (project.npmignore) {
       project.npmignore.exclude(CDKTF_JSON_FILE);
-      project.npmignore.exclude('.gen');
-      project.npmignore.exclude('.terraform');
-      project.npmignore.exclude('cdktf.json');
+      project.npmignore.exclude(".gen");
+      project.npmignore.exclude(".terraform");
+      project.npmignore.exclude("cdktf.json");
     }
-    project.gitignore.exclude('.gen');
-    project.gitignore.exclude('.terraform');
-    project.gitignore.exclude('package-lock.json');
+    project.gitignore.exclude(".gen");
+    project.gitignore.exclude(".terraform");
+    project.gitignore.exclude("package-lock.json");
 
     new JsonFile(project, CDKTF_JSON_FILE, {
       obj: {
-        language: 'typescript',
-        app: 'echo noop',
+        language: "typescript",
+        app: "echo noop",
         terraformProviders: [terraformProvider],
       },
     });
 
-    new ReadmeFile(project, 'README.md', options);
+    new ReadmeFile(project, "README.md", options);
   }
 }
