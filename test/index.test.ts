@@ -25,7 +25,8 @@ test("synths with minimal options", () => {
 test("build runs without telemetry", () => {
   const snapshot = synthSnapshot(getProject());
 
-  expect(snapshot[".github/workflows/build.yml"]).toContain(
-    `CHECKPOINT_DISABLE: "1"`
+  expect(snapshot[".projen/tasks.json"]).toHaveProperty(
+    "env.CHECKPOINT_DISABLE",
+    "1"
   );
 });
