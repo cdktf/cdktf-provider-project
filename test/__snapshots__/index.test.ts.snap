@@ -935,6 +935,17 @@ UNEXPECTED BREAKING CHANGES: add keys such as 'removed:constructs.Node.of' to .c
           },
         ],
       },
+      "fetch": Object {
+        "env": Object {
+          "CHECKPOINT_DISABLE": "1",
+        },
+        "name": "fetch",
+        "steps": Array [
+          Object {
+            "exec": "mkdir -p src && rm -rf ./src/* && cdktf get && cp -R .gen/providers/random/* ./src/",
+          },
+        ],
+      },
       "package": Object {
         "description": "Creates the distribution package",
         "name": "package",
@@ -1674,7 +1685,7 @@ The repository is managed by [Repository Manager](https://github.com/hashicorp/c
       "compile": "jsii --silence-warnings=reserved-word",
       "default": "npx projen default",
       "docgen": "npx projen docgen",
-      "fetch": "mkdir -p src && rm -rf ./src/* && cdktf get && cp -R .gen/providers/random/* ./src/",
+      "fetch": "npx projen fetch",
       "package": "npx projen package",
       "package-all": "npx projen package-all",
       "package:dotnet": "npx projen package:dotnet",

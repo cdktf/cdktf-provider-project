@@ -32,10 +32,13 @@ export class CdktfConfig {
       project.addDevDeps(`jsii@${jsiiVersion}`);
     }
 
-    project.setScript(
-      "fetch",
-      `mkdir -p src && rm -rf ./src/* && cdktf get && cp -R .gen/providers/${providerName}/* ./src/`
-    );
+    project.addTask("fetch", {
+      exec: `mkdir -p src && rm -rf ./src/* && cdktf get && cp -R .gen/providers/${providerName}/* ./src/`,
+      env: {
+        CHECKPOINT_DISABLE: "1",
+      },
+    });
+
     project.setScript(
       "commit",
       'git add -A && git commit -am "Update provider" || echo "No changes to commit"'
