@@ -141,7 +141,7 @@ jobs:
       - name: Push changes
         run: |-2
             git add .
-            git commit -m -s \\"chore: self mutation\\"
+            git commit -s -m \\"chore: self mutation\\"
             git push origin HEAD:\${{ github.event.pull_request.head.ref }}
   package-js:
     needs: build
@@ -935,6 +935,17 @@ UNEXPECTED BREAKING CHANGES: add keys such as 'removed:constructs.Node.of' to .c
           },
         ],
       },
+      "fetch": Object {
+        "env": Object {
+          "CHECKPOINT_DISABLE": "1",
+        },
+        "name": "fetch",
+        "steps": Array [
+          Object {
+            "exec": "mkdir -p src && rm -rf ./src/* && cdktf get && cp -R .gen/providers/random/* ./src/",
+          },
+        ],
+      },
       "package": Object {
         "description": "Creates the distribution package",
         "name": "package",
@@ -1022,6 +1033,10 @@ UNEXPECTED BREAKING CHANGES: add keys such as 'removed:constructs.Node.of' to .c
           },
         ],
       },
+      "post-upgrade": Object {
+        "description": "Runs after upgrading dependencies",
+        "name": "post-upgrade",
+      },
       "pre-compile": Object {
         "description": "Prepare the project for compilation",
         "name": "pre-compile",
@@ -1100,6 +1115,9 @@ UNEXPECTED BREAKING CHANGES: add keys such as 'removed:constructs.Node.of' to .c
           Object {
             "exec": "npx projen",
           },
+          Object {
+            "spawn": "post-upgrade",
+          },
         ],
       },
       "upgrade-projen": Object {
@@ -1132,6 +1150,9 @@ UNEXPECTED BREAKING CHANGES: add keys such as 'removed:constructs.Node.of' to .c
           },
           Object {
             "exec": "npx projen",
+          },
+          Object {
+            "spawn": "post-upgrade",
           },
         ],
       },
@@ -1664,7 +1685,7 @@ The repository is managed by [Repository Manager](https://github.com/hashicorp/c
       "compile": "jsii --silence-warnings=reserved-word",
       "default": "npx projen default",
       "docgen": "npx projen docgen",
-      "fetch": "mkdir -p src && rm -rf ./src/* && cdktf get && cp -R .gen/providers/random/* ./src/",
+      "fetch": "npx projen fetch",
       "package": "npx projen package",
       "package-all": "npx projen package-all",
       "package:dotnet": "npx projen package:dotnet",
@@ -1672,6 +1693,7 @@ The repository is managed by [Repository Manager](https://github.com/hashicorp/c
       "package:js": "npx projen package:js",
       "package:python": "npx projen package:python",
       "post-compile": "npx projen post-compile",
+      "post-upgrade": "npx projen post-upgrade",
       "pre-compile": "npx projen pre-compile",
       "prebump": "yarn fetch && yarn compile && yarn run commit && yarn run should-release",
       "projen": "npx projen",

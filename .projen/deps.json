@@ -92,7 +92,7 @@
     },
     {
       "name": "projen",
-      "version": "0.50.21",
+      "version": "0.50.30",
       "type": "build"
     },
     {
@@ -114,7 +114,7 @@
     },
     {
       "name": "projen",
-      "version": "^0.50.21",
+      "version": "^0.50.30",
       "type": "peer"
     },
     {
