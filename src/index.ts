@@ -23,7 +23,7 @@ const githubNamespace = "hashicorp";
 const getMavenName = (providerName: string): string => {
   return ["null", "random"].includes(providerName)
     ? `${providerName}_provider`
-    : providerName;
+    : providerName.replace(/-/gi, "_");
 };
 export class CdktfProviderProject extends cdk.JsiiProject {
   constructor(options: CdktfProviderProjectOptions) {
