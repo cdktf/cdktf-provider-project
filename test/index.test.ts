@@ -9,7 +9,7 @@ const getProject = (
     terraformProvider: "random",
     author: "cdktf-team",
     authorAddress: "cdktf-team address",
-    cdktfVersion: "0.8.6",
+    cdktfVersion: "0.10.3",
     constructsVersion: "10.0.0",
     defaultReleaseBranch: "main",
     repositoryUrl: "github.com/cdktf/cdktf",
