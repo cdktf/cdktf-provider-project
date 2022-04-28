@@ -47,7 +47,6 @@
     "eslint-import-resolver-typescript": "^2.5.0",
     "eslint-plugin-import": "^2.25.2",
     "eslint-plugin-prettier": "^4.0.0",
-    "fs-extra": "^10.0.0",
     "glob": "^7.2.0",
     "jest": "^26.6.3",
     "jest-junit": "^13",
@@ -66,10 +65,12 @@
     "projen": "^0.50.30"
   },
   "dependencies": {
-    "change-case": "^4.1.2"
+    "change-case": "^4.1.2",
+    "fs-extra": "^10.1.0"
   },
   "bundledDependencies": [
-    "change-case"
+    "change-case",
+    "fs-extra"
   ],
   "engines": {
     "node": ">= 14.17.0"
