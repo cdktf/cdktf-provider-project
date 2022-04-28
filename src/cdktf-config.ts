@@ -1,3 +1,5 @@
+import * as path from "path";
+import { readFileSync, existsSync } from "fs-extra";
 import { JsonFile, cdk } from "projen";
 import { PackageInfo } from "./package-info";
 import { ReadmeFile } from "./readme";
@@ -32,12 +34,14 @@ export class CdktfConfig {
       project.addDevDeps(`jsii@${jsiiVersion}`);
     }
 
-    project.addTask("fetch", {
-      exec: `mkdir -p src && rm -rf ./src/* && cdktf get && cp -R .gen/providers/${providerName}/* ./src/`,
+    const fetchTask = project.addTask("fetch", {
+      exec: `mkdir -p src && rm -rf ./src/* && cdktf get && cp -R .gen/providers/${providerName}/* ./src/ && cp .gen/versions.json ./src/version.json`,
       env: {
         CHECKPOINT_DISABLE: "1",
       },
     });
+    // execute projen after fetch to ensure that updates to version.json are picked up in package.json
+    fetchTask.spawn(project.defaultTask);
 
     project.setScript(
       "commit",
@@ -60,6 +64,32 @@ export class CdktfConfig {
     );
     project.setScript("test", "jest --passWithNoTests");
     project.addFields({ publishConfig: { access: "public" } });
+
+    // set provider name and version from version.json (if it exists yet)
+    const versionFile = path.resolve(project.outdir, "src/version.json");
+
+    let fullyQualifiedProviderName = "<unknown>";
+    let actualProviderVersion = "<unknown>";
+    if (existsSync(versionFile)) {
+      const map = JSON.parse(readFileSync(versionFile, "utf8"));
+      if (Object.keys(map).length !== 1) {
+        throw new Error(
+          "version.json must have exactly one entry. specifying multiple providers is not supported"
+        );
+      }
+      const [fqpn, version] = Object.entries(map)[0];
+      fullyQualifiedProviderName = fqpn;
+      actualProviderVersion = version as string;
+    }
+
+    project.addFields({
+      cdktf: {
+        provider: {
+          name: fullyQualifiedProviderName,
+          version: actualProviderVersion,
+        },
+      },
+    });
 
     if (project.npmignore) {
       project.npmignore.exclude(CDKTF_JSON_FILE);

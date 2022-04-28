@@ -737,12 +737,12 @@ cdktf.json
       Object {
         "name": "cdktf-cli",
         "type": "build",
-        "version": "0.8.6",
+        "version": "0.10.3",
       },
       Object {
         "name": "cdktf",
         "type": "build",
-        "version": "0.8.6",
+        "version": "0.10.3",
       },
       Object {
         "name": "constructs",
@@ -787,7 +787,7 @@ cdktf.json
       Object {
         "name": "cdktf",
         "type": "peer",
-        "version": "0.8.6",
+        "version": "0.10.3",
       },
       Object {
         "name": "constructs",
@@ -942,7 +942,10 @@ UNEXPECTED BREAKING CHANGES: add keys such as 'removed:constructs.Node.of' to .c
         "name": "fetch",
         "steps": Array [
           Object {
-            "exec": "mkdir -p src && rm -rf ./src/* && cdktf get && cp -R .gen/providers/random/* ./src/",
+            "exec": "mkdir -p src && rm -rf ./src/* && cdktf get && cp -R .gen/providers/random/* ./src/ && cp .gen/versions.json ./src/version.json",
+          },
+          Object {
+            "spawn": "default",
           },
         ],
       },
@@ -1614,12 +1617,18 @@ The repository is managed by [Repository Manager](https://github.com/hashicorp/c
       "organization": true,
       "url": "https://hashicorp.com",
     },
+    "cdktf": Object {
+      "provider": Object {
+        "name": "<unknown>",
+        "version": "<unknown>",
+      },
+    },
     "description": "Prebuilt random Provider for Terraform CDK (cdktf)",
     "devDependencies": Object {
       "@cdktf/provider-project": "^0.2.8",
       "@types/node": "^12",
-      "cdktf": "0.8.6",
-      "cdktf-cli": "0.8.6",
+      "cdktf": "0.10.3",
+      "cdktf-cli": "0.10.3",
       "constructs": "10.0.0",
       "dot-prop": "^5.2.0",
       "jsii": "*",
@@ -1665,7 +1674,7 @@ The repository is managed by [Repository Manager](https://github.com/hashicorp/c
     "main": "lib/index.js",
     "name": "@cdktf/provider-random",
     "peerDependencies": Object {
-      "cdktf": "0.8.6",
+      "cdktf": "0.10.3",
       "constructs": "10.0.0",
     },
     "publishConfig": Object {

@@ -49,10 +49,6 @@
       "type": "build"
     },
     {
-      "name": "fs-extra",
-      "type": "build"
-    },
-    {
       "name": "glob",
       "type": "build"
     },
@@ -113,12 +109,20 @@
       "type": "bundled"
     },
     {
+      "name": "fs-extra",
+      "type": "bundled"
+    },
+    {
       "name": "projen",
       "version": "^0.50.30",
       "type": "peer"
     },
     {
       "name": "change-case",
+      "type": "runtime"
+    },
+    {
+      "name": "fs-extra",
       "type": "runtime"
     }
   ],
