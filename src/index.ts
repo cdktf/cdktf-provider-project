@@ -53,8 +53,14 @@ export class CdktfProviderProject extends cdk.JsiiProject {
         name: `@${namespace}/provider-${providerName}`,
       },
       python: {
-        distName: `${namespace}-cdktf-provider-${providerName}`,
-        module: `${namespace}_cdktf_provider_${providerName}`,
+        distName: `${namespace}-cdktf-provider-${providerName.replace(
+          /-/gi,
+          "_"
+        )}`,
+        module: `${namespace}_cdktf_provider_${providerName.replace(
+          /-/gi,
+          "_"
+        )}`,
       },
       publishToNuget: {
         dotNetNamespace: nugetName,
