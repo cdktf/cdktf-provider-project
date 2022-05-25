@@ -105,6 +105,7 @@ export class CdktfConfig {
       obj: {
         language: "typescript",
         app: "echo noop",
+        sendCrashReports: false,
         terraformProviders: [terraformProvider],
       },
     });

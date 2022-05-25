@@ -30,3 +30,9 @@ test("build runs without telemetry", () => {
     "1"
   );
 });
+
+test("build runs without crash reporting", () => {
+  const snapshot = synthSnapshot(getProject());
+
+  expect(snapshot["cdktf.json"]).toHaveProperty("sendCrashReports", false);
+});
