@@ -76,8 +76,7 @@ export class CdktfProviderProject extends cdk.JsiiProject {
         mavenEndpoint: "https://hashicorp.oss.sonatype.org",
       },
       publishToGo: {
-        moduleName: providerName,
-        githubRepo: `github.com/hashicorp/cdktf-provider-${providerName}-go`,
+        moduleName: `github.com/hashicorp/cdktf-provider-${providerName}-go`,
         gitUserEmail: "github-team-tf-cdk@hashicorp.com",
         gitUserName: "CDK for Terraform Team",
       },
@@ -119,6 +118,9 @@ export class CdktfProviderProject extends cdk.JsiiProject {
         email: "github-team-tf-cdk@hashicorp.com",
       },
     });
+
+    // workaround because JsiiProject does not support setting packageName
+    this.manifest.jsii.targets.go.packageName = providerName;
 
     this.tasks.addEnvironment("CHECKPOINT_DISABLE", "1");
 
