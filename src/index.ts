@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-require-imports */
+import assert = require("assert");
 import { pascalCase } from "change-case";
 import { cdk } from "projen";
 import { AutoMerge } from "./auto-merge";
@@ -37,9 +38,11 @@ export class CdktfProviderProject extends cdk.JsiiProject {
     } = options;
     const [fqproviderName, providerVersion] = terraformProvider.split("@");
     const providerName = fqproviderName.split("/").pop();
-    if (!providerName) {
-      throw new Error(`${terraformProvider} doesn't seem to be valid`);
-    }
+    assert(providerName, `${terraformProvider} doesn't seem to be valid`);
+    assert(
+      !providerName.endsWith("-go"),
+      "providerName may not end with '-go' as this can conflict with repos for go packages"
+    );
 
     const nugetName = `HashiCorp.${pascalCase(
       namespace
@@ -72,6 +75,11 @@ export class CdktfProviderProject extends cdk.JsiiProject {
         mavenArtifactId: `cdktf-provider-${providerName}`,
         mavenEndpoint: "https://hashicorp.oss.sonatype.org",
       },
+      publishToGo: {
+        moduleName: `github.com/hashicorp/cdktf-provider-${providerName}-go`,
+        gitUserEmail: "github-team-tf-cdk@hashicorp.com",
+        gitUserName: "CDK for Terraform Team",
+      },
     };
 
     super({
@@ -101,6 +109,7 @@ export class CdktfProviderProject extends cdk.JsiiProject {
       python: packageInfo.python,
       publishToNuget: packageInfo.publishToNuget,
       publishToMaven: packageInfo.publishToMaven,
+      publishToGo: packageInfo.publishToGo,
       peerDependencyOptions: {
         pinnedDevDependency: false,
       },
