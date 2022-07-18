@@ -11,7 +11,7 @@ export class ProviderUpgrade {
     if (!workflow) throw new Error("no workflow defined");
 
     workflow.on({
-      schedule: [{ cron: "0 */4 * * *" }], // Run every 4 hours
+      schedule: [{ cron: "0 3 * * *" }], // Run every day at 3 O'Clock
       workflowDispatch: {}, // allow manual triggering
     });
 
