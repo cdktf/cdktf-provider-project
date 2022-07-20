@@ -137,6 +137,7 @@ export class CdktfProviderProject extends cdk.JsiiProject {
         name: "team-tf-cdk",
         email: "github-team-tf-cdk@hashicorp.com",
       },
+      // sets major version to 1 for the first version but resets it for future versions to allow them to automatically increase to e.g. v2 if breaking changes occurred
       majorVersion: getMajorVersion(options.outdir),
     });
 
