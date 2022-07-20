@@ -1,8 +1,8 @@
-import { CdktfProviderProject, CdktfProviderProjectOptions } from "../src";
-import { synthSnapshot } from "./utils";
-import * as fs from "fs-extra";
 import { execSync } from "child_process";
 import * as path from "path";
+import * as fs from "fs-extra";
+import { CdktfProviderProject, CdktfProviderProjectOptions } from "../src";
+import { synthSnapshot } from "./utils";
 
 const getProject = (
   opts: Partial<CdktfProviderProjectOptions> = {}
