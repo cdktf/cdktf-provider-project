@@ -1,6 +1,9 @@
 /* eslint-disable @typescript-eslint/no-require-imports */
 import assert = require("assert");
+import { spawnSync } from "child_process";
+import * as path from "path";
 import { pascalCase } from "change-case";
+import * as fs from "fs-extra";
 import { cdk } from "projen";
 import { AutoMerge } from "./auto-merge";
 import { CdktfConfig } from "./cdktf-config";
@@ -8,6 +11,23 @@ import { PackageInfo } from "./package-info";
 import { ProviderUpgrade } from "./provider-upgrade";
 
 const version = require("../version.json").version;
+
+function getMajorVersion(outdir = process.cwd()): number | undefined {
+  const gitPath = path.resolve(outdir, ".git");
+
+  // Git repo is not initialized yet, so we need to set the version to 1
+  if (!fs.existsSync(gitPath)) {
+    return 1;
+  }
+
+  const out = spawnSync(`git tag -l 'v1.*'`, {
+    shell: true,
+    cwd: outdir,
+  });
+
+  // If there is no v1.x tag the command has no stdout and we set 1 as the major version
+  return out.stdout.length > 0 ? undefined : 1;
+}
 
 export interface CdktfProviderProjectOptions extends cdk.JsiiProjectOptions {
   readonly terraformProvider: string;
@@ -117,6 +137,7 @@ export class CdktfProviderProject extends cdk.JsiiProject {
         name: "team-tf-cdk",
         email: "github-team-tf-cdk@hashicorp.com",
       },
+      majorVersion: getMajorVersion(options.outdir),
     });
 
     // workaround because JsiiProject does not support setting packageName
