@@ -17,7 +17,7 @@ function getMajorVersion(repository: string): number | undefined {
       shell: true,
     }
   );
-  if (out.status) {
+  if (out.status !== null) {
     // If we find no release starting with v1., we can assume that there are no releases
     // so we force the first one to be 1.x
     return out.status > 0 ? 1 : undefined;
