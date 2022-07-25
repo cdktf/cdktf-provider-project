@@ -1,9 +1,7 @@
 /* eslint-disable @typescript-eslint/no-require-imports */
 import assert = require("assert");
 import { spawnSync } from "child_process";
-import * as path from "path";
 import { pascalCase } from "change-case";
-import * as fs from "fs-extra";
 import { cdk } from "projen";
 import { AutoMerge } from "./auto-merge";
 import { CdktfConfig } from "./cdktf-config";
@@ -12,21 +10,18 @@ import { ProviderUpgrade } from "./provider-upgrade";
 
 const version = require("../version.json").version;
 
-function getMajorVersion(outdir = process.cwd()): number | undefined {
-  const gitPath = path.resolve(outdir, ".git");
+function getMajorVersion(repository: string): number | undefined {
+  console.log(`getMajorVersion(${repository})`);
+  const out = spawnSync(
+    `gh release list -L=10000000 -R ${repository} | grep "v1." `,
+    {
+      shell: true,
+    }
+  );
 
-  // Git repo is not initialized yet, so we need to set the version to 1
-  if (!fs.existsSync(gitPath)) {
-    return 1;
-  }
-
-  const out = spawnSync(`git tag -l 'v1.*'`, {
-    shell: true,
-    cwd: outdir,
-  });
-
-  // If there is no v1.x tag the command has no stdout and we set 1 as the major version
-  return out.stdout.length > 0 ? undefined : 1;
+  // If we find no release starting with v1., we can assume that there are no releases
+  // so we force the first one to be 1.x
+  return (out.status || 1) > 0 ? 1 : undefined;
 }
 
 export interface CdktfProviderProjectOptions extends cdk.JsiiProjectOptions {
@@ -102,6 +97,8 @@ export class CdktfProviderProject extends cdk.JsiiProject {
       },
     };
 
+    const repository = `${githubNamespace}/cdktf-provider-${providerName}`;
+
     super({
       ...options,
       workflowContainerImage,
@@ -118,7 +115,7 @@ export class CdktfProviderProject extends cdk.JsiiProject {
       authorName,
       authorOrganization: true,
       defaultReleaseBranch: "main",
-      repository: `https://github.com/${githubNamespace}/cdktf-provider-${providerName}.git`,
+      repository: `https://github.com/${repository}.git`,
       mergify: false,
       eslint: false,
       depsUpgradeOptions: {
@@ -138,7 +135,7 @@ export class CdktfProviderProject extends cdk.JsiiProject {
         email: "github-team-tf-cdk@hashicorp.com",
       },
       // sets major version to 1 for the first version but resets it for future versions to allow them to automatically increase to e.g. v2 if breaking changes occurred
-      majorVersion: getMajorVersion(options.outdir),
+      majorVersion: getMajorVersion(repository),
     });
 
     // workaround because JsiiProject does not support setting packageName
