@@ -11,17 +11,20 @@ import { ProviderUpgrade } from "./provider-upgrade";
 const version = require("../version.json").version;
 
 function getMajorVersion(repository: string): number | undefined {
-  console.log(`getMajorVersion(${repository})`);
   const out = spawnSync(
     `gh release list -L=10000000 -R ${repository} | grep "v1." `,
     {
       shell: true,
     }
   );
-
-  // If we find no release starting with v1., we can assume that there are no releases
-  // so we force the first one to be 1.x
-  return (out.status || 1) > 0 ? 1 : undefined;
+  if (out.status) {
+    // If we find no release starting with v1., we can assume that there are no releases
+    // so we force the first one to be 1.x
+    return out.status > 0 ? 1 : undefined;
+  } else {
+    // If there is no status, we assume no release was found and return 1
+    return 1;
+  }
 }
 
 export interface CdktfProviderProjectOptions extends cdk.JsiiProjectOptions {
