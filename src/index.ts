@@ -2,7 +2,7 @@
 import assert = require("assert");
 import { spawnSync } from "child_process";
 import { pascalCase } from "change-case";
-import { cdk } from "projen";
+import { cdk, Task } from "projen";
 import { AutoMerge } from "./auto-merge";
 import { CdktfConfig } from "./cdktf-config";
 import { PackageInfo } from "./package-info";
@@ -160,6 +160,13 @@ export class CdktfProviderProject extends cdk.JsiiProject {
 
     // Golang needs more memory to build
     this.tasks.addEnvironment("NODE_OPTIONS", "--max-old-space-size=7168");
+
+    // TODO: make an upstream PR to projen to not have to do this dance
+    // set GH_TOKEN: ${{ secrets.GITHUB_TOKEN }} during build so the gh CLI can be used
+    const buildTask = (this as any).buildWorkflow!.buildTask as Task;
+    (buildTask as any)._locked = false;
+    buildTask.env("GH_TOKEN", "${{ secrets.GITHUB_TOKEN }}");
+    (buildTask as any)._locked = true;
 
     this.tasks.addEnvironment("CHECKPOINT_DISABLE", "1");
 
