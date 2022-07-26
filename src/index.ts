@@ -46,6 +46,7 @@ export interface CdktfProviderProjectOptions extends cdk.JsiiProjectOptions {
   readonly cdktfVersion: string;
   readonly constructsVersion: string;
   readonly jsiiVersion?: string;
+  readonly forceMajorVersion?: number;
 }
 
 const authorName = "HashiCorp";
@@ -152,7 +153,7 @@ export class CdktfProviderProject extends cdk.JsiiProject {
         email: "github-team-tf-cdk@hashicorp.com",
       },
       // sets major version to 1 for the first version but resets it for future versions to allow them to automatically increase to e.g. v2 if breaking changes occurred
-      majorVersion: getMajorVersion(repository),
+      majorVersion: options.forceMajorVersion ?? getMajorVersion(repository),
     });
 
     // workaround because JsiiProject does not support setting packageName

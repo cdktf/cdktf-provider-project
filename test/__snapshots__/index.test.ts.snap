@@ -1124,6 +1124,7 @@ UNEXPECTED BREAKING CHANGES: add keys such as 'removed:constructs.Node.of' to .c
       "release": Object {
         "description": "Prepare a release from \\"main\\" branch",
         "env": Object {
+          "MAJOR": "42",
           "RELEASE": "true",
         },
         "name": "release",

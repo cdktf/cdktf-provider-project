@@ -13,6 +13,7 @@ const getProject = (
     constructsVersion: "10.0.0",
     defaultReleaseBranch: "main",
     repositoryUrl: "github.com/cdktf/cdktf",
+    forceMajorVersion: 42,
     ...opts,
   });
 
