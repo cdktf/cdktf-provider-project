@@ -2027,6 +2027,16 @@ public readonly terraformProvider: string;
 
 ---
 
+##### `forceMajorVersion`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.forceMajorVersion"></a>
+
+```typescript
+public readonly forceMajorVersion: number;
+```
+
+- *Type:* `number`
+
+---
+
 ##### `jsiiVersion`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.jsiiVersion"></a>
 
 ```typescript

@@ -2,7 +2,7 @@
 import assert = require("assert");
 import { spawnSync } from "child_process";
 import { pascalCase } from "change-case";
-import { cdk } from "projen";
+import { cdk, Task } from "projen";
 import { AutoMerge } from "./auto-merge";
 import { CdktfConfig } from "./cdktf-config";
 import { PackageInfo } from "./package-info";
@@ -46,6 +46,7 @@ export interface CdktfProviderProjectOptions extends cdk.JsiiProjectOptions {
   readonly cdktfVersion: string;
   readonly constructsVersion: string;
   readonly jsiiVersion?: string;
+  readonly forceMajorVersion?: number;
 }
 
 const authorName = "HashiCorp";
@@ -152,7 +153,7 @@ export class CdktfProviderProject extends cdk.JsiiProject {
         email: "github-team-tf-cdk@hashicorp.com",
       },
       // sets major version to 1 for the first version but resets it for future versions to allow them to automatically increase to e.g. v2 if breaking changes occurred
-      majorVersion: getMajorVersion(repository),
+      majorVersion: options.forceMajorVersion ?? getMajorVersion(repository),
     });
 
     // workaround because JsiiProject does not support setting packageName
@@ -160,6 +161,13 @@ export class CdktfProviderProject extends cdk.JsiiProject {
 
     // Golang needs more memory to build
     this.tasks.addEnvironment("NODE_OPTIONS", "--max-old-space-size=7168");
+
+    // TODO: make an upstream PR to projen to not have to do this dance
+    // set GH_TOKEN: ${{ secrets.GITHUB_TOKEN }} during build so the gh CLI can be used
+    const buildTask = (this as any).buildWorkflow!.buildTask as Task;
+    (buildTask as any)._locked = false;
+    buildTask.env("GH_TOKEN", "${{ secrets.GITHUB_TOKEN }}");
+    (buildTask as any)._locked = true;
 
     this.tasks.addEnvironment("CHECKPOINT_DISABLE", "1");
 
