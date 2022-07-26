@@ -11,19 +11,33 @@ import { ProviderUpgrade } from "./provider-upgrade";
 const version = require("../version.json").version;
 
 function getMajorVersion(repository: string): number | undefined {
-  const out = spawnSync(
-    `gh release list -L=10000000 -R ${repository} | grep "v1." `,
-    {
-      shell: true,
+  console.log("Getting major version of", repository);
+  try {
+    const out = spawnSync(
+      `gh release list -L=10000000 -R ${repository} | grep "v1." `,
+      {
+        shell: true,
+      }
+    );
+
+    console.log(
+      "fetched major version: ",
+      out.status,
+      out.stderr.toString(),
+      out.stdout.toString()
+    );
+
+    if (out.status !== null) {
+      // If we find no release starting with v1., we can assume that there are no releases
+      // so we force the first one to be 1.x
+      return out.status > 0 ? 1 : undefined;
+    } else {
+      // If there is no status, we assume no release was found and return 1
+      return 1;
     }
-  );
-  if (out.status !== null) {
-    // If we find no release starting with v1., we can assume that there are no releases
-    // so we force the first one to be 1.x
-    return out.status > 0 ? 1 : undefined;
-  } else {
-    // If there is no status, we assume no release was found and return 1
-    return 1;
+  } catch (e) {
+    console.log("Error fetching major version", e);
+    return undefined;
   }
 }
 
