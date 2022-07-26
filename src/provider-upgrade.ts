@@ -24,7 +24,13 @@ export class ProviderUpgrade {
             uses: "actions/checkout@v2",
           },
           { run: "yarn install" },
-          { run: "yarn fetch" },
+          {
+            run: "yarn fetch",
+            env: {
+              CHECKPOINT_DISABLE: "1",
+              GH_TOKEN: "${{ secrets.GITHUB_TOKEN }}",
+            },
+          },
           // generate docs
           { run: "yarn compile" },
           { run: "yarn docgen" },
