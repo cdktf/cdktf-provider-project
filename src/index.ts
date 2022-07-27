@@ -27,13 +27,14 @@ function getMajorVersion(repository: string): number | undefined {
       out.stdout.toString()
     );
 
+    // TODO: return value should be 1 if there is release yet
     if (out.status !== null) {
       // If we find no release starting with v1., we can assume that there are no releases
       // so we force the first one to be 1.x
-      return out.status > 0 ? 1 : undefined;
+      return out.status > 0 ? undefined : undefined;
     } else {
       // If there is no status, we assume no release was found and return 1
-      return 1;
+      return undefined;
     }
   } catch (e) {
     console.log("Error fetching major version", e);
