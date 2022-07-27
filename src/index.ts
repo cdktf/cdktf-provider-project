@@ -119,7 +119,10 @@ export class CdktfProviderProject extends cdk.JsiiProject {
       },
     };
 
-    const repository = `${githubNamespace}/cdktf-provider-${providerName}`;
+    const repository = `${githubNamespace}/cdktf-provider-${providerName.replace(
+      /-/g,
+      ""
+    )}`;
 
     super({
       ...options,
