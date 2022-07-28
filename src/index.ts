@@ -164,7 +164,7 @@ export class CdktfProviderProject extends cdk.JsiiProject {
     });
 
     // workaround because JsiiProject does not support setting packageName
-    this.manifest.jsii.targets.go.packageName = providerName;
+    this.manifest.jsii.targets.go.packageName = providerName.replace(/-/g, "");
 
     // Golang needs more memory to build
     this.tasks.addEnvironment("NODE_OPTIONS", "--max-old-space-size=7168");
