@@ -5,6 +5,7 @@ import { pascalCase } from "change-case";
 import { cdk, Task } from "projen";
 import { AutoMerge } from "./auto-merge";
 import { CdktfConfig } from "./cdktf-config";
+import { GithubIssues } from "./github-issues";
 import { PackageInfo } from "./package-info";
 import { ProviderUpgrade } from "./provider-upgrade";
 
@@ -189,5 +190,6 @@ export class CdktfProviderProject extends cdk.JsiiProject {
     });
     new ProviderUpgrade(this);
     new AutoMerge(this);
+    new GithubIssues(this, { providerName });
   }
 }
