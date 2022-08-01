@@ -117,6 +117,7 @@ export class CdktfProviderProject extends cdk.JsiiProject {
         )}-go`,
         gitUserEmail: "github-team-tf-cdk@hashicorp.com",
         gitUserName: "CDK for Terraform Team",
+        packageName: providerName.replace(/-/g, ""),
       },
     };
 
@@ -164,9 +165,6 @@ export class CdktfProviderProject extends cdk.JsiiProject {
       majorVersion: options.forceMajorVersion ?? getMajorVersion(repository),
     });
 
-    // workaround because JsiiProject does not support setting packageName
-    this.manifest.jsii.targets.go.packageName = providerName.replace(/-/g, "");
-
     // Golang needs more memory to build
     this.tasks.addEnvironment("NODE_OPTIONS", "--max-old-space-size=7168");
 
@@ -177,6 +175,7 @@ export class CdktfProviderProject extends cdk.JsiiProject {
     buildTask.env("GH_TOKEN", "${{ secrets.GITHUB_TOKEN }}");
     (buildTask as any)._locked = true;
 
+    // curl -X POST https://hooks.slack.com/workflows/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 -H "Content-Type: application/json" -d '{"provider": "aws", "run_url": "https://github.com/hashicorp/cdktf-provider-aws/runs/7602684269?check_suite_focus=true"}'
     this.tasks.addEnvironment("CHECKPOINT_DISABLE", "1");
 
     new CdktfConfig(this, {

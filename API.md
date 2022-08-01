@@ -111,6 +111,32 @@ Options for .projenrc.json.
 
 ---
 
+##### `renovatebot`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.renovatebot"></a>
+
+```typescript
+public readonly renovatebot: boolean;
+```
+
+- *Type:* `boolean`
+- *Default:* false
+
+Use renovatebot to handle dependency upgrades.
+
+---
+
+##### `renovatebotOptions`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.renovatebotOptions"></a>
+
+```typescript
+public readonly renovatebotOptions: RenovatebotOptions;
+```
+
+- *Type:* [`projen.RenovatebotOptions`](#projen.RenovatebotOptions)
+- *Default:* default options
+
+Options for renovatebot.
+
+---
+
 ##### `autoApproveOptions`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.autoApproveOptions"></a>
 
 ```typescript
@@ -121,6 +147,22 @@ public readonly autoApproveOptions: AutoApproveOptions;
 - *Default:* auto approve is disabled
 
 Enable and configure the 'auto approve' workflow.
+
+---
+
+##### `autoMerge`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.autoMerge"></a>
+
+```typescript
+public readonly autoMerge: boolean;
+```
+
+- *Type:* `boolean`
+- *Default:* true
+
+Enable automatic merging on GitHub.
+
+Has no effect if `github.mergify`
+is set to false.
 
 ---
 
@@ -136,7 +178,7 @@ public readonly autoMergeOptions: AutoMergeOptions;
 Configure options for automatic merging on GitHub.
 
 Has no effect if
-`github.mergify` is set to false.
+`github.mergify` or `autoMerge` is set to false.
 
 ---
 
@@ -252,7 +294,22 @@ Which type of project this is (library/app).
 
 ---
 
-##### `projenTokenSecret`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.projenTokenSecret"></a>
+##### `projenCredentials`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.projenCredentials"></a>
+
+```typescript
+public readonly projenCredentials: GithubCredentials;
+```
+
+- *Type:* [`projen.github.GithubCredentials`](#projen.github.GithubCredentials)
+- *Default:* use a personal access token named PROJEN_GITHUB_TOKEN
+
+Choose a method of providing GitHub API access for projen workflows.
+
+---
+
+##### ~~`projenTokenSecret`~~<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.projenTokenSecret"></a>
+
+- *Deprecated:* use `projenCredentials`
 
 ```typescript
 public readonly projenTokenSecret: string;
@@ -288,7 +345,7 @@ public readonly stale: boolean;
 ```
 
 - *Type:* `boolean`
-- *Default:* true
+- *Default:* false
 
 Auto-close of stale issues and pull request.
 
@@ -475,7 +532,9 @@ public readonly codeArtifactOptions: CodeArtifactOptions;
 - *Type:* [`projen.javascript.CodeArtifactOptions`](#projen.javascript.CodeArtifactOptions)
 - *Default:* undefined
 
-Options for publishing npm package to AWS CodeArtifact.
+Options for npm packages using AWS CodeArtifact.
+
+This is required if publishing packages to, or installing scoped packages from AWS CodeArtifact
 
 ---
 
@@ -782,6 +841,19 @@ If the package.json for your package is not in the root directory (for example i
 
 ---
 
+##### `scopedPackagesOptions`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.scopedPackagesOptions"></a>
+
+```typescript
+public readonly scopedPackagesOptions: ScopedPackagesOptions[];
+```
+
+- *Type:* [`projen.javascript.ScopedPackagesOptions`](#projen.javascript.ScopedPackagesOptions)[]
+- *Default:* fetch all scoped packages from the public npm registry
+
+Options for privately hosted scoped packages.
+
+---
+
 ##### `scripts`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.scripts"></a>
 
 ```typescript
@@ -819,7 +891,7 @@ public readonly jsiiReleaseVersion: string;
 - *Type:* `string`
 - *Default:* "latest"
 
-Version requirement of `jsii-release` which is used to publish modules to npm.
+Version requirement of `publib` which is used to publish modules to npm.
 
 ---
 
@@ -1112,21 +1184,6 @@ A directory which will contain build artifacts.
 
 ---
 
-##### `autoApproveProjenUpgrades`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.autoApproveProjenUpgrades"></a>
-
-```typescript
-public readonly autoApproveProjenUpgrades: boolean;
-```
-
-- *Type:* `boolean`
-- *Default:* false
-
-Automatically approve projen upgrade PRs, allowing them to be merged by mergify (if configued).
-
-Throw if set to true but `autoApproveOptions` are not defined.
-
----
-
 ##### `autoApproveUpgrades`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.autoApproveUpgrades"></a>
 
 ```typescript
@@ -1152,6 +1209,19 @@ public readonly buildWorkflow: boolean;
 - *Default:* true if not a subproject
 
 Define a GitHub workflow for building PRs.
+
+---
+
+##### `buildWorkflowTriggers`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.buildWorkflowTriggers"></a>
+
+```typescript
+public readonly buildWorkflowTriggers: Triggers;
+```
+
+- *Type:* [`projen.github.workflows.Triggers`](#projen.github.workflows.Triggers)
+- *Default:* "{ pullRequest: {}, workflowDispatch: {} }"
+
+Build workflow triggers.
 
 ---
 
@@ -1271,7 +1341,7 @@ public readonly depsUpgradeOptions: UpgradeDependenciesOptions;
 - *Type:* [`projen.javascript.UpgradeDependenciesOptions`](#projen.javascript.UpgradeDependenciesOptions)
 - *Default:* default options
 
-Options for depsUpgrade.
+Options for `UpgradeDependencies`.
 
 ---
 
@@ -1437,59 +1507,6 @@ Options for .projenrc.js.
 
 ---
 
-##### ~~`projenUpgradeAutoMerge`~~<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.projenUpgradeAutoMerge"></a>
-
-- *Deprecated:* use `autoApproveProjenUpgrades`.
-
-```typescript
-public readonly projenUpgradeAutoMerge: boolean;
-```
-
-- *Type:* `boolean`
-- *Default:* false
-
-Automatically approve projen upgrade PRs, allowing them to be merged by mergify (if configued).
-
-Throw if set to true but `autoApproveOptions` are not defined.
-
----
-
-##### `projenUpgradeSchedule`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.projenUpgradeSchedule"></a>
-
-```typescript
-public readonly projenUpgradeSchedule: string[];
-```
-
-- *Type:* `string`[]
-- *Default:* [ "0 6 * * *" ]
-
-Customize the projenUpgrade schedule in cron expression.
-
----
-
-##### ~~`projenUpgradeSecret`~~<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.projenUpgradeSecret"></a>
-
-- *Deprecated:* use `githubTokenSecret` instead.
-
-```typescript
-public readonly projenUpgradeSecret: string;
-```
-
-- *Type:* `string`
-- *Default:* no automatic projen upgrade pull requests
-
-Periodically submits a pull request for projen upgrades (executes `yarn projen:upgrade`).
-
-This setting is a GitHub secret name which contains a GitHub Access Token
-with `repo` and `workflow` permissions.
-
-This token is used to submit the upgrade pull request, which will likely
-include workflow updates.
-
-To create a personal access token see https://github.com/settings/tokens
-
----
-
 ##### `projenVersion`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.projenVersion"></a>
 
 ```typescript
@@ -1573,10 +1590,10 @@ DEPRECATED: renamed to `release`.
 ##### `workflowBootstrapSteps`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.workflowBootstrapSteps"></a>
 
 ```typescript
-public readonly workflowBootstrapSteps: any[];
+public readonly workflowBootstrapSteps: JobStep[];
 ```
 
-- *Type:* `any`[]
+- *Type:* [`projen.github.workflows.JobStep`](#projen.github.workflows.JobStep)[]
 - *Default:* "yarn install --frozen-lockfile && yarn projen"
 
 Workflow steps to use in order to bootstrap this repo.
@@ -1889,6 +1906,19 @@ public readonly compatIgnore: string;
 - *Default:* ".compatignore"
 
 Name of the ignore file for API compatibility tests.
+
+---
+
+##### `docgenFilePath`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.docgenFilePath"></a>
+
+```typescript
+public readonly docgenFilePath: string;
+```
+
+- *Type:* `string`
+- *Default:* "API.md"
+
+File path for generated docs.
 
 ---
 
