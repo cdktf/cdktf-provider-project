@@ -80,7 +80,7 @@ These are the upstream dependencies:
 - [Terraform ${providerName} Provider](https://github.com/terraform-providers/terraform-provider-${providerName})
 - [Terraform Engine](https://terraform.io)
 
-If there are breaking changes (backward incompatible) in any of the above, the major version of this project will be bumped. While the Terraform Engine and the Terraform ${providerName} Provider are relatively stable, the Terraform CDK is in an early stage. Therefore, it's likely that there will be breaking changes.
+If there are breaking changes (backward incompatible) in any of the above, the major version of this project will be bumped.
 
 ## Features / Issues / Bugs
 
