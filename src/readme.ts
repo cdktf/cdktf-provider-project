@@ -61,7 +61,7 @@ The Maven package is available at [https://mvnrepository.com/artifact/${packageI
 
 ### Go
 
-The go package is generated into the [\`github.com/hashicorp/cdktf-provider-${providerName}-go\`]https://github.com/hashicorp/cdktf-provider-${providerName}-go) package.
+The go package is generated into the [\`github.com/hashicorp/cdktf-provider-${providerName}-go\`](https://github.com/hashicorp/cdktf-provider-${providerName}-go) package.
 
 \`go get github.com/hashicorp/cdktf-provider-${providerName}-go/${providerName}\`
 
