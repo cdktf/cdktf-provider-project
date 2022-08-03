@@ -153,6 +153,7 @@ export class CdktfProviderProject extends cdk.JsiiProject {
       publishToNuget: packageInfo.publishToNuget,
       publishToMaven: packageInfo.publishToMaven,
       publishToGo: packageInfo.publishToGo,
+      releaseFailureIssue: true,
       peerDependencyOptions: {
         pinnedDevDependency: false,
       },
