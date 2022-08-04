@@ -129,7 +129,7 @@ export class CdktfProviderProject extends cdk.JsiiProject {
         name: "team-tf-cdk",
         email: "github-team-tf-cdk@hashicorp.com",
       },
-      minMajorVersion: 1, // ensure breaking change releases lead to an increased major version
+      minMajorVersion: 1, // ensure new projects start with 1.0.0 so that every following breaking change leads to an increased major version
     });
 
     // Golang needs more memory to build
