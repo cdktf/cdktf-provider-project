@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-require-imports */
 import assert = require("assert");
-import { spawnSync } from "child_process";
 import { pascalCase } from "change-case";
 import { cdk, Task } from "projen";
 import { AutoMerge } from "./auto-merge";
@@ -10,38 +9,6 @@ import { PackageInfo } from "./package-info";
 import { ProviderUpgrade } from "./provider-upgrade";
 
 const version = require("../version.json").version;
-
-function getMajorVersion(repository: string): number | undefined {
-  console.log("Getting major version of", repository);
-  try {
-    const out = spawnSync(
-      `gh release list -L=10000000 -R ${repository} | grep "v1." `,
-      {
-        shell: true,
-      }
-    );
-
-    console.log(
-      "fetched major version: ",
-      out.status,
-      out.stderr.toString(),
-      out.stdout.toString()
-    );
-
-    // TODO: return value should be 1 if there is release yet
-    if (out.status !== null) {
-      // If we find no release starting with v1., we can assume that there are no releases
-      // so we force the first one to be 1.x
-      return out.status > 0 ? undefined : undefined;
-    } else {
-      // If there is no status, we assume no release was found and return 1
-      return undefined;
-    }
-  } catch (e) {
-    console.log("Error fetching major version", e);
-    return undefined;
-  }
-}
 
 export interface CdktfProviderProjectOptions extends cdk.JsiiProjectOptions {
   readonly terraformProvider: string;
@@ -117,6 +84,7 @@ export class CdktfProviderProject extends cdk.JsiiProject {
         )}-go`,
         gitUserEmail: "github-team-tf-cdk@hashicorp.com",
         gitUserName: "CDK for Terraform Team",
+        packageName: providerName.replace(/-/g, ""),
       },
     };
 
@@ -161,12 +129,8 @@ export class CdktfProviderProject extends cdk.JsiiProject {
         name: "team-tf-cdk",
         email: "github-team-tf-cdk@hashicorp.com",
       },
-      // sets major version to 1 for the first version but resets it for future versions to allow them to automatically increase to e.g. v2 if breaking changes occurred
-      majorVersion: options.forceMajorVersion ?? getMajorVersion(repository),
+      minMajorVersion: 1, // ensure new projects start with 1.0.0 so that every following breaking change leads to an increased major version
     });
-
-    // workaround because JsiiProject does not support setting packageName
-    this.manifest.jsii.targets.go.packageName = providerName.replace(/-/g, "");
 
     // Golang needs more memory to build
     this.tasks.addEnvironment("NODE_OPTIONS", "--max-old-space-size=7168");

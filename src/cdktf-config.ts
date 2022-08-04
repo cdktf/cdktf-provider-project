@@ -41,7 +41,7 @@ export class CdktfConfig {
       },
     });
     // execute projen after fetch to ensure that updates to version.json are picked up in package.json
-    fetchTask.spawn(project.defaultTask);
+    fetchTask.spawn(project.tasks.tryFind("default")!);
 
     project.setScript(
       "commit",
