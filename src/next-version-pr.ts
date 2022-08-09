@@ -55,8 +55,7 @@ export class NextVersionPr {
           // Replace 'cdktfVersion: "0.12.0"' with 'cdktfVersion: "<next>"'
           run: [
             // We need this to get the full tag of the @next version
-            `yarn upgrade cdktf@next`,
-            `CDKTF_VERSION=$(jq .devDependencies.cdktf -r < package.json)`,
+            `CDKTF_VERSION=$(yarn info cdktf --json | jq -r '.data | .["dist-tags"] | .next')`,
             `sed -i "s/cdktfVersion: \".*\",/cdktfVersion: \\"$CDKTF_VERSION\\",/" .projenrc.js`,
             `cat .projenrc.js`,
           ].join("\n"),
