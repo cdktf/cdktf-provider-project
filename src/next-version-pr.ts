@@ -66,7 +66,7 @@ export class NextVersionPr {
         },
         {
           name: "Regenerate bindings",
-          run: "npx cdktf get",
+          run: "yarn run fetch && yarn run compile && yarn run docgen",
         },
         {
           name: "Create PR",
