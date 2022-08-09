@@ -79,6 +79,7 @@ export class NextVersionPr {
             title: "chore: preview upgrading CDKTF to @next version",
             "delete-branch": true,
             draft: true,
+            body: "DO NOT MERGE! This is an automated PR that tests the pre-built provider generation against preview builds of CDKTF",
           },
         },
       ],
