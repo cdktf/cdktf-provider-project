@@ -75,7 +75,7 @@ export class NextVersionPr {
             token: githubSecret,
             branch: "cdktf-next-pr",
             "branch-suffix": "random",
-            "commit-message": "chore: upgrade CDKTF to next version",
+            "commit-message": "chore: upgrade CDKTF to @next preview version",
             title: "chore: preview upgrading CDKTF to @next version",
             "delete-branch": true,
             draft: true,
