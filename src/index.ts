@@ -1,10 +1,11 @@
 /* eslint-disable @typescript-eslint/no-require-imports */
 import assert = require("assert");
 import { pascalCase } from "change-case";
-import { cdk, Task } from "projen";
+import { cdk } from "projen";
 import { AutoMerge } from "./auto-merge";
 import { CdktfConfig } from "./cdktf-config";
 import { GithubIssues } from "./github-issues";
+import { NextVersionPr } from "./next-version-pr";
 import { PackageInfo } from "./package-info";
 import { ProviderUpgrade } from "./provider-upgrade";
 
@@ -135,13 +136,6 @@ export class CdktfProviderProject extends cdk.JsiiProject {
     // Golang needs more memory to build
     this.tasks.addEnvironment("NODE_OPTIONS", "--max-old-space-size=7168");
 
-    // TODO: make an upstream PR to projen to not have to do this dance
-    // set GH_TOKEN: ${{ secrets.GITHUB_TOKEN }} during build so the gh CLI can be used
-    const buildTask = (this as any).buildWorkflow!.buildTask as Task;
-    (buildTask as any)._locked = false;
-    buildTask.env("GH_TOKEN", "${{ secrets.GITHUB_TOKEN }}");
-    (buildTask as any)._locked = true;
-
     this.tasks.addEnvironment("CHECKPOINT_DISABLE", "1");
 
     new CdktfConfig(this, {
@@ -156,5 +150,6 @@ export class CdktfProviderProject extends cdk.JsiiProject {
     new ProviderUpgrade(this);
     new AutoMerge(this);
     new GithubIssues(this, { providerName });
+    new NextVersionPr(this, "${{ secrets.GITHUB_TOKEN }}");
   }
 }
