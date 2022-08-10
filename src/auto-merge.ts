@@ -1,5 +1,7 @@
 import { javascript } from "projen";
 
+const minute = 60_000;
+
 /**
  * Checks for new versions of the given provider and creates a PR with an upgrade change if there are changes.
  */
@@ -41,7 +43,7 @@ export class AutoMerge {
             env: {
               GITHUB_TOKEN: "${{ secrets.GH_TOKEN }}",
               MERGE_RETRIES: "20",
-              MERGE_RETRY_SLEEP: "60000",
+              MERGE_RETRY_SLEEP: `${minute * 5}`,
             },
           },
         ],
