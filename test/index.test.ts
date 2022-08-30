@@ -37,3 +37,9 @@ test("build runs without crash reporting", () => {
 
   expect(snapshot["cdktf.json"]).toHaveProperty("sendCrashReports", false);
 });
+
+test("synths with custom Github runners", () => {
+  const snapshot = synthSnapshot(getProject({ useCustomGithubRunner: true }));
+
+  expect(snapshot).toMatchSnapshot();
+});
