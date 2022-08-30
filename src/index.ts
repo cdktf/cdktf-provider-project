@@ -12,6 +12,7 @@ import { ProviderUpgrade } from "./provider-upgrade";
 const version = require("../version.json").version;
 
 export interface CdktfProviderProjectOptions extends cdk.JsiiProjectOptions {
+  readonly useCustomGithubRunner?: boolean;
   readonly terraformProvider: string;
   readonly cdktfVersion: string;
   readonly constructsVersion: string;

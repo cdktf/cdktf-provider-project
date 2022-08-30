@@ -2095,6 +2095,16 @@ public readonly jsiiVersion: string;
 
 ---
 
+##### `useCustomGithubRunner`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.useCustomGithubRunner"></a>
+
+```typescript
+public readonly useCustomGithubRunner: boolean;
+```
+
+- *Type:* `boolean`
+
+---
+
 ## Classes <a name="Classes"></a>
 
 ### CdktfProviderProject <a name="@cdktf/provider-project.CdktfProviderProject"></a>
