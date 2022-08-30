@@ -57,13 +57,13 @@
     "json-schema": "^0.3.0",
     "npm-check-updates": "^15",
     "prettier": "^2.5.1",
-    "projen": "0.60.16",
+    "projen": "0.61.35",
     "standard-version": "^9",
     "ts-jest": "^27",
     "typescript": "^4.4.4"
   },
   "peerDependencies": {
-    "projen": "^0.60.16"
+    "projen": "^0.61.35"
   },
   "dependencies": {
     "change-case": "^4.1.2",
