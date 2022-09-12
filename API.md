@@ -2098,6 +2098,18 @@ public readonly forceMajorVersion: number;
 
 ---
 
+##### `githubNamespace`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.githubNamespace"></a>
+
+```typescript
+public readonly githubNamespace: string;
+```
+
+- *Type:* `string`
+
+defaults to "hashicorp".
+
+---
+
 ##### `jsiiVersion`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.jsiiVersion"></a>
 
 ```typescript
@@ -2105,6 +2117,40 @@ public readonly jsiiVersion: string;
 ```
 
 - *Type:* `string`
+
+---
+
+##### `mavenEndpoint`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.mavenEndpoint"></a>
+
+```typescript
+public readonly mavenEndpoint: string;
+```
+
+- *Type:* `string`
+
+---
+
+##### `namespace`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.namespace"></a>
+
+```typescript
+public readonly namespace: string;
+```
+
+- *Type:* `string`
+
+defaults to "cdktf".
+
+---
+
+##### `nugetOrg`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.nugetOrg"></a>
+
+```typescript
+public readonly nugetOrg: string;
+```
+
+- *Type:* `string`
+
+defaults to "HashiCorp".
 
 ---
 

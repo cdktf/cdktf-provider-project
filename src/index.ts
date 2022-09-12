@@ -18,13 +18,22 @@ export interface CdktfProviderProjectOptions extends cdk.JsiiProjectOptions {
   readonly constructsVersion: string;
   readonly jsiiVersion?: string;
   readonly forceMajorVersion?: number;
+  /**
+   * defaults to "cdktf"
+   */
+  readonly namespace?: string;
+  /**
+   * defaults to "hashicorp"
+   */
+  readonly githubNamespace?: string;
+  readonly mavenEndpoint?: string;
+  /**
+   * defaults to "HashiCorp"
+   */
+  readonly nugetOrg?: string;
 }
 
-const authorName = "HashiCorp";
 const authorAddress = "https://hashicorp.com";
-const namespace = "cdktf";
-const githubNamespace = "hashicorp";
-
 const getMavenName = (providerName: string): string => {
   return ["null", "random"].includes(providerName)
     ? `${providerName}_provider`
@@ -39,6 +48,11 @@ export class CdktfProviderProject extends cdk.JsiiProject {
       constructsVersion,
       minNodeVersion,
       jsiiVersion,
+      authorName = "HashiCorp",
+      namespace = "cdktf",
+      githubNamespace = "hashicorp",
+      mavenEndpoint = "https://hashicorp.oss.sonatype.org",
+      nugetOrg = "HashiCorp",
     } = options;
     const [fqproviderName, providerVersion] = terraformProvider.split("@");
     const providerName = fqproviderName.split("/").pop();
@@ -48,7 +62,7 @@ export class CdktfProviderProject extends cdk.JsiiProject {
       "providerName may not end with '-go' as this can conflict with repos for go packages"
     );
 
-    const nugetName = `HashiCorp.${pascalCase(
+    const nugetName = `${nugetOrg}.${pascalCase(
       namespace
     )}.Providers.${pascalCase(providerName)}`;
     const mavenName = `com.${githubNamespace}.cdktf.providers.${getMavenName(
@@ -76,11 +90,11 @@ export class CdktfProviderProject extends cdk.JsiiProject {
       publishToMaven: {
         javaPackage: mavenName,
         mavenGroupId: `com.${githubNamespace}`,
-        mavenArtifactId: `cdktf-provider-${providerName}`,
-        mavenEndpoint: "https://hashicorp.oss.sonatype.org",
+        mavenArtifactId: `${namespace}-provider-${providerName}`,
+        mavenEndpoint,
       },
       publishToGo: {
-        moduleName: `github.com/hashicorp/cdktf-provider-${providerName.replace(
+        moduleName: `github.com/${githubNamespace}/${namespace}-provider-${providerName.replace(
           /-/g,
           ""
         )}-go`,
@@ -90,7 +104,7 @@ export class CdktfProviderProject extends cdk.JsiiProject {
       },
     };
 
-    const repository = `${githubNamespace}/cdktf-provider-${providerName.replace(
+    const repository = `${githubNamespace}/${namespace}-provider-${providerName.replace(
       /-/g,
       ""
     )}`;
