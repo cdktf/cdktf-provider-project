@@ -27,6 +27,10 @@ export interface CdktfProviderProjectOptions extends cdk.JsiiProjectOptions {
    */
   readonly githubNamespace?: string;
   readonly mavenEndpoint?: string;
+  /**
+   * defaults to "HashiCorp"
+   */
+  readonly nugetOrg?: string;
 }
 
 const authorAddress = "https://hashicorp.com";
@@ -48,6 +52,7 @@ export class CdktfProviderProject extends cdk.JsiiProject {
       namespace = "cdktf",
       githubNamespace = "hashicorp",
       mavenEndpoint = "https://hashicorp.oss.sonatype.org",
+      nugetOrg = "HashiCorp",
     } = options;
     const [fqproviderName, providerVersion] = terraformProvider.split("@");
     const providerName = fqproviderName.split("/").pop();
@@ -57,7 +62,7 @@ export class CdktfProviderProject extends cdk.JsiiProject {
       "providerName may not end with '-go' as this can conflict with repos for go packages"
     );
 
-    const nugetName = `${authorName}.${pascalCase(
+    const nugetName = `${nugetOrg}.${pascalCase(
       namespace
     )}.Providers.${pascalCase(providerName)}`;
     const mavenName = `com.${githubNamespace}.cdktf.providers.${getMavenName(

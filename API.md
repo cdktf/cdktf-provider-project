@@ -2106,6 +2106,8 @@ public readonly githubNamespace: string;
 
 - *Type:* `string`
 
+defaults to "hashicorp".
+
 ---
 
 ##### `jsiiVersion`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.jsiiVersion"></a>
@@ -2135,6 +2137,20 @@ public readonly namespace: string;
 ```
 
 - *Type:* `string`
+
+defaults to "cdktf".
+
+---
+
+##### `nugetOrg`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.nugetOrg"></a>
+
+```typescript
+public readonly nugetOrg: string;
+```
+
+- *Type:* `string`
+
+defaults to "HashiCorp".
 
 ---
 
