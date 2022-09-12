@@ -2098,10 +2098,40 @@ public readonly forceMajorVersion: number;
 
 ---
 
+##### `githubNamespace`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.githubNamespace"></a>
+
+```typescript
+public readonly githubNamespace: string;
+```
+
+- *Type:* `string`
+
+---
+
 ##### `jsiiVersion`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.jsiiVersion"></a>
 
 ```typescript
 public readonly jsiiVersion: string;
+```
+
+- *Type:* `string`
+
+---
+
+##### `mavenEndpoint`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.mavenEndpoint"></a>
+
+```typescript
+public readonly mavenEndpoint: string;
+```
+
+- *Type:* `string`
+
+---
+
+##### `namespace`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.namespace"></a>
+
+```typescript
+public readonly namespace: string;
 ```
 
 - *Type:* `string`
