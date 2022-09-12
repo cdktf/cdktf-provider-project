@@ -19,6 +19,9 @@ export interface CdktfProviderProjectOptions extends cdk.JsiiProjectOptions {
   readonly jsiiVersion?: string;
   readonly forceMajorVersion?: number;
   readonly namespace?: string;
+  /**
+   * defaults to "hashicorp"
+   */
   readonly githubNamespace?: string;
   readonly mavenEndpoint?: string;
 }
