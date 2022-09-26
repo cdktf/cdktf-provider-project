@@ -2106,7 +2106,7 @@ public readonly githubNamespace: string;
 
 - *Type:* `string`
 
-defaults to "hashicorp".
+defaults to "cdktf" previously was "hashicorp".
 
 ---
 
@@ -2127,6 +2127,18 @@ public readonly mavenEndpoint: string;
 ```
 
 - *Type:* `string`
+
+---
+
+##### `mavenOrg`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.mavenOrg"></a>
+
+```typescript
+public readonly mavenOrg: string;
+```
+
+- *Type:* `string`
+
+defaults to "hashicorp".
 
 ---
 
