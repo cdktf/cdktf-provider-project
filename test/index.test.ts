@@ -46,7 +46,7 @@ test("synths with custom Github runners", () => {
 
 test("synths with an advanced version range syntax", () => {
   const snapshot = synthSnapshot(
-    getProject({ cdktfVersion: "^0.12.2 || ^0.13.0" })
+    getProject({ cdktfVersion: ">=0.12.2 <0.14.0" })
   );
 
   expect(snapshot).toMatchSnapshot();
