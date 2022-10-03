@@ -23,7 +23,8 @@ export interface CdktfProviderProjectOptions extends cdk.JsiiProjectOptions {
    */
   readonly namespace?: string;
   /**
-   * defaults to "hashicorp"
+   * defaults to "cdktf"
+   * previously was "hashicorp"
    */
   readonly githubNamespace?: string;
   readonly mavenEndpoint?: string;
@@ -31,6 +32,10 @@ export interface CdktfProviderProjectOptions extends cdk.JsiiProjectOptions {
    * defaults to "HashiCorp"
    */
   readonly nugetOrg?: string;
+  /**
+   * defaults to "hashicorp"
+   */
+  readonly mavenOrg?: string;
 }
 
 const authorAddress = "https://hashicorp.com";
@@ -50,9 +55,10 @@ export class CdktfProviderProject extends cdk.JsiiProject {
       jsiiVersion,
       authorName = "HashiCorp",
       namespace = "cdktf",
-      githubNamespace = "hashicorp",
+      githubNamespace = "cdktf",
       mavenEndpoint = "https://hashicorp.oss.sonatype.org",
       nugetOrg = "HashiCorp",
+      mavenOrg = "hashicorp",
     } = options;
     const [fqproviderName, providerVersion] = terraformProvider.split("@");
     const providerName = fqproviderName.split("/").pop();
@@ -65,7 +71,7 @@ export class CdktfProviderProject extends cdk.JsiiProject {
     const nugetName = `${nugetOrg}.${pascalCase(
       namespace
     )}.Providers.${pascalCase(providerName)}`;
-    const mavenName = `com.${githubNamespace}.cdktf.providers.${getMavenName(
+    const mavenName = `com.${mavenOrg}.cdktf.providers.${getMavenName(
       providerName
     )}`;
 
@@ -89,7 +95,7 @@ export class CdktfProviderProject extends cdk.JsiiProject {
       },
       publishToMaven: {
         javaPackage: mavenName,
-        mavenGroupId: `com.${githubNamespace}`,
+        mavenGroupId: `com.${mavenOrg}`,
         mavenArtifactId: `${namespace}-provider-${providerName}`,
         mavenEndpoint,
       },

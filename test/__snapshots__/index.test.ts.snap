@@ -3750,7 +3750,7 @@ The repository is managed by [Repository Manager](https://github.com/hashicorp/c
           "packageId": "HashiCorp.Cdktf.Providers.Random",
         },
         "go": Object {
-          "moduleName": "github.com/hashicorp/cdktf-provider-random-go",
+          "moduleName": "github.com/cdktf/cdktf-provider-random-go",
           "packageName": "random",
         },
         "java": Object {
@@ -3789,7 +3789,7 @@ The repository is managed by [Repository Manager](https://github.com/hashicorp/c
     },
     "repository": Object {
       "type": "git",
-      "url": "https://github.com/hashicorp/cdktf-provider-random.git",
+      "url": "https://github.com/cdktf/cdktf-provider-random.git",
     },
     "resolutions": Object {
       "@types/prettier": "2.6.0",
@@ -5663,7 +5663,7 @@ The repository is managed by [Repository Manager](https://github.com/hashicorp/c
           "packageId": "HashiCorp.Cdktf.Providers.Random",
         },
         "go": Object {
-          "moduleName": "github.com/hashicorp/cdktf-provider-random-go",
+          "moduleName": "github.com/cdktf/cdktf-provider-random-go",
           "packageName": "random",
         },
         "java": Object {
@@ -5702,7 +5702,7 @@ The repository is managed by [Repository Manager](https://github.com/hashicorp/c
     },
     "repository": Object {
       "type": "git",
-      "url": "https://github.com/hashicorp/cdktf-provider-random.git",
+      "url": "https://github.com/cdktf/cdktf-provider-random.git",
     },
     "resolutions": Object {
       "@types/prettier": "2.6.0",
