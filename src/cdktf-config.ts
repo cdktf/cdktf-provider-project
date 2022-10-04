@@ -13,6 +13,7 @@ interface CdktfConfigOptions {
   cdktfVersion: string;
   constructsVersion: string;
   packageInfo: PackageInfo;
+  githubNamespace: string;
   jsiiVersion?: string;
 }
 
