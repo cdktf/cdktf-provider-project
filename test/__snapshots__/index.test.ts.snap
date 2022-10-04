@@ -1702,9 +1702,9 @@ The Maven package is available at [https://mvnrepository.com/artifact/com.hashic
 
 ### Go
 
-The go package is generated into the [\`github.com/hashicorp/cdktf-provider-random-go\`](https://github.com/hashicorp/cdktf-provider-random-go) package.
+The go package is generated into the [\`github.com/cdktf/cdktf-provider-random-go\`](https://github.com/cdktf/cdktf-provider-random-go) package.
 
-\`go get github.com/hashicorp/cdktf-provider-random-go/random\`
+\`go get github.com/cdktf/cdktf-provider-random-go/random\`
 
 ## Docs
 
@@ -1795,7 +1795,7 @@ The repository is managed by [Repository Manager](https://github.com/hashicorp/c
           "packageId": "HashiCorp.Cdktf.Providers.Random",
         },
         "go": Object {
-          "moduleName": "github.com/hashicorp/cdktf-provider-random-go",
+          "moduleName": "github.com/cdktf/cdktf-provider-random-go",
           "packageName": "random",
         },
         "java": Object {
@@ -1834,7 +1834,7 @@ The repository is managed by [Repository Manager](https://github.com/hashicorp/c
     },
     "repository": Object {
       "type": "git",
-      "url": "https://github.com/hashicorp/cdktf-provider-random.git",
+      "url": "https://github.com/cdktf/cdktf-provider-random.git",
     },
     "resolutions": Object {
       "@types/prettier": "2.6.0",
@@ -3657,9 +3657,9 @@ The Maven package is available at [https://mvnrepository.com/artifact/com.hashic
 
 ### Go
 
-The go package is generated into the [\`github.com/hashicorp/cdktf-provider-random-go\`](https://github.com/hashicorp/cdktf-provider-random-go) package.
+The go package is generated into the [\`github.com/cdktf/cdktf-provider-random-go\`](https://github.com/cdktf/cdktf-provider-random-go) package.
 
-\`go get github.com/hashicorp/cdktf-provider-random-go/random\`
+\`go get github.com/cdktf/cdktf-provider-random-go/random\`
 
 ## Docs
 
@@ -5570,9 +5570,9 @@ The Maven package is available at [https://mvnrepository.com/artifact/com.hashic
 
 ### Go
 
-The go package is generated into the [\`github.com/hashicorp/cdktf-provider-random-go\`](https://github.com/hashicorp/cdktf-provider-random-go) package.
+The go package is generated into the [\`github.com/cdktf/cdktf-provider-random-go\`](https://github.com/cdktf/cdktf-provider-random-go) package.
 
-\`go get github.com/hashicorp/cdktf-provider-random-go/random\`
+\`go get github.com/cdktf/cdktf-provider-random-go/random\`
 
 ## Docs
 

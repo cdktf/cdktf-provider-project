@@ -170,6 +170,7 @@ export class CdktfProviderProject extends cdk.JsiiProject {
       constructsVersion,
       jsiiVersion,
       packageInfo,
+      githubNamespace,
     });
     new ProviderUpgrade(this);
     new AutoMerge(this);
