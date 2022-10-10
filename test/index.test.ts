@@ -51,3 +51,12 @@ test("synths with an advanced version range syntax", () => {
 
   expect(snapshot).toMatchSnapshot();
 });
+
+test("sets minMajorVersion to 1 by default so that breaking changes increast the major version", () => {
+  const snapshot = synthSnapshot(getProject());
+
+  expect(snapshot[".projen/tasks.json"]).toHaveProperty(
+    "tasks.release.env.MIN_MAJOR",
+    "1"
+  );
+});
