@@ -92,13 +92,13 @@ jobs:
         run: yarn install --check-files
       - name: build
         run: npx projen build
-      - id: self_mutation
-        name: Find mutations
+      - name: Find mutations
+        id: self_mutation
         run: |-
           git add .
           git diff --staged --patch --exit-code > .repo.patch || echo \\"::set-output name=self_mutation_happened::true\\"
-      - if: steps.self_mutation.outputs.self_mutation_happened
-        name: Upload patch
+      - name: Upload patch
+        if: steps.self_mutation.outputs.self_mutation_happened
         uses: actions/upload-artifact@v2
         with:
           name: .repo.patch
@@ -109,6 +109,9 @@ jobs:
           echo \\"::error::Files were changed during build (see build log). If this was triggered from a fork, you will need to update your branch.\\"
           cat .repo.patch
           exit 1
+      - name: Backup artifact permissions
+        run: cd dist && getfacl -R . > permissions-backup.acl
+        continue-on-error: true
       - name: Upload artifact
         uses: actions/upload-artifact@v2.1.1
         with:
@@ -159,6 +162,9 @@ jobs:
         with:
           name: build-artifact
           path: dist
+      - name: Restore build artifact permissions
+        run: cd dist && setfacl --restore=permissions-backup.acl
+        continue-on-error: true
       - name: Prepare Repository
         run: mv dist .repo
       - name: Install Dependencies
@@ -185,6 +191,9 @@ jobs:
         with:
           name: build-artifact
           path: dist
+      - name: Restore build artifact permissions
+        run: cd dist && setfacl --restore=permissions-backup.acl
+        continue-on-error: true
       - name: Prepare Repository
         run: mv dist .repo
       - name: Install Dependencies
@@ -210,6 +219,9 @@ jobs:
         with:
           name: build-artifact
           path: dist
+      - name: Restore build artifact permissions
+        run: cd dist && setfacl --restore=permissions-backup.acl
+        continue-on-error: true
       - name: Prepare Repository
         run: mv dist .repo
       - name: Install Dependencies
@@ -235,6 +247,9 @@ jobs:
         with:
           name: build-artifact
           path: dist
+      - name: Restore build artifact permissions
+        run: cd dist && setfacl --restore=permissions-backup.acl
+        continue-on-error: true
       - name: Prepare Repository
         run: mv dist .repo
       - name: Install Dependencies
@@ -260,6 +275,9 @@ jobs:
         with:
           name: build-artifact
           path: dist
+      - name: Restore build artifact permissions
+        run: cd dist && setfacl --restore=permissions-backup.acl
+        continue-on-error: true
       - name: Prepare Repository
         run: mv dist .repo
       - name: Install Dependencies
@@ -290,6 +308,8 @@ jobs:
           ref: \${{ github.event.pull_request.head.ref }}
           repository: \${{ github.event.pull_request.head.repo.full_name }}
       - name: Remove old PR
+        env:
+          GH_TOKEN: \${{ secrets.GITHUB_TOKEN }}
         run: |-
           PR_NUMBER_TO_CLOSE=$(gh pr list | grep \\"cdktf-next-pr\\" | awk '{ print $1 }')
           if [ -z \\"$PR_NUMBER_TO_CLOSE\\" ]; then
@@ -297,8 +317,6 @@ jobs:
           else
             gh pr close $PR_NUMBER_TO_CLOSE
           fi
-        env:
-          GH_TOKEN: \${{ secrets.GITHUB_TOKEN }}
       - name: Install
         run: yarn install
       - name: Upgrade CDKTF
@@ -341,10 +359,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - run: yarn install
-      - run: yarn fetch
-        env:
+      - env:
           CHECKPOINT_DISABLE: \\"1\\"
           GH_TOKEN: \${{ secrets.GITHUB_TOKEN }}
+        run: yarn fetch
       - run: yarn compile
       - run: yarn docgen
       - name: Create Pull Request
@@ -422,6 +440,10 @@ jobs:
       - name: Check for new commits
         id: git_remote
         run: echo ::set-output name=latest_commit::\\"$(git ls-remote origin -h \${{ github.ref }} | cut -f1)\\"
+      - name: Backup artifact permissions
+        if: \${{ steps.git_remote.outputs.latest_commit == github.sha }}
+        run: cd dist && getfacl -R . > permissions-backup.acl
+        continue-on-error: true
       - name: Upload artifact
         if: \${{ steps.git_remote.outputs.latest_commit == github.sha }}
         uses: actions/upload-artifact@v2.1.1
@@ -447,29 +469,32 @@ jobs:
         with:
           name: build-artifact
           path: dist
+      - name: Restore build artifact permissions
+        run: cd dist && setfacl --restore=permissions-backup.acl
+        continue-on-error: true
       - name: Prepare Repository
         run: mv dist .repo
       - name: Collect GitHub Metadata
         run: mv .repo/dist dist
       - name: Release
-        run: errout=$(mktemp); gh release create $(cat dist/releasetag.txt) -R $GITHUB_REPOSITORY -F dist/changelog.md -t $(cat dist/releasetag.txt) --target $GITHUB_REF 2> $errout && true; exitcode=$?; if [ $exitcode -ne 0 ] && ! grep -q \\"Release.tag_name already exists\\" $errout; then cat $errout; exit $exitcode; fi
         env:
           GITHUB_TOKEN: \${{ secrets.GITHUB_TOKEN }}
           GITHUB_REPOSITORY: \${{ github.repository }}
           GITHUB_REF: \${{ github.ref }}
+        run: errout=$(mktemp); gh release create $(cat dist/releasetag.txt) -R $GITHUB_REPOSITORY -F dist/changelog.md -t $(cat dist/releasetag.txt) --target $GITHUB_REF 2> $errout && true; exitcode=$?; if [ $exitcode -ne 0 ] && ! grep -q \\"Release.tag_name already exists\\" $errout; then cat $errout; exit $exitcode; fi
       - name: Extract Version
-        if: \${{ failure() }}
         id: extract-version
+        if: \${{ failure() }}
         run: echo \\"::set-output name=VERSION::$(cat dist/version.txt)\\"
       - name: Create Issue
         if: \${{ failure() }}
         uses: imjohnbo/issue-bot@v3
+        env:
+          GITHUB_TOKEN: \${{ secrets.GITHUB_TOKEN }}
         with:
           labels: failed-release
           title: Publishing v\${{ steps.extract-version.outputs.VERSION }} to GitHub Releases failed
           body: See https://github.com/\${{ github.repository }}/actions/runs/\${{ github.run_id }}
-        env:
-          GITHUB_TOKEN: \${{ secrets.GITHUB_TOKEN }}
   release_npm:
     name: Publish to npm
     needs: release
@@ -487,6 +512,9 @@ jobs:
         with:
           name: build-artifact
           path: dist
+      - name: Restore build artifact permissions
+        run: cd dist && setfacl --restore=permissions-backup.acl
+        continue-on-error: true
       - name: Prepare Repository
         run: mv dist .repo
       - name: Install Dependencies
@@ -496,24 +524,24 @@ jobs:
       - name: Collect js Artifact
         run: mv .repo/dist dist
       - name: Release
-        run: npx -p publib@latest publib-npm
         env:
           NPM_DIST_TAG: latest
           NPM_REGISTRY: registry.npmjs.org
           NPM_TOKEN: \${{ secrets.NPM_TOKEN }}
+        run: npx -p publib@latest publib-npm
       - name: Extract Version
-        if: \${{ failure() }}
         id: extract-version
+        if: \${{ failure() }}
         run: echo \\"::set-output name=VERSION::$(cat dist/version.txt)\\"
       - name: Create Issue
         if: \${{ failure() }}
         uses: imjohnbo/issue-bot@v3
+        env:
+          GITHUB_TOKEN: \${{ secrets.GITHUB_TOKEN }}
         with:
           labels: failed-release
           title: Publishing v\${{ steps.extract-version.outputs.VERSION }} to npm failed
           body: See https://github.com/\${{ github.repository }}/actions/runs/\${{ github.run_id }}
-        env:
-          GITHUB_TOKEN: \${{ secrets.GITHUB_TOKEN }}
   release_maven:
     name: Publish to Maven Central
     needs: release
@@ -535,6 +563,9 @@ jobs:
         with:
           name: build-artifact
           path: dist
+      - name: Restore build artifact permissions
+        run: cd dist && setfacl --restore=permissions-backup.acl
+        continue-on-error: true
       - name: Prepare Repository
         run: mv dist .repo
       - name: Install Dependencies
@@ -544,7 +575,6 @@ jobs:
       - name: Collect java Artifact
         run: mv .repo/dist dist
       - name: Release
-        run: npx -p publib@latest publib-maven
         env:
           MAVEN_ENDPOINT: https://hashicorp.oss.sonatype.org
           MAVEN_GPG_PRIVATE_KEY: \${{ secrets.MAVEN_GPG_PRIVATE_KEY }}
@@ -552,19 +582,20 @@ jobs:
           MAVEN_PASSWORD: \${{ secrets.MAVEN_PASSWORD }}
           MAVEN_USERNAME: \${{ secrets.MAVEN_USERNAME }}
           MAVEN_STAGING_PROFILE_ID: \${{ secrets.MAVEN_STAGING_PROFILE_ID }}
+        run: npx -p publib@latest publib-maven
       - name: Extract Version
-        if: \${{ failure() }}
         id: extract-version
+        if: \${{ failure() }}
         run: echo \\"::set-output name=VERSION::$(cat dist/version.txt)\\"
       - name: Create Issue
         if: \${{ failure() }}
         uses: imjohnbo/issue-bot@v3
+        env:
+          GITHUB_TOKEN: \${{ secrets.GITHUB_TOKEN }}
         with:
           labels: failed-release
           title: Publishing v\${{ steps.extract-version.outputs.VERSION }} to Maven Central failed
           body: See https://github.com/\${{ github.repository }}/actions/runs/\${{ github.run_id }}
-        env:
-          GITHUB_TOKEN: \${{ secrets.GITHUB_TOKEN }}
   release_pypi:
     name: Publish to PyPI
     needs: release
@@ -585,6 +616,9 @@ jobs:
         with:
           name: build-artifact
           path: dist
+      - name: Restore build artifact permissions
+        run: cd dist && setfacl --restore=permissions-backup.acl
+        continue-on-error: true
       - name: Prepare Repository
         run: mv dist .repo
       - name: Install Dependencies
@@ -594,23 +628,23 @@ jobs:
       - name: Collect python Artifact
         run: mv .repo/dist dist
       - name: Release
-        run: npx -p publib@latest publib-pypi
         env:
           TWINE_USERNAME: \${{ secrets.TWINE_USERNAME }}
           TWINE_PASSWORD: \${{ secrets.TWINE_PASSWORD }}
+        run: npx -p publib@latest publib-pypi
       - name: Extract Version
-        if: \${{ failure() }}
         id: extract-version
+        if: \${{ failure() }}
         run: echo \\"::set-output name=VERSION::$(cat dist/version.txt)\\"
       - name: Create Issue
         if: \${{ failure() }}
         uses: imjohnbo/issue-bot@v3
+        env:
+          GITHUB_TOKEN: \${{ secrets.GITHUB_TOKEN }}
         with:
           labels: failed-release
           title: Publishing v\${{ steps.extract-version.outputs.VERSION }} to PyPI failed
           body: See https://github.com/\${{ github.repository }}/actions/runs/\${{ github.run_id }}
-        env:
-          GITHUB_TOKEN: \${{ secrets.GITHUB_TOKEN }}
   release_nuget:
     name: Publish to NuGet Gallery
     needs: release
@@ -631,6 +665,9 @@ jobs:
         with:
           name: build-artifact
           path: dist
+      - name: Restore build artifact permissions
+        run: cd dist && setfacl --restore=permissions-backup.acl
+        continue-on-error: true
       - name: Prepare Repository
         run: mv dist .repo
       - name: Install Dependencies
@@ -640,22 +677,22 @@ jobs:
       - name: Collect dotnet Artifact
         run: mv .repo/dist dist
       - name: Release
-        run: npx -p publib@latest publib-nuget
         env:
           NUGET_API_KEY: \${{ secrets.NUGET_API_KEY }}
+        run: npx -p publib@latest publib-nuget
       - name: Extract Version
-        if: \${{ failure() }}
         id: extract-version
+        if: \${{ failure() }}
         run: echo \\"::set-output name=VERSION::$(cat dist/version.txt)\\"
       - name: Create Issue
         if: \${{ failure() }}
         uses: imjohnbo/issue-bot@v3
+        env:
+          GITHUB_TOKEN: \${{ secrets.GITHUB_TOKEN }}
         with:
           labels: failed-release
           title: Publishing v\${{ steps.extract-version.outputs.VERSION }} to NuGet Gallery failed
           body: See https://github.com/\${{ github.repository }}/actions/runs/\${{ github.run_id }}
-        env:
-          GITHUB_TOKEN: \${{ secrets.GITHUB_TOKEN }}
   release_golang:
     name: Publish to GitHub Go Module Repository
     needs: release
@@ -676,6 +713,9 @@ jobs:
         with:
           name: build-artifact
           path: dist
+      - name: Restore build artifact permissions
+        run: cd dist && setfacl --restore=permissions-backup.acl
+        continue-on-error: true
       - name: Prepare Repository
         run: mv dist .repo
       - name: Install Dependencies
@@ -685,24 +725,24 @@ jobs:
       - name: Collect go Artifact
         run: mv .repo/dist dist
       - name: Release
-        run: npx -p publib@latest publib-golang
         env:
           GIT_USER_NAME: CDK for Terraform Team
           GIT_USER_EMAIL: github-team-tf-cdk@hashicorp.com
           GITHUB_TOKEN: \${{ secrets.GO_GITHUB_TOKEN }}
+        run: npx -p publib@latest publib-golang
       - name: Extract Version
-        if: \${{ failure() }}
         id: extract-version
+        if: \${{ failure() }}
         run: echo \\"::set-output name=VERSION::$(cat dist/version.txt)\\"
       - name: Create Issue
         if: \${{ failure() }}
         uses: imjohnbo/issue-bot@v3
+        env:
+          GITHUB_TOKEN: \${{ secrets.GITHUB_TOKEN }}
         with:
           labels: failed-release
           title: Publishing v\${{ steps.extract-version.outputs.VERSION }} to GitHub Go Module Repository failed
           body: See https://github.com/\${{ github.repository }}/actions/runs/\${{ github.run_id }}
-        env:
-          GITHUB_TOKEN: \${{ secrets.GITHUB_TOKEN }}
 ",
   ".github/workflows/upgrade-main.yml": "# ~~ Generated by projen. To modify, edit .projenrc.js and run \\"npx projen\\".
 
@@ -728,13 +768,13 @@ jobs:
         run: yarn install --check-files --frozen-lockfile
       - name: Upgrade dependencies
         run: npx projen upgrade
-      - id: create_patch
-        name: Find mutations
+      - name: Find mutations
+        id: create_patch
         run: |-
           git add .
           git diff --staged --patch --exit-code > .repo.patch || echo \\"::set-output name=patch_created::true\\"
-      - if: steps.create_patch.outputs.patch_created
-        name: Upload patch
+      - name: Upload patch
+        if: steps.create_patch.outputs.patch_created
         uses: actions/upload-artifact@v2
         with:
           name: .repo.patch
@@ -855,6 +895,7 @@ package-lock.json
 ",
   ".npmignore": "# ~~ Generated by projen. To modify, edit .projenrc.js and run \\"npx projen\\".
 /.projen/
+permissions-backup.acl
 /dist/changelog.md
 /dist/version.txt
 /test/
@@ -941,6 +982,21 @@ cdktf.json
       Object {
         "name": "typescript",
         "type": "build",
+      },
+      Object {
+        "name": "@types/prettier",
+        "type": "override",
+        "version": "2.6.0",
+      },
+      Object {
+        "name": "@types/responselike",
+        "type": "override",
+        "version": "1.0.0",
+      },
+      Object {
+        "name": "got",
+        "type": "override",
+        "version": "12.3.1",
       },
       Object {
         "name": "cdktf",
@@ -1217,6 +1273,7 @@ UNEXPECTED BREAKING CHANGES: add keys such as 'removed:constructs.Node.of' to .c
       "release": Object {
         "description": "Prepare a release from \\"main\\" branch",
         "env": Object {
+          "MIN_MAJOR": "1",
           "RELEASE": "true",
         },
         "name": "release",
@@ -1838,6 +1895,8 @@ The repository is managed by [Repository Manager](https://github.com/hashicorp/c
     },
     "resolutions": Object {
       "@types/prettier": "2.6.0",
+      "@types/responselike": "1.0.0",
+      "got": "12.3.1",
     },
     "scripts": Object {
       "build": "npx projen build",
@@ -2008,13 +2067,13 @@ jobs:
         run: yarn install --check-files
       - name: build
         run: npx projen build
-      - id: self_mutation
-        name: Find mutations
+      - name: Find mutations
+        id: self_mutation
         run: |-
           git add .
           git diff --staged --patch --exit-code > .repo.patch || echo \\"::set-output name=self_mutation_happened::true\\"
-      - if: steps.self_mutation.outputs.self_mutation_happened
-        name: Upload patch
+      - name: Upload patch
+        if: steps.self_mutation.outputs.self_mutation_happened
         uses: actions/upload-artifact@v2
         with:
           name: .repo.patch
@@ -2025,6 +2084,9 @@ jobs:
           echo \\"::error::Files were changed during build (see build log). If this was triggered from a fork, you will need to update your branch.\\"
           cat .repo.patch
           exit 1
+      - name: Backup artifact permissions
+        run: cd dist && getfacl -R . > permissions-backup.acl
+        continue-on-error: true
       - name: Upload artifact
         uses: actions/upload-artifact@v2.1.1
         with:
@@ -2081,6 +2143,9 @@ jobs:
         with:
           name: build-artifact
           path: dist
+      - name: Restore build artifact permissions
+        run: cd dist && setfacl --restore=permissions-backup.acl
+        continue-on-error: true
       - name: Prepare Repository
         run: mv dist .repo
       - name: Install Dependencies
@@ -2110,6 +2175,9 @@ jobs:
         with:
           name: build-artifact
           path: dist
+      - name: Restore build artifact permissions
+        run: cd dist && setfacl --restore=permissions-backup.acl
+        continue-on-error: true
       - name: Prepare Repository
         run: mv dist .repo
       - name: Install Dependencies
@@ -2138,6 +2206,9 @@ jobs:
         with:
           name: build-artifact
           path: dist
+      - name: Restore build artifact permissions
+        run: cd dist && setfacl --restore=permissions-backup.acl
+        continue-on-error: true
       - name: Prepare Repository
         run: mv dist .repo
       - name: Install Dependencies
@@ -2166,6 +2237,9 @@ jobs:
         with:
           name: build-artifact
           path: dist
+      - name: Restore build artifact permissions
+        run: cd dist && setfacl --restore=permissions-backup.acl
+        continue-on-error: true
       - name: Prepare Repository
         run: mv dist .repo
       - name: Install Dependencies
@@ -2194,6 +2268,9 @@ jobs:
         with:
           name: build-artifact
           path: dist
+      - name: Restore build artifact permissions
+        run: cd dist && setfacl --restore=permissions-backup.acl
+        continue-on-error: true
       - name: Prepare Repository
         run: mv dist .repo
       - name: Install Dependencies
@@ -2224,6 +2301,8 @@ jobs:
           ref: \${{ github.event.pull_request.head.ref }}
           repository: \${{ github.event.pull_request.head.repo.full_name }}
       - name: Remove old PR
+        env:
+          GH_TOKEN: \${{ secrets.GITHUB_TOKEN }}
         run: |-
           PR_NUMBER_TO_CLOSE=$(gh pr list | grep \\"cdktf-next-pr\\" | awk '{ print $1 }')
           if [ -z \\"$PR_NUMBER_TO_CLOSE\\" ]; then
@@ -2231,8 +2310,6 @@ jobs:
           else
             gh pr close $PR_NUMBER_TO_CLOSE
           fi
-        env:
-          GH_TOKEN: \${{ secrets.GITHUB_TOKEN }}
       - name: Install
         run: yarn install
       - name: Upgrade CDKTF
@@ -2275,10 +2352,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - run: yarn install
-      - run: yarn fetch
-        env:
+      - env:
           CHECKPOINT_DISABLE: \\"1\\"
           GH_TOKEN: \${{ secrets.GITHUB_TOKEN }}
+        run: yarn fetch
       - run: yarn compile
       - run: yarn docgen
       - name: Create Pull Request
@@ -2359,6 +2436,10 @@ jobs:
       - name: Check for new commits
         id: git_remote
         run: echo ::set-output name=latest_commit::\\"$(git ls-remote origin -h \${{ github.ref }} | cut -f1)\\"
+      - name: Backup artifact permissions
+        if: \${{ steps.git_remote.outputs.latest_commit == github.sha }}
+        run: cd dist && getfacl -R . > permissions-backup.acl
+        continue-on-error: true
       - name: Upload artifact
         if: \${{ steps.git_remote.outputs.latest_commit == github.sha }}
         uses: actions/upload-artifact@v2.1.1
@@ -2387,29 +2468,32 @@ jobs:
         with:
           name: build-artifact
           path: dist
+      - name: Restore build artifact permissions
+        run: cd dist && setfacl --restore=permissions-backup.acl
+        continue-on-error: true
       - name: Prepare Repository
         run: mv dist .repo
       - name: Collect GitHub Metadata
         run: mv .repo/dist dist
       - name: Release
-        run: errout=$(mktemp); gh release create $(cat dist/releasetag.txt) -R $GITHUB_REPOSITORY -F dist/changelog.md -t $(cat dist/releasetag.txt) --target $GITHUB_REF 2> $errout && true; exitcode=$?; if [ $exitcode -ne 0 ] && ! grep -q \\"Release.tag_name already exists\\" $errout; then cat $errout; exit $exitcode; fi
         env:
           GITHUB_TOKEN: \${{ secrets.GITHUB_TOKEN }}
           GITHUB_REPOSITORY: \${{ github.repository }}
           GITHUB_REF: \${{ github.ref }}
+        run: errout=$(mktemp); gh release create $(cat dist/releasetag.txt) -R $GITHUB_REPOSITORY -F dist/changelog.md -t $(cat dist/releasetag.txt) --target $GITHUB_REF 2> $errout && true; exitcode=$?; if [ $exitcode -ne 0 ] && ! grep -q \\"Release.tag_name already exists\\" $errout; then cat $errout; exit $exitcode; fi
       - name: Extract Version
-        if: \${{ failure() }}
         id: extract-version
+        if: \${{ failure() }}
         run: echo \\"::set-output name=VERSION::$(cat dist/version.txt)\\"
       - name: Create Issue
         if: \${{ failure() }}
         uses: imjohnbo/issue-bot@v3
+        env:
+          GITHUB_TOKEN: \${{ secrets.GITHUB_TOKEN }}
         with:
           labels: failed-release
           title: Publishing v\${{ steps.extract-version.outputs.VERSION }} to GitHub Releases failed
           body: See https://github.com/\${{ github.repository }}/actions/runs/\${{ github.run_id }}
-        env:
-          GITHUB_TOKEN: \${{ secrets.GITHUB_TOKEN }}
   release_npm:
     name: Publish to npm
     needs: release
@@ -2430,6 +2514,9 @@ jobs:
         with:
           name: build-artifact
           path: dist
+      - name: Restore build artifact permissions
+        run: cd dist && setfacl --restore=permissions-backup.acl
+        continue-on-error: true
       - name: Prepare Repository
         run: mv dist .repo
       - name: Install Dependencies
@@ -2439,24 +2526,24 @@ jobs:
       - name: Collect js Artifact
         run: mv .repo/dist dist
       - name: Release
-        run: npx -p publib@latest publib-npm
         env:
           NPM_DIST_TAG: latest
           NPM_REGISTRY: registry.npmjs.org
           NPM_TOKEN: \${{ secrets.NPM_TOKEN }}
+        run: npx -p publib@latest publib-npm
       - name: Extract Version
-        if: \${{ failure() }}
         id: extract-version
+        if: \${{ failure() }}
         run: echo \\"::set-output name=VERSION::$(cat dist/version.txt)\\"
       - name: Create Issue
         if: \${{ failure() }}
         uses: imjohnbo/issue-bot@v3
+        env:
+          GITHUB_TOKEN: \${{ secrets.GITHUB_TOKEN }}
         with:
           labels: failed-release
           title: Publishing v\${{ steps.extract-version.outputs.VERSION }} to npm failed
           body: See https://github.com/\${{ github.repository }}/actions/runs/\${{ github.run_id }}
-        env:
-          GITHUB_TOKEN: \${{ secrets.GITHUB_TOKEN }}
   release_maven:
     name: Publish to Maven Central
     needs: release
@@ -2481,6 +2568,9 @@ jobs:
         with:
           name: build-artifact
           path: dist
+      - name: Restore build artifact permissions
+        run: cd dist && setfacl --restore=permissions-backup.acl
+        continue-on-error: true
       - name: Prepare Repository
         run: mv dist .repo
       - name: Install Dependencies
@@ -2490,7 +2580,6 @@ jobs:
       - name: Collect java Artifact
         run: mv .repo/dist dist
       - name: Release
-        run: npx -p publib@latest publib-maven
         env:
           MAVEN_ENDPOINT: https://hashicorp.oss.sonatype.org
           MAVEN_GPG_PRIVATE_KEY: \${{ secrets.MAVEN_GPG_PRIVATE_KEY }}
@@ -2498,19 +2587,20 @@ jobs:
           MAVEN_PASSWORD: \${{ secrets.MAVEN_PASSWORD }}
           MAVEN_USERNAME: \${{ secrets.MAVEN_USERNAME }}
           MAVEN_STAGING_PROFILE_ID: \${{ secrets.MAVEN_STAGING_PROFILE_ID }}
+        run: npx -p publib@latest publib-maven
       - name: Extract Version
-        if: \${{ failure() }}
         id: extract-version
+        if: \${{ failure() }}
         run: echo \\"::set-output name=VERSION::$(cat dist/version.txt)\\"
       - name: Create Issue
         if: \${{ failure() }}
         uses: imjohnbo/issue-bot@v3
+        env:
+          GITHUB_TOKEN: \${{ secrets.GITHUB_TOKEN }}
         with:
           labels: failed-release
           title: Publishing v\${{ steps.extract-version.outputs.VERSION }} to Maven Central failed
           body: See https://github.com/\${{ github.repository }}/actions/runs/\${{ github.run_id }}
-        env:
-          GITHUB_TOKEN: \${{ secrets.GITHUB_TOKEN }}
   release_pypi:
     name: Publish to PyPI
     needs: release
@@ -2534,6 +2624,9 @@ jobs:
         with:
           name: build-artifact
           path: dist
+      - name: Restore build artifact permissions
+        run: cd dist && setfacl --restore=permissions-backup.acl
+        continue-on-error: true
       - name: Prepare Repository
         run: mv dist .repo
       - name: Install Dependencies
@@ -2543,23 +2636,23 @@ jobs:
       - name: Collect python Artifact
         run: mv .repo/dist dist
       - name: Release
-        run: npx -p publib@latest publib-pypi
         env:
           TWINE_USERNAME: \${{ secrets.TWINE_USERNAME }}
           TWINE_PASSWORD: \${{ secrets.TWINE_PASSWORD }}
+        run: npx -p publib@latest publib-pypi
       - name: Extract Version
-        if: \${{ failure() }}
         id: extract-version
+        if: \${{ failure() }}
         run: echo \\"::set-output name=VERSION::$(cat dist/version.txt)\\"
       - name: Create Issue
         if: \${{ failure() }}
         uses: imjohnbo/issue-bot@v3
+        env:
+          GITHUB_TOKEN: \${{ secrets.GITHUB_TOKEN }}
         with:
           labels: failed-release
           title: Publishing v\${{ steps.extract-version.outputs.VERSION }} to PyPI failed
           body: See https://github.com/\${{ github.repository }}/actions/runs/\${{ github.run_id }}
-        env:
-          GITHUB_TOKEN: \${{ secrets.GITHUB_TOKEN }}
   release_nuget:
     name: Publish to NuGet Gallery
     needs: release
@@ -2583,6 +2676,9 @@ jobs:
         with:
           name: build-artifact
           path: dist
+      - name: Restore build artifact permissions
+        run: cd dist && setfacl --restore=permissions-backup.acl
+        continue-on-error: true
       - name: Prepare Repository
         run: mv dist .repo
       - name: Install Dependencies
@@ -2592,22 +2688,22 @@ jobs:
       - name: Collect dotnet Artifact
         run: mv .repo/dist dist
       - name: Release
-        run: npx -p publib@latest publib-nuget
         env:
           NUGET_API_KEY: \${{ secrets.NUGET_API_KEY }}
+        run: npx -p publib@latest publib-nuget
       - name: Extract Version
-        if: \${{ failure() }}
         id: extract-version
+        if: \${{ failure() }}
         run: echo \\"::set-output name=VERSION::$(cat dist/version.txt)\\"
       - name: Create Issue
         if: \${{ failure() }}
         uses: imjohnbo/issue-bot@v3
+        env:
+          GITHUB_TOKEN: \${{ secrets.GITHUB_TOKEN }}
         with:
           labels: failed-release
           title: Publishing v\${{ steps.extract-version.outputs.VERSION }} to NuGet Gallery failed
           body: See https://github.com/\${{ github.repository }}/actions/runs/\${{ github.run_id }}
-        env:
-          GITHUB_TOKEN: \${{ secrets.GITHUB_TOKEN }}
   release_golang:
     name: Publish to GitHub Go Module Repository
     needs: release
@@ -2631,6 +2727,9 @@ jobs:
         with:
           name: build-artifact
           path: dist
+      - name: Restore build artifact permissions
+        run: cd dist && setfacl --restore=permissions-backup.acl
+        continue-on-error: true
       - name: Prepare Repository
         run: mv dist .repo
       - name: Install Dependencies
@@ -2640,24 +2739,24 @@ jobs:
       - name: Collect go Artifact
         run: mv .repo/dist dist
       - name: Release
-        run: npx -p publib@latest publib-golang
         env:
           GIT_USER_NAME: CDK for Terraform Team
           GIT_USER_EMAIL: github-team-tf-cdk@hashicorp.com
           GITHUB_TOKEN: \${{ secrets.GO_GITHUB_TOKEN }}
+        run: npx -p publib@latest publib-golang
       - name: Extract Version
-        if: \${{ failure() }}
         id: extract-version
+        if: \${{ failure() }}
         run: echo \\"::set-output name=VERSION::$(cat dist/version.txt)\\"
       - name: Create Issue
         if: \${{ failure() }}
         uses: imjohnbo/issue-bot@v3
+        env:
+          GITHUB_TOKEN: \${{ secrets.GITHUB_TOKEN }}
         with:
           labels: failed-release
           title: Publishing v\${{ steps.extract-version.outputs.VERSION }} to GitHub Go Module Repository failed
           body: See https://github.com/\${{ github.repository }}/actions/runs/\${{ github.run_id }}
-        env:
-          GITHUB_TOKEN: \${{ secrets.GITHUB_TOKEN }}
 ",
   ".github/workflows/upgrade-main.yml": "# ~~ Generated by projen. To modify, edit .projenrc.js and run \\"npx projen\\".
 
@@ -2683,13 +2782,13 @@ jobs:
         run: yarn install --check-files --frozen-lockfile
       - name: Upgrade dependencies
         run: npx projen upgrade
-      - id: create_patch
-        name: Find mutations
+      - name: Find mutations
+        id: create_patch
         run: |-
           git add .
           git diff --staged --patch --exit-code > .repo.patch || echo \\"::set-output name=patch_created::true\\"
-      - if: steps.create_patch.outputs.patch_created
-        name: Upload patch
+      - name: Upload patch
+        if: steps.create_patch.outputs.patch_created
         uses: actions/upload-artifact@v2
         with:
           name: .repo.patch
@@ -2810,6 +2909,7 @@ package-lock.json
 ",
   ".npmignore": "# ~~ Generated by projen. To modify, edit .projenrc.js and run \\"npx projen\\".
 /.projen/
+permissions-backup.acl
 /dist/changelog.md
 /dist/version.txt
 /test/
@@ -2896,6 +2996,21 @@ cdktf.json
       Object {
         "name": "typescript",
         "type": "build",
+      },
+      Object {
+        "name": "@types/prettier",
+        "type": "override",
+        "version": "2.6.0",
+      },
+      Object {
+        "name": "@types/responselike",
+        "type": "override",
+        "version": "1.0.0",
+      },
+      Object {
+        "name": "got",
+        "type": "override",
+        "version": "12.3.1",
       },
       Object {
         "name": "cdktf",
@@ -3172,6 +3287,7 @@ UNEXPECTED BREAKING CHANGES: add keys such as 'removed:constructs.Node.of' to .c
       "release": Object {
         "description": "Prepare a release from \\"main\\" branch",
         "env": Object {
+          "MIN_MAJOR": "1",
           "RELEASE": "true",
         },
         "name": "release",
@@ -3793,6 +3909,8 @@ The repository is managed by [Repository Manager](https://github.com/hashicorp/c
     },
     "resolutions": Object {
       "@types/prettier": "2.6.0",
+      "@types/responselike": "1.0.0",
+      "got": "12.3.1",
     },
     "scripts": Object {
       "build": "npx projen build",
@@ -3960,13 +4078,13 @@ jobs:
         run: yarn install --check-files
       - name: build
         run: npx projen build
-      - id: self_mutation
-        name: Find mutations
+      - name: Find mutations
+        id: self_mutation
         run: |-
           git add .
           git diff --staged --patch --exit-code > .repo.patch || echo \\"::set-output name=self_mutation_happened::true\\"
-      - if: steps.self_mutation.outputs.self_mutation_happened
-        name: Upload patch
+      - name: Upload patch
+        if: steps.self_mutation.outputs.self_mutation_happened
         uses: actions/upload-artifact@v2
         with:
           name: .repo.patch
@@ -3977,6 +4095,9 @@ jobs:
           echo \\"::error::Files were changed during build (see build log). If this was triggered from a fork, you will need to update your branch.\\"
           cat .repo.patch
           exit 1
+      - name: Backup artifact permissions
+        run: cd dist && getfacl -R . > permissions-backup.acl
+        continue-on-error: true
       - name: Upload artifact
         uses: actions/upload-artifact@v2.1.1
         with:
@@ -4027,6 +4148,9 @@ jobs:
         with:
           name: build-artifact
           path: dist
+      - name: Restore build artifact permissions
+        run: cd dist && setfacl --restore=permissions-backup.acl
+        continue-on-error: true
       - name: Prepare Repository
         run: mv dist .repo
       - name: Install Dependencies
@@ -4053,6 +4177,9 @@ jobs:
         with:
           name: build-artifact
           path: dist
+      - name: Restore build artifact permissions
+        run: cd dist && setfacl --restore=permissions-backup.acl
+        continue-on-error: true
       - name: Prepare Repository
         run: mv dist .repo
       - name: Install Dependencies
@@ -4078,6 +4205,9 @@ jobs:
         with:
           name: build-artifact
           path: dist
+      - name: Restore build artifact permissions
+        run: cd dist && setfacl --restore=permissions-backup.acl
+        continue-on-error: true
       - name: Prepare Repository
         run: mv dist .repo
       - name: Install Dependencies
@@ -4103,6 +4233,9 @@ jobs:
         with:
           name: build-artifact
           path: dist
+      - name: Restore build artifact permissions
+        run: cd dist && setfacl --restore=permissions-backup.acl
+        continue-on-error: true
       - name: Prepare Repository
         run: mv dist .repo
       - name: Install Dependencies
@@ -4128,6 +4261,9 @@ jobs:
         with:
           name: build-artifact
           path: dist
+      - name: Restore build artifact permissions
+        run: cd dist && setfacl --restore=permissions-backup.acl
+        continue-on-error: true
       - name: Prepare Repository
         run: mv dist .repo
       - name: Install Dependencies
@@ -4158,6 +4294,8 @@ jobs:
           ref: \${{ github.event.pull_request.head.ref }}
           repository: \${{ github.event.pull_request.head.repo.full_name }}
       - name: Remove old PR
+        env:
+          GH_TOKEN: \${{ secrets.GITHUB_TOKEN }}
         run: |-
           PR_NUMBER_TO_CLOSE=$(gh pr list | grep \\"cdktf-next-pr\\" | awk '{ print $1 }')
           if [ -z \\"$PR_NUMBER_TO_CLOSE\\" ]; then
@@ -4165,8 +4303,6 @@ jobs:
           else
             gh pr close $PR_NUMBER_TO_CLOSE
           fi
-        env:
-          GH_TOKEN: \${{ secrets.GITHUB_TOKEN }}
       - name: Install
         run: yarn install
       - name: Upgrade CDKTF
@@ -4209,10 +4345,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - run: yarn install
-      - run: yarn fetch
-        env:
+      - env:
           CHECKPOINT_DISABLE: \\"1\\"
           GH_TOKEN: \${{ secrets.GITHUB_TOKEN }}
+        run: yarn fetch
       - run: yarn compile
       - run: yarn docgen
       - name: Create Pull Request
@@ -4290,6 +4426,10 @@ jobs:
       - name: Check for new commits
         id: git_remote
         run: echo ::set-output name=latest_commit::\\"$(git ls-remote origin -h \${{ github.ref }} | cut -f1)\\"
+      - name: Backup artifact permissions
+        if: \${{ steps.git_remote.outputs.latest_commit == github.sha }}
+        run: cd dist && getfacl -R . > permissions-backup.acl
+        continue-on-error: true
       - name: Upload artifact
         if: \${{ steps.git_remote.outputs.latest_commit == github.sha }}
         uses: actions/upload-artifact@v2.1.1
@@ -4315,29 +4455,32 @@ jobs:
         with:
           name: build-artifact
           path: dist
+      - name: Restore build artifact permissions
+        run: cd dist && setfacl --restore=permissions-backup.acl
+        continue-on-error: true
       - name: Prepare Repository
         run: mv dist .repo
       - name: Collect GitHub Metadata
         run: mv .repo/dist dist
       - name: Release
-        run: errout=$(mktemp); gh release create $(cat dist/releasetag.txt) -R $GITHUB_REPOSITORY -F dist/changelog.md -t $(cat dist/releasetag.txt) --target $GITHUB_REF 2> $errout && true; exitcode=$?; if [ $exitcode -ne 0 ] && ! grep -q \\"Release.tag_name already exists\\" $errout; then cat $errout; exit $exitcode; fi
         env:
           GITHUB_TOKEN: \${{ secrets.GITHUB_TOKEN }}
           GITHUB_REPOSITORY: \${{ github.repository }}
           GITHUB_REF: \${{ github.ref }}
+        run: errout=$(mktemp); gh release create $(cat dist/releasetag.txt) -R $GITHUB_REPOSITORY -F dist/changelog.md -t $(cat dist/releasetag.txt) --target $GITHUB_REF 2> $errout && true; exitcode=$?; if [ $exitcode -ne 0 ] && ! grep -q \\"Release.tag_name already exists\\" $errout; then cat $errout; exit $exitcode; fi
       - name: Extract Version
-        if: \${{ failure() }}
         id: extract-version
+        if: \${{ failure() }}
         run: echo \\"::set-output name=VERSION::$(cat dist/version.txt)\\"
       - name: Create Issue
         if: \${{ failure() }}
         uses: imjohnbo/issue-bot@v3
+        env:
+          GITHUB_TOKEN: \${{ secrets.GITHUB_TOKEN }}
         with:
           labels: failed-release
           title: Publishing v\${{ steps.extract-version.outputs.VERSION }} to GitHub Releases failed
           body: See https://github.com/\${{ github.repository }}/actions/runs/\${{ github.run_id }}
-        env:
-          GITHUB_TOKEN: \${{ secrets.GITHUB_TOKEN }}
   release_npm:
     name: Publish to npm
     needs: release
@@ -4355,6 +4498,9 @@ jobs:
         with:
           name: build-artifact
           path: dist
+      - name: Restore build artifact permissions
+        run: cd dist && setfacl --restore=permissions-backup.acl
+        continue-on-error: true
       - name: Prepare Repository
         run: mv dist .repo
       - name: Install Dependencies
@@ -4364,24 +4510,24 @@ jobs:
       - name: Collect js Artifact
         run: mv .repo/dist dist
       - name: Release
-        run: npx -p publib@latest publib-npm
         env:
           NPM_DIST_TAG: latest
           NPM_REGISTRY: registry.npmjs.org
           NPM_TOKEN: \${{ secrets.NPM_TOKEN }}
+        run: npx -p publib@latest publib-npm
       - name: Extract Version
-        if: \${{ failure() }}
         id: extract-version
+        if: \${{ failure() }}
         run: echo \\"::set-output name=VERSION::$(cat dist/version.txt)\\"
       - name: Create Issue
         if: \${{ failure() }}
         uses: imjohnbo/issue-bot@v3
+        env:
+          GITHUB_TOKEN: \${{ secrets.GITHUB_TOKEN }}
         with:
           labels: failed-release
           title: Publishing v\${{ steps.extract-version.outputs.VERSION }} to npm failed
           body: See https://github.com/\${{ github.repository }}/actions/runs/\${{ github.run_id }}
-        env:
-          GITHUB_TOKEN: \${{ secrets.GITHUB_TOKEN }}
   release_maven:
     name: Publish to Maven Central
     needs: release
@@ -4403,6 +4549,9 @@ jobs:
         with:
           name: build-artifact
           path: dist
+      - name: Restore build artifact permissions
+        run: cd dist && setfacl --restore=permissions-backup.acl
+        continue-on-error: true
       - name: Prepare Repository
         run: mv dist .repo
       - name: Install Dependencies
@@ -4412,7 +4561,6 @@ jobs:
       - name: Collect java Artifact
         run: mv .repo/dist dist
       - name: Release
-        run: npx -p publib@latest publib-maven
         env:
           MAVEN_ENDPOINT: https://hashicorp.oss.sonatype.org
           MAVEN_GPG_PRIVATE_KEY: \${{ secrets.MAVEN_GPG_PRIVATE_KEY }}
@@ -4420,19 +4568,20 @@ jobs:
           MAVEN_PASSWORD: \${{ secrets.MAVEN_PASSWORD }}
           MAVEN_USERNAME: \${{ secrets.MAVEN_USERNAME }}
           MAVEN_STAGING_PROFILE_ID: \${{ secrets.MAVEN_STAGING_PROFILE_ID }}
+        run: npx -p publib@latest publib-maven
       - name: Extract Version
-        if: \${{ failure() }}
         id: extract-version
+        if: \${{ failure() }}
         run: echo \\"::set-output name=VERSION::$(cat dist/version.txt)\\"
       - name: Create Issue
         if: \${{ failure() }}
         uses: imjohnbo/issue-bot@v3
+        env:
+          GITHUB_TOKEN: \${{ secrets.GITHUB_TOKEN }}
         with:
           labels: failed-release
           title: Publishing v\${{ steps.extract-version.outputs.VERSION }} to Maven Central failed
           body: See https://github.com/\${{ github.repository }}/actions/runs/\${{ github.run_id }}
-        env:
-          GITHUB_TOKEN: \${{ secrets.GITHUB_TOKEN }}
   release_pypi:
     name: Publish to PyPI
     needs: release
@@ -4453,6 +4602,9 @@ jobs:
         with:
           name: build-artifact
           path: dist
+      - name: Restore build artifact permissions
+        run: cd dist && setfacl --restore=permissions-backup.acl
+        continue-on-error: true
       - name: Prepare Repository
         run: mv dist .repo
       - name: Install Dependencies
@@ -4462,23 +4614,23 @@ jobs:
       - name: Collect python Artifact
         run: mv .repo/dist dist
       - name: Release
-        run: npx -p publib@latest publib-pypi
         env:
           TWINE_USERNAME: \${{ secrets.TWINE_USERNAME }}
           TWINE_PASSWORD: \${{ secrets.TWINE_PASSWORD }}
+        run: npx -p publib@latest publib-pypi
       - name: Extract Version
-        if: \${{ failure() }}
         id: extract-version
+        if: \${{ failure() }}
         run: echo \\"::set-output name=VERSION::$(cat dist/version.txt)\\"
       - name: Create Issue
         if: \${{ failure() }}
         uses: imjohnbo/issue-bot@v3
+        env:
+          GITHUB_TOKEN: \${{ secrets.GITHUB_TOKEN }}
         with:
           labels: failed-release
           title: Publishing v\${{ steps.extract-version.outputs.VERSION }} to PyPI failed
           body: See https://github.com/\${{ github.repository }}/actions/runs/\${{ github.run_id }}
-        env:
-          GITHUB_TOKEN: \${{ secrets.GITHUB_TOKEN }}
   release_nuget:
     name: Publish to NuGet Gallery
     needs: release
@@ -4499,6 +4651,9 @@ jobs:
         with:
           name: build-artifact
           path: dist
+      - name: Restore build artifact permissions
+        run: cd dist && setfacl --restore=permissions-backup.acl
+        continue-on-error: true
       - name: Prepare Repository
         run: mv dist .repo
       - name: Install Dependencies
@@ -4508,22 +4663,22 @@ jobs:
       - name: Collect dotnet Artifact
         run: mv .repo/dist dist
       - name: Release
-        run: npx -p publib@latest publib-nuget
         env:
           NUGET_API_KEY: \${{ secrets.NUGET_API_KEY }}
+        run: npx -p publib@latest publib-nuget
       - name: Extract Version
-        if: \${{ failure() }}
         id: extract-version
+        if: \${{ failure() }}
         run: echo \\"::set-output name=VERSION::$(cat dist/version.txt)\\"
       - name: Create Issue
         if: \${{ failure() }}
         uses: imjohnbo/issue-bot@v3
+        env:
+          GITHUB_TOKEN: \${{ secrets.GITHUB_TOKEN }}
         with:
           labels: failed-release
           title: Publishing v\${{ steps.extract-version.outputs.VERSION }} to NuGet Gallery failed
           body: See https://github.com/\${{ github.repository }}/actions/runs/\${{ github.run_id }}
-        env:
-          GITHUB_TOKEN: \${{ secrets.GITHUB_TOKEN }}
   release_golang:
     name: Publish to GitHub Go Module Repository
     needs: release
@@ -4544,6 +4699,9 @@ jobs:
         with:
           name: build-artifact
           path: dist
+      - name: Restore build artifact permissions
+        run: cd dist && setfacl --restore=permissions-backup.acl
+        continue-on-error: true
       - name: Prepare Repository
         run: mv dist .repo
       - name: Install Dependencies
@@ -4553,24 +4711,24 @@ jobs:
       - name: Collect go Artifact
         run: mv .repo/dist dist
       - name: Release
-        run: npx -p publib@latest publib-golang
         env:
           GIT_USER_NAME: CDK for Terraform Team
           GIT_USER_EMAIL: github-team-tf-cdk@hashicorp.com
           GITHUB_TOKEN: \${{ secrets.GO_GITHUB_TOKEN }}
+        run: npx -p publib@latest publib-golang
       - name: Extract Version
-        if: \${{ failure() }}
         id: extract-version
+        if: \${{ failure() }}
         run: echo \\"::set-output name=VERSION::$(cat dist/version.txt)\\"
       - name: Create Issue
         if: \${{ failure() }}
         uses: imjohnbo/issue-bot@v3
+        env:
+          GITHUB_TOKEN: \${{ secrets.GITHUB_TOKEN }}
         with:
           labels: failed-release
           title: Publishing v\${{ steps.extract-version.outputs.VERSION }} to GitHub Go Module Repository failed
           body: See https://github.com/\${{ github.repository }}/actions/runs/\${{ github.run_id }}
-        env:
-          GITHUB_TOKEN: \${{ secrets.GITHUB_TOKEN }}
 ",
   ".github/workflows/upgrade-main.yml": "# ~~ Generated by projen. To modify, edit .projenrc.js and run \\"npx projen\\".
 
@@ -4596,13 +4754,13 @@ jobs:
         run: yarn install --check-files --frozen-lockfile
       - name: Upgrade dependencies
         run: npx projen upgrade
-      - id: create_patch
-        name: Find mutations
+      - name: Find mutations
+        id: create_patch
         run: |-
           git add .
           git diff --staged --patch --exit-code > .repo.patch || echo \\"::set-output name=patch_created::true\\"
-      - if: steps.create_patch.outputs.patch_created
-        name: Upload patch
+      - name: Upload patch
+        if: steps.create_patch.outputs.patch_created
         uses: actions/upload-artifact@v2
         with:
           name: .repo.patch
@@ -4723,6 +4881,7 @@ package-lock.json
 ",
   ".npmignore": "# ~~ Generated by projen. To modify, edit .projenrc.js and run \\"npx projen\\".
 /.projen/
+permissions-backup.acl
 /dist/changelog.md
 /dist/version.txt
 /test/
@@ -4809,6 +4968,21 @@ cdktf.json
       Object {
         "name": "typescript",
         "type": "build",
+      },
+      Object {
+        "name": "@types/prettier",
+        "type": "override",
+        "version": "2.6.0",
+      },
+      Object {
+        "name": "@types/responselike",
+        "type": "override",
+        "version": "1.0.0",
+      },
+      Object {
+        "name": "got",
+        "type": "override",
+        "version": "12.3.1",
       },
       Object {
         "name": "cdktf",
@@ -5085,6 +5259,7 @@ UNEXPECTED BREAKING CHANGES: add keys such as 'removed:constructs.Node.of' to .c
       "release": Object {
         "description": "Prepare a release from \\"main\\" branch",
         "env": Object {
+          "MIN_MAJOR": "1",
           "RELEASE": "true",
         },
         "name": "release",
@@ -5706,6 +5881,8 @@ The repository is managed by [Repository Manager](https://github.com/hashicorp/c
     },
     "resolutions": Object {
       "@types/prettier": "2.6.0",
+      "@types/responselike": "1.0.0",
+      "got": "12.3.1",
     },
     "scripts": Object {
       "build": "npx projen build",

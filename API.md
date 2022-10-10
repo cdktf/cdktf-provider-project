@@ -1940,6 +1940,19 @@ Name of the ignore file for API compatibility tests.
 
 ---
 
+##### `compressAssembly`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.compressAssembly"></a>
+
+```typescript
+public readonly compressAssembly: boolean;
+```
+
+- *Type:* `boolean`
+- *Default:* false
+
+Emit a compressed version of the assembly.
+
+---
+
 ##### `docgenFilePath`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.docgenFilePath"></a>
 
 ```typescript
