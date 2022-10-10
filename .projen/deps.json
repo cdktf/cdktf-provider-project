@@ -94,7 +94,7 @@
     },
     {
       "name": "projen",
-      "version": "0.61.35",
+      "version": "0.63.13",
       "type": "build"
     },
     {
@@ -120,8 +120,23 @@
       "type": "bundled"
     },
     {
+      "name": "@types/prettier",
+      "version": "2.6.0",
+      "type": "override"
+    },
+    {
+      "name": "@types/responselike",
+      "version": "1.0.0",
+      "type": "override"
+    },
+    {
+      "name": "got",
+      "version": "12.3.1",
+      "type": "override"
+    },
+    {
       "name": "projen",
-      "version": "^0.61.35",
+      "version": "^0.63.13",
       "type": "peer"
     },
     {
