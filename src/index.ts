@@ -8,6 +8,8 @@ import { GithubIssues } from "./github-issues";
 import { NextVersionPr } from "./next-version-pr";
 import { PackageInfo } from "./package-info";
 import { ProviderUpgrade } from "./provider-upgrade";
+import { CheckForUpgradesScriptFile } from "./scripts/check-for-upgrades";
+import { ShouldReleaseScriptFile } from "./scripts/should-release";
 
 const version = require("../version.json").version;
 
@@ -172,9 +174,22 @@ export class CdktfProviderProject extends cdk.JsiiProject {
       packageInfo,
       githubNamespace,
     });
-    new ProviderUpgrade(this);
+    const upgradeScript = new CheckForUpgradesScriptFile(this, {
+      providerVersion,
+      fqproviderName,
+    });
+    console.log({ "upgradeScript.path": upgradeScript.path });
+    new ProviderUpgrade(this, {
+      checkForUpgradesScriptPath: upgradeScript.path,
+    });
     new AutoMerge(this);
     new GithubIssues(this, { providerName });
     new NextVersionPr(this, "${{ secrets.GITHUB_TOKEN }}");
+
+    new ShouldReleaseScriptFile(this, {});
+
+    // hacky di hack hack hack
+    (this.tasks.tryFind("release")!.condition as unknown as any) =
+      "node ./scripts/should-release.js";
   }
 }
