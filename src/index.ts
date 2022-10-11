@@ -178,7 +178,6 @@ export class CdktfProviderProject extends cdk.JsiiProject {
       providerVersion,
       fqproviderName,
     });
-    console.log({ "upgradeScript.path": upgradeScript.path });
     new ProviderUpgrade(this, {
       checkForUpgradesScriptPath: upgradeScript.path,
     });
