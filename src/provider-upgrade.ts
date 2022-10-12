@@ -1,11 +1,21 @@
 import { javascript } from "projen";
 import { JobPermission } from "projen/lib/github/workflows-model";
 
+interface ProviderUpgradeOptions {
+  checkForUpgradesScriptPath: string;
+}
 /**
  * Checks for new versions of the given provider and creates a PR with an upgrade change if there are changes.
  */
 export class ProviderUpgrade {
-  constructor(project: javascript.NodeProject) {
+  constructor(
+    project: javascript.NodeProject,
+    options: ProviderUpgradeOptions
+  ) {
+    project.addTask("check-if-new-provider-version", {
+      exec: `node ./${options.checkForUpgradesScriptPath}`,
+    });
+
     const workflow = project.github?.addWorkflow("provider-upgrade");
 
     if (!workflow) throw new Error("no workflow defined");
@@ -14,6 +24,9 @@ export class ProviderUpgrade {
       schedule: [{ cron: "0 3 * * *" }], // Run every day at 3 O'Clock
       workflowDispatch: {}, // allow manual triggering
     });
+
+    const newerVersionAvailable =
+      '${{ steps.check_version.new_version == "available" }}';
 
     workflow.addJobs({
       upgrade: {
@@ -25,19 +38,25 @@ export class ProviderUpgrade {
           },
           { run: "yarn install" },
           {
+            id: "check_version",
+            run: "yarn check-if-new-provider-version",
+          },
+          {
             run: "yarn fetch",
+            if: newerVersionAvailable,
             env: {
               CHECKPOINT_DISABLE: "1",
               GH_TOKEN: "${{ secrets.GITHUB_TOKEN }}",
             },
           },
           // generate docs
-          { run: "yarn compile" },
-          { run: "yarn docgen" },
+          { run: "yarn compile", if: newerVersionAvailable },
+          { run: "yarn docgen", if: newerVersionAvailable },
 
           // submit a PR
           {
             name: "Create Pull Request",
+            if: newerVersionAvailable,
             uses: "peter-evans/create-pull-request@v3",
             with: {
               "commit-message": "chore: upgrade provider",
