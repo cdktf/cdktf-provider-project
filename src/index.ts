@@ -11,7 +11,7 @@ import { ProviderUpgrade } from "./provider-upgrade";
 import { CheckForUpgradesScriptFile } from "./scripts/check-for-upgrades";
 import { ShouldReleaseScriptFile } from "./scripts/should-release";
 
-const version = require("../version.json").version;
+const version = require("../package.json").version;
 
 export interface CdktfProviderProjectOptions extends cdk.JsiiProjectOptions {
   readonly useCustomGithubRunner?: boolean;
