@@ -123,7 +123,11 @@ export class CdktfProviderProject extends cdk.JsiiProject {
       license: "MPL-2.0",
       releaseToNpm: true,
       minNodeVersion,
-      devDeps: [`@cdktf/provider-project@^${version}`, "dot-prop@^5.2.0"],
+      devDeps: [
+        `@cdktf/provider-project@^${version}`,
+        "@actions/core@^1.1.0",
+        "dot-prop@^5.2.0",
+      ],
       name: packageInfo.npm.name,
       description: `Prebuilt ${providerName} Provider for Terraform CDK (cdktf)`,
       keywords: ["cdktf", "terraform", "cdk", "provider", providerName],
