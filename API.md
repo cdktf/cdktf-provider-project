@@ -2121,6 +2121,8 @@ public readonly githubNamespace: string;
 
 defaults to "cdktf" previously was "hashicorp".
 
+Used for GitHub org name and package scoping
+
 ---
 
 ##### `jsiiVersion`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.jsiiVersion"></a>
