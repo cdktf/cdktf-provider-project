@@ -2,7 +2,6 @@
 import assert = require("assert");
 import { pascalCase } from "change-case";
 import { cdk } from "projen";
-import { AutoMerge } from "./auto-merge";
 import { CdktfConfig } from "./cdktf-config";
 import { GithubIssues } from "./github-issues";
 import { NextVersionPr } from "./next-version-pr";
@@ -161,6 +160,28 @@ export class CdktfProviderProject extends cdk.JsiiProject {
         ? ["custom", "linux", "custom-linux-medium"] // 8 core, 32 GB
         : ["ubuntu-latest"], // 7 GB
       minMajorVersion: 1, // ensure new projects start with 1.0.0 so that every following breaking change leads to an increased major version
+      githubOptions: {
+        mergify: true,
+        mergifyOptions: {
+          rules: [
+            {
+              name: "Automatically approve PRs with automerge label",
+              actions: {
+                review: {
+                  type: "APPROVE",
+                  message: "Automatically approved due to label",
+                },
+              },
+              conditions: [
+                "label=automerge",
+                "-label~=(do-not-merge)",
+                "draft=false",
+                "author=team-tf-cdk",
+              ],
+            },
+          ],
+        },
+      },
     });
 
     // Golang needs more memory to build
@@ -185,7 +206,6 @@ export class CdktfProviderProject extends cdk.JsiiProject {
     new ProviderUpgrade(this, {
       checkForUpgradesScriptPath: upgradeScript.path,
     });
-    new AutoMerge(this);
     new GithubIssues(this, { providerName });
     new NextVersionPr(this, "${{ secrets.GITHUB_TOKEN }}");
 
