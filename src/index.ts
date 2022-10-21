@@ -78,7 +78,7 @@ export class CdktfProviderProject extends cdk.JsiiProject {
 
     const packageInfo: PackageInfo = {
       npm: {
-        name: `@${namespace}/provider-${providerName}`,
+        name: `@${githubNamespace}/provider-${providerName}`,
       },
       python: {
         distName: `${namespace}-cdktf-provider-${providerName.replace(
