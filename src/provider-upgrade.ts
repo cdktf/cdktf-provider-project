@@ -26,7 +26,7 @@ export class ProviderUpgrade {
     });
 
     const newerVersionAvailable =
-      "${{ steps.check_version.new_version == 'available' }}";
+      "${{ steps.check_version.outputs.new_version == 'available' }}";
 
     workflow.addJobs({
       upgrade: {
