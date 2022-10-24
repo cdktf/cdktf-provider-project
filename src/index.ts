@@ -175,7 +175,7 @@ export class CdktfProviderProject extends cdk.JsiiProject {
               conditions: [
                 "label=automerge",
                 "-label~=(do-not-merge)",
-                "draft=false",
+                "-draft",
                 "author=team-tf-cdk",
               ],
             },

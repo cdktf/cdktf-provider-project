@@ -892,7 +892,7 @@ pull_request_rules:
     conditions:
       - label=automerge
       - -label~=(do-not-merge)
-      - draft=false
+      - -draft
       - author=team-tf-cdk
   - name: Automatic merge on approval and successful build
     actions:
@@ -3175,7 +3175,7 @@ pull_request_rules:
     conditions:
       - label=automerge
       - -label~=(do-not-merge)
-      - draft=false
+      - -draft
       - author=team-tf-cdk
   - name: Automatic merge on approval and successful build
     actions:
@@ -5416,7 +5416,7 @@ pull_request_rules:
     conditions:
       - label=automerge
       - -label~=(do-not-merge)
-      - draft=false
+      - -draft
       - author=team-tf-cdk
   - name: Automatic merge on approval and successful build
     actions:
