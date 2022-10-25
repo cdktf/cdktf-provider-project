@@ -65,10 +65,10 @@ jobs:
         id: self_mutation
         run: |-
           git add .
-          git diff --staged --patch --exit-code > .repo.patch || echo \\"::set-output name=self_mutation_happened::true\\"
+          git diff --staged --patch --exit-code > .repo.patch || echo \\"self_mutation_happened=true\\" >> $GITHUB_OUTPUT
       - name: Upload patch
         if: steps.self_mutation.outputs.self_mutation_happened
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: .repo.patch
           path: .repo.patch
@@ -82,7 +82,7 @@ jobs:
         run: cd dist && getfacl -R . > permissions-backup.acl
         continue-on-error: true
       - name: Upload artifact
-        uses: actions/upload-artifact@v2.1.1
+        uses: actions/upload-artifact@v3
         with:
           name: build-artifact
           path: dist
@@ -414,14 +414,14 @@ jobs:
         run: npx projen release
       - name: Check for new commits or cancel via faking a SHA if release was cancelled
         id: git_remote
-        run: node ./scripts/should-release.js && echo ::set-output name=latest_commit::\\"$(git ls-remote origin -h \${{ github.ref }} | cut -f1)\\" || echo ::set-output name=latest_commit::\\"release_cancelled\\"
+        run: node ./scripts/should-release.js && echo \\"latest_commit=$(git ls-remote origin -h \${{ github.ref }} | cut -f1)\\" >> $GITHUB_OUTPUT || echo \\"latest_commit=release_cancelled\\" >> $GITHUB_OUTPUT
       - name: Backup artifact permissions
         if: \${{ steps.git_remote.outputs.latest_commit == github.sha }}
         run: cd dist && getfacl -R . > permissions-backup.acl
         continue-on-error: true
       - name: Upload artifact
         if: \${{ steps.git_remote.outputs.latest_commit == github.sha }}
-        uses: actions/upload-artifact@v2.1.1
+        uses: actions/upload-artifact@v3
         with:
           name: build-artifact
           path: dist
@@ -460,7 +460,7 @@ jobs:
       - name: Extract Version
         id: extract-version
         if: \${{ failure() }}
-        run: echo \\"::set-output name=VERSION::$(cat dist/version.txt)\\"
+        run: echo \\"VERSION=$(cat dist/version.txt)\\" >> $GITHUB_OUTPUT
       - name: Create Issue
         if: \${{ failure() }}
         uses: imjohnbo/issue-bot@v3
@@ -507,7 +507,7 @@ jobs:
       - name: Extract Version
         id: extract-version
         if: \${{ failure() }}
-        run: echo \\"::set-output name=VERSION::$(cat dist/version.txt)\\"
+        run: echo \\"VERSION=$(cat dist/version.txt)\\" >> $GITHUB_OUTPUT
       - name: Create Issue
         if: \${{ failure() }}
         uses: imjohnbo/issue-bot@v3
@@ -561,7 +561,7 @@ jobs:
       - name: Extract Version
         id: extract-version
         if: \${{ failure() }}
-        run: echo \\"::set-output name=VERSION::$(cat dist/version.txt)\\"
+        run: echo \\"VERSION=$(cat dist/version.txt)\\" >> $GITHUB_OUTPUT
       - name: Create Issue
         if: \${{ failure() }}
         uses: imjohnbo/issue-bot@v3
@@ -610,7 +610,7 @@ jobs:
       - name: Extract Version
         id: extract-version
         if: \${{ failure() }}
-        run: echo \\"::set-output name=VERSION::$(cat dist/version.txt)\\"
+        run: echo \\"VERSION=$(cat dist/version.txt)\\" >> $GITHUB_OUTPUT
       - name: Create Issue
         if: \${{ failure() }}
         uses: imjohnbo/issue-bot@v3
@@ -658,7 +658,7 @@ jobs:
       - name: Extract Version
         id: extract-version
         if: \${{ failure() }}
-        run: echo \\"::set-output name=VERSION::$(cat dist/version.txt)\\"
+        run: echo \\"VERSION=$(cat dist/version.txt)\\" >> $GITHUB_OUTPUT
       - name: Create Issue
         if: \${{ failure() }}
         uses: imjohnbo/issue-bot@v3
@@ -708,7 +708,7 @@ jobs:
       - name: Extract Version
         id: extract-version
         if: \${{ failure() }}
-        run: echo \\"::set-output name=VERSION::$(cat dist/version.txt)\\"
+        run: echo \\"VERSION=$(cat dist/version.txt)\\" >> $GITHUB_OUTPUT
       - name: Create Issue
         if: \${{ failure() }}
         uses: imjohnbo/issue-bot@v3
@@ -747,10 +747,10 @@ jobs:
         id: create_patch
         run: |-
           git add .
-          git diff --staged --patch --exit-code > .repo.patch || echo \\"::set-output name=patch_created::true\\"
+          git diff --staged --patch --exit-code > .repo.patch || echo \\"patch_created=true\\" >> $GITHUB_OUTPUT
       - name: Upload patch
         if: steps.create_patch.outputs.patch_created
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: .repo.patch
           path: .repo.patch
@@ -1000,7 +1000,7 @@ cdktf.json
       Object {
         "name": "npm-check-updates",
         "type": "build",
-        "version": "^15",
+        "version": "^16",
       },
       Object {
         "name": "projen",
@@ -1884,7 +1884,7 @@ The repository is managed by [Repository Manager](https://github.com/hashicorp/c
       "jsii-docgen": "*",
       "jsii-pacmak": "*",
       "node-fetch": "cjs",
-      "npm-check-updates": "^15",
+      "npm-check-updates": "^16",
       "projen": "*",
       "standard-version": "^9",
       "typescript": "*",
@@ -2309,10 +2309,10 @@ jobs:
         id: self_mutation
         run: |-
           git add .
-          git diff --staged --patch --exit-code > .repo.patch || echo \\"::set-output name=self_mutation_happened::true\\"
+          git diff --staged --patch --exit-code > .repo.patch || echo \\"self_mutation_happened=true\\" >> $GITHUB_OUTPUT
       - name: Upload patch
         if: steps.self_mutation.outputs.self_mutation_happened
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: .repo.patch
           path: .repo.patch
@@ -2326,7 +2326,7 @@ jobs:
         run: cd dist && getfacl -R . > permissions-backup.acl
         continue-on-error: true
       - name: Upload artifact
-        uses: actions/upload-artifact@v2.1.1
+        uses: actions/upload-artifact@v3
         with:
           name: build-artifact
           path: dist
@@ -2679,14 +2679,14 @@ jobs:
         run: npx projen release
       - name: Check for new commits or cancel via faking a SHA if release was cancelled
         id: git_remote
-        run: node ./scripts/should-release.js && echo ::set-output name=latest_commit::\\"$(git ls-remote origin -h \${{ github.ref }} | cut -f1)\\" || echo ::set-output name=latest_commit::\\"release_cancelled\\"
+        run: node ./scripts/should-release.js && echo \\"latest_commit=$(git ls-remote origin -h \${{ github.ref }} | cut -f1)\\" >> $GITHUB_OUTPUT || echo \\"latest_commit=release_cancelled\\" >> $GITHUB_OUTPUT
       - name: Backup artifact permissions
         if: \${{ steps.git_remote.outputs.latest_commit == github.sha }}
         run: cd dist && getfacl -R . > permissions-backup.acl
         continue-on-error: true
       - name: Upload artifact
         if: \${{ steps.git_remote.outputs.latest_commit == github.sha }}
-        uses: actions/upload-artifact@v2.1.1
+        uses: actions/upload-artifact@v3
         with:
           name: build-artifact
           path: dist
@@ -2728,7 +2728,7 @@ jobs:
       - name: Extract Version
         id: extract-version
         if: \${{ failure() }}
-        run: echo \\"::set-output name=VERSION::$(cat dist/version.txt)\\"
+        run: echo \\"VERSION=$(cat dist/version.txt)\\" >> $GITHUB_OUTPUT
       - name: Create Issue
         if: \${{ failure() }}
         uses: imjohnbo/issue-bot@v3
@@ -2778,7 +2778,7 @@ jobs:
       - name: Extract Version
         id: extract-version
         if: \${{ failure() }}
-        run: echo \\"::set-output name=VERSION::$(cat dist/version.txt)\\"
+        run: echo \\"VERSION=$(cat dist/version.txt)\\" >> $GITHUB_OUTPUT
       - name: Create Issue
         if: \${{ failure() }}
         uses: imjohnbo/issue-bot@v3
@@ -2835,7 +2835,7 @@ jobs:
       - name: Extract Version
         id: extract-version
         if: \${{ failure() }}
-        run: echo \\"::set-output name=VERSION::$(cat dist/version.txt)\\"
+        run: echo \\"VERSION=$(cat dist/version.txt)\\" >> $GITHUB_OUTPUT
       - name: Create Issue
         if: \${{ failure() }}
         uses: imjohnbo/issue-bot@v3
@@ -2887,7 +2887,7 @@ jobs:
       - name: Extract Version
         id: extract-version
         if: \${{ failure() }}
-        run: echo \\"::set-output name=VERSION::$(cat dist/version.txt)\\"
+        run: echo \\"VERSION=$(cat dist/version.txt)\\" >> $GITHUB_OUTPUT
       - name: Create Issue
         if: \${{ failure() }}
         uses: imjohnbo/issue-bot@v3
@@ -2938,7 +2938,7 @@ jobs:
       - name: Extract Version
         id: extract-version
         if: \${{ failure() }}
-        run: echo \\"::set-output name=VERSION::$(cat dist/version.txt)\\"
+        run: echo \\"VERSION=$(cat dist/version.txt)\\" >> $GITHUB_OUTPUT
       - name: Create Issue
         if: \${{ failure() }}
         uses: imjohnbo/issue-bot@v3
@@ -2991,7 +2991,7 @@ jobs:
       - name: Extract Version
         id: extract-version
         if: \${{ failure() }}
-        run: echo \\"::set-output name=VERSION::$(cat dist/version.txt)\\"
+        run: echo \\"VERSION=$(cat dist/version.txt)\\" >> $GITHUB_OUTPUT
       - name: Create Issue
         if: \${{ failure() }}
         uses: imjohnbo/issue-bot@v3
@@ -3030,10 +3030,10 @@ jobs:
         id: create_patch
         run: |-
           git add .
-          git diff --staged --patch --exit-code > .repo.patch || echo \\"::set-output name=patch_created::true\\"
+          git diff --staged --patch --exit-code > .repo.patch || echo \\"patch_created=true\\" >> $GITHUB_OUTPUT
       - name: Upload patch
         if: steps.create_patch.outputs.patch_created
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: .repo.patch
           path: .repo.patch
@@ -3283,7 +3283,7 @@ cdktf.json
       Object {
         "name": "npm-check-updates",
         "type": "build",
-        "version": "^15",
+        "version": "^16",
       },
       Object {
         "name": "projen",
@@ -4167,7 +4167,7 @@ The repository is managed by [Repository Manager](https://github.com/hashicorp/c
       "jsii-docgen": "*",
       "jsii-pacmak": "*",
       "node-fetch": "cjs",
-      "npm-check-updates": "^15",
+      "npm-check-updates": "^16",
       "projen": "*",
       "standard-version": "^9",
       "typescript": "*",
@@ -4589,10 +4589,10 @@ jobs:
         id: self_mutation
         run: |-
           git add .
-          git diff --staged --patch --exit-code > .repo.patch || echo \\"::set-output name=self_mutation_happened::true\\"
+          git diff --staged --patch --exit-code > .repo.patch || echo \\"self_mutation_happened=true\\" >> $GITHUB_OUTPUT
       - name: Upload patch
         if: steps.self_mutation.outputs.self_mutation_happened
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: .repo.patch
           path: .repo.patch
@@ -4606,7 +4606,7 @@ jobs:
         run: cd dist && getfacl -R . > permissions-backup.acl
         continue-on-error: true
       - name: Upload artifact
-        uses: actions/upload-artifact@v2.1.1
+        uses: actions/upload-artifact@v3
         with:
           name: build-artifact
           path: dist
@@ -4938,14 +4938,14 @@ jobs:
         run: npx projen release
       - name: Check for new commits or cancel via faking a SHA if release was cancelled
         id: git_remote
-        run: node ./scripts/should-release.js && echo ::set-output name=latest_commit::\\"$(git ls-remote origin -h \${{ github.ref }} | cut -f1)\\" || echo ::set-output name=latest_commit::\\"release_cancelled\\"
+        run: node ./scripts/should-release.js && echo \\"latest_commit=$(git ls-remote origin -h \${{ github.ref }} | cut -f1)\\" >> $GITHUB_OUTPUT || echo \\"latest_commit=release_cancelled\\" >> $GITHUB_OUTPUT
       - name: Backup artifact permissions
         if: \${{ steps.git_remote.outputs.latest_commit == github.sha }}
         run: cd dist && getfacl -R . > permissions-backup.acl
         continue-on-error: true
       - name: Upload artifact
         if: \${{ steps.git_remote.outputs.latest_commit == github.sha }}
-        uses: actions/upload-artifact@v2.1.1
+        uses: actions/upload-artifact@v3
         with:
           name: build-artifact
           path: dist
@@ -4984,7 +4984,7 @@ jobs:
       - name: Extract Version
         id: extract-version
         if: \${{ failure() }}
-        run: echo \\"::set-output name=VERSION::$(cat dist/version.txt)\\"
+        run: echo \\"VERSION=$(cat dist/version.txt)\\" >> $GITHUB_OUTPUT
       - name: Create Issue
         if: \${{ failure() }}
         uses: imjohnbo/issue-bot@v3
@@ -5031,7 +5031,7 @@ jobs:
       - name: Extract Version
         id: extract-version
         if: \${{ failure() }}
-        run: echo \\"::set-output name=VERSION::$(cat dist/version.txt)\\"
+        run: echo \\"VERSION=$(cat dist/version.txt)\\" >> $GITHUB_OUTPUT
       - name: Create Issue
         if: \${{ failure() }}
         uses: imjohnbo/issue-bot@v3
@@ -5085,7 +5085,7 @@ jobs:
       - name: Extract Version
         id: extract-version
         if: \${{ failure() }}
-        run: echo \\"::set-output name=VERSION::$(cat dist/version.txt)\\"
+        run: echo \\"VERSION=$(cat dist/version.txt)\\" >> $GITHUB_OUTPUT
       - name: Create Issue
         if: \${{ failure() }}
         uses: imjohnbo/issue-bot@v3
@@ -5134,7 +5134,7 @@ jobs:
       - name: Extract Version
         id: extract-version
         if: \${{ failure() }}
-        run: echo \\"::set-output name=VERSION::$(cat dist/version.txt)\\"
+        run: echo \\"VERSION=$(cat dist/version.txt)\\" >> $GITHUB_OUTPUT
       - name: Create Issue
         if: \${{ failure() }}
         uses: imjohnbo/issue-bot@v3
@@ -5182,7 +5182,7 @@ jobs:
       - name: Extract Version
         id: extract-version
         if: \${{ failure() }}
-        run: echo \\"::set-output name=VERSION::$(cat dist/version.txt)\\"
+        run: echo \\"VERSION=$(cat dist/version.txt)\\" >> $GITHUB_OUTPUT
       - name: Create Issue
         if: \${{ failure() }}
         uses: imjohnbo/issue-bot@v3
@@ -5232,7 +5232,7 @@ jobs:
       - name: Extract Version
         id: extract-version
         if: \${{ failure() }}
-        run: echo \\"::set-output name=VERSION::$(cat dist/version.txt)\\"
+        run: echo \\"VERSION=$(cat dist/version.txt)\\" >> $GITHUB_OUTPUT
       - name: Create Issue
         if: \${{ failure() }}
         uses: imjohnbo/issue-bot@v3
@@ -5271,10 +5271,10 @@ jobs:
         id: create_patch
         run: |-
           git add .
-          git diff --staged --patch --exit-code > .repo.patch || echo \\"::set-output name=patch_created::true\\"
+          git diff --staged --patch --exit-code > .repo.patch || echo \\"patch_created=true\\" >> $GITHUB_OUTPUT
       - name: Upload patch
         if: steps.create_patch.outputs.patch_created
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: .repo.patch
           path: .repo.patch
@@ -5524,7 +5524,7 @@ cdktf.json
       Object {
         "name": "npm-check-updates",
         "type": "build",
-        "version": "^15",
+        "version": "^16",
       },
       Object {
         "name": "projen",
@@ -6408,7 +6408,7 @@ The repository is managed by [Repository Manager](https://github.com/hashicorp/c
       "jsii-docgen": "*",
       "jsii-pacmak": "*",
       "node-fetch": "cjs",
-      "npm-check-updates": "^15",
+      "npm-check-updates": "^16",
       "projen": "*",
       "standard-version": "^9",
       "typescript": "*",
