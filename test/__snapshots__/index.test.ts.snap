@@ -1992,7 +1992,7 @@ const actions = require(\\"@actions/core\\");
 
 // set by the projen file that generates this script
 const CONSTRAINT = \\"undefined\\";
-const FQ_PROVIDER_NAME = \\"random\\";
+const FQ_PROVIDER_NAME = \\"hashicorp/random\\";
 
 (async function main() {
   if (await newerMatchingProviderVersionExists()) {
@@ -4275,7 +4275,7 @@ const actions = require(\\"@actions/core\\");
 
 // set by the projen file that generates this script
 const CONSTRAINT = \\"undefined\\";
-const FQ_PROVIDER_NAME = \\"random\\";
+const FQ_PROVIDER_NAME = \\"hashicorp/random\\";
 
 (async function main() {
   if (await newerMatchingProviderVersionExists()) {
@@ -6516,7 +6516,7 @@ const actions = require(\\"@actions/core\\");
 
 // set by the projen file that generates this script
 const CONSTRAINT = \\"undefined\\";
-const FQ_PROVIDER_NAME = \\"random\\";
+const FQ_PROVIDER_NAME = \\"hashicorp/random\\";
 
 (async function main() {
   if (await newerMatchingProviderVersionExists()) {
