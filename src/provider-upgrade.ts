@@ -27,6 +27,8 @@ export class ProviderUpgrade {
 
     const newerVersionAvailable =
       "${{ steps.check_version.outputs.new_version == 'available' }}";
+    const currentVersion = "${{ steps.current_version.outputs.value }}";
+    const newVersion = "${{ steps.new_version.outputs.value }}";
 
     workflow.addJobs({
       upgrade: {
@@ -42,12 +44,24 @@ export class ProviderUpgrade {
             run: "yarn check-if-new-provider-version",
           },
           {
+            name: "get provider current version",
+            if: newerVersionAvailable,
+            id: "current_version",
+            run: `echo "value=$(jq -r '.cdktf.provider.version' package.json)" >> $GITHUB_OUTPUT`,
+          },
+          {
             run: "yarn fetch",
             if: newerVersionAvailable,
             env: {
               CHECKPOINT_DISABLE: "1",
               GH_TOKEN: "${{ secrets.GITHUB_TOKEN }}",
             },
+          },
+          {
+            name: "get provider updated version",
+            if: newerVersionAvailable,
+            id: "new_version",
+            run: `echo "value=$(jq -r '. | to_entries[] | .value' src/version.json)" >> $GITHUB_OUTPUT`,
           },
           // generate docs
           { run: "yarn compile", if: newerVersionAvailable },
@@ -59,7 +73,7 @@ export class ProviderUpgrade {
             if: newerVersionAvailable,
             uses: "peter-evans/create-pull-request@v3",
             with: {
-              "commit-message": "chore: upgrade provider",
+              "commit-message": `chore: upgrade provider from \`${currentVersion}\` to version \`${newVersion}\``,
               branch: "auto/provider-upgrade",
               title: "chore: upgrade provider",
               body: "This PR upgrades provider to the latest version",
