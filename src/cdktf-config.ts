@@ -65,6 +65,44 @@ export class CdktfConfig {
     );
     project.setScript("test", "jest --passWithNoTests");
     project.addFields({ publishConfig: { access: "public" } });
+    project.addFields({
+      "standard-version": {
+        types: [
+          {
+            type: "feat",
+            section: "Features",
+          },
+          {
+            type: "fix",
+            section: "Bug Fixes",
+          },
+          {
+            type: "chore",
+            section: "Updates",
+          },
+          {
+            type: "docs",
+            hidden: true,
+          },
+          {
+            type: "style",
+            hidden: true,
+          },
+          {
+            type: "refactor",
+            hidden: true,
+          },
+          {
+            type: "perf",
+            hidden: true,
+          },
+          {
+            type: "test",
+            hidden: true,
+          },
+        ],
+      },
+    });
 
     // set provider name and version from version.json (if it exists yet)
     const versionFile = path.resolve(project.outdir, "src/version.json");
