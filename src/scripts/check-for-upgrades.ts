@@ -27,7 +27,7 @@ export class CheckForUpgradesScriptFile extends FileBase {
     ) as CheckForUpgradesScriptFileOptions;
 
     // aws -> hashicorp/aws (else the registry API call fails)
-    if (fqproviderName.includes("/")) {
+    if (!fqproviderName.includes("/")) {
       fqproviderName = `hashicorp/${fqproviderName}`;
     }
 
