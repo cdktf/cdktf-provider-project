@@ -22,9 +22,14 @@ export class CheckForUpgradesScriptFile extends FileBase {
   }
 
   protected synthesizeContent(resolver: IResolver): string | undefined {
-    const { providerVersion, fqproviderName } = resolver.resolve(
+    let { providerVersion, fqproviderName } = resolver.resolve(
       this.options
     ) as CheckForUpgradesScriptFileOptions;
+
+    // aws -> hashicorp/aws (else the registry API call fails)
+    if (!fqproviderName.includes("/")) {
+      fqproviderName = `hashicorp/${fqproviderName}`;
+    }
 
     return `
 const fetch = require("node-fetch");
