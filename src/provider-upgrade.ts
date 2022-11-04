@@ -75,8 +75,8 @@ export class ProviderUpgrade {
             with: {
               "commit-message": `chore: upgrade provider from \`${currentVersion}\` to version \`${newVersion}\``,
               branch: "auto/provider-upgrade",
-              title: "chore: upgrade provider",
-              body: "This PR upgrades provider to the latest version",
+              title: `chore: upgrade provider from \`${currentVersion}\` to version \`${newVersion}\``,
+              body: `This PR upgrades provider to version ${newVersion}`,
               labels: "automerge",
               token: "${{ secrets.GH_TOKEN }}",
               "delete-branch": true,
