@@ -25,7 +25,7 @@ export interface CdktfProviderProjectOptions extends cdk.JsiiProjectOptions {
   readonly namespace?: string;
   /**
    * defaults to "cdktf"
-   * previously was "hashicorp"
+   * previously was "hashicorp". Used for GitHub org name and package scoping
    */
   readonly githubNamespace?: string;
   readonly mavenEndpoint?: string;
@@ -72,20 +72,20 @@ export class CdktfProviderProject extends cdk.JsiiProject {
     const nugetName = `${nugetOrg}.${pascalCase(
       namespace
     )}.Providers.${pascalCase(providerName)}`;
-    const mavenName = `com.${mavenOrg}.cdktf.providers.${getMavenName(
+    const mavenName = `com.${mavenOrg}.${namespace}.providers.${getMavenName(
       providerName
     )}`;
 
     const packageInfo: PackageInfo = {
       npm: {
-        name: `@${namespace}/provider-${providerName}`,
+        name: `@${githubNamespace}/provider-${providerName}`,
       },
       python: {
-        distName: `${namespace}-cdktf-provider-${providerName.replace(
+        distName: `${githubNamespace}-${namespace}-provider-${providerName.replace(
           /-/gi,
           "_"
         )}`,
-        module: `${namespace}_cdktf_provider_${providerName.replace(
+        module: `${githubNamespace}_${namespace}_provider_${providerName.replace(
           /-/gi,
           "_"
         )}`,
