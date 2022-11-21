@@ -3,7 +3,7 @@ import { JobPermission } from "projen/lib/github/workflows-model";
 
 interface ProviderUpgradeOptions {
   checkForUpgradesScriptPath: string;
-  workflowRunsOn?: string[];
+  workflowRunsOn: string[];
 }
 /**
  * Checks for new versions of the given provider and creates a PR with an upgrade change if there are changes.
@@ -33,7 +33,7 @@ export class ProviderUpgrade {
 
     workflow.addJobs({
       upgrade: {
-        runsOn: options.workflowRunsOn || ["ubuntu-latest"],
+        runsOn: options.workflowRunsOn,
         steps: [
           {
             name: "Checkout",
