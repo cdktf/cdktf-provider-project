@@ -116,6 +116,10 @@ export class CdktfProviderProject extends cdk.JsiiProject {
       ""
     )}`;
 
+    const workflowRunsOn = options.useCustomGithubRunner
+      ? ["custom", "linux", "custom-linux-medium"] // 8 core, 32 GB
+      : ["ubuntu-latest"]; // 7 GB
+
     super({
       ...options,
       workflowContainerImage,
@@ -156,9 +160,7 @@ export class CdktfProviderProject extends cdk.JsiiProject {
         name: "team-tf-cdk",
         email: "github-team-tf-cdk@hashicorp.com",
       },
-      workflowRunsOn: options.useCustomGithubRunner
-        ? ["custom", "linux", "custom-linux-medium"] // 8 core, 32 GB
-        : ["ubuntu-latest"], // 7 GB
+      workflowRunsOn,
       minMajorVersion: 1, // ensure new projects start with 1.0.0 so that every following breaking change leads to an increased major version
       githubOptions: {
         mergify: true,
@@ -205,6 +207,7 @@ export class CdktfProviderProject extends cdk.JsiiProject {
     });
     new ProviderUpgrade(this, {
       checkForUpgradesScriptPath: upgradeScript.path,
+      workflowRunsOn,
     });
     new GithubIssues(this, { providerName });
     new NextVersionPr(this, "${{ secrets.GITHUB_TOKEN }}");
