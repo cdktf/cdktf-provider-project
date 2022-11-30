@@ -130,6 +130,11 @@
       "type": "override"
     },
     {
+      "name": "@types/yargs",
+      "version": "17.0.13",
+      "type": "override"
+    },
+    {
       "name": "got",
       "version": "12.3.1",
       "type": "override"
