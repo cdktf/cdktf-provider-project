@@ -191,6 +191,8 @@ export class CdktfProviderProject extends cdk.JsiiProject {
 
     this.tasks.addEnvironment("CHECKPOINT_DISABLE", "1");
 
+    this.package.addPackageResolutions("@types/yargs@17.0.13");
+
     new CdktfConfig(this, {
       terraformProvider,
       providerName,

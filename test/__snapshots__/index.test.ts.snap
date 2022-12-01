@@ -1034,6 +1034,11 @@ cdktf.json
         "version": "1.0.0",
       },
       Object {
+        "name": "@types/yargs",
+        "type": "override",
+        "version": "17.0.13",
+      },
+      Object {
         "name": "got",
         "type": "override",
         "version": "12.3.1",
@@ -1949,6 +1954,7 @@ The repository is managed by [Repository Manager](https://github.com/hashicorp/c
     "resolutions": Object {
       "@types/prettier": "2.6.0",
       "@types/responselike": "1.0.0",
+      "@types/yargs": "17.0.13",
       "got": "12.3.1",
     },
     "scripts": Object {
@@ -3364,6 +3370,11 @@ cdktf.json
         "version": "1.0.0",
       },
       Object {
+        "name": "@types/yargs",
+        "type": "override",
+        "version": "17.0.13",
+      },
+      Object {
         "name": "got",
         "type": "override",
         "version": "12.3.1",
@@ -4279,6 +4290,7 @@ The repository is managed by [Repository Manager](https://github.com/hashicorp/c
     "resolutions": Object {
       "@types/prettier": "2.6.0",
       "@types/responselike": "1.0.0",
+      "@types/yargs": "17.0.13",
       "got": "12.3.1",
     },
     "scripts": Object {
@@ -5649,6 +5661,11 @@ cdktf.json
         "version": "1.0.0",
       },
       Object {
+        "name": "@types/yargs",
+        "type": "override",
+        "version": "17.0.13",
+      },
+      Object {
         "name": "got",
         "type": "override",
         "version": "12.3.1",
@@ -6564,6 +6581,7 @@ The repository is managed by [Repository Manager](https://github.com/hashicorp/c
     "resolutions": Object {
       "@types/prettier": "2.6.0",
       "@types/responselike": "1.0.0",
+      "@types/yargs": "17.0.13",
       "got": "12.3.1",
     },
     "scripts": Object {
