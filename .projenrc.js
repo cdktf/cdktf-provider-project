@@ -23,5 +23,4 @@ const project = new cdk.JsiiProject({
 });
 
 project.addFields({ publishConfig: { access: "public" } });
-project.package.addPackageResolutions("@types/yargs@17.0.13");
 project.synth();

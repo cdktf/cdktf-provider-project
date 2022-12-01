@@ -60,3 +60,13 @@ test("sets minMajorVersion to 1 by default so that breaking changes increast the
     "1"
   );
 });
+
+test("sets resolution for yargs", () => {
+  const snapshot = synthSnapshot(getProject());
+
+  expect(snapshot["package.json"]).toHaveProperty("resolutions");
+  expect(snapshot["package.json"].resolutions).toHaveProperty("@types/yargs");
+  expect(snapshot["package.json"].resolutions["@types/yargs"]).toEqual(
+    "17.0.13"
+  );
+});
