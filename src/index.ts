@@ -148,7 +148,7 @@ export class CdktfProviderProject extends cdk.JsiiProject {
       eslint: false,
       depsUpgradeOptions: {
         workflowOptions: {
-          labels: ["automerge"],
+          labels: ["automerge", "dependencies"],
         },
       },
       python: packageInfo.python,

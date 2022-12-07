@@ -20,6 +20,11 @@ const project = new cdk.JsiiProject({
     "eslint:fix": "eslint . --ext .ts --fix",
   },
   prettier: true,
+  depsUpgradeOptions: {
+    workflowOptions: {
+      labels: ["dependencies"],
+    },
+  },
 });
 
 project.addFields({ publishConfig: { access: "public" } });
