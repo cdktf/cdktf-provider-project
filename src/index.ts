@@ -3,8 +3,10 @@ import assert = require("assert");
 import { pascalCase } from "change-case";
 import { cdk } from "projen";
 import { AlertOpenPrs } from "./alert-open-prs";
+import { AutoCloseCommunityIssues } from "./auto-close-community-issues";
 import { CdktfConfig } from "./cdktf-config";
 import { GithubIssues } from "./github-issues";
+import { LockIssues } from "./lock-issues";
 import { NextVersionPr } from "./next-version-pr";
 import { PackageInfo } from "./package-info";
 import { ProviderUpgrade } from "./provider-upgrade";
@@ -185,6 +187,29 @@ export class CdktfProviderProject extends cdk.JsiiProject {
           ],
         },
       },
+      stale: true,
+      staleOptions: {
+        issues: {
+          staleLabel: "stale",
+          daysBeforeStale: 45,
+          staleMessage:
+            "45 days have passed since this issue was opened, and I assume other publishes have succeeded in the meantime. " +
+            "If no one removes the `stale` label or comments, I'm going to auto-close this issue in 14 days.",
+          daysBeforeClose: 14,
+          closeMessage:
+            "2 months have passed, so I'm closing this issue with the assumption that other publishes have succeeded in the meantime.",
+        },
+        pullRequest: {
+          staleLabel: "stale",
+          daysBeforeStale: 14,
+          staleMessage:
+            "14 days have passed since this PR was opened, and I assume other builds have succeeded in the meantime. " +
+            "If no one removes the `stale` label or comments, I'm going to auto-close this PR in 7 days.",
+          daysBeforeClose: 7,
+          closeMessage:
+            "I'm closing this PR automatically with the assumption that other builds have succeeded in the meantime.",
+        },
+      },
     });
 
     // Golang needs more memory to build
@@ -213,6 +238,8 @@ export class CdktfProviderProject extends cdk.JsiiProject {
       workflowRunsOn,
     });
     new GithubIssues(this, { providerName });
+    new AutoCloseCommunityIssues(this, { providerName });
+    new LockIssues(this);
     new NextVersionPr(this, "${{ secrets.GITHUB_TOKEN }}");
     new AlertOpenPrs(this, {
       slackWebhookUrl: "${{ secrets.ALERT_PRS_SLACK_WEBHOOK_URL }}",
