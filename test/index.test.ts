@@ -70,3 +70,15 @@ test("sets resolution for yargs", () => {
     "17.0.13"
   );
 });
+
+test("README contains provided Namespace", () => {
+  const snapshot = synthSnapshot(
+    getProject({ terraformNamespace: "test-naming" })
+  );
+
+  expect(snapshot["README.md"]).toEqual(
+    expect.stringContaining(
+      "- [Terraform random Provider](https://github.com/test-naming/terraform-provider-random)"
+    )
+  );
+});

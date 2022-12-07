@@ -8,6 +8,7 @@ const CDKTF_JSON_FILE = "cdktf.json";
 
 interface CdktfConfigOptions {
   terraformProvider: string;
+  terraformNamespace: string;
   providerName: string;
   providerVersion: string;
   cdktfVersion: string;

@@ -3,6 +3,7 @@ import { PackageInfo } from "./package-info";
 
 export interface ReadmeFileOptions extends FileBaseOptions {
   terraformProvider: string;
+  terraformNamespace: string;
   providerName: string;
   providerVersion: string;
   packageInfo: PackageInfo;
@@ -17,9 +18,8 @@ export class ReadmeFile extends FileBase {
   }
 
   protected synthesizeContent(resolver: IResolver) {
-    const { providerName, providerVersion, packageInfo } = resolver.resolve(
-      this.options
-    ) as ReadmeFileOptions;
+    const { providerName, terraformNamespace, providerVersion, packageInfo } =
+      resolver.resolve(this.options) as ReadmeFileOptions;
 
     return `
 # Terraform CDK ${providerName} Provider ${providerVersion}
@@ -77,7 +77,7 @@ This project is explicitly not tracking the Terraform ${providerName} Provider v
 These are the upstream dependencies:
 
 - [Terraform CDK](https://cdk.tf)
-- [Terraform ${providerName} Provider](https://github.com/terraform-providers/terraform-provider-${providerName})
+- [Terraform ${providerName} Provider](https://github.com/${terraformNamespace}/terraform-provider-${providerName})
 - [Terraform Engine](https://terraform.io)
 
 If there are breaking changes (backward incompatible) in any of the above, the major version of this project will be bumped.
