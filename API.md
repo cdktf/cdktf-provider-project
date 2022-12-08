@@ -2181,6 +2181,16 @@ defaults to "HashiCorp".
 
 ---
 
+##### `terraformNamespace`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.terraformNamespace"></a>
+
+```typescript
+public readonly terraformNamespace: string;
+```
+
+- *Type:* `string`
+
+---
+
 ##### `useCustomGithubRunner`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.useCustomGithubRunner"></a>
 
 ```typescript
