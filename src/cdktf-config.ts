@@ -8,8 +8,8 @@ const CDKTF_JSON_FILE = "cdktf.json";
 
 interface CdktfConfigOptions {
   terraformProvider: string;
-  terraformNamespace: string;
   providerName: string;
+  fqproviderName: string;
   providerVersion: string;
   cdktfVersion: string;
   constructsVersion: string;
@@ -150,6 +150,6 @@ export class CdktfConfig {
       },
     });
 
-    new ReadmeFile(project, "README.md", options);
+    new ReadmeFile(project, "README.md", { ...options });
   }
 }

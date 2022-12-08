@@ -72,13 +72,29 @@ test("sets resolution for yargs", () => {
 });
 
 test("README contains provided Namespace", () => {
-  const snapshot = synthSnapshot(
-    getProject({ terraformNamespace: "test-naming" })
+  const snapshotWithVersion = synthSnapshot(
+    getProject({ terraformProvider: "random@~> 3.1" })
   );
 
-  expect(snapshot["README.md"]).toEqual(
+  const snapshotWithoutVersion = synthSnapshot(
+    getProject({ terraformProvider: "random" })
+  );
+
+  expect(snapshotWithVersion["README.md"]).toEqual(
     expect.stringContaining(
-      "- [Terraform random Provider](https://github.com/test-naming/terraform-provider-random)"
-    )
+      "- [Terraform random Provider](https://registry.terraform.io/providers/hashicorp/random/3.1.0)"
+    ) &&
+      expect.stringContaining(
+        "- This is the minimum version being tracked- (to find the latest look to our releases)[https://github.com/cdktf/cdktf-provider-random/releases]"
+      )
+  );
+
+  expect(snapshotWithoutVersion["README.md"]).toEqual(
+    expect.stringContaining(
+      "- [Terraform random Provider](https://registry.terraform.io/providers/hashicorp/random/)"
+    ) &&
+      expect.stringContaining(
+        "- This is the minimum version being tracked- (to find the latest look to our releases)[https://github.com/cdktf/cdktf-provider-random/releases]"
+      )
   );
 });

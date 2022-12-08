@@ -15,7 +15,6 @@ const version = require("../version.json").version;
 export interface CdktfProviderProjectOptions extends cdk.JsiiProjectOptions {
   readonly useCustomGithubRunner?: boolean;
   readonly terraformProvider: string;
-  readonly terraformNamespace?: string;
   readonly cdktfVersion: string;
   readonly constructsVersion: string;
   readonly jsiiVersion?: string;
@@ -50,7 +49,6 @@ export class CdktfProviderProject extends cdk.JsiiProject {
   constructor(options: CdktfProviderProjectOptions) {
     const {
       terraformProvider,
-      terraformNamespace = "terraform-providers",
       workflowContainerImage = "hashicorp/jsii-terraform",
       cdktfVersion,
       constructsVersion,
@@ -197,8 +195,8 @@ export class CdktfProviderProject extends cdk.JsiiProject {
 
     new CdktfConfig(this, {
       terraformProvider,
-      terraformNamespace,
       providerName,
+      fqproviderName,
       providerVersion,
       cdktfVersion,
       constructsVersion,
@@ -208,7 +206,7 @@ export class CdktfProviderProject extends cdk.JsiiProject {
     });
     const upgradeScript = new CheckForUpgradesScriptFile(this, {
       providerVersion,
-      fqproviderName,
+      fqproviderName: fqproviderName,
     });
     new ProviderUpgrade(this, {
       checkForUpgradesScriptPath: upgradeScript.path,
