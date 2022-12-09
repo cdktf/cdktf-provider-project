@@ -29,7 +29,7 @@ export class AlertOpenPrs {
           name: "Find old PRs",
           id: "old_prs",
           run: [
-            `PR_LINKS=$(gh pr list --state open --search "created:<$(date -v-${maxHoursOpen}H +%FT%TZ)" --json url --jq "map(.url)"`,
+            `PR_LINKS=$(gh pr list --state open --search "created:<$(date -d '-${maxHoursOpen}hours' +%FT%TZ)" --json url --jq "map(.url)" )`,
             `if [ "$PR_LINKS" == "[]" ]; then`,
             `  echo "No PRs open for more than ${maxHoursOpen} hour(s)"`,
             `else`,
@@ -42,10 +42,10 @@ export class AlertOpenPrs {
           if: "${{ steps.old_prs.outputs.pr_links }}",
           uses: "slackapi/slack-github-action@v1.23.0",
           with: {
-            payload: {
+            payload: JSON.stringify({
               pr_links:
                 "${{ join(fromJSON(steps.old_prs.outputs.pr_links), ', ') }}",
-            },
+            }),
           },
           env: { SLACK_WEBHOOK_URL: slackWebhookUrl },
         },
