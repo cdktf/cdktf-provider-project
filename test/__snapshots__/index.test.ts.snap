@@ -53,6 +53,8 @@ jobs:
     steps:
       - name: Find old PRs
         id: old_prs
+        env:
+          GH_TOKEN: \${{ github.token }}
         run: |-
           PR_LINKS=$(gh pr list --state open --search \\"created:<$(date -d '-2hours' +%FT%TZ)\\" --json url --jq \\"map(.url)\\" )
           if [ \\"$PR_LINKS\\" == \\"[]\\" ]; then
@@ -2378,6 +2380,8 @@ jobs:
     steps:
       - name: Find old PRs
         id: old_prs
+        env:
+          GH_TOKEN: \${{ github.token }}
         run: |-
           PR_LINKS=$(gh pr list --state open --search \\"created:<$(date -d '-2hours' +%FT%TZ)\\" --json url --jq \\"map(.url)\\" )
           if [ \\"$PR_LINKS\\" == \\"[]\\" ]; then
@@ -4748,6 +4752,8 @@ jobs:
     steps:
       - name: Find old PRs
         id: old_prs
+        env:
+          GH_TOKEN: \${{ github.token }}
         run: |-
           PR_LINKS=$(gh pr list --state open --search \\"created:<$(date -d '-2hours' +%FT%TZ)\\" --json url --jq \\"map(.url)\\" )
           if [ \\"$PR_LINKS\\" == \\"[]\\" ]; then
