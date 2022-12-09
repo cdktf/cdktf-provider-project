@@ -2,6 +2,7 @@
 import assert = require("assert");
 import { pascalCase } from "change-case";
 import { cdk } from "projen";
+import { AlertOpenPrs } from "./alert-open-prs";
 import { CdktfConfig } from "./cdktf-config";
 import { GithubIssues } from "./github-issues";
 import { NextVersionPr } from "./next-version-pr";
@@ -213,6 +214,9 @@ export class CdktfProviderProject extends cdk.JsiiProject {
     });
     new GithubIssues(this, { providerName });
     new NextVersionPr(this, "${{ secrets.GITHUB_TOKEN }}");
+    new AlertOpenPrs(this, {
+      slackWebhookUrl: "${{ secrets.ALERT_PRS_SLACK_WEBHOOK_URL }}",
+    });
 
     new ShouldReleaseScriptFile(this, {});
 
