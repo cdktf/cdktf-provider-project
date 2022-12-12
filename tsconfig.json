@@ -33,9 +33,7 @@
     "tsBuildInfoFile": "lib/tsconfig.tsbuildinfo"
   },
   "include": [
-    "src/**/*.ts",
-    ".projenrc.ts",
-    "projen/**/*.ts"
+    "src/**/*.ts"
   ],
   "exclude": [
     "node_modules"
