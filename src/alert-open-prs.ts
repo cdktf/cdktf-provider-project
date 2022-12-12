@@ -36,6 +36,7 @@ export class AlertOpenPrs {
             `  echo "pr_links=$PR_LINKS" >> $GITHUB_OUTPUT`,
             `fi`,
           ].join("\n"),
+          env: { GH_TOKEN: "${{ github.token }}" },
         },
         {
           name: "Alert Slack on old PRs",
