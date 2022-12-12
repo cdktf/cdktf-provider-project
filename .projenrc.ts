@@ -25,6 +25,10 @@ const project = new cdk.JsiiProject({
       labels: ["dependencies"],
     },
   },
+  workflowGitIdentity: {
+    name: "team-tf-cdk",
+    email: "github-team-tf-cdk@hashicorp.com",
+  },
   projenrcTs: true,
 });
 
