@@ -1,10 +1,11 @@
-const { cdk } = require("projen");
+import { cdk } from "projen";
+import { LockIssues } from "./src/lock-issues";
 
 const project = new cdk.JsiiProject({
   name: "@cdktf/provider-project",
-  authorName: "HashiCorp",
-  authorUrl: "https://hashicorp.com",
-  repository: "https://github.com/hashicorp/cdktf-provider-project.git",
+  author: "HashiCorp",
+  authorAddress: "https://hashicorp.com",
+  repositoryUrl: "https://github.com/hashicorp/cdktf-provider-project.git",
   authorOrganization: true,
   peerDeps: ["projen@^0.64.1"],
   deps: ["change-case", "fs-extra"],
@@ -14,13 +15,25 @@ const project = new cdk.JsiiProject({
   defaultReleaseBranch: "main",
   releaseToNpm: true,
   minNodeVersion: "14.17.0",
-  compileBeforeTest: true,
   mergify: false,
   scripts: {
     "eslint:fix": "eslint . --ext .ts --fix",
   },
   prettier: true,
+  depsUpgradeOptions: {
+    workflowOptions: {
+      labels: ["dependencies"],
+    },
+  },
+  workflowGitIdentity: {
+    name: "team-tf-cdk",
+    email: "github-team-tf-cdk@hashicorp.com",
+  },
+  projenrcTs: true,
 });
 
 project.addFields({ publishConfig: { access: "public" } });
+
+new LockIssues(project);
+
 project.synth();
