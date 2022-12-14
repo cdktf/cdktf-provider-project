@@ -2101,6 +2101,20 @@ public readonly terraformProvider: string;
 
 ---
 
+##### `creationYear`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.creationYear"></a>
+
+```typescript
+public readonly creationYear: number;
+```
+
+- *Type:* `number`
+
+The year of the creation of the repository, for copyright purposes.
+
+Will fall back to the current year if not specified.
+
+---
+
 ##### `forceMajorVersion`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.forceMajorVersion"></a>
 
 ```typescript

@@ -5,6 +5,7 @@ import { cdk } from "projen";
 import { AlertOpenPrs } from "./alert-open-prs";
 import { AutoCloseCommunityIssues } from "./auto-close-community-issues";
 import { CdktfConfig } from "./cdktf-config";
+import { CustomizedLicense } from "./customized-license";
 import { GithubIssues } from "./github-issues";
 import { LockIssues } from "./lock-issues";
 import { NextVersionPr } from "./next-version-pr";
@@ -40,6 +41,11 @@ export interface CdktfProviderProjectOptions extends cdk.JsiiProjectOptions {
    * defaults to "hashicorp"
    */
   readonly mavenOrg?: string;
+  /**
+   * The year of the creation of the repository, for copyright purposes.
+   * Will fall back to the current year if not specified.
+   */
+  readonly creationYear?: number;
 }
 
 const authorAddress = "https://hashicorp.com";
@@ -126,7 +132,7 @@ export class CdktfProviderProject extends cdk.JsiiProject {
     super({
       ...options,
       workflowContainerImage,
-      license: "MPL-2.0",
+      licensed: false, // we do supply our own license file with a custom header
       releaseToNpm: true,
       minNodeVersion,
       devDeps: [
@@ -237,6 +243,7 @@ export class CdktfProviderProject extends cdk.JsiiProject {
       checkForUpgradesScriptPath: upgradeScript.path,
       workflowRunsOn,
     });
+    new CustomizedLicense(this, options.creationYear);
     new GithubIssues(this, { providerName });
     new AutoCloseCommunityIssues(this, { providerName });
     new LockIssues(this);

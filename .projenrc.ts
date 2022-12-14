@@ -1,4 +1,5 @@
 import { cdk } from "projen";
+import { CustomizedLicense } from "./src/customized-license";
 import { LockIssues } from "./src/lock-issues";
 
 const project = new cdk.JsiiProject({
@@ -7,6 +8,7 @@ const project = new cdk.JsiiProject({
   authorAddress: "https://hashicorp.com",
   repositoryUrl: "https://github.com/hashicorp/cdktf-provider-project.git",
   authorOrganization: true,
+  licensed: false, // we do supply our own license file with a custom header
   peerDeps: ["projen@^0.64.1"],
   deps: ["change-case", "fs-extra"],
   devDeps: ["@types/fs-extra", "glob"],
@@ -34,6 +36,7 @@ const project = new cdk.JsiiProject({
 
 project.addFields({ publishConfig: { access: "public" } });
 
+new CustomizedLicense(project, 2020);
 new LockIssues(project);
 
 project.synth();
