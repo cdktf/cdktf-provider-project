@@ -942,7 +942,6 @@ jobs:
 !/.github/workflows/pull-request-lint.yml
 !/.github/workflows/stale.yml
 !/package.json
-!/LICENSE
 !/.npmignore
 logs
 *.log
@@ -989,6 +988,7 @@ package-lock.json
 !/README.md
 !/scripts/check-for-upgrades.js
 !/.github/workflows/provider-upgrade.yml
+!/LICENSE
 !/.github/ISSUE_TEMPLATE/config.yml
 !/.github/workflows/auto-close-community-issues.yml
 !/.github/workflows/lock.yml
@@ -1543,7 +1543,9 @@ UNEXPECTED BREAKING CHANGES: add keys such as 'removed:constructs.Node.of' to .c
       },
     },
   },
-  "LICENSE": "Mozilla Public License, version 2.0
+  "LICENSE": "Copyright (c) 2022 HashiCorp, Inc.
+
+Mozilla Public License, version 2.0
 
 1. Definitions
 
@@ -3400,7 +3402,6 @@ jobs:
 !/.github/workflows/pull-request-lint.yml
 !/.github/workflows/stale.yml
 !/package.json
-!/LICENSE
 !/.npmignore
 logs
 *.log
@@ -3447,6 +3448,7 @@ package-lock.json
 !/README.md
 !/scripts/check-for-upgrades.js
 !/.github/workflows/provider-upgrade.yml
+!/LICENSE
 !/.github/ISSUE_TEMPLATE/config.yml
 !/.github/workflows/auto-close-community-issues.yml
 !/.github/workflows/lock.yml
@@ -4001,7 +4003,9 @@ UNEXPECTED BREAKING CHANGES: add keys such as 'removed:constructs.Node.of' to .c
       },
     },
   },
-  "LICENSE": "Mozilla Public License, version 2.0
+  "LICENSE": "Copyright (c) 2022 HashiCorp, Inc.
+
+Mozilla Public License, version 2.0
 
 1. Definitions
 
@@ -5813,7 +5817,6 @@ jobs:
 !/.github/workflows/pull-request-lint.yml
 !/.github/workflows/stale.yml
 !/package.json
-!/LICENSE
 !/.npmignore
 logs
 *.log
@@ -5860,6 +5863,7 @@ package-lock.json
 !/README.md
 !/scripts/check-for-upgrades.js
 !/.github/workflows/provider-upgrade.yml
+!/LICENSE
 !/.github/ISSUE_TEMPLATE/config.yml
 !/.github/workflows/auto-close-community-issues.yml
 !/.github/workflows/lock.yml
@@ -6414,7 +6418,9 @@ UNEXPECTED BREAKING CHANGES: add keys such as 'removed:constructs.Node.of' to .c
       },
     },
   },
-  "LICENSE": "Mozilla Public License, version 2.0
+  "LICENSE": "Copyright (c) 2022 HashiCorp, Inc.
+
+Mozilla Public License, version 2.0
 
 1. Definitions
 
