@@ -250,6 +250,7 @@ export class CdktfProviderProject extends cdk.JsiiProject {
     new NextVersionPr(this, "${{ secrets.GITHUB_TOKEN }}");
     new AlertOpenPrs(this, {
       slackWebhookUrl: "${{ secrets.ALERT_PRS_SLACK_WEBHOOK_URL }}",
+      repository,
     });
 
     new ShouldReleaseScriptFile(this, {});
