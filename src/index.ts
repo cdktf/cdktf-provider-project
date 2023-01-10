@@ -190,6 +190,20 @@ export class CdktfProviderProject extends cdk.JsiiProject {
                 "author=team-tf-cdk",
               ],
             },
+            {
+              name: "Automatically close stale PRs",
+              actions: {
+                close: {
+                  message:
+                    "Closing this automatic PR, if it has not merged there is most likely a CI or CDKTF issue preventing it from merging",
+                },
+              },
+              conditions: [
+                "author=team-tf-cdk",
+                "-draft",
+                "created-at>=1 day ago",
+              ],
+            },
           ],
         },
       },
