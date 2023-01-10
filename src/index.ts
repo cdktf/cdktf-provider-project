@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-require-imports */
 import assert = require("assert");
 import { pascalCase } from "change-case";
-import { cdk } from "projen";
+import { TextFile, cdk } from "projen";
 import { AlertOpenPrs } from "./alert-open-prs";
 import { AutoCloseCommunityIssues } from "./auto-close-community-issues";
 import { CdktfConfig } from "./cdktf-config";
@@ -265,6 +265,16 @@ export class CdktfProviderProject extends cdk.JsiiProject {
     new AlertOpenPrs(this, {
       slackWebhookUrl: "${{ secrets.ALERT_PRS_SLACK_WEBHOOK_URL }}",
       repository,
+    });
+
+    new TextFile(this, ".github/CODEOWNERS", {
+      lines: [
+        "# These owners will be the default owners for everything in ",
+        "# the repo. Unless a later match takes precedence, ",
+        "# they will be requested for review when someone opens a ",
+        "# pull request.",
+        "*       @cdktf/tf-cdk-team",
+      ],
     });
 
     new ShouldReleaseScriptFile(this, {});
