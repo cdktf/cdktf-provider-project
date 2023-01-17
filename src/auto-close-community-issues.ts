@@ -5,7 +5,7 @@ interface AutoCloseCommunityIssuesOptions {
   providerName: string;
 }
 /**
- * Automatically closes issues and PRs reported by non-collaborators since this isn't the right place for them.
+ * Automatically closes issues reported by non-collaborators since this isn't the right place for them.
  */
 export class AutoCloseCommunityIssues {
   constructor(
@@ -19,9 +19,6 @@ export class AutoCloseCommunityIssues {
 
     workflow.on({
       issues: {
-        types: ["opened"],
-      },
-      pullRequest: {
         types: ["opened"],
       },
     });
