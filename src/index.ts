@@ -201,7 +201,7 @@ export class CdktfProviderProject extends cdk.JsiiProject {
               conditions: [
                 "author=team-tf-cdk",
                 "-draft",
-                "created-at>=1 day ago",
+                "created-at<1 day ago",
               ],
             },
           ],
