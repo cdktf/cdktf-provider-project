@@ -13,7 +13,13 @@ export class LockIssues {
     if (!workflow) throw new Error("no workflow defined");
 
     workflow.on({
-      schedule: [{ cron: "20 2 * * *" }],
+      schedule: [
+        {
+          cron: `${Math.floor(Math.random() * 60)} ${Math.floor(
+            Math.random() * 24
+          )} * * *`,
+        },
+      ],
     });
 
     workflow.addJob("lock", {
