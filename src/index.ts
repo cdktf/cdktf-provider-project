@@ -2,6 +2,7 @@
 import assert = require("assert");
 import { pascalCase } from "change-case";
 import { TextFile, cdk } from "projen";
+import { JobStep } from "projen/lib/github/workflows-model";
 import { AlertOpenPrs } from "./alert-open-prs";
 import { AutoCloseCommunityIssues } from "./auto-close-community-issues";
 import { CdktfConfig } from "./cdktf-config";
@@ -238,6 +239,11 @@ export class CdktfProviderProject extends cdk.JsiiProject {
     this.tasks.addEnvironment("CHECKPOINT_DISABLE", "1");
 
     this.package.addPackageResolutions("@types/yargs@17.0.13");
+
+    ((this.buildWorkflow as any).preBuildSteps as JobStep[]).push({
+      name: "Set git config safe.directory",
+      run: "git config --global --add safe.directory $(pwd)",
+    });
 
     new CdktfConfig(this, {
       terraformProvider,
