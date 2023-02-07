@@ -1832,7 +1832,7 @@ These are the upstream dependencies:
 
 - [Terraform CDK](https://cdk.tf)
 - [Terraform random Provider](https://registry.terraform.io/providers/hashicorp/random/)
-    - This is the minimum version being tracked- (to find the latest look to our releases)[https://github.com/cdktf/cdktf-provider-random/releases]
+    - This links to the minimum version being tracked, you can find the latest released version [in our releases](https://github.com/cdktf/cdktf-provider-random/releases)
 - [Terraform Engine](https://terraform.io)
 
 If there are breaking changes (backward incompatible) in any of the above, the major version of this project will be bumped.
@@ -4169,7 +4169,7 @@ These are the upstream dependencies:
 
 - [Terraform CDK](https://cdk.tf)
 - [Terraform random Provider](https://registry.terraform.io/providers/hashicorp/random/)
-    - This is the minimum version being tracked- (to find the latest look to our releases)[https://github.com/cdktf/cdktf-provider-random/releases]
+    - This links to the minimum version being tracked, you can find the latest released version [in our releases](https://github.com/cdktf/cdktf-provider-random/releases)
 - [Terraform Engine](https://terraform.io)
 
 If there are breaking changes (backward incompatible) in any of the above, the major version of this project will be bumped.
@@ -6461,7 +6461,7 @@ These are the upstream dependencies:
 
 - [Terraform CDK](https://cdk.tf)
 - [Terraform random Provider](https://registry.terraform.io/providers/hashicorp/random/)
-    - This is the minimum version being tracked- (to find the latest look to our releases)[https://github.com/cdktf/cdktf-provider-random/releases]
+    - This links to the minimum version being tracked, you can find the latest released version [in our releases](https://github.com/cdktf/cdktf-provider-random/releases)
 - [Terraform Engine](https://terraform.io)
 
 If there are breaking changes (backward incompatible) in any of the above, the major version of this project will be bumped.
