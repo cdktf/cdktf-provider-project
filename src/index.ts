@@ -206,7 +206,7 @@ export class CdktfProviderProject extends cdk.JsiiProject {
     });
     const upgradeScript = new CheckForUpgradesScriptFile(this, {
       providerVersion,
-      fqproviderName: fqproviderName,
+      fqproviderName,
     });
     new ProviderUpgrade(this, {
       checkForUpgradesScriptPath: upgradeScript.path,

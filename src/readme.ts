@@ -24,7 +24,7 @@ export class ReadmeFile extends FileBase {
       ? fqproviderName
       : `hashicorp/${fqproviderName}`;
     const versionURL = providerVersion
-      ? providerVersion.replace("~> ", "").concat(".0")
+      ? providerVersion.replace(/~>\s*/, "").concat(".0")
       : "";
 
     return `
@@ -84,7 +84,7 @@ These are the upstream dependencies:
 
 - [Terraform CDK](https://cdk.tf)
 - [Terraform ${providerName} Provider](https://registry.terraform.io/providers/${fqpnURL}/${versionURL})
-    - This is the minimum version being tracked- (to find the latest look to our releases)[https://github.com/cdktf/cdktf-provider-${providerName}/releases]
+    - This links to the minimum version being tracked, you can find the latest released version [in our releases](https://github.com/cdktf/cdktf-provider-${providerName}/releases)
 - [Terraform Engine](https://terraform.io)
 
 If there are breaking changes (backward incompatible) in any of the above, the major version of this project will be bumped.
