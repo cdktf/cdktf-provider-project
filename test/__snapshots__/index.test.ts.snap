@@ -500,6 +500,8 @@ jobs:
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
+      - name: Set git config safe.directory
+        run: git config --global --add safe.directory $(pwd)
       - name: Set git identity
         run: |-
           git config user.name \\"github-actions\\"
@@ -866,6 +868,8 @@ jobs:
         uses: actions/checkout@v3
         with:
           ref: main
+      - name: Set git config safe.directory
+        run: git config --global --add safe.directory $(pwd)
       - name: Install dependencies
         run: yarn install --check-files --frozen-lockfile
       - name: Upgrade dependencies
@@ -897,6 +901,8 @@ jobs:
         with:
           token: \${{ secrets.PROJEN_GITHUB_TOKEN }}
           ref: main
+      - name: Set git config safe.directory
+        run: git config --global --add safe.directory $(pwd)
       - name: Download patch
         uses: actions/download-artifact@v3
         with:
@@ -2957,6 +2963,8 @@ jobs:
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
+      - name: Set git config safe.directory
+        run: git config --global --add safe.directory $(pwd)
       - name: Set git identity
         run: |-
           git config user.name \\"github-actions\\"
@@ -3341,6 +3349,8 @@ jobs:
         uses: actions/checkout@v3
         with:
           ref: main
+      - name: Set git config safe.directory
+        run: git config --global --add safe.directory $(pwd)
       - name: Install dependencies
         run: yarn install --check-files --frozen-lockfile
       - name: Upgrade dependencies
@@ -3372,6 +3382,8 @@ jobs:
         with:
           token: \${{ secrets.PROJEN_GITHUB_TOKEN }}
           ref: main
+      - name: Set git config safe.directory
+        run: git config --global --add safe.directory $(pwd)
       - name: Download patch
         uses: actions/download-artifact@v3
         with:
@@ -5405,6 +5417,8 @@ jobs:
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
+      - name: Set git config safe.directory
+        run: git config --global --add safe.directory $(pwd)
       - name: Set git identity
         run: |-
           git config user.name \\"github-actions\\"
@@ -5771,6 +5785,8 @@ jobs:
         uses: actions/checkout@v3
         with:
           ref: main
+      - name: Set git config safe.directory
+        run: git config --global --add safe.directory $(pwd)
       - name: Install dependencies
         run: yarn install --check-files --frozen-lockfile
       - name: Upgrade dependencies
@@ -5802,6 +5818,8 @@ jobs:
         with:
           token: \${{ secrets.PROJEN_GITHUB_TOKEN }}
           ref: main
+      - name: Set git config safe.directory
+        run: git config --global --add safe.directory $(pwd)
       - name: Download patch
         uses: actions/download-artifact@v3
         with:

@@ -240,10 +240,22 @@ export class CdktfProviderProject extends cdk.JsiiProject {
 
     this.package.addPackageResolutions("@types/yargs@17.0.13");
 
-    ((this.buildWorkflow as any).preBuildSteps as JobStep[]).push({
+    const setSafeDirectory = {
       name: "Set git config safe.directory",
       run: "git config --global --add safe.directory $(pwd)",
-    });
+    };
+
+    ((this.buildWorkflow as any).preBuildSteps as JobStep[]).push(
+      setSafeDirectory
+    );
+    (this.release as any).defaultBranch.workflow.jobs.release.steps.splice(
+      1,
+      0,
+      setSafeDirectory
+    );
+    const { upgrade, pr } = (this.upgradeWorkflow as any).workflows[0].jobs;
+    upgrade.steps.splice(1, 0, setSafeDirectory);
+    pr.steps.splice(1, 0, setSafeDirectory);
 
     new CdktfConfig(this, {
       terraformProvider,
