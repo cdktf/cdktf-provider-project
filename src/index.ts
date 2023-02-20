@@ -314,5 +314,13 @@ export class CdktfProviderProject extends cdk.JsiiProject {
       'echo "latest_commit=release_cancelled" >> $GITHUB_OUTPUT'; // this cancels the release via a non-matching SHA;
     gitRemoteJob.run = `node ./scripts/should-release.js && ${previousCommand} || ${cancelCommand}`;
     gitRemoteJob.name += " or cancel via faking a SHA if release was cancelled";
+
+    // Submodule documentation generation
+    this.gitignore.exclude("API.md"); // ignore the old file, we now generate it in the docs folder
+    this.addDevDeps("jsii-docgen@>=7.1.2");
+    // There is no nice way to tell jsii-docgen to generate docs into a folder so I went this route
+    (
+      this.tasks.tryFind("docgen")?.steps?.[0] as any
+    ).exec = `rm -rf docs && mkdir docs && jsii-docgen --split-by-submodule -l typescript -l python -l java -l csharp -l go && mv *.*.md docs`;
   }
 }
