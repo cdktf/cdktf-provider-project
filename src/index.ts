@@ -320,7 +320,7 @@ export class CdktfProviderProject extends cdk.JsiiProject {
     this.addDevDeps("jsii-docgen@>=7.1.2");
     // There is no nice way to tell jsii-docgen to generate docs into a folder so I went this route
     (
-      this.tasks.tryFind("docgen")?.steps?.[0] as any
+      this.tasks.tryFind("docgen")!.steps![0] as any
     ).exec = `rm -rf docs && mkdir docs && jsii-docgen --split-by-submodule -l typescript -l python -l java -l csharp -l go && mv *.*.md docs`;
   }
 }
