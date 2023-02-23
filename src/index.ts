@@ -324,7 +324,6 @@ export class CdktfProviderProject extends cdk.JsiiProject {
     ).exec = `rm -rf docs && mkdir docs && jsii-docgen --split-by-submodule -l typescript -l python -l java -l csharp -l go && mv *.*.md docs`;
 
     // Special overwrite for some very special resources
-    console.log("provier", providerName);
     if (providerName === "aws") {
       this.gitattributes.addAttributes(
         "docs/wafv2RuleGroup.*.md",
