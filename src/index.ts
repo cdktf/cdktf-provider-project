@@ -322,5 +322,23 @@ export class CdktfProviderProject extends cdk.JsiiProject {
     (
       this.tasks.tryFind("docgen")!.steps![0] as any
     ).exec = `rm -rf docs && mkdir docs && jsii-docgen --split-by-submodule -l typescript -l python -l java -l csharp -l go && mv *.*.md docs`;
+
+    // Special overwrite for some very special resources
+    if (providerName === "aws") {
+      this.gitattributes.addAttributes(
+        "docs/wafv2RuleGroup.*.md",
+        "filter=lfs",
+        "diff=lfs",
+        "merge=lfs",
+        "-text"
+      );
+      this.gitattributes.addAttributes(
+        "docs/wafv2WebAcl.*.md",
+        "filter=lfs",
+        "diff=lfs",
+        "merge=lfs",
+        "-text"
+      );
+    }
   }
 }
