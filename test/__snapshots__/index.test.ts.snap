@@ -1094,6 +1094,11 @@ cdktf.json
         "version": "^1.1.0",
       },
       Object {
+        "name": "@cdktf/provider-project",
+        "type": "build",
+        "version": "^0.0.0",
+      },
+      Object {
         "name": "@types/node",
         "type": "build",
         "version": "^14",
@@ -2035,6 +2040,7 @@ The repository is managed by [Repository Manager](https://github.com/hashicorp/c
     "description": "Prebuilt random Provider for Terraform CDK (cdktf)",
     "devDependencies": Object {
       "@actions/core": "^1.1.0",
+      "@cdktf/provider-project": "^0.0.0",
       "@types/node": "^14",
       "cdktf": ">=0.12.2 <0.14.0",
       "cdktf-cli": ">=0.12.2 <0.14.0",
@@ -3578,6 +3584,11 @@ cdktf.json
         "version": "^1.1.0",
       },
       Object {
+        "name": "@cdktf/provider-project",
+        "type": "build",
+        "version": "^0.0.0",
+      },
+      Object {
         "name": "@types/node",
         "type": "build",
         "version": "^14",
@@ -4519,6 +4530,7 @@ The repository is managed by [Repository Manager](https://github.com/hashicorp/c
     "description": "Prebuilt random Provider for Terraform CDK (cdktf)",
     "devDependencies": Object {
       "@actions/core": "^1.1.0",
+      "@cdktf/provider-project": "^0.0.0",
       "@types/node": "^14",
       "cdktf": "0.10.3",
       "cdktf-cli": "0.10.3",
@@ -6017,6 +6029,11 @@ cdktf.json
         "version": "^1.1.0",
       },
       Object {
+        "name": "@cdktf/provider-project",
+        "type": "build",
+        "version": "^0.0.0",
+      },
+      Object {
         "name": "@types/node",
         "type": "build",
         "version": "^14",
@@ -6958,6 +6975,7 @@ The repository is managed by [Repository Manager](https://github.com/hashicorp/c
     "description": "Prebuilt random Provider for Terraform CDK (cdktf)",
     "devDependencies": Object {
       "@actions/core": "^1.1.0",
+      "@cdktf/provider-project": "^0.0.0",
       "@types/node": "^14",
       "cdktf": "0.10.3",
       "cdktf-cli": "0.10.3",
