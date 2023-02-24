@@ -14,6 +14,7 @@ const getProject = (
     defaultReleaseBranch: "main",
     repositoryUrl: "github.com/cdktf/cdktf",
     forceMajorVersion: 42,
+    devDeps: ["@cdktf/provider-project@^0.0.0"],
     ...opts,
   });
 
