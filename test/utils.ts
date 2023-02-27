@@ -86,11 +86,7 @@ export function directorySnapshot(
 
     let content;
     if (!options.onlyFileNames) {
-      if (path.extname(filePath) === ".json") {
-        content = fs.readJsonSync(filePath);
-      } else {
-        content = fs.readFileSync(filePath, "utf-8");
-      }
+      content = fs.readFileSync(filePath, "utf-8");
     } else {
       content = true;
     }

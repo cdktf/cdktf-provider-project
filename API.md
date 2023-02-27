@@ -39,6 +39,18 @@ Whether to commit the managed files by default.
 
 ---
 
+##### `gitOptions`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.gitOptions"></a>
+
+```typescript
+public readonly gitOptions: GitOptions;
+```
+
+- *Type:* [`projen.GitOptions`](#projen.GitOptions)
+
+Configuration options for git.
+
+---
+
 ##### `logging`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.logging"></a>
 
 ```typescript

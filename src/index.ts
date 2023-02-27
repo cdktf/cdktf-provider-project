@@ -323,19 +323,8 @@ export class CdktfProviderProject extends cdk.JsiiProject {
 
     // Special overwrite for some very special resources
     if (providerName === "aws") {
-      this.gitattributes.addAttributes(
-        "docs/wafv2RuleGroup.*.md",
-        "filter=lfs",
-        "diff=lfs",
-        "merge=lfs",
-        "-text"
-      );
-      this.gitattributes.addAttributes(
-        "docs/wafv2WebAcl.*.md",
-        "filter=lfs",
-        "diff=lfs",
-        "merge=lfs",
-        "-text"
+      ["*wafv2RuleGroup.*.md", "*wafv2WebAcl.*.md"].forEach((p) =>
+        this.gitattributes.addLfsPattern(p)
       );
     }
   }
