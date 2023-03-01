@@ -1318,6 +1318,9 @@ cdktf.json
       \\"steps\\": [
         {
           \\"exec\\": \\"jsii --silence-warnings=reserved-word\\"
+        },
+        {
+          \\"exec\\": \\"git checkout package.json\\"
         }
       ]
     },
@@ -1455,7 +1458,12 @@ cdktf.json
     },
     \\"pre-compile\\": {
       \\"name\\": \\"pre-compile\\",
-      \\"description\\": \\"Prepare the project for compilation\\"
+      \\"description\\": \\"Prepare the project for compilation\\",
+      \\"steps\\": [
+        {
+          \\"spawn\\": \\"unconditional-bump\\"
+        }
+      ]
     },
     \\"release\\": {
       \\"name\\": \\"release\\",
@@ -1500,6 +1508,22 @@ cdktf.json
       \\"steps\\": [
         {
           \\"builtin\\": \\"release/reset-version\\"
+        }
+      ]
+    },
+    \\"unconditional-bump\\": {
+      \\"name\\": \\"unconditional-bump\\",
+      \\"description\\": \\"Set the version in package.json to the current version\\",
+      \\"env\\": {
+        \\"OUTFILE\\": \\"package.json\\",
+        \\"CHANGELOG\\": \\"dist/changelog.md\\",
+        \\"BUMPFILE\\": \\"dist/version.txt\\",
+        \\"RELEASETAG\\": \\"dist/releasetag.txt\\",
+        \\"RELEASE_TAG_PREFIX\\": \\"\\"
+      },
+      \\"steps\\": [
+        {
+          \\"builtin\\": \\"release/bump-version\\"
         }
       ]
     },
@@ -2050,6 +2074,7 @@ The repository is managed by [Repository Manager](https://github.com/hashicorp/c
     \\"release\\": \\"npx projen release\\",
     \\"test\\": \\"jest --passWithNoTests\\",
     \\"unbump\\": \\"npx projen unbump\\",
+    \\"unconditional-bump\\": \\"npx projen unconditional-bump\\",
     \\"upgrade\\": \\"npx projen upgrade\\",
     \\"watch\\": \\"npx projen watch\\",
     \\"projen\\": \\"npx projen\\",
@@ -3804,6 +3829,9 @@ cdktf.json
       \\"steps\\": [
         {
           \\"exec\\": \\"jsii --silence-warnings=reserved-word\\"
+        },
+        {
+          \\"exec\\": \\"git checkout package.json\\"
         }
       ]
     },
@@ -3941,7 +3969,12 @@ cdktf.json
     },
     \\"pre-compile\\": {
       \\"name\\": \\"pre-compile\\",
-      \\"description\\": \\"Prepare the project for compilation\\"
+      \\"description\\": \\"Prepare the project for compilation\\",
+      \\"steps\\": [
+        {
+          \\"spawn\\": \\"unconditional-bump\\"
+        }
+      ]
     },
     \\"release\\": {
       \\"name\\": \\"release\\",
@@ -3986,6 +4019,22 @@ cdktf.json
       \\"steps\\": [
         {
           \\"builtin\\": \\"release/reset-version\\"
+        }
+      ]
+    },
+    \\"unconditional-bump\\": {
+      \\"name\\": \\"unconditional-bump\\",
+      \\"description\\": \\"Set the version in package.json to the current version\\",
+      \\"env\\": {
+        \\"OUTFILE\\": \\"package.json\\",
+        \\"CHANGELOG\\": \\"dist/changelog.md\\",
+        \\"BUMPFILE\\": \\"dist/version.txt\\",
+        \\"RELEASETAG\\": \\"dist/releasetag.txt\\",
+        \\"RELEASE_TAG_PREFIX\\": \\"\\"
+      },
+      \\"steps\\": [
+        {
+          \\"builtin\\": \\"release/bump-version\\"
         }
       ]
     },
@@ -4536,6 +4585,7 @@ The repository is managed by [Repository Manager](https://github.com/hashicorp/c
     \\"release\\": \\"npx projen release\\",
     \\"test\\": \\"jest --passWithNoTests\\",
     \\"unbump\\": \\"npx projen unbump\\",
+    \\"unconditional-bump\\": \\"npx projen unconditional-bump\\",
     \\"upgrade\\": \\"npx projen upgrade\\",
     \\"watch\\": \\"npx projen watch\\",
     \\"projen\\": \\"npx projen\\",
@@ -6245,6 +6295,9 @@ cdktf.json
       \\"steps\\": [
         {
           \\"exec\\": \\"jsii --silence-warnings=reserved-word\\"
+        },
+        {
+          \\"exec\\": \\"git checkout package.json\\"
         }
       ]
     },
@@ -6382,7 +6435,12 @@ cdktf.json
     },
     \\"pre-compile\\": {
       \\"name\\": \\"pre-compile\\",
-      \\"description\\": \\"Prepare the project for compilation\\"
+      \\"description\\": \\"Prepare the project for compilation\\",
+      \\"steps\\": [
+        {
+          \\"spawn\\": \\"unconditional-bump\\"
+        }
+      ]
     },
     \\"release\\": {
       \\"name\\": \\"release\\",
@@ -6427,6 +6485,22 @@ cdktf.json
       \\"steps\\": [
         {
           \\"builtin\\": \\"release/reset-version\\"
+        }
+      ]
+    },
+    \\"unconditional-bump\\": {
+      \\"name\\": \\"unconditional-bump\\",
+      \\"description\\": \\"Set the version in package.json to the current version\\",
+      \\"env\\": {
+        \\"OUTFILE\\": \\"package.json\\",
+        \\"CHANGELOG\\": \\"dist/changelog.md\\",
+        \\"BUMPFILE\\": \\"dist/version.txt\\",
+        \\"RELEASETAG\\": \\"dist/releasetag.txt\\",
+        \\"RELEASE_TAG_PREFIX\\": \\"\\"
+      },
+      \\"steps\\": [
+        {
+          \\"builtin\\": \\"release/bump-version\\"
         }
       ]
     },
@@ -6977,6 +7051,7 @@ The repository is managed by [Repository Manager](https://github.com/hashicorp/c
     \\"release\\": \\"npx projen release\\",
     \\"test\\": \\"jest --passWithNoTests\\",
     \\"unbump\\": \\"npx projen unbump\\",
+    \\"unconditional-bump\\": \\"npx projen unconditional-bump\\",
     \\"upgrade\\": \\"npx projen upgrade\\",
     \\"watch\\": \\"npx projen watch\\",
     \\"projen\\": \\"npx projen\\",

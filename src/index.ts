@@ -327,5 +327,21 @@ export class CdktfProviderProject extends cdk.JsiiProject {
         this.gitattributes.addLfsPattern(p)
       );
     }
+
+    // Setting the version in package.json so the golang docs have the correct version
+    const unconditionalBump = this.addTask("unconditional-bump", {
+      description: "Set the version in package.json to the current version",
+      steps: [{ builtin: "release/bump-version" }],
+      env: {
+        OUTFILE: "package.json",
+        CHANGELOG: "dist/changelog.md",
+        BUMPFILE: "dist/version.txt",
+        RELEASETAG: "dist/releasetag.txt",
+        RELEASE_TAG_PREFIX: "",
+      },
+    });
+    this.preCompileTask.spawn(unconditionalBump);
+    // Undo the changes after compilation
+    this.compileTask.exec("git checkout package.json");
   }
 }
