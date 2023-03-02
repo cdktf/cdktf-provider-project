@@ -320,7 +320,7 @@ export class CdktfProviderProject extends cdk.JsiiProject {
     (this.tasks.tryFind("docgen")!.steps![0] as any).exec = [
       "rm -rf docs",
       "mkdir docs",
-      "jsii-docgen --split-by-submodule -l typescript -l python -l java -l csharp",
+      "jsii-docgen --split-by-submodule -l typescript -l python -l java -l csharp -l go",
       // There is no nice way to tell jsii-docgen to generate docs into a folder so I went this route
       "mv *.*.md docs",
       // Some part of the documentation are too long, we need to truncate them to ~10MB
@@ -341,6 +341,11 @@ export class CdktfProviderProject extends cdk.JsiiProject {
       },
     });
     this.preCompileTask.spawn(unconditionalBump);
+    // To bump correctly we need to have the completely cloned repo
+    (this.buildWorkflow as any).workflow.file.addOverride(
+      "jobs.build.steps.0.with.fetch-depth",
+      0
+    );
     // Undo the changes after compilation
     this.compileTask.exec("git checkout package.json");
   }
