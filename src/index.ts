@@ -341,6 +341,11 @@ export class CdktfProviderProject extends cdk.JsiiProject {
       },
     });
     this.preCompileTask.spawn(unconditionalBump);
+    // To bump correctly we need to have the completely cloned repo
+    (this.buildWorkflow as any).workflow.file.addOverride(
+      "jobs.build.steps.0.with.fetch-depth",
+      0
+    );
     // Undo the changes after compilation
     this.compileTask.exec("git checkout package.json");
   }
