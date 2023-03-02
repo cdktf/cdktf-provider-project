@@ -319,7 +319,7 @@ export class CdktfProviderProject extends cdk.JsiiProject {
     // There is no nice way to tell jsii-docgen to generate docs into a folder so I went this route
     (
       this.tasks.tryFind("docgen")!.steps![0] as any
-    ).exec = `rm -rf docs && mkdir docs && jsii-docgen --split-by-submodule -l typescript -l python -l java -l csharp -l go && mv *.*.md docs`;
+    ).exec = `rm -rf docs && mkdir docs && jsii-docgen --split-by-submodule -l typescript -l python -l java -l csharp && mv *.*.md docs`;
 
     // Special overwrite for some very special resources
     if (providerName === "aws") {
