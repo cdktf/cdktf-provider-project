@@ -73,23 +73,3 @@ test("sets resolution for yargs", () => {
   expect(packageJson.resolutions).toHaveProperty("@types/yargs");
   expect(packageJson.resolutions["@types/yargs"]).toEqual("17.0.13");
 });
-
-test("aws has git-lfs overwrites for some documentatio files", () => {
-  const snapshot = synthSnapshot(
-    getProject({ terraformProvider: "aws@~> 4.0" })
-  );
-
-  expect(snapshot[".gitattributes"]).toEqual(
-    expect.stringContaining(
-      "*wafv2RuleGroup.*.md filter=lfs diff=lfs merge=lfs -text"
-    )
-  );
-  expect(snapshot[".gitattributes"]).toEqual(
-    expect.stringContaining(
-      "*wafv2WebAcl.*.md filter=lfs diff=lfs merge=lfs -text"
-    )
-  );
-  expect(snapshot[".github/workflows/build.yml"]).toEqual(
-    expect.stringContaining("lfs: true")
-  );
-});

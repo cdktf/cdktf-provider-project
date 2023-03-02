@@ -316,17 +316,17 @@ export class CdktfProviderProject extends cdk.JsiiProject {
     // Submodule documentation generation
     this.gitignore.exclude("API.md"); // ignore the old file, we now generate it in the docs folder
     this.addDevDeps("jsii-docgen@>=7.1.2");
-    // There is no nice way to tell jsii-docgen to generate docs into a folder so I went this route
-    (
-      this.tasks.tryFind("docgen")!.steps![0] as any
-    ).exec = `rm -rf docs && mkdir docs && jsii-docgen --split-by-submodule -l typescript -l python -l java -l csharp && mv *.*.md docs`;
 
-    // Special overwrite for some very special resources
-    if (providerName === "aws") {
-      ["*wafv2RuleGroup.*.md", "*wafv2WebAcl.*.md"].forEach((p) =>
-        this.gitattributes.addLfsPattern(p)
-      );
-    }
+    (this.tasks.tryFind("docgen")!.steps![0] as any).exec = [
+      "rm -rf docs",
+      "mkdir docs",
+      "jsii-docgen --split-by-submodule -l typescript -l python -l java -l csharp",
+      // There is no nice way to tell jsii-docgen to generate docs into a folder so I went this route
+      "mv *.*.md docs",
+      // Some part of the documentation are too long, we need to truncate them to ~10MB
+      "cd docs",
+      "ls ./ | xargs sed -i '150000,$ d' $1",
+    ].join(" && ");
 
     // Setting the version in package.json so the golang docs have the correct version
     const unconditionalBump = this.addTask("unconditional-bump", {
