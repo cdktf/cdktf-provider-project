@@ -320,7 +320,7 @@ export class CdktfProviderProject extends cdk.JsiiProject {
     (this.tasks.tryFind("docgen")!.steps![0] as any).exec = [
       "rm -rf docs",
       "mkdir docs",
-      "jsii-docgen --split-by-submodule -l typescript -l python -l java -l csharp",
+      "jsii-docgen --split-by-submodule -l typescript -l python -l java -l csharp -l go",
       // There is no nice way to tell jsii-docgen to generate docs into a folder so I went this route
       "mv *.*.md docs",
       // Some part of the documentation are too long, we need to truncate them to ~10MB
