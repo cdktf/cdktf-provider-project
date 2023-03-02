@@ -1339,7 +1339,7 @@ cdktf.json
       \\"description\\": \\"Generate API.md from .jsii manifest\\",
       \\"steps\\": [
         {
-          \\"exec\\": \\"rm -rf docs && mkdir docs && jsii-docgen --split-by-submodule -l typescript -l python -l java -l csharp && mv *.*.md docs && cd docs && ls ./ | xargs sed -i '150000,$ d' $1\\"
+          \\"exec\\": \\"rm -rf docs && mkdir docs && jsii-docgen --split-by-submodule -l typescript -l python -l java -l csharp -l go && mv *.*.md docs && cd docs && ls ./ | xargs sed -i '150000,$ d' $1\\"
         }
       ]
     },
@@ -3851,7 +3851,7 @@ cdktf.json
       \\"description\\": \\"Generate API.md from .jsii manifest\\",
       \\"steps\\": [
         {
-          \\"exec\\": \\"rm -rf docs && mkdir docs && jsii-docgen --split-by-submodule -l typescript -l python -l java -l csharp && mv *.*.md docs && cd docs && ls ./ | xargs sed -i '150000,$ d' $1\\"
+          \\"exec\\": \\"rm -rf docs && mkdir docs && jsii-docgen --split-by-submodule -l typescript -l python -l java -l csharp -l go && mv *.*.md docs && cd docs && ls ./ | xargs sed -i '150000,$ d' $1\\"
         }
       ]
     },
@@ -6318,7 +6318,7 @@ cdktf.json
       \\"description\\": \\"Generate API.md from .jsii manifest\\",
       \\"steps\\": [
         {
-          \\"exec\\": \\"rm -rf docs && mkdir docs && jsii-docgen --split-by-submodule -l typescript -l python -l java -l csharp && mv *.*.md docs && cd docs && ls ./ | xargs sed -i '150000,$ d' $1\\"
+          \\"exec\\": \\"rm -rf docs && mkdir docs && jsii-docgen --split-by-submodule -l typescript -l python -l java -l csharp -l go && mv *.*.md docs && cd docs && ls ./ | xargs sed -i '150000,$ d' $1\\"
         }
       ]
     },
