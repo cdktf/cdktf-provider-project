@@ -130,6 +130,8 @@ jobs:
         run: git config --global --add safe.directory $(pwd)
       - name: build
         run: npx projen build
+      - name: Revert package.json version bump
+        run: git checkout package.json
       - name: Find mutations
         id: self_mutation
         run: |-
@@ -1319,9 +1321,6 @@ cdktf.json
       \\"steps\\": [
         {
           \\"exec\\": \\"jsii --silence-warnings=reserved-word\\"
-        },
-        {
-          \\"exec\\": \\"git checkout package.json\\"
         }
       ]
     },
@@ -2600,6 +2599,8 @@ jobs:
         run: git config --global --add safe.directory $(pwd)
       - name: build
         run: npx projen build
+      - name: Revert package.json version bump
+        run: git checkout package.json
       - name: Find mutations
         id: self_mutation
         run: |-
@@ -3831,9 +3832,6 @@ cdktf.json
       \\"steps\\": [
         {
           \\"exec\\": \\"jsii --silence-warnings=reserved-word\\"
-        },
-        {
-          \\"exec\\": \\"git checkout package.json\\"
         }
       ]
     },
@@ -5109,6 +5107,8 @@ jobs:
         run: git config --global --add safe.directory $(pwd)
       - name: build
         run: npx projen build
+      - name: Revert package.json version bump
+        run: git checkout package.json
       - name: Find mutations
         id: self_mutation
         run: |-
@@ -6298,9 +6298,6 @@ cdktf.json
       \\"steps\\": [
         {
           \\"exec\\": \\"jsii --silence-warnings=reserved-word\\"
-        },
-        {
-          \\"exec\\": \\"git checkout package.json\\"
         }
       ]
     },

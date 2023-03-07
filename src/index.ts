@@ -347,6 +347,9 @@ export class CdktfProviderProject extends cdk.JsiiProject {
       0
     );
     // Undo the changes after compilation
-    this.compileTask.exec("git checkout package.json");
+    this.buildWorkflow?.addPostBuildSteps({
+      name: "Revert package.json version bump",
+      run: "git checkout package.json",
+    });
   }
 }
