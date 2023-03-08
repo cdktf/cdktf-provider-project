@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { cdk } from "projen";
 import { GithubWorkflow } from "projen/lib/github";
 import { JobPermission } from "projen/lib/github/workflows-model";

@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { cdk } from "projen";
 import { CustomizedLicense } from "./src/customized-license";
 import { LockIssues } from "./src/lock-issues";

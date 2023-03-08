@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { cdk, FileBase, FileBaseOptions, IResolver, Project } from "projen";
 
 interface GithubIssuesConfig {
