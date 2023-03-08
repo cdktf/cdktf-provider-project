@@ -6,6 +6,7 @@ import { JobStep } from "projen/lib/github/workflows-model";
 import { AlertOpenPrs } from "./alert-open-prs";
 import { AutoCloseCommunityIssues } from "./auto-close-community-issues";
 import { CdktfConfig } from "./cdktf-config";
+import { CopyrightHeaders } from "./copyright-headers";
 import { CustomizedLicense } from "./customized-license";
 import { GithubIssues } from "./github-issues";
 import { LockIssues } from "./lock-issues";
@@ -352,14 +353,6 @@ export class CdktfProviderProject extends cdk.JsiiProject {
       run: "git checkout package.json",
     });
 
-    // Run copywrite tool to add copyright headers to all files
-    this.buildWorkflow?.addPostBuildSteps(
-      {
-        name: "Setup Copywrite tool",
-        uses: "hashicorp/setup-copywrite@3ace06ad72e6ec679ea8572457b17dbc3960b8ce", // v1.0.0
-        with: { token: "${{ secrets.GITHUB_TOKEN }}" },
-      },
-      { name: "Add headers using Copywrite tool", run: "copywrite headers" }
-    );
+    new CopyrightHeaders(this);
   }
 }
