@@ -20,7 +20,6 @@ export interface CdktfProviderProjectOptions extends cdk.JsiiProjectOptions {
   readonly terraformProvider: string;
   readonly cdktfVersion: string;
   readonly constructsVersion: string;
-  readonly jsiiVersion?: string;
   readonly forceMajorVersion?: number;
   /**
    * defaults to "cdktf"
