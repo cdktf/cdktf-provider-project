@@ -56,7 +56,7 @@ export class CdktfProviderProject extends cdk.JsiiProject {
   constructor(options: CdktfProviderProjectOptions) {
     const {
       terraformProvider,
-      workflowContainerImage = "hashicorp/jsii-terraform",
+      workflowContainerImage,
       cdktfVersion,
       constructsVersion,
       minNodeVersion,
