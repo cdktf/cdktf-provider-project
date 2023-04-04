@@ -9,7 +9,7 @@ const project = new cdk.JsiiProject({
   repositoryUrl: "https://github.com/hashicorp/cdktf-provider-project.git",
   authorOrganization: true,
   licensed: false, // we do supply our own license file with a custom header
-  peerDeps: ["projen@^0.67.64"],
+  peerDeps: ["projen@^0.70.9"],
   deps: ["change-case", "fs-extra"],
   devDeps: ["@types/fs-extra", "glob"],
   bundledDeps: ["change-case", "fs-extra"],

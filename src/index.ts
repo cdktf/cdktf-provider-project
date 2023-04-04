@@ -20,7 +20,6 @@ export interface CdktfProviderProjectOptions extends cdk.JsiiProjectOptions {
   readonly terraformProvider: string;
   readonly cdktfVersion: string;
   readonly constructsVersion: string;
-  readonly jsiiVersion?: string;
   readonly forceMajorVersion?: number;
   /**
    * defaults to "cdktf"
@@ -57,7 +56,7 @@ export class CdktfProviderProject extends cdk.JsiiProject {
   constructor(options: CdktfProviderProjectOptions) {
     const {
       terraformProvider,
-      workflowContainerImage = "hashicorp/jsii-terraform",
+      workflowContainerImage,
       cdktfVersion,
       constructsVersion,
       minNodeVersion,

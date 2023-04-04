@@ -157,8 +157,6 @@ jobs:
         with:
           name: build-artifact
           path: dist
-    container:
-      image: hashicorp/jsii-terraform
   self-mutation:
     needs: build
     runs-on: ubuntu-latest
@@ -196,7 +194,7 @@ jobs:
     steps:
       - uses: actions/setup-node@v3
         with:
-          node-version: 14.x
+          node-version: 16.x
       - name: Download build artifacts
         uses: actions/download-artifact@v3
         with:
@@ -225,7 +223,7 @@ jobs:
           java-version: 11.x
       - uses: actions/setup-node@v3
         with:
-          node-version: 14.x
+          node-version: 16.x
       - name: Download build artifacts
         uses: actions/download-artifact@v3
         with:
@@ -250,7 +248,7 @@ jobs:
     steps:
       - uses: actions/setup-node@v3
         with:
-          node-version: 14.x
+          node-version: 16.x
       - uses: actions/setup-python@v4
         with:
           python-version: 3.x
@@ -278,7 +276,7 @@ jobs:
     steps:
       - uses: actions/setup-node@v3
         with:
-          node-version: 14.x
+          node-version: 16.x
       - uses: actions/setup-dotnet@v3
         with:
           dotnet-version: 3.x
@@ -306,7 +304,7 @@ jobs:
     steps:
       - uses: actions/setup-node@v3
         with:
-          node-version: 14.x
+          node-version: 16.x
       - uses: actions/setup-go@v3
         with:
           go-version: ^1.16.0
@@ -526,8 +524,6 @@ jobs:
         with:
           name: build-artifact
           path: dist
-    container:
-      image: hashicorp/jsii-terraform
   release_github:
     name: Publish to GitHub Releases
     needs: release
@@ -539,7 +535,7 @@ jobs:
     steps:
       - uses: actions/setup-node@v3
         with:
-          node-version: 14.x
+          node-version: 16.x
       - name: Download build artifacts
         uses: actions/download-artifact@v3
         with:
@@ -582,7 +578,7 @@ jobs:
     steps:
       - uses: actions/setup-node@v3
         with:
-          node-version: 14.x
+          node-version: 16.x
       - name: Download build artifacts
         uses: actions/download-artifact@v3
         with:
@@ -633,7 +629,7 @@ jobs:
           java-version: 11.x
       - uses: actions/setup-node@v3
         with:
-          node-version: 14.x
+          node-version: 16.x
       - name: Download build artifacts
         uses: actions/download-artifact@v3
         with:
@@ -683,7 +679,7 @@ jobs:
     steps:
       - uses: actions/setup-node@v3
         with:
-          node-version: 14.x
+          node-version: 16.x
       - uses: actions/setup-python@v4
         with:
           python-version: 3.x
@@ -732,7 +728,7 @@ jobs:
     steps:
       - uses: actions/setup-node@v3
         with:
-          node-version: 14.x
+          node-version: 16.x
       - uses: actions/setup-dotnet@v3
         with:
           dotnet-version: 3.x
@@ -780,7 +776,7 @@ jobs:
     steps:
       - uses: actions/setup-node@v3
         with:
-          node-version: 14.x
+          node-version: 16.x
       - uses: actions/setup-go@v3
         with:
           go-version: ^1.16.0
@@ -888,8 +884,6 @@ jobs:
         with:
           name: .repo.patch
           path: .repo.patch
-    container:
-      image: hashicorp/jsii-terraform
   pr:
     name: Create Pull Request
     needs: upgrade
@@ -1014,6 +1008,7 @@ API.md
 
 queue_rules:
   - name: default
+    update_method: merge
     conditions:
       - \\"#approved-reviews-by>=1\\"
       - -label~=(do-not-merge)
@@ -1100,7 +1095,7 @@ cdktf.json
     },
     {
       \\"name\\": \\"@types/node\\",
-      \\"version\\": \\"^14\\",
+      \\"version\\": \\"^16\\",
       \\"type\\": \\"build\\"
     },
     {
@@ -1124,10 +1119,6 @@ cdktf.json
       \\"type\\": \\"build\\"
     },
     {
-      \\"name\\": \\"jsii\\",
-      \\"type\\": \\"build\\"
-    },
-    {
       \\"name\\": \\"jsii-diff\\",
       \\"type\\": \\"build\\"
     },
@@ -1138,6 +1129,11 @@ cdktf.json
     },
     {
       \\"name\\": \\"jsii-pacmak\\",
+      \\"type\\": \\"build\\"
+    },
+    {
+      \\"name\\": \\"jsii\\",
+      \\"version\\": \\"1.x\\",
       \\"type\\": \\"build\\"
     },
     {
@@ -1368,6 +1364,24 @@ cdktf.json
         }
       ]
     },
+    \\"install\\": {
+      \\"name\\": \\"install\\",
+      \\"description\\": \\"Install project dependencies and update lockfile (non-frozen)\\",
+      \\"steps\\": [
+        {
+          \\"exec\\": \\"yarn install --check-files\\"
+        }
+      ]
+    },
+    \\"install:ci\\": {
+      \\"name\\": \\"install:ci\\",
+      \\"description\\": \\"Install project dependencies using frozen lockfile\\",
+      \\"steps\\": [
+        {
+          \\"exec\\": \\"yarn install --check-files --frozen-lockfile\\"
+        }
+      ]
+    },
     \\"package\\": {
       \\"name\\": \\"package\\",
       \\"description\\": \\"Creates the distribution package\\",
@@ -1538,19 +1552,19 @@ cdktf.json
           \\"exec\\": \\"yarn upgrade npm-check-updates\\"
         },
         {
-          \\"exec\\": \\"npm-check-updates --dep dev --upgrade --target=minor --reject='cdktf-cli,cdktf,constructs,jsii-docgen,node-fetch'\\"
+          \\"exec\\": \\"npm-check-updates --dep dev --upgrade --target=minor --reject='cdktf-cli,cdktf,constructs,jsii-docgen,jsii,node-fetch'\\"
         },
         {
-          \\"exec\\": \\"npm-check-updates --dep optional --upgrade --target=minor --reject='cdktf-cli,cdktf,constructs,jsii-docgen,node-fetch'\\"
+          \\"exec\\": \\"npm-check-updates --dep optional --upgrade --target=minor --reject='cdktf-cli,cdktf,constructs,jsii-docgen,jsii,node-fetch'\\"
         },
         {
-          \\"exec\\": \\"npm-check-updates --dep peer --upgrade --target=minor --reject='cdktf-cli,cdktf,constructs,jsii-docgen,node-fetch'\\"
+          \\"exec\\": \\"npm-check-updates --dep peer --upgrade --target=minor --reject='cdktf-cli,cdktf,constructs,jsii-docgen,jsii,node-fetch'\\"
         },
         {
-          \\"exec\\": \\"npm-check-updates --dep prod --upgrade --target=minor --reject='cdktf-cli,cdktf,constructs,jsii-docgen,node-fetch'\\"
+          \\"exec\\": \\"npm-check-updates --dep prod --upgrade --target=minor --reject='cdktf-cli,cdktf,constructs,jsii-docgen,jsii,node-fetch'\\"
         },
         {
-          \\"exec\\": \\"npm-check-updates --dep bundle --upgrade --target=minor --reject='cdktf-cli,cdktf,constructs,jsii-docgen,node-fetch'\\"
+          \\"exec\\": \\"npm-check-updates --dep bundle --upgrade --target=minor --reject='cdktf-cli,cdktf,constructs,jsii-docgen,jsii,node-fetch'\\"
         },
         {
           \\"exec\\": \\"yarn install --check-files\\"
@@ -2091,12 +2105,12 @@ The repository is managed by [Repository Manager](https://github.com/hashicorp/c
   \\"devDependencies\\": {
     \\"@actions/core\\": \\"^1.1.0\\",
     \\"@cdktf/provider-project\\": \\"^0.0.0\\",
-    \\"@types/node\\": \\"^14\\",
+    \\"@types/node\\": \\"^16\\",
     \\"cdktf\\": \\">=0.12.2 <0.14.0\\",
     \\"cdktf-cli\\": \\">=0.12.2 <0.14.0\\",
     \\"constructs\\": \\"10.0.0\\",
     \\"dot-prop\\": \\"^5.2.0\\",
-    \\"jsii\\": \\"*\\",
+    \\"jsii\\": \\"1.x\\",
     \\"jsii-diff\\": \\"*\\",
     \\"jsii-docgen\\": \\">=7.1.2\\",
     \\"jsii-pacmak\\": \\"*\\",
@@ -2626,8 +2640,6 @@ jobs:
         with:
           name: build-artifact
           path: dist
-    container:
-      image: hashicorp/jsii-terraform
   self-mutation:
     needs: build
     runs-on:
@@ -2671,7 +2683,7 @@ jobs:
     steps:
       - uses: actions/setup-node@v3
         with:
-          node-version: 14.x
+          node-version: 16.x
       - name: Download build artifacts
         uses: actions/download-artifact@v3
         with:
@@ -2703,7 +2715,7 @@ jobs:
           java-version: 11.x
       - uses: actions/setup-node@v3
         with:
-          node-version: 14.x
+          node-version: 16.x
       - name: Download build artifacts
         uses: actions/download-artifact@v3
         with:
@@ -2731,7 +2743,7 @@ jobs:
     steps:
       - uses: actions/setup-node@v3
         with:
-          node-version: 14.x
+          node-version: 16.x
       - uses: actions/setup-python@v4
         with:
           python-version: 3.x
@@ -2762,7 +2774,7 @@ jobs:
     steps:
       - uses: actions/setup-node@v3
         with:
-          node-version: 14.x
+          node-version: 16.x
       - uses: actions/setup-dotnet@v3
         with:
           dotnet-version: 3.x
@@ -2793,7 +2805,7 @@ jobs:
     steps:
       - uses: actions/setup-node@v3
         with:
-          node-version: 14.x
+          node-version: 16.x
       - uses: actions/setup-go@v3
         with:
           go-version: ^1.16.0
@@ -3019,8 +3031,6 @@ jobs:
         with:
           name: build-artifact
           path: dist
-    container:
-      image: hashicorp/jsii-terraform
   release_github:
     name: Publish to GitHub Releases
     needs: release
@@ -3035,7 +3045,7 @@ jobs:
     steps:
       - uses: actions/setup-node@v3
         with:
-          node-version: 14.x
+          node-version: 16.x
       - name: Download build artifacts
         uses: actions/download-artifact@v3
         with:
@@ -3081,7 +3091,7 @@ jobs:
     steps:
       - uses: actions/setup-node@v3
         with:
-          node-version: 14.x
+          node-version: 16.x
       - name: Download build artifacts
         uses: actions/download-artifact@v3
         with:
@@ -3135,7 +3145,7 @@ jobs:
           java-version: 11.x
       - uses: actions/setup-node@v3
         with:
-          node-version: 14.x
+          node-version: 16.x
       - name: Download build artifacts
         uses: actions/download-artifact@v3
         with:
@@ -3188,7 +3198,7 @@ jobs:
     steps:
       - uses: actions/setup-node@v3
         with:
-          node-version: 14.x
+          node-version: 16.x
       - uses: actions/setup-python@v4
         with:
           python-version: 3.x
@@ -3240,7 +3250,7 @@ jobs:
     steps:
       - uses: actions/setup-node@v3
         with:
-          node-version: 14.x
+          node-version: 16.x
       - uses: actions/setup-dotnet@v3
         with:
           dotnet-version: 3.x
@@ -3291,7 +3301,7 @@ jobs:
     steps:
       - uses: actions/setup-node@v3
         with:
-          node-version: 14.x
+          node-version: 16.x
       - uses: actions/setup-go@v3
         with:
           go-version: ^1.16.0
@@ -3399,8 +3409,6 @@ jobs:
         with:
           name: .repo.patch
           path: .repo.patch
-    container:
-      image: hashicorp/jsii-terraform
   pr:
     name: Create Pull Request
     needs: upgrade
@@ -3525,6 +3533,7 @@ API.md
 
 queue_rules:
   - name: default
+    update_method: merge
     conditions:
       - \\"#approved-reviews-by>=1\\"
       - -label~=(do-not-merge)
@@ -3611,7 +3620,7 @@ cdktf.json
     },
     {
       \\"name\\": \\"@types/node\\",
-      \\"version\\": \\"^14\\",
+      \\"version\\": \\"^16\\",
       \\"type\\": \\"build\\"
     },
     {
@@ -3635,10 +3644,6 @@ cdktf.json
       \\"type\\": \\"build\\"
     },
     {
-      \\"name\\": \\"jsii\\",
-      \\"type\\": \\"build\\"
-    },
-    {
       \\"name\\": \\"jsii-diff\\",
       \\"type\\": \\"build\\"
     },
@@ -3649,6 +3654,11 @@ cdktf.json
     },
     {
       \\"name\\": \\"jsii-pacmak\\",
+      \\"type\\": \\"build\\"
+    },
+    {
+      \\"name\\": \\"jsii\\",
+      \\"version\\": \\"1.x\\",
       \\"type\\": \\"build\\"
     },
     {
@@ -3879,6 +3889,24 @@ cdktf.json
         }
       ]
     },
+    \\"install\\": {
+      \\"name\\": \\"install\\",
+      \\"description\\": \\"Install project dependencies and update lockfile (non-frozen)\\",
+      \\"steps\\": [
+        {
+          \\"exec\\": \\"yarn install --check-files\\"
+        }
+      ]
+    },
+    \\"install:ci\\": {
+      \\"name\\": \\"install:ci\\",
+      \\"description\\": \\"Install project dependencies using frozen lockfile\\",
+      \\"steps\\": [
+        {
+          \\"exec\\": \\"yarn install --check-files --frozen-lockfile\\"
+        }
+      ]
+    },
     \\"package\\": {
       \\"name\\": \\"package\\",
       \\"description\\": \\"Creates the distribution package\\",
@@ -4049,19 +4077,19 @@ cdktf.json
           \\"exec\\": \\"yarn upgrade npm-check-updates\\"
         },
         {
-          \\"exec\\": \\"npm-check-updates --dep dev --upgrade --target=minor --reject='cdktf-cli,cdktf,constructs,jsii-docgen,node-fetch'\\"
+          \\"exec\\": \\"npm-check-updates --dep dev --upgrade --target=minor --reject='cdktf-cli,cdktf,constructs,jsii-docgen,jsii,node-fetch'\\"
         },
         {
-          \\"exec\\": \\"npm-check-updates --dep optional --upgrade --target=minor --reject='cdktf-cli,cdktf,constructs,jsii-docgen,node-fetch'\\"
+          \\"exec\\": \\"npm-check-updates --dep optional --upgrade --target=minor --reject='cdktf-cli,cdktf,constructs,jsii-docgen,jsii,node-fetch'\\"
         },
         {
-          \\"exec\\": \\"npm-check-updates --dep peer --upgrade --target=minor --reject='cdktf-cli,cdktf,constructs,jsii-docgen,node-fetch'\\"
+          \\"exec\\": \\"npm-check-updates --dep peer --upgrade --target=minor --reject='cdktf-cli,cdktf,constructs,jsii-docgen,jsii,node-fetch'\\"
         },
         {
-          \\"exec\\": \\"npm-check-updates --dep prod --upgrade --target=minor --reject='cdktf-cli,cdktf,constructs,jsii-docgen,node-fetch'\\"
+          \\"exec\\": \\"npm-check-updates --dep prod --upgrade --target=minor --reject='cdktf-cli,cdktf,constructs,jsii-docgen,jsii,node-fetch'\\"
         },
         {
-          \\"exec\\": \\"npm-check-updates --dep bundle --upgrade --target=minor --reject='cdktf-cli,cdktf,constructs,jsii-docgen,node-fetch'\\"
+          \\"exec\\": \\"npm-check-updates --dep bundle --upgrade --target=minor --reject='cdktf-cli,cdktf,constructs,jsii-docgen,jsii,node-fetch'\\"
         },
         {
           \\"exec\\": \\"yarn install --check-files\\"
@@ -4602,12 +4630,12 @@ The repository is managed by [Repository Manager](https://github.com/hashicorp/c
   \\"devDependencies\\": {
     \\"@actions/core\\": \\"^1.1.0\\",
     \\"@cdktf/provider-project\\": \\"^0.0.0\\",
-    \\"@types/node\\": \\"^14\\",
+    \\"@types/node\\": \\"^16\\",
     \\"cdktf\\": \\"0.10.3\\",
     \\"cdktf-cli\\": \\"0.10.3\\",
     \\"constructs\\": \\"10.0.0\\",
     \\"dot-prop\\": \\"^5.2.0\\",
-    \\"jsii\\": \\"*\\",
+    \\"jsii\\": \\"1.x\\",
     \\"jsii-diff\\": \\"*\\",
     \\"jsii-docgen\\": \\">=7.1.2\\",
     \\"jsii-pacmak\\": \\"*\\",
@@ -5134,8 +5162,6 @@ jobs:
         with:
           name: build-artifact
           path: dist
-    container:
-      image: hashicorp/jsii-terraform
   self-mutation:
     needs: build
     runs-on: ubuntu-latest
@@ -5173,7 +5199,7 @@ jobs:
     steps:
       - uses: actions/setup-node@v3
         with:
-          node-version: 14.x
+          node-version: 16.x
       - name: Download build artifacts
         uses: actions/download-artifact@v3
         with:
@@ -5202,7 +5228,7 @@ jobs:
           java-version: 11.x
       - uses: actions/setup-node@v3
         with:
-          node-version: 14.x
+          node-version: 16.x
       - name: Download build artifacts
         uses: actions/download-artifact@v3
         with:
@@ -5227,7 +5253,7 @@ jobs:
     steps:
       - uses: actions/setup-node@v3
         with:
-          node-version: 14.x
+          node-version: 16.x
       - uses: actions/setup-python@v4
         with:
           python-version: 3.x
@@ -5255,7 +5281,7 @@ jobs:
     steps:
       - uses: actions/setup-node@v3
         with:
-          node-version: 14.x
+          node-version: 16.x
       - uses: actions/setup-dotnet@v3
         with:
           dotnet-version: 3.x
@@ -5283,7 +5309,7 @@ jobs:
     steps:
       - uses: actions/setup-node@v3
         with:
-          node-version: 14.x
+          node-version: 16.x
       - uses: actions/setup-go@v3
         with:
           go-version: ^1.16.0
@@ -5503,8 +5529,6 @@ jobs:
         with:
           name: build-artifact
           path: dist
-    container:
-      image: hashicorp/jsii-terraform
   release_github:
     name: Publish to GitHub Releases
     needs: release
@@ -5516,7 +5540,7 @@ jobs:
     steps:
       - uses: actions/setup-node@v3
         with:
-          node-version: 14.x
+          node-version: 16.x
       - name: Download build artifacts
         uses: actions/download-artifact@v3
         with:
@@ -5559,7 +5583,7 @@ jobs:
     steps:
       - uses: actions/setup-node@v3
         with:
-          node-version: 14.x
+          node-version: 16.x
       - name: Download build artifacts
         uses: actions/download-artifact@v3
         with:
@@ -5610,7 +5634,7 @@ jobs:
           java-version: 11.x
       - uses: actions/setup-node@v3
         with:
-          node-version: 14.x
+          node-version: 16.x
       - name: Download build artifacts
         uses: actions/download-artifact@v3
         with:
@@ -5660,7 +5684,7 @@ jobs:
     steps:
       - uses: actions/setup-node@v3
         with:
-          node-version: 14.x
+          node-version: 16.x
       - uses: actions/setup-python@v4
         with:
           python-version: 3.x
@@ -5709,7 +5733,7 @@ jobs:
     steps:
       - uses: actions/setup-node@v3
         with:
-          node-version: 14.x
+          node-version: 16.x
       - uses: actions/setup-dotnet@v3
         with:
           dotnet-version: 3.x
@@ -5757,7 +5781,7 @@ jobs:
     steps:
       - uses: actions/setup-node@v3
         with:
-          node-version: 14.x
+          node-version: 16.x
       - uses: actions/setup-go@v3
         with:
           go-version: ^1.16.0
@@ -5865,8 +5889,6 @@ jobs:
         with:
           name: .repo.patch
           path: .repo.patch
-    container:
-      image: hashicorp/jsii-terraform
   pr:
     name: Create Pull Request
     needs: upgrade
@@ -5991,6 +6013,7 @@ API.md
 
 queue_rules:
   - name: default
+    update_method: merge
     conditions:
       - \\"#approved-reviews-by>=1\\"
       - -label~=(do-not-merge)
@@ -6077,7 +6100,7 @@ cdktf.json
     },
     {
       \\"name\\": \\"@types/node\\",
-      \\"version\\": \\"^14\\",
+      \\"version\\": \\"^16\\",
       \\"type\\": \\"build\\"
     },
     {
@@ -6101,10 +6124,6 @@ cdktf.json
       \\"type\\": \\"build\\"
     },
     {
-      \\"name\\": \\"jsii\\",
-      \\"type\\": \\"build\\"
-    },
-    {
       \\"name\\": \\"jsii-diff\\",
       \\"type\\": \\"build\\"
     },
@@ -6115,6 +6134,11 @@ cdktf.json
     },
     {
       \\"name\\": \\"jsii-pacmak\\",
+      \\"type\\": \\"build\\"
+    },
+    {
+      \\"name\\": \\"jsii\\",
+      \\"version\\": \\"1.x\\",
       \\"type\\": \\"build\\"
     },
     {
@@ -6345,6 +6369,24 @@ cdktf.json
         }
       ]
     },
+    \\"install\\": {
+      \\"name\\": \\"install\\",
+      \\"description\\": \\"Install project dependencies and update lockfile (non-frozen)\\",
+      \\"steps\\": [
+        {
+          \\"exec\\": \\"yarn install --check-files\\"
+        }
+      ]
+    },
+    \\"install:ci\\": {
+      \\"name\\": \\"install:ci\\",
+      \\"description\\": \\"Install project dependencies using frozen lockfile\\",
+      \\"steps\\": [
+        {
+          \\"exec\\": \\"yarn install --check-files --frozen-lockfile\\"
+        }
+      ]
+    },
     \\"package\\": {
       \\"name\\": \\"package\\",
       \\"description\\": \\"Creates the distribution package\\",
@@ -6515,19 +6557,19 @@ cdktf.json
           \\"exec\\": \\"yarn upgrade npm-check-updates\\"
         },
         {
-          \\"exec\\": \\"npm-check-updates --dep dev --upgrade --target=minor --reject='cdktf-cli,cdktf,constructs,jsii-docgen,node-fetch'\\"
+          \\"exec\\": \\"npm-check-updates --dep dev --upgrade --target=minor --reject='cdktf-cli,cdktf,constructs,jsii-docgen,jsii,node-fetch'\\"
         },
         {
-          \\"exec\\": \\"npm-check-updates --dep optional --upgrade --target=minor --reject='cdktf-cli,cdktf,constructs,jsii-docgen,node-fetch'\\"
+          \\"exec\\": \\"npm-check-updates --dep optional --upgrade --target=minor --reject='cdktf-cli,cdktf,constructs,jsii-docgen,jsii,node-fetch'\\"
         },
         {
-          \\"exec\\": \\"npm-check-updates --dep peer --upgrade --target=minor --reject='cdktf-cli,cdktf,constructs,jsii-docgen,node-fetch'\\"
+          \\"exec\\": \\"npm-check-updates --dep peer --upgrade --target=minor --reject='cdktf-cli,cdktf,constructs,jsii-docgen,jsii,node-fetch'\\"
         },
         {
-          \\"exec\\": \\"npm-check-updates --dep prod --upgrade --target=minor --reject='cdktf-cli,cdktf,constructs,jsii-docgen,node-fetch'\\"
+          \\"exec\\": \\"npm-check-updates --dep prod --upgrade --target=minor --reject='cdktf-cli,cdktf,constructs,jsii-docgen,jsii,node-fetch'\\"
         },
         {
-          \\"exec\\": \\"npm-check-updates --dep bundle --upgrade --target=minor --reject='cdktf-cli,cdktf,constructs,jsii-docgen,node-fetch'\\"
+          \\"exec\\": \\"npm-check-updates --dep bundle --upgrade --target=minor --reject='cdktf-cli,cdktf,constructs,jsii-docgen,jsii,node-fetch'\\"
         },
         {
           \\"exec\\": \\"yarn install --check-files\\"
@@ -7068,12 +7110,12 @@ The repository is managed by [Repository Manager](https://github.com/hashicorp/c
   \\"devDependencies\\": {
     \\"@actions/core\\": \\"^1.1.0\\",
     \\"@cdktf/provider-project\\": \\"^0.0.0\\",
-    \\"@types/node\\": \\"^14\\",
+    \\"@types/node\\": \\"^16\\",
     \\"cdktf\\": \\"0.10.3\\",
     \\"cdktf-cli\\": \\"0.10.3\\",
     \\"constructs\\": \\"10.0.0\\",
     \\"dot-prop\\": \\"^5.2.0\\",
-    \\"jsii\\": \\"*\\",
+    \\"jsii\\": \\"1.x\\",
     \\"jsii-diff\\": \\"*\\",
     \\"jsii-docgen\\": \\">=7.1.2\\",
     \\"jsii-pacmak\\": \\"*\\",
