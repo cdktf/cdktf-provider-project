@@ -135,6 +135,8 @@ export class CdktfConfig {
       project.npmignore.exclude(".gen");
       project.npmignore.exclude(".terraform");
       project.npmignore.exclude("cdktf.json");
+      project.npmignore.exclude("API.md");
+      project.npmignore.exclude("docs");
     }
     project.gitignore.exclude(".gen");
     project.gitignore.exclude(".terraform");
