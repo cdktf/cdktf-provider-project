@@ -257,6 +257,7 @@ export class CdktfProviderProject extends cdk.JsiiProject {
     new CdktfConfig(this, {
       terraformProvider,
       providerName,
+      fqproviderName,
       providerVersion,
       cdktfVersion,
       constructsVersion,

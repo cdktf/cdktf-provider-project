@@ -73,3 +73,31 @@ test("sets resolution for yargs", () => {
   expect(packageJson.resolutions).toHaveProperty("@types/yargs");
   expect(packageJson.resolutions["@types/yargs"]).toEqual("17.0.13");
 });
+
+test("README contains provided Namespace", () => {
+  const snapshotWithVersion = synthSnapshot(
+    getProject({ terraformProvider: "random@~> 3.1" })
+  );
+
+  const snapshotWithoutVersion = synthSnapshot(
+    getProject({ terraformProvider: "random" })
+  );
+
+  expect(snapshotWithVersion["README.md"]).toEqual(
+    expect.stringContaining(
+      "- [Terraform random Provider](https://registry.terraform.io/providers/hashicorp/random/3.1.0)"
+    ) &&
+      expect.stringContaining(
+        "- This links to the minimum version being tracked, you can find the latest released version [in our releases](https://github.com/cdktf/cdktf-provider-random/releases)"
+      )
+  );
+
+  expect(snapshotWithoutVersion["README.md"]).toEqual(
+    expect.stringContaining(
+      "- [Terraform random Provider](https://registry.terraform.io/providers/hashicorp/random/)"
+    ) &&
+      expect.stringContaining(
+        "- This links to the minimum version being tracked, you can find the latest released version [in our releases](https://github.com/cdktf/cdktf-provider-random/releases)"
+      )
+  );
+});
