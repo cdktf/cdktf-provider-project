@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { cdk } from "projen";
 import { CustomizedLicense } from "./src/customized-license";
 import { LockIssues } from "./src/lock-issues";
@@ -38,5 +43,17 @@ project.addFields({ publishConfig: { access: "public" } });
 
 new CustomizedLicense(project, 2020);
 new LockIssues(project);
+
+// Run copywrite tool to add copyright headers to all files
+// This is for this repository itself, not for the projects
+// using this Projen template
+project.buildWorkflow?.addPostBuildSteps(
+  {
+    name: "Setup Copywrite tool",
+    uses: "hashicorp/setup-copywrite@3ace06ad72e6ec679ea8572457b17dbc3960b8ce", // v1.0.0
+    with: { token: "${{ secrets.GITHUB_TOKEN }}" },
+  },
+  { name: "Add headers using Copywrite tool", run: "copywrite headers" }
+);
 
 project.synth();

@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 // From https://github.com/projen/projen/blob/main/src/util/synth.ts
 
 import * as os from "os";

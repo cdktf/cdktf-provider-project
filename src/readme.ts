@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { FileBase, FileBaseOptions, IResolver, Project } from "projen";
 import { PackageInfo } from "./package-info";
 

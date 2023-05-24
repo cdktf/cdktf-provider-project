@@ -6,6 +6,7 @@ import { JobStep } from "projen/lib/github/workflows-model";
 import { AlertOpenPrs } from "./alert-open-prs";
 import { AutoCloseCommunityIssues } from "./auto-close-community-issues";
 import { CdktfConfig } from "./cdktf-config";
+import { CopyrightHeaders } from "./copyright-headers";
 import { CustomizedLicense } from "./customized-license";
 import { GithubIssues } from "./github-issues";
 import { LockIssues } from "./lock-issues";
@@ -351,5 +352,7 @@ export class CdktfProviderProject extends cdk.JsiiProject {
       name: "Revert package.json version bump",
       run: "git checkout package.json",
     });
+
+    new CopyrightHeaders(this);
   }
 }
