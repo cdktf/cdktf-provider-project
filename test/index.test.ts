@@ -1,5 +1,5 @@
-import { CdktfProviderProject, CdktfProviderProjectOptions } from "../src";
 import { synthSnapshot } from "./utils";
+import { CdktfProviderProject, CdktfProviderProjectOptions } from "../src";
 
 const getProject = (
   opts: Partial<CdktfProviderProjectOptions> = {}
