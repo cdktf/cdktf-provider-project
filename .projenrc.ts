@@ -16,7 +16,7 @@ const project = new cdk.JsiiProject({
   license: "MPL-2.0",
   defaultReleaseBranch: "main",
   releaseToNpm: true,
-  minNodeVersion: "14.17.0",
+  minNodeVersion: "16.13.0",
   mergify: false,
   scripts: {
     "eslint:fix": "eslint . --ext .ts --fix",
