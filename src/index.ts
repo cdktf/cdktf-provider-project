@@ -59,6 +59,7 @@ const githubActionPinnedVersions = {
   "actions/checkout": "8e5e7e5ab8b370d6c329ec480221332ada57f0ab", // v3.5.2
   "actions/setup-node": "64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c", // v3.6.0
   "actions/upload-artifact": "0b7f8abb1508181956e8e162db84b466c27e18ce", // v3.1.2
+  "actions/download-artifact": "9bc31d5ccc31df68ecc42ccf4149144866c47d8a", // v3.0.2
   "actions/setup-java": "5ffc13f4174014e2d4d4572b3d74c3fa61aeb2c2", // v3.11.0
   "actions/setup-go": "fac708d6674e30b6ba41289acaab6d4b75aa0753", // v4.0.1
   "actions/setup-dotnet": "607fce577a46308457984d59e4954e075820f10a", // v3.0.3

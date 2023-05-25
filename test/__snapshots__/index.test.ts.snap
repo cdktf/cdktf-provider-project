@@ -203,7 +203,7 @@ jobs:
           ref: \${{ github.event.pull_request.head.ref }}
           repository: \${{ github.event.pull_request.head.repo.full_name }}
       - name: Download patch
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@9bc31d5ccc31df68ecc42ccf4149144866c47d8a
         with:
           name: .repo.patch
           path: \${{ runner.temp }}
@@ -230,7 +230,7 @@ jobs:
         with:
           node-version: 16.x
       - name: Download build artifacts
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@9bc31d5ccc31df68ecc42ccf4149144866c47d8a
         with:
           name: build-artifact
           path: dist
@@ -259,7 +259,7 @@ jobs:
         with:
           node-version: 16.x
       - name: Download build artifacts
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@9bc31d5ccc31df68ecc42ccf4149144866c47d8a
         with:
           name: build-artifact
           path: dist
@@ -287,7 +287,7 @@ jobs:
         with:
           python-version: 3.x
       - name: Download build artifacts
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@9bc31d5ccc31df68ecc42ccf4149144866c47d8a
         with:
           name: build-artifact
           path: dist
@@ -315,7 +315,7 @@ jobs:
         with:
           dotnet-version: 3.x
       - name: Download build artifacts
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@9bc31d5ccc31df68ecc42ccf4149144866c47d8a
         with:
           name: build-artifact
           path: dist
@@ -343,7 +343,7 @@ jobs:
         with:
           go-version: ^1.16.0
       - name: Download build artifacts
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@9bc31d5ccc31df68ecc42ccf4149144866c47d8a
         with:
           name: build-artifact
           path: dist
@@ -571,7 +571,7 @@ jobs:
         with:
           node-version: 16.x
       - name: Download build artifacts
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@9bc31d5ccc31df68ecc42ccf4149144866c47d8a
         with:
           name: build-artifact
           path: dist
@@ -614,7 +614,7 @@ jobs:
         with:
           node-version: 16.x
       - name: Download build artifacts
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@9bc31d5ccc31df68ecc42ccf4149144866c47d8a
         with:
           name: build-artifact
           path: dist
@@ -665,7 +665,7 @@ jobs:
         with:
           node-version: 16.x
       - name: Download build artifacts
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@9bc31d5ccc31df68ecc42ccf4149144866c47d8a
         with:
           name: build-artifact
           path: dist
@@ -718,7 +718,7 @@ jobs:
         with:
           python-version: 3.x
       - name: Download build artifacts
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@9bc31d5ccc31df68ecc42ccf4149144866c47d8a
         with:
           name: build-artifact
           path: dist
@@ -767,7 +767,7 @@ jobs:
         with:
           dotnet-version: 3.x
       - name: Download build artifacts
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@9bc31d5ccc31df68ecc42ccf4149144866c47d8a
         with:
           name: build-artifact
           path: dist
@@ -815,7 +815,7 @@ jobs:
         with:
           go-version: ^1.16.0
       - name: Download build artifacts
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@9bc31d5ccc31df68ecc42ccf4149144866c47d8a
         with:
           name: build-artifact
           path: dist
@@ -933,7 +933,7 @@ jobs:
       - name: Set git config safe.directory
         run: git config --global --add safe.directory $(pwd)
       - name: Download patch
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@9bc31d5ccc31df68ecc42ccf4149144866c47d8a
         with:
           name: .repo.patch
           path: \${{ runner.temp }}
@@ -2730,7 +2730,7 @@ jobs:
           ref: \${{ github.event.pull_request.head.ref }}
           repository: \${{ github.event.pull_request.head.repo.full_name }}
       - name: Download patch
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@9bc31d5ccc31df68ecc42ccf4149144866c47d8a
         with:
           name: .repo.patch
           path: \${{ runner.temp }}
@@ -2760,7 +2760,7 @@ jobs:
         with:
           node-version: 16.x
       - name: Download build artifacts
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@9bc31d5ccc31df68ecc42ccf4149144866c47d8a
         with:
           name: build-artifact
           path: dist
@@ -2792,7 +2792,7 @@ jobs:
         with:
           node-version: 16.x
       - name: Download build artifacts
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@9bc31d5ccc31df68ecc42ccf4149144866c47d8a
         with:
           name: build-artifact
           path: dist
@@ -2823,7 +2823,7 @@ jobs:
         with:
           python-version: 3.x
       - name: Download build artifacts
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@9bc31d5ccc31df68ecc42ccf4149144866c47d8a
         with:
           name: build-artifact
           path: dist
@@ -2854,7 +2854,7 @@ jobs:
         with:
           dotnet-version: 3.x
       - name: Download build artifacts
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@9bc31d5ccc31df68ecc42ccf4149144866c47d8a
         with:
           name: build-artifact
           path: dist
@@ -2885,7 +2885,7 @@ jobs:
         with:
           go-version: ^1.16.0
       - name: Download build artifacts
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@9bc31d5ccc31df68ecc42ccf4149144866c47d8a
         with:
           name: build-artifact
           path: dist
@@ -3122,7 +3122,7 @@ jobs:
         with:
           node-version: 16.x
       - name: Download build artifacts
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@9bc31d5ccc31df68ecc42ccf4149144866c47d8a
         with:
           name: build-artifact
           path: dist
@@ -3168,7 +3168,7 @@ jobs:
         with:
           node-version: 16.x
       - name: Download build artifacts
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@9bc31d5ccc31df68ecc42ccf4149144866c47d8a
         with:
           name: build-artifact
           path: dist
@@ -3222,7 +3222,7 @@ jobs:
         with:
           node-version: 16.x
       - name: Download build artifacts
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@9bc31d5ccc31df68ecc42ccf4149144866c47d8a
         with:
           name: build-artifact
           path: dist
@@ -3278,7 +3278,7 @@ jobs:
         with:
           python-version: 3.x
       - name: Download build artifacts
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@9bc31d5ccc31df68ecc42ccf4149144866c47d8a
         with:
           name: build-artifact
           path: dist
@@ -3330,7 +3330,7 @@ jobs:
         with:
           dotnet-version: 3.x
       - name: Download build artifacts
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@9bc31d5ccc31df68ecc42ccf4149144866c47d8a
         with:
           name: build-artifact
           path: dist
@@ -3381,7 +3381,7 @@ jobs:
         with:
           go-version: ^1.16.0
       - name: Download build artifacts
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@9bc31d5ccc31df68ecc42ccf4149144866c47d8a
         with:
           name: build-artifact
           path: dist
@@ -3499,7 +3499,7 @@ jobs:
       - name: Set git config safe.directory
         run: git config --global --add safe.directory $(pwd)
       - name: Download patch
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@9bc31d5ccc31df68ecc42ccf4149144866c47d8a
         with:
           name: .repo.patch
           path: \${{ runner.temp }}
@@ -5290,7 +5290,7 @@ jobs:
           ref: \${{ github.event.pull_request.head.ref }}
           repository: \${{ github.event.pull_request.head.repo.full_name }}
       - name: Download patch
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@9bc31d5ccc31df68ecc42ccf4149144866c47d8a
         with:
           name: .repo.patch
           path: \${{ runner.temp }}
@@ -5317,7 +5317,7 @@ jobs:
         with:
           node-version: 16.x
       - name: Download build artifacts
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@9bc31d5ccc31df68ecc42ccf4149144866c47d8a
         with:
           name: build-artifact
           path: dist
@@ -5346,7 +5346,7 @@ jobs:
         with:
           node-version: 16.x
       - name: Download build artifacts
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@9bc31d5ccc31df68ecc42ccf4149144866c47d8a
         with:
           name: build-artifact
           path: dist
@@ -5374,7 +5374,7 @@ jobs:
         with:
           python-version: 3.x
       - name: Download build artifacts
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@9bc31d5ccc31df68ecc42ccf4149144866c47d8a
         with:
           name: build-artifact
           path: dist
@@ -5402,7 +5402,7 @@ jobs:
         with:
           dotnet-version: 3.x
       - name: Download build artifacts
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@9bc31d5ccc31df68ecc42ccf4149144866c47d8a
         with:
           name: build-artifact
           path: dist
@@ -5430,7 +5430,7 @@ jobs:
         with:
           go-version: ^1.16.0
       - name: Download build artifacts
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@9bc31d5ccc31df68ecc42ccf4149144866c47d8a
         with:
           name: build-artifact
           path: dist
@@ -5658,7 +5658,7 @@ jobs:
         with:
           node-version: 16.x
       - name: Download build artifacts
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@9bc31d5ccc31df68ecc42ccf4149144866c47d8a
         with:
           name: build-artifact
           path: dist
@@ -5701,7 +5701,7 @@ jobs:
         with:
           node-version: 16.x
       - name: Download build artifacts
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@9bc31d5ccc31df68ecc42ccf4149144866c47d8a
         with:
           name: build-artifact
           path: dist
@@ -5752,7 +5752,7 @@ jobs:
         with:
           node-version: 16.x
       - name: Download build artifacts
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@9bc31d5ccc31df68ecc42ccf4149144866c47d8a
         with:
           name: build-artifact
           path: dist
@@ -5805,7 +5805,7 @@ jobs:
         with:
           python-version: 3.x
       - name: Download build artifacts
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@9bc31d5ccc31df68ecc42ccf4149144866c47d8a
         with:
           name: build-artifact
           path: dist
@@ -5854,7 +5854,7 @@ jobs:
         with:
           dotnet-version: 3.x
       - name: Download build artifacts
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@9bc31d5ccc31df68ecc42ccf4149144866c47d8a
         with:
           name: build-artifact
           path: dist
@@ -5902,7 +5902,7 @@ jobs:
         with:
           go-version: ^1.16.0
       - name: Download build artifacts
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@9bc31d5ccc31df68ecc42ccf4149144866c47d8a
         with:
           name: build-artifact
           path: dist
@@ -6020,7 +6020,7 @@ jobs:
       - name: Set git config safe.directory
         run: git config --global --add safe.directory $(pwd)
       - name: Download patch
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@9bc31d5ccc31df68ecc42ccf4149144866c47d8a
         with:
           name: .repo.patch
           path: \${{ runner.temp }}
