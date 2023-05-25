@@ -3,8 +3,8 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import { synthSnapshot } from "./utils";
 import { CdktfProviderProject, CdktfProviderProjectOptions } from "../src";
+import { synthSnapshot } from "./utils";
 
 const getProject = (
   opts: Partial<CdktfProviderProjectOptions> = {}
