@@ -121,7 +121,7 @@ jobs:
     if: github.event.issue.author_association != 'OWNER' && github.event.issue.author_association != 'MEMBER' && github.event.issue.author_association != 'COLLABORATOR'
     steps:
       - name: Auto-close issues by non-collaborators
-        uses: peter-evans/close-issue@v2
+        uses: peter-evans/close-issue@276d7966e389d888f011539a86c8920025ea0626
         with:
           issue-number: \${{ github.event.issue.number }}
           comment: Hi there! 👋 We appreciate your interest, but this is probably not the right place. All the code in this repository is auto-generated using [cdktf-provider-project](https://github.com/cdktf/cdktf-provider-project) and [cdktf-repository-manager](https://github.com/cdktf/cdktf-repository-manager) from the source [Terraform provider](https://github.com/terraform-providers/terraform-provider-random). If there are problems, they should be addressed in one of those 3 repositories, not here, as any changes here will just get overwritten the next time there is an update upstream. Please open a new issue or PR in one of those repos. In the meantime, I'll auto-close this. Thanks!
@@ -145,7 +145,7 @@ jobs:
       CI: \\"true\\"
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab
         with:
           ref: \${{ github.event.pull_request.head.ref }}
           repository: \${{ github.event.pull_request.head.repo.full_name }}
@@ -171,7 +171,7 @@ jobs:
           git diff --staged --patch --exit-code > .repo.patch || echo \\"self_mutation_happened=true\\" >> $GITHUB_OUTPUT
       - name: Upload patch
         if: steps.self_mutation.outputs.self_mutation_happened
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@0b7f8abb1508181956e8e162db84b466c27e18ce
         with:
           name: .repo.patch
           path: .repo.patch
@@ -185,7 +185,7 @@ jobs:
         run: cd dist && getfacl -R . > permissions-backup.acl
         continue-on-error: true
       - name: Upload artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@0b7f8abb1508181956e8e162db84b466c27e18ce
         with:
           name: build-artifact
           path: dist
@@ -197,7 +197,7 @@ jobs:
     if: always() && needs.build.outputs.self_mutation_happened && !(github.event.pull_request.head.repo.full_name != github.repository)
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab
         with:
           token: \${{ secrets.PROJEN_GITHUB_TOKEN }}
           ref: \${{ github.event.pull_request.head.ref }}
@@ -226,7 +226,7 @@ jobs:
     permissions: {}
     if: \\"! needs.build.outputs.self_mutation_happened\\"
     steps:
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c
         with:
           node-version: 16.x
       - name: Download build artifacts
@@ -251,11 +251,11 @@ jobs:
     permissions: {}
     if: \\"! needs.build.outputs.self_mutation_happened\\"
     steps:
-      - uses: actions/setup-java@v3
+      - uses: actions/setup-java@5ffc13f4174014e2d4d4572b3d74c3fa61aeb2c2
         with:
           distribution: temurin
           java-version: 11.x
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c
         with:
           node-version: 16.x
       - name: Download build artifacts
@@ -280,10 +280,10 @@ jobs:
     permissions: {}
     if: \\"! needs.build.outputs.self_mutation_happened\\"
     steps:
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c
         with:
           node-version: 16.x
-      - uses: actions/setup-python@v4
+      - uses: actions/setup-python@bd6b4b6205c4dbad673328db7b31b7fab9e241c0
         with:
           python-version: 3.x
       - name: Download build artifacts
@@ -308,10 +308,10 @@ jobs:
     permissions: {}
     if: \\"! needs.build.outputs.self_mutation_happened\\"
     steps:
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c
         with:
           node-version: 16.x
-      - uses: actions/setup-dotnet@v3
+      - uses: actions/setup-dotnet@607fce577a46308457984d59e4954e075820f10a
         with:
           dotnet-version: 3.x
       - name: Download build artifacts
@@ -336,10 +336,10 @@ jobs:
     permissions: {}
     if: \\"! needs.build.outputs.self_mutation_happened\\"
     steps:
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c
         with:
           node-version: 16.x
-      - uses: actions/setup-go@v3
+      - uses: actions/setup-go@fac708d6674e30b6ba41289acaab6d4b75aa0753
         with:
           go-version: ^1.16.0
       - name: Download build artifacts
@@ -372,7 +372,7 @@ jobs:
       pull-requests: write
       issues: write
     steps:
-      - uses: dessant/lock-threads@v4.0.0
+      - uses: dessant/lock-threads@c1b35aecc5cdb1a34539d14196df55838bb2f836
         with:
           issue-comment: I'm going to lock this issue because it has been closed for at least 7 days. This helps our maintainers find and focus on the active issues. If you've found a problem that seems similar to this, please [open a new issue](https://github.com/cdktf/cdktf-provider-project/issues/new) so we can investigate further.
           issue-inactive-days: 7
@@ -395,7 +395,7 @@ jobs:
       CHECKPOINT_DISABLE: \\"1\\"
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab
         with:
           ref: \${{ github.event.pull_request.head.ref }}
           repository: \${{ github.event.pull_request.head.repo.full_name }}
@@ -421,7 +421,7 @@ jobs:
       - name: Regenerate bindings
         run: yarn run fetch && yarn run compile && yarn run docgen
       - name: Create PR
-        uses: peter-evans/create-pull-request@v4
+        uses: peter-evans/create-pull-request@2b011faafdcbc9ceb11414d64d0573f37c774b04
         with:
           token: \${{ secrets.GITHUB_TOKEN }}
           branch: cdktf-next-pr
@@ -449,7 +449,7 @@ jobs:
       statuses: write
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab
       - run: yarn install
       - id: check_version
         run: yarn check-if-new-provider-version
@@ -472,7 +472,7 @@ jobs:
         run: yarn docgen
       - name: Create Pull Request
         if: \${{ steps.check_version.outputs.new_version == 'available' }}
-        uses: peter-evans/create-pull-request@v3
+        uses: peter-evans/create-pull-request@2b011faafdcbc9ceb11414d64d0573f37c774b04
         with:
           commit-message: \\"chore: upgrade provider from \`\${{ steps.current_version.outputs.value }}\` to version \`\${{ steps.new_version.outputs.value }}\`\\"
           branch: auto/provider-upgrade
@@ -532,7 +532,7 @@ jobs:
       CI: \\"true\\"
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab
         with:
           fetch-depth: 0
       - name: Set git config safe.directory
@@ -554,7 +554,7 @@ jobs:
         continue-on-error: true
       - name: Upload artifact
         if: \${{ steps.git_remote.outputs.latest_commit == github.sha }}
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@0b7f8abb1508181956e8e162db84b466c27e18ce
         with:
           name: build-artifact
           path: dist
@@ -567,7 +567,7 @@ jobs:
       issues: write
     if: needs.release.outputs.latest_commit == github.sha
     steps:
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c
         with:
           node-version: 16.x
       - name: Download build artifacts
@@ -594,7 +594,7 @@ jobs:
         run: echo \\"VERSION=$(cat dist/version.txt)\\" >> $GITHUB_OUTPUT
       - name: Create Issue
         if: \${{ failure() }}
-        uses: imjohnbo/issue-bot@v3
+        uses: imjohnbo/issue-bot@6924a99d928dc228f407d34eb3d0149eda73f2a7
         env:
           GITHUB_TOKEN: \${{ secrets.GITHUB_TOKEN }}
         with:
@@ -610,7 +610,7 @@ jobs:
       issues: write
     if: needs.release.outputs.latest_commit == github.sha
     steps:
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c
         with:
           node-version: 16.x
       - name: Download build artifacts
@@ -641,7 +641,7 @@ jobs:
         run: echo \\"VERSION=$(cat dist/version.txt)\\" >> $GITHUB_OUTPUT
       - name: Create Issue
         if: \${{ failure() }}
-        uses: imjohnbo/issue-bot@v3
+        uses: imjohnbo/issue-bot@6924a99d928dc228f407d34eb3d0149eda73f2a7
         env:
           GITHUB_TOKEN: \${{ secrets.GITHUB_TOKEN }}
         with:
@@ -657,11 +657,11 @@ jobs:
       issues: write
     if: needs.release.outputs.latest_commit == github.sha
     steps:
-      - uses: actions/setup-java@v3
+      - uses: actions/setup-java@5ffc13f4174014e2d4d4572b3d74c3fa61aeb2c2
         with:
           distribution: temurin
           java-version: 11.x
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c
         with:
           node-version: 16.x
       - name: Download build artifacts
@@ -695,7 +695,7 @@ jobs:
         run: echo \\"VERSION=$(cat dist/version.txt)\\" >> $GITHUB_OUTPUT
       - name: Create Issue
         if: \${{ failure() }}
-        uses: imjohnbo/issue-bot@v3
+        uses: imjohnbo/issue-bot@6924a99d928dc228f407d34eb3d0149eda73f2a7
         env:
           GITHUB_TOKEN: \${{ secrets.GITHUB_TOKEN }}
         with:
@@ -711,10 +711,10 @@ jobs:
       issues: write
     if: needs.release.outputs.latest_commit == github.sha
     steps:
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c
         with:
           node-version: 16.x
-      - uses: actions/setup-python@v4
+      - uses: actions/setup-python@bd6b4b6205c4dbad673328db7b31b7fab9e241c0
         with:
           python-version: 3.x
       - name: Download build artifacts
@@ -744,7 +744,7 @@ jobs:
         run: echo \\"VERSION=$(cat dist/version.txt)\\" >> $GITHUB_OUTPUT
       - name: Create Issue
         if: \${{ failure() }}
-        uses: imjohnbo/issue-bot@v3
+        uses: imjohnbo/issue-bot@6924a99d928dc228f407d34eb3d0149eda73f2a7
         env:
           GITHUB_TOKEN: \${{ secrets.GITHUB_TOKEN }}
         with:
@@ -760,10 +760,10 @@ jobs:
       issues: write
     if: needs.release.outputs.latest_commit == github.sha
     steps:
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c
         with:
           node-version: 16.x
-      - uses: actions/setup-dotnet@v3
+      - uses: actions/setup-dotnet@607fce577a46308457984d59e4954e075820f10a
         with:
           dotnet-version: 3.x
       - name: Download build artifacts
@@ -792,7 +792,7 @@ jobs:
         run: echo \\"VERSION=$(cat dist/version.txt)\\" >> $GITHUB_OUTPUT
       - name: Create Issue
         if: \${{ failure() }}
-        uses: imjohnbo/issue-bot@v3
+        uses: imjohnbo/issue-bot@6924a99d928dc228f407d34eb3d0149eda73f2a7
         env:
           GITHUB_TOKEN: \${{ secrets.GITHUB_TOKEN }}
         with:
@@ -808,10 +808,10 @@ jobs:
       issues: write
     if: needs.release.outputs.latest_commit == github.sha
     steps:
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c
         with:
           node-version: 16.x
-      - uses: actions/setup-go@v3
+      - uses: actions/setup-go@fac708d6674e30b6ba41289acaab6d4b75aa0753
         with:
           go-version: ^1.16.0
       - name: Download build artifacts
@@ -842,7 +842,7 @@ jobs:
         run: echo \\"VERSION=$(cat dist/version.txt)\\" >> $GITHUB_OUTPUT
       - name: Create Issue
         if: \${{ failure() }}
-        uses: imjohnbo/issue-bot@v3
+        uses: imjohnbo/issue-bot@6924a99d928dc228f407d34eb3d0149eda73f2a7
         env:
           GITHUB_TOKEN: \${{ secrets.GITHUB_TOKEN }}
         with:
@@ -864,7 +864,7 @@ jobs:
       issues: write
       pull-requests: write
     steps:
-      - uses: actions/stale@v4
+      - uses: actions/stale@a20b814fb01b71def3bd6f56e7494d667ddf28da
         with:
           days-before-stale: -1
           days-before-close: -1
@@ -898,7 +898,7 @@ jobs:
       patch_created: \${{ steps.create_patch.outputs.patch_created }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab
         with:
           ref: main
       - name: Set git config safe.directory
@@ -914,7 +914,7 @@ jobs:
           git diff --staged --patch --exit-code > .repo.patch || echo \\"patch_created=true\\" >> $GITHUB_OUTPUT
       - name: Upload patch
         if: steps.create_patch.outputs.patch_created
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@0b7f8abb1508181956e8e162db84b466c27e18ce
         with:
           name: .repo.patch
           path: .repo.patch
@@ -927,7 +927,7 @@ jobs:
     if: \${{ needs.upgrade.outputs.patch_created }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab
         with:
           ref: main
       - name: Set git config safe.directory
@@ -945,7 +945,7 @@ jobs:
           git config user.email \\"github-team-tf-cdk@hashicorp.com\\"
       - name: Create Pull Request
         id: create-pr
-        uses: peter-evans/create-pull-request@v4
+        uses: peter-evans/create-pull-request@2b011faafdcbc9ceb11414d64d0573f37c774b04
         with:
           token: \${{ secrets.PROJEN_GITHUB_TOKEN }}
           commit-message: |-
@@ -2642,7 +2642,7 @@ jobs:
     if: github.event.issue.author_association != 'OWNER' && github.event.issue.author_association != 'MEMBER' && github.event.issue.author_association != 'COLLABORATOR'
     steps:
       - name: Auto-close issues by non-collaborators
-        uses: peter-evans/close-issue@v2
+        uses: peter-evans/close-issue@276d7966e389d888f011539a86c8920025ea0626
         with:
           issue-number: \${{ github.event.issue.number }}
           comment: Hi there! 👋 We appreciate your interest, but this is probably not the right place. All the code in this repository is auto-generated using [cdktf-provider-project](https://github.com/cdktf/cdktf-provider-project) and [cdktf-repository-manager](https://github.com/cdktf/cdktf-repository-manager) from the source [Terraform provider](https://github.com/terraform-providers/terraform-provider-random). If there are problems, they should be addressed in one of those 3 repositories, not here, as any changes here will just get overwritten the next time there is an update upstream. Please open a new issue or PR in one of those repos. In the meantime, I'll auto-close this. Thanks!
@@ -2669,7 +2669,7 @@ jobs:
       CI: \\"true\\"
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab
         with:
           ref: \${{ github.event.pull_request.head.ref }}
           repository: \${{ github.event.pull_request.head.repo.full_name }}
@@ -2695,7 +2695,7 @@ jobs:
           git diff --staged --patch --exit-code > .repo.patch || echo \\"self_mutation_happened=true\\" >> $GITHUB_OUTPUT
       - name: Upload patch
         if: steps.self_mutation.outputs.self_mutation_happened
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@0b7f8abb1508181956e8e162db84b466c27e18ce
         with:
           name: .repo.patch
           path: .repo.patch
@@ -2709,7 +2709,7 @@ jobs:
         run: cd dist && getfacl -R . > permissions-backup.acl
         continue-on-error: true
       - name: Upload artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@0b7f8abb1508181956e8e162db84b466c27e18ce
         with:
           name: build-artifact
           path: dist
@@ -2724,7 +2724,7 @@ jobs:
     if: always() && needs.build.outputs.self_mutation_happened && !(github.event.pull_request.head.repo.full_name != github.repository)
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab
         with:
           token: \${{ secrets.PROJEN_GITHUB_TOKEN }}
           ref: \${{ github.event.pull_request.head.ref }}
@@ -2756,7 +2756,7 @@ jobs:
     permissions: {}
     if: \\"! needs.build.outputs.self_mutation_happened\\"
     steps:
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c
         with:
           node-version: 16.x
       - name: Download build artifacts
@@ -2784,11 +2784,11 @@ jobs:
     permissions: {}
     if: \\"! needs.build.outputs.self_mutation_happened\\"
     steps:
-      - uses: actions/setup-java@v3
+      - uses: actions/setup-java@5ffc13f4174014e2d4d4572b3d74c3fa61aeb2c2
         with:
           distribution: temurin
           java-version: 11.x
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c
         with:
           node-version: 16.x
       - name: Download build artifacts
@@ -2816,10 +2816,10 @@ jobs:
     permissions: {}
     if: \\"! needs.build.outputs.self_mutation_happened\\"
     steps:
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c
         with:
           node-version: 16.x
-      - uses: actions/setup-python@v4
+      - uses: actions/setup-python@bd6b4b6205c4dbad673328db7b31b7fab9e241c0
         with:
           python-version: 3.x
       - name: Download build artifacts
@@ -2847,10 +2847,10 @@ jobs:
     permissions: {}
     if: \\"! needs.build.outputs.self_mutation_happened\\"
     steps:
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c
         with:
           node-version: 16.x
-      - uses: actions/setup-dotnet@v3
+      - uses: actions/setup-dotnet@607fce577a46308457984d59e4954e075820f10a
         with:
           dotnet-version: 3.x
       - name: Download build artifacts
@@ -2878,10 +2878,10 @@ jobs:
     permissions: {}
     if: \\"! needs.build.outputs.self_mutation_happened\\"
     steps:
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c
         with:
           node-version: 16.x
-      - uses: actions/setup-go@v3
+      - uses: actions/setup-go@fac708d6674e30b6ba41289acaab6d4b75aa0753
         with:
           go-version: ^1.16.0
       - name: Download build artifacts
@@ -2914,7 +2914,7 @@ jobs:
       pull-requests: write
       issues: write
     steps:
-      - uses: dessant/lock-threads@v4.0.0
+      - uses: dessant/lock-threads@c1b35aecc5cdb1a34539d14196df55838bb2f836
         with:
           issue-comment: I'm going to lock this issue because it has been closed for at least 7 days. This helps our maintainers find and focus on the active issues. If you've found a problem that seems similar to this, please [open a new issue](https://github.com/cdktf/cdktf-provider-project/issues/new) so we can investigate further.
           issue-inactive-days: 7
@@ -2937,7 +2937,7 @@ jobs:
       CHECKPOINT_DISABLE: \\"1\\"
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab
         with:
           ref: \${{ github.event.pull_request.head.ref }}
           repository: \${{ github.event.pull_request.head.repo.full_name }}
@@ -2963,7 +2963,7 @@ jobs:
       - name: Regenerate bindings
         run: yarn run fetch && yarn run compile && yarn run docgen
       - name: Create PR
-        uses: peter-evans/create-pull-request@v4
+        uses: peter-evans/create-pull-request@2b011faafdcbc9ceb11414d64d0573f37c774b04
         with:
           token: \${{ secrets.GITHUB_TOKEN }}
           branch: cdktf-next-pr
@@ -2994,7 +2994,7 @@ jobs:
       statuses: write
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab
       - run: yarn install
       - id: check_version
         run: yarn check-if-new-provider-version
@@ -3017,7 +3017,7 @@ jobs:
         run: yarn docgen
       - name: Create Pull Request
         if: \${{ steps.check_version.outputs.new_version == 'available' }}
-        uses: peter-evans/create-pull-request@v3
+        uses: peter-evans/create-pull-request@2b011faafdcbc9ceb11414d64d0573f37c774b04
         with:
           commit-message: \\"chore: upgrade provider from \`\${{ steps.current_version.outputs.value }}\` to version \`\${{ steps.new_version.outputs.value }}\`\\"
           branch: auto/provider-upgrade
@@ -3080,7 +3080,7 @@ jobs:
       CI: \\"true\\"
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab
         with:
           fetch-depth: 0
       - name: Set git config safe.directory
@@ -3102,7 +3102,7 @@ jobs:
         continue-on-error: true
       - name: Upload artifact
         if: \${{ steps.git_remote.outputs.latest_commit == github.sha }}
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@0b7f8abb1508181956e8e162db84b466c27e18ce
         with:
           name: build-artifact
           path: dist
@@ -3118,7 +3118,7 @@ jobs:
       issues: write
     if: needs.release.outputs.latest_commit == github.sha
     steps:
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c
         with:
           node-version: 16.x
       - name: Download build artifacts
@@ -3145,7 +3145,7 @@ jobs:
         run: echo \\"VERSION=$(cat dist/version.txt)\\" >> $GITHUB_OUTPUT
       - name: Create Issue
         if: \${{ failure() }}
-        uses: imjohnbo/issue-bot@v3
+        uses: imjohnbo/issue-bot@6924a99d928dc228f407d34eb3d0149eda73f2a7
         env:
           GITHUB_TOKEN: \${{ secrets.GITHUB_TOKEN }}
         with:
@@ -3164,7 +3164,7 @@ jobs:
       issues: write
     if: needs.release.outputs.latest_commit == github.sha
     steps:
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c
         with:
           node-version: 16.x
       - name: Download build artifacts
@@ -3195,7 +3195,7 @@ jobs:
         run: echo \\"VERSION=$(cat dist/version.txt)\\" >> $GITHUB_OUTPUT
       - name: Create Issue
         if: \${{ failure() }}
-        uses: imjohnbo/issue-bot@v3
+        uses: imjohnbo/issue-bot@6924a99d928dc228f407d34eb3d0149eda73f2a7
         env:
           GITHUB_TOKEN: \${{ secrets.GITHUB_TOKEN }}
         with:
@@ -3214,11 +3214,11 @@ jobs:
       issues: write
     if: needs.release.outputs.latest_commit == github.sha
     steps:
-      - uses: actions/setup-java@v3
+      - uses: actions/setup-java@5ffc13f4174014e2d4d4572b3d74c3fa61aeb2c2
         with:
           distribution: temurin
           java-version: 11.x
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c
         with:
           node-version: 16.x
       - name: Download build artifacts
@@ -3252,7 +3252,7 @@ jobs:
         run: echo \\"VERSION=$(cat dist/version.txt)\\" >> $GITHUB_OUTPUT
       - name: Create Issue
         if: \${{ failure() }}
-        uses: imjohnbo/issue-bot@v3
+        uses: imjohnbo/issue-bot@6924a99d928dc228f407d34eb3d0149eda73f2a7
         env:
           GITHUB_TOKEN: \${{ secrets.GITHUB_TOKEN }}
         with:
@@ -3271,10 +3271,10 @@ jobs:
       issues: write
     if: needs.release.outputs.latest_commit == github.sha
     steps:
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c
         with:
           node-version: 16.x
-      - uses: actions/setup-python@v4
+      - uses: actions/setup-python@bd6b4b6205c4dbad673328db7b31b7fab9e241c0
         with:
           python-version: 3.x
       - name: Download build artifacts
@@ -3304,7 +3304,7 @@ jobs:
         run: echo \\"VERSION=$(cat dist/version.txt)\\" >> $GITHUB_OUTPUT
       - name: Create Issue
         if: \${{ failure() }}
-        uses: imjohnbo/issue-bot@v3
+        uses: imjohnbo/issue-bot@6924a99d928dc228f407d34eb3d0149eda73f2a7
         env:
           GITHUB_TOKEN: \${{ secrets.GITHUB_TOKEN }}
         with:
@@ -3323,10 +3323,10 @@ jobs:
       issues: write
     if: needs.release.outputs.latest_commit == github.sha
     steps:
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c
         with:
           node-version: 16.x
-      - uses: actions/setup-dotnet@v3
+      - uses: actions/setup-dotnet@607fce577a46308457984d59e4954e075820f10a
         with:
           dotnet-version: 3.x
       - name: Download build artifacts
@@ -3355,7 +3355,7 @@ jobs:
         run: echo \\"VERSION=$(cat dist/version.txt)\\" >> $GITHUB_OUTPUT
       - name: Create Issue
         if: \${{ failure() }}
-        uses: imjohnbo/issue-bot@v3
+        uses: imjohnbo/issue-bot@6924a99d928dc228f407d34eb3d0149eda73f2a7
         env:
           GITHUB_TOKEN: \${{ secrets.GITHUB_TOKEN }}
         with:
@@ -3374,10 +3374,10 @@ jobs:
       issues: write
     if: needs.release.outputs.latest_commit == github.sha
     steps:
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c
         with:
           node-version: 16.x
-      - uses: actions/setup-go@v3
+      - uses: actions/setup-go@fac708d6674e30b6ba41289acaab6d4b75aa0753
         with:
           go-version: ^1.16.0
       - name: Download build artifacts
@@ -3408,7 +3408,7 @@ jobs:
         run: echo \\"VERSION=$(cat dist/version.txt)\\" >> $GITHUB_OUTPUT
       - name: Create Issue
         if: \${{ failure() }}
-        uses: imjohnbo/issue-bot@v3
+        uses: imjohnbo/issue-bot@6924a99d928dc228f407d34eb3d0149eda73f2a7
         env:
           GITHUB_TOKEN: \${{ secrets.GITHUB_TOKEN }}
         with:
@@ -3430,7 +3430,7 @@ jobs:
       issues: write
       pull-requests: write
     steps:
-      - uses: actions/stale@v4
+      - uses: actions/stale@a20b814fb01b71def3bd6f56e7494d667ddf28da
         with:
           days-before-stale: -1
           days-before-close: -1
@@ -3464,7 +3464,7 @@ jobs:
       patch_created: \${{ steps.create_patch.outputs.patch_created }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab
         with:
           ref: main
       - name: Set git config safe.directory
@@ -3480,7 +3480,7 @@ jobs:
           git diff --staged --patch --exit-code > .repo.patch || echo \\"patch_created=true\\" >> $GITHUB_OUTPUT
       - name: Upload patch
         if: steps.create_patch.outputs.patch_created
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@0b7f8abb1508181956e8e162db84b466c27e18ce
         with:
           name: .repo.patch
           path: .repo.patch
@@ -3493,7 +3493,7 @@ jobs:
     if: \${{ needs.upgrade.outputs.patch_created }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab
         with:
           ref: main
       - name: Set git config safe.directory
@@ -3511,7 +3511,7 @@ jobs:
           git config user.email \\"github-team-tf-cdk@hashicorp.com\\"
       - name: Create Pull Request
         id: create-pr
-        uses: peter-evans/create-pull-request@v4
+        uses: peter-evans/create-pull-request@2b011faafdcbc9ceb11414d64d0573f37c774b04
         with:
           token: \${{ secrets.PROJEN_GITHUB_TOKEN }}
           commit-message: |-
@@ -5208,7 +5208,7 @@ jobs:
     if: github.event.issue.author_association != 'OWNER' && github.event.issue.author_association != 'MEMBER' && github.event.issue.author_association != 'COLLABORATOR'
     steps:
       - name: Auto-close issues by non-collaborators
-        uses: peter-evans/close-issue@v2
+        uses: peter-evans/close-issue@276d7966e389d888f011539a86c8920025ea0626
         with:
           issue-number: \${{ github.event.issue.number }}
           comment: Hi there! 👋 We appreciate your interest, but this is probably not the right place. All the code in this repository is auto-generated using [cdktf-provider-project](https://github.com/cdktf/cdktf-provider-project) and [cdktf-repository-manager](https://github.com/cdktf/cdktf-repository-manager) from the source [Terraform provider](https://github.com/terraform-providers/terraform-provider-random). If there are problems, they should be addressed in one of those 3 repositories, not here, as any changes here will just get overwritten the next time there is an update upstream. Please open a new issue or PR in one of those repos. In the meantime, I'll auto-close this. Thanks!
@@ -5232,7 +5232,7 @@ jobs:
       CI: \\"true\\"
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab
         with:
           ref: \${{ github.event.pull_request.head.ref }}
           repository: \${{ github.event.pull_request.head.repo.full_name }}
@@ -5258,7 +5258,7 @@ jobs:
           git diff --staged --patch --exit-code > .repo.patch || echo \\"self_mutation_happened=true\\" >> $GITHUB_OUTPUT
       - name: Upload patch
         if: steps.self_mutation.outputs.self_mutation_happened
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@0b7f8abb1508181956e8e162db84b466c27e18ce
         with:
           name: .repo.patch
           path: .repo.patch
@@ -5272,7 +5272,7 @@ jobs:
         run: cd dist && getfacl -R . > permissions-backup.acl
         continue-on-error: true
       - name: Upload artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@0b7f8abb1508181956e8e162db84b466c27e18ce
         with:
           name: build-artifact
           path: dist
@@ -5284,7 +5284,7 @@ jobs:
     if: always() && needs.build.outputs.self_mutation_happened && !(github.event.pull_request.head.repo.full_name != github.repository)
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab
         with:
           token: \${{ secrets.PROJEN_GITHUB_TOKEN }}
           ref: \${{ github.event.pull_request.head.ref }}
@@ -5313,7 +5313,7 @@ jobs:
     permissions: {}
     if: \\"! needs.build.outputs.self_mutation_happened\\"
     steps:
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c
         with:
           node-version: 16.x
       - name: Download build artifacts
@@ -5338,11 +5338,11 @@ jobs:
     permissions: {}
     if: \\"! needs.build.outputs.self_mutation_happened\\"
     steps:
-      - uses: actions/setup-java@v3
+      - uses: actions/setup-java@5ffc13f4174014e2d4d4572b3d74c3fa61aeb2c2
         with:
           distribution: temurin
           java-version: 11.x
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c
         with:
           node-version: 16.x
       - name: Download build artifacts
@@ -5367,10 +5367,10 @@ jobs:
     permissions: {}
     if: \\"! needs.build.outputs.self_mutation_happened\\"
     steps:
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c
         with:
           node-version: 16.x
-      - uses: actions/setup-python@v4
+      - uses: actions/setup-python@bd6b4b6205c4dbad673328db7b31b7fab9e241c0
         with:
           python-version: 3.x
       - name: Download build artifacts
@@ -5395,10 +5395,10 @@ jobs:
     permissions: {}
     if: \\"! needs.build.outputs.self_mutation_happened\\"
     steps:
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c
         with:
           node-version: 16.x
-      - uses: actions/setup-dotnet@v3
+      - uses: actions/setup-dotnet@607fce577a46308457984d59e4954e075820f10a
         with:
           dotnet-version: 3.x
       - name: Download build artifacts
@@ -5423,10 +5423,10 @@ jobs:
     permissions: {}
     if: \\"! needs.build.outputs.self_mutation_happened\\"
     steps:
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c
         with:
           node-version: 16.x
-      - uses: actions/setup-go@v3
+      - uses: actions/setup-go@fac708d6674e30b6ba41289acaab6d4b75aa0753
         with:
           go-version: ^1.16.0
       - name: Download build artifacts
@@ -5459,7 +5459,7 @@ jobs:
       pull-requests: write
       issues: write
     steps:
-      - uses: dessant/lock-threads@v4.0.0
+      - uses: dessant/lock-threads@c1b35aecc5cdb1a34539d14196df55838bb2f836
         with:
           issue-comment: I'm going to lock this issue because it has been closed for at least 7 days. This helps our maintainers find and focus on the active issues. If you've found a problem that seems similar to this, please [open a new issue](https://github.com/cdktf/cdktf-provider-project/issues/new) so we can investigate further.
           issue-inactive-days: 7
@@ -5482,7 +5482,7 @@ jobs:
       CHECKPOINT_DISABLE: \\"1\\"
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab
         with:
           ref: \${{ github.event.pull_request.head.ref }}
           repository: \${{ github.event.pull_request.head.repo.full_name }}
@@ -5508,7 +5508,7 @@ jobs:
       - name: Regenerate bindings
         run: yarn run fetch && yarn run compile && yarn run docgen
       - name: Create PR
-        uses: peter-evans/create-pull-request@v4
+        uses: peter-evans/create-pull-request@2b011faafdcbc9ceb11414d64d0573f37c774b04
         with:
           token: \${{ secrets.GITHUB_TOKEN }}
           branch: cdktf-next-pr
@@ -5536,7 +5536,7 @@ jobs:
       statuses: write
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab
       - run: yarn install
       - id: check_version
         run: yarn check-if-new-provider-version
@@ -5559,7 +5559,7 @@ jobs:
         run: yarn docgen
       - name: Create Pull Request
         if: \${{ steps.check_version.outputs.new_version == 'available' }}
-        uses: peter-evans/create-pull-request@v3
+        uses: peter-evans/create-pull-request@2b011faafdcbc9ceb11414d64d0573f37c774b04
         with:
           commit-message: \\"chore: upgrade provider from \`\${{ steps.current_version.outputs.value }}\` to version \`\${{ steps.new_version.outputs.value }}\`\\"
           branch: auto/provider-upgrade
@@ -5619,7 +5619,7 @@ jobs:
       CI: \\"true\\"
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab
         with:
           fetch-depth: 0
       - name: Set git config safe.directory
@@ -5641,7 +5641,7 @@ jobs:
         continue-on-error: true
       - name: Upload artifact
         if: \${{ steps.git_remote.outputs.latest_commit == github.sha }}
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@0b7f8abb1508181956e8e162db84b466c27e18ce
         with:
           name: build-artifact
           path: dist
@@ -5654,7 +5654,7 @@ jobs:
       issues: write
     if: needs.release.outputs.latest_commit == github.sha
     steps:
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c
         with:
           node-version: 16.x
       - name: Download build artifacts
@@ -5681,7 +5681,7 @@ jobs:
         run: echo \\"VERSION=$(cat dist/version.txt)\\" >> $GITHUB_OUTPUT
       - name: Create Issue
         if: \${{ failure() }}
-        uses: imjohnbo/issue-bot@v3
+        uses: imjohnbo/issue-bot@6924a99d928dc228f407d34eb3d0149eda73f2a7
         env:
           GITHUB_TOKEN: \${{ secrets.GITHUB_TOKEN }}
         with:
@@ -5697,7 +5697,7 @@ jobs:
       issues: write
     if: needs.release.outputs.latest_commit == github.sha
     steps:
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c
         with:
           node-version: 16.x
       - name: Download build artifacts
@@ -5728,7 +5728,7 @@ jobs:
         run: echo \\"VERSION=$(cat dist/version.txt)\\" >> $GITHUB_OUTPUT
       - name: Create Issue
         if: \${{ failure() }}
-        uses: imjohnbo/issue-bot@v3
+        uses: imjohnbo/issue-bot@6924a99d928dc228f407d34eb3d0149eda73f2a7
         env:
           GITHUB_TOKEN: \${{ secrets.GITHUB_TOKEN }}
         with:
@@ -5744,11 +5744,11 @@ jobs:
       issues: write
     if: needs.release.outputs.latest_commit == github.sha
     steps:
-      - uses: actions/setup-java@v3
+      - uses: actions/setup-java@5ffc13f4174014e2d4d4572b3d74c3fa61aeb2c2
         with:
           distribution: temurin
           java-version: 11.x
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c
         with:
           node-version: 16.x
       - name: Download build artifacts
@@ -5782,7 +5782,7 @@ jobs:
         run: echo \\"VERSION=$(cat dist/version.txt)\\" >> $GITHUB_OUTPUT
       - name: Create Issue
         if: \${{ failure() }}
-        uses: imjohnbo/issue-bot@v3
+        uses: imjohnbo/issue-bot@6924a99d928dc228f407d34eb3d0149eda73f2a7
         env:
           GITHUB_TOKEN: \${{ secrets.GITHUB_TOKEN }}
         with:
@@ -5798,10 +5798,10 @@ jobs:
       issues: write
     if: needs.release.outputs.latest_commit == github.sha
     steps:
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c
         with:
           node-version: 16.x
-      - uses: actions/setup-python@v4
+      - uses: actions/setup-python@bd6b4b6205c4dbad673328db7b31b7fab9e241c0
         with:
           python-version: 3.x
       - name: Download build artifacts
@@ -5831,7 +5831,7 @@ jobs:
         run: echo \\"VERSION=$(cat dist/version.txt)\\" >> $GITHUB_OUTPUT
       - name: Create Issue
         if: \${{ failure() }}
-        uses: imjohnbo/issue-bot@v3
+        uses: imjohnbo/issue-bot@6924a99d928dc228f407d34eb3d0149eda73f2a7
         env:
           GITHUB_TOKEN: \${{ secrets.GITHUB_TOKEN }}
         with:
@@ -5847,10 +5847,10 @@ jobs:
       issues: write
     if: needs.release.outputs.latest_commit == github.sha
     steps:
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c
         with:
           node-version: 16.x
-      - uses: actions/setup-dotnet@v3
+      - uses: actions/setup-dotnet@607fce577a46308457984d59e4954e075820f10a
         with:
           dotnet-version: 3.x
       - name: Download build artifacts
@@ -5879,7 +5879,7 @@ jobs:
         run: echo \\"VERSION=$(cat dist/version.txt)\\" >> $GITHUB_OUTPUT
       - name: Create Issue
         if: \${{ failure() }}
-        uses: imjohnbo/issue-bot@v3
+        uses: imjohnbo/issue-bot@6924a99d928dc228f407d34eb3d0149eda73f2a7
         env:
           GITHUB_TOKEN: \${{ secrets.GITHUB_TOKEN }}
         with:
@@ -5895,10 +5895,10 @@ jobs:
       issues: write
     if: needs.release.outputs.latest_commit == github.sha
     steps:
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c
         with:
           node-version: 16.x
-      - uses: actions/setup-go@v3
+      - uses: actions/setup-go@fac708d6674e30b6ba41289acaab6d4b75aa0753
         with:
           go-version: ^1.16.0
       - name: Download build artifacts
@@ -5929,7 +5929,7 @@ jobs:
         run: echo \\"VERSION=$(cat dist/version.txt)\\" >> $GITHUB_OUTPUT
       - name: Create Issue
         if: \${{ failure() }}
-        uses: imjohnbo/issue-bot@v3
+        uses: imjohnbo/issue-bot@6924a99d928dc228f407d34eb3d0149eda73f2a7
         env:
           GITHUB_TOKEN: \${{ secrets.GITHUB_TOKEN }}
         with:
@@ -5951,7 +5951,7 @@ jobs:
       issues: write
       pull-requests: write
     steps:
-      - uses: actions/stale@v4
+      - uses: actions/stale@a20b814fb01b71def3bd6f56e7494d667ddf28da
         with:
           days-before-stale: -1
           days-before-close: -1
@@ -5985,7 +5985,7 @@ jobs:
       patch_created: \${{ steps.create_patch.outputs.patch_created }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab
         with:
           ref: main
       - name: Set git config safe.directory
@@ -6001,7 +6001,7 @@ jobs:
           git diff --staged --patch --exit-code > .repo.patch || echo \\"patch_created=true\\" >> $GITHUB_OUTPUT
       - name: Upload patch
         if: steps.create_patch.outputs.patch_created
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@0b7f8abb1508181956e8e162db84b466c27e18ce
         with:
           name: .repo.patch
           path: .repo.patch
@@ -6014,7 +6014,7 @@ jobs:
     if: \${{ needs.upgrade.outputs.patch_created }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab
         with:
           ref: main
       - name: Set git config safe.directory
@@ -6032,7 +6032,7 @@ jobs:
           git config user.email \\"github-team-tf-cdk@hashicorp.com\\"
       - name: Create Pull Request
         id: create-pr
-        uses: peter-evans/create-pull-request@v4
+        uses: peter-evans/create-pull-request@2b011faafdcbc9ceb11414d64d0573f37c774b04
         with:
           token: \${{ secrets.PROJEN_GITHUB_TOKEN }}
           commit-message: |-
