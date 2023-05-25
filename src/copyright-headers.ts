@@ -33,6 +33,7 @@ project {
     "logs/**",
     "build/**",
     ".gen/**",
+    ".github/ISSUE_TEMPLATE/**",
     ".terraform/**",
     "docs/**",
     "API.md",
