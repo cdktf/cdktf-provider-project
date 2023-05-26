@@ -53,6 +53,23 @@ const getMavenName = (providerName: string): string => {
     ? `${providerName}_provider`
     : providerName.replace(/-/gi, "_");
 };
+
+const githubActionPinnedVersions = {
+  "peter-evans/close-issue": "276d7966e389d888f011539a86c8920025ea0626", // v3.0.1,
+  "actions/checkout": "8e5e7e5ab8b370d6c329ec480221332ada57f0ab", // v3.5.2
+  "actions/setup-node": "64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c", // v3.6.0
+  "actions/upload-artifact": "0b7f8abb1508181956e8e162db84b466c27e18ce", // v3.1.2
+  "actions/download-artifact": "9bc31d5ccc31df68ecc42ccf4149144866c47d8a", // v3.0.2
+  "actions/setup-java": "5ffc13f4174014e2d4d4572b3d74c3fa61aeb2c2", // v3.11.0
+  "actions/setup-go": "fac708d6674e30b6ba41289acaab6d4b75aa0753", // v4.0.1
+  "actions/setup-dotnet": "607fce577a46308457984d59e4954e075820f10a", // v3.0.3
+  "actions/setup-python": "bd6b4b6205c4dbad673328db7b31b7fab9e241c0", // v4.6.1
+  "dessant/lock-threads": "c1b35aecc5cdb1a34539d14196df55838bb2f836", // v4.0.0
+  "peter-evans/create-pull-request": "2b011faafdcbc9ceb11414d64d0573f37c774b04", // v4.2.3
+  "imjohnbo/issue-bot": "6924a99d928dc228f407d34eb3d0149eda73f2a7", // v3.4.3
+  "actions/stale": "a20b814fb01b71def3bd6f56e7494d667ddf28da", // v4.1.1
+};
+
 export class CdktfProviderProject extends cdk.JsiiProject {
   constructor(options: CdktfProviderProjectOptions) {
     const {
@@ -255,6 +272,8 @@ export class CdktfProviderProject extends cdk.JsiiProject {
     upgrade.steps.splice(1, 0, setSafeDirectory);
     pr.steps.splice(1, 0, setSafeDirectory);
 
+    this.pinGithubActionVersions(githubActionPinnedVersions);
+
     new CdktfConfig(this, {
       terraformProvider,
       providerName,
@@ -354,5 +373,12 @@ export class CdktfProviderProject extends cdk.JsiiProject {
     });
 
     new CopyrightHeaders(this);
+  }
+
+  private pinGithubActionVersions(pinnedVersions: Record<string, string>) {
+    // Use pinned versions of github actions
+    Object.entries(pinnedVersions).forEach(([name, sha]) => {
+      this.github?.actions.set(name, `${name}@${sha}`);
+    });
   }
 }
