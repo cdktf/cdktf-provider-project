@@ -25,8 +25,6 @@ project {
   # Supports doublestar glob patterns for more flexibility in defining which
   # files or folders should be ignored
   header_ignore = [
-    # "vendors/**",
-    # "**autogen**",
     "**/node_modules/**",
     "lib/**",
     "dist/**",
@@ -37,6 +35,7 @@ project {
     ".terraform/**",
     "docs/**",
     "API.md",
+    ".mergify.yml",
   ]
 }
 `.split("\n"),
