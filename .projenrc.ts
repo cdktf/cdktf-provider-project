@@ -15,7 +15,6 @@ const githubActionPinnedVersions = {
   "dessant/lock-threads": "c1b35aecc5cdb1a34539d14196df55838bb2f836", // v4.0.0
   "amannn/action-semantic-pull-request":
     "c3cd5d1ea3580753008872425915e343e351ab54", // v5.2.0
-  "actions/stale": "1160a2240286f5da8ec72b1c0816ce2481aabf84", // v8.0.0
   "peter-evans/create-pull-request": "284f54f989303d2699d373481a0cfa13ad5a6666", // v5.0.1
 };
 
