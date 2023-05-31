@@ -68,6 +68,7 @@ const githubActionPinnedVersions = {
   "peter-evans/create-pull-request": "284f54f989303d2699d373481a0cfa13ad5a6666", // v5.0.1
   "imjohnbo/issue-bot": "6924a99d928dc228f407d34eb3d0149eda73f2a7", // v3.4.3
   "actions/stale": "1160a2240286f5da8ec72b1c0816ce2481aabf84", // v8.0.0
+  "slackapi/slack-github-action": "e28cf165c92ffef168d23c5c9000cffc8a25e117", // v1.24.0
 };
 
 export class CdktfProviderProject extends cdk.JsiiProject {
