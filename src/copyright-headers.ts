@@ -36,6 +36,7 @@ project {
     "docs/**",
     "API.md",
     ".mergify.yml",
+    "scripts/*.js"
   ]
 }
 `.split("\n"),
