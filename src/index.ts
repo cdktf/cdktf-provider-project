@@ -246,6 +246,7 @@ export class CdktfProviderProject extends cdk.JsiiProject {
             "I'm closing this PR automatically with the assumption that other builds have succeeded in the meantime.",
         },
       },
+      docgen: false,
     });
 
     // Golang needs more memory to build
@@ -315,9 +316,15 @@ export class CdktfProviderProject extends cdk.JsiiProject {
 
     new ShouldReleaseScriptFile(this, {});
 
-    // hacky di hack hack hack - projen releases don't support cancelling a release yet
-    (this.tasks.tryFind("release")!.condition as unknown as any) =
-      "node ./scripts/should-release.js";
+    const releaseTask = this.tasks.tryFind("release")!;
+    this.removeTask("release");
+    this.addTask("release", {
+      description: releaseTask.description,
+      steps: releaseTask.steps,
+      env: (releaseTask as any)._env,
+      condition: "node ./scripts/should-release.js",
+    });
+
     const releaseJobSteps: any[] = (
       this.github?.tryFindWorkflow("release") as any
     ).jobs.release.steps;
@@ -337,16 +344,27 @@ export class CdktfProviderProject extends cdk.JsiiProject {
     this.gitignore.exclude("API.md"); // ignore the old file, we now generate it in the docs folder
     this.addDevDeps("jsii-docgen@>=7.1.2");
 
-    (this.tasks.tryFind("docgen")!.steps![0] as any).exec = [
-      "rm -rf docs",
-      "mkdir docs",
-      "jsii-docgen --split-by-submodule -l typescript -l python -l java -l csharp -l go",
-      // There is no nice way to tell jsii-docgen to generate docs into a folder so I went this route
-      "mv *.*.md docs",
-      // Some part of the documentation are too long, we need to truncate them to ~10MB
-      "cd docs",
-      "ls ./ | xargs sed -i '150000,$ d' $1",
-    ].join(" && ");
+    const docgen = this.addTask("docgen", {
+      description: "Generate documentation for the project",
+      steps: [
+        {
+          exec: [
+            "rm -rf docs",
+            "rm API.md",
+            "mkdir docs",
+            "jsii-docgen --split-by-submodule -l typescript -l python -l java -l csharp -l go",
+            // There is no nice way to tell jsii-docgen to generate docs into a folder so I went this route
+            "mv *.*.md docs",
+            // Some part of the documentation are too long, we need to truncate them to ~10MB
+            "cd docs",
+            "ls ./ | xargs sed -i '150000,$ d' $1",
+          ].join(" && "),
+        },
+      ],
+    });
+    this.postCompileTask.spawn(docgen);
+    this.gitignore.include(`/docs/*.md`);
+    this.annotateGenerated(`/docs/*.md`);
 
     // Setting the version in package.json so the golang docs have the correct version
     const unconditionalBump = this.addTask("unconditional-bump", {
