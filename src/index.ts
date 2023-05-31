@@ -350,7 +350,7 @@ export class CdktfProviderProject extends cdk.JsiiProject {
         {
           exec: [
             "rm -rf docs",
-            "rm API.md",
+            "rm -f API.md",
             "mkdir docs",
             "jsii-docgen --split-by-submodule -l typescript -l python -l java -l csharp -l go",
             // There is no nice way to tell jsii-docgen to generate docs into a folder so I went this route
