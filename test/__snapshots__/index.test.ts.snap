@@ -23,6 +23,7 @@ project {
     \\"docs/**\\",
     \\"API.md\\",
     \\".mergify.yml\\",
+    \\"scripts/*.js\\"
   ]
 }
 ",
@@ -2259,6 +2260,10 @@ The repository is managed by [Repository Manager](https://github.com/hashicorp/c
 }
 ",
   "scripts/check-for-upgrades.js": "
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
 const fetch = require(\\"node-fetch\\");
 const semver = require(\\"semver\\");
 const actions = require(\\"@actions/core\\");
@@ -2408,6 +2413,10 @@ function versionMatchesConstraint(version, constraint) {
 }
 ",
   "scripts/should-release.js": "
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
 // Note: This script is currently not handling pre-releases
 const execSync = require(\\"child_process\\").execSync;
 
@@ -2544,6 +2553,7 @@ project {
     \\"docs/**\\",
     \\"API.md\\",
     \\".mergify.yml\\",
+    \\"scripts/*.js\\"
   ]
 }
 ",
@@ -4825,6 +4835,10 @@ The repository is managed by [Repository Manager](https://github.com/hashicorp/c
 }
 ",
   "scripts/check-for-upgrades.js": "
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
 const fetch = require(\\"node-fetch\\");
 const semver = require(\\"semver\\");
 const actions = require(\\"@actions/core\\");
@@ -4974,6 +4988,10 @@ function versionMatchesConstraint(version, constraint) {
 }
 ",
   "scripts/should-release.js": "
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
 // Note: This script is currently not handling pre-releases
 const execSync = require(\\"child_process\\").execSync;
 
@@ -5110,6 +5128,7 @@ project {
     \\"docs/**\\",
     \\"API.md\\",
     \\".mergify.yml\\",
+    \\"scripts/*.js\\"
   ]
 }
 ",
@@ -7346,6 +7365,10 @@ The repository is managed by [Repository Manager](https://github.com/hashicorp/c
 }
 ",
   "scripts/check-for-upgrades.js": "
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
 const fetch = require(\\"node-fetch\\");
 const semver = require(\\"semver\\");
 const actions = require(\\"@actions/core\\");
@@ -7495,6 +7518,10 @@ function versionMatchesConstraint(version, constraint) {
 }
 ",
   "scripts/should-release.js": "
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
 // Note: This script is currently not handling pre-releases
 const execSync = require(\\"child_process\\").execSync;
 
