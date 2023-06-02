@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-require-imports */
 import assert = require("assert");
 import { pascalCase } from "change-case";
-import { TextFile, cdk } from "projen";
+import { TextFile, cdk, github, JsonPatch } from "projen";
 import { JobStep } from "projen/lib/github/workflows-model";
 import { AlertOpenPrs } from "./alert-open-prs";
 import { AutoCloseCommunityIssues } from "./auto-close-community-issues";
@@ -272,6 +272,15 @@ export class CdktfProviderProject extends cdk.JsiiProject {
     const { upgrade, pr } = (this.upgradeWorkflow as any).workflows[0].jobs;
     upgrade.steps.splice(1, 0, setSafeDirectory);
     pr.steps.splice(1, 0, setSafeDirectory);
+
+    // Fix maven issue (https://github.com/cdklabs/publib/pull/777)
+    github.GitHub.of(this)?.tryFindWorkflow("release")?.file?.patch(
+      JsonPatch.add(
+        "/jobs/release_maven/steps/8/env/MAVEN_OPTS",
+        // See https://stackoverflow.com/questions/70153962/nexus-staging-maven-plugin-maven-deploy-failed-an-api-incompatibility-was-enco
+        "--add-opens=java.base/java.util=ALL-UNNAMED --add-opens=java.base/java.lang.reflect=ALL-UNNAMED --add-opens=java.base/java.text=ALL-UNNAMED --add-opens=java.desktop/java.awt.font=ALL-UNNAMED"
+      )
+    );
 
     this.pinGithubActionVersions(githubActionPinnedVersions);
 
