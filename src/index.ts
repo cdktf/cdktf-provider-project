@@ -257,7 +257,7 @@ export class CdktfProviderProject extends cdk.JsiiProject {
     // Golang needs more memory to build
     this.tasks.addEnvironment(
       "NODE_OPTIONS",
-      `--max-old-space-size=${maxOldSpaceSize} --max-old-space-size-executable=${maxOldSpaceSize}`
+      `--max-old-space-size=${maxOldSpaceSize}`
     );
 
     this.tasks.addEnvironment("CHECKPOINT_DISABLE", "1");
