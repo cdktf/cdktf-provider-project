@@ -249,8 +249,16 @@ export class CdktfProviderProject extends cdk.JsiiProject {
       docgen: false,
     });
 
+    // Default memory is 7GB: https://docs.github.com/en/actions/using-github-hosted-runners/about-github-hosted-runners#supported-runners-and-hardware-resources
+    // Custom Runners we use have 32GB of memory
+    // The below numbers set heap limits that are ~1gb and ~0.5gb less, respectively, than the total available memory
+    const maxOldSpaceSize = options.useCustomGithubRunner ? "31744" : "6656";
+
     // Golang needs more memory to build
-    this.tasks.addEnvironment("NODE_OPTIONS", "--max-old-space-size=7168");
+    this.tasks.addEnvironment(
+      "NODE_OPTIONS",
+      `--max-old-space-size=${maxOldSpaceSize}`
+    );
 
     this.tasks.addEnvironment("CHECKPOINT_DISABLE", "1");
 
@@ -302,6 +310,7 @@ export class CdktfProviderProject extends cdk.JsiiProject {
     new ProviderUpgrade(this, {
       checkForUpgradesScriptPath: upgradeScript.path,
       workflowRunsOn,
+      nodeHeapSize: maxOldSpaceSize,
     });
     new CustomizedLicense(this, options.creationYear);
     new GithubIssues(this, { providerName });
