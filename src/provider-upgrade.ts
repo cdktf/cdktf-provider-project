@@ -40,7 +40,7 @@ export class ProviderUpgrade {
     workflow.addJobs({
       upgrade: {
         runsOn: options.workflowRunsOn,
-        environment: {
+        env: {
           NODE_OPTIONS: `--max-old-space-size=${options.nodeHeapSize}`,
         },
         steps: [
