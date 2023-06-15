@@ -100,7 +100,7 @@ jobs:
           fi
       - name: Alert Slack on old PRs
         if: \${{ steps.old_prs.outputs.pr_links }}
-        uses: slackapi/slack-github-action@v1.23.0
+        uses: slackapi/slack-github-action@e28cf165c92ffef168d23c5c9000cffc8a25e117
         env:
           SLACK_WEBHOOK_URL: \${{ secrets.ALERT_PRS_SLACK_WEBHOOK_URL }}
         with:
@@ -160,9 +160,7 @@ jobs:
       - name: Revert package.json version bump
         run: git checkout package.json
       - name: Setup Copywrite tool
-        uses: hashicorp/setup-copywrite@3ace06ad72e6ec679ea8572457b17dbc3960b8ce
-        with:
-          token: \${{ secrets.GITHUB_TOKEN }}
+        uses: hashicorp/setup-copywrite@867a1a2a064a0626db322392806428f7dc59cb3e
       - name: Add headers using Copywrite tool
         run: copywrite headers
       - name: Find mutations
@@ -422,7 +420,7 @@ jobs:
       - name: Regenerate bindings
         run: yarn run fetch && yarn run compile && yarn run docgen
       - name: Create PR
-        uses: peter-evans/create-pull-request@2b011faafdcbc9ceb11414d64d0573f37c774b04
+        uses: peter-evans/create-pull-request@284f54f989303d2699d373481a0cfa13ad5a6666
         with:
           token: \${{ secrets.GITHUB_TOKEN }}
           branch: cdktf-next-pr
@@ -475,7 +473,7 @@ jobs:
         run: yarn docgen
       - name: Create Pull Request
         if: \${{ steps.check_version.outputs.new_version == 'available' }}
-        uses: peter-evans/create-pull-request@2b011faafdcbc9ceb11414d64d0573f37c774b04
+        uses: peter-evans/create-pull-request@284f54f989303d2699d373481a0cfa13ad5a6666
         with:
           commit-message: \\"chore: upgrade provider from \`\${{ steps.current_version.outputs.value }}\` to version \`\${{ steps.new_version.outputs.value }}\`\\"
           branch: auto/provider-upgrade
@@ -868,7 +866,7 @@ jobs:
       issues: write
       pull-requests: write
     steps:
-      - uses: actions/stale@a20b814fb01b71def3bd6f56e7494d667ddf28da
+      - uses: actions/stale@1160a2240286f5da8ec72b1c0816ce2481aabf84
         with:
           days-before-stale: -1
           days-before-close: -1
@@ -949,7 +947,7 @@ jobs:
           git config user.email \\"github-team-tf-cdk@hashicorp.com\\"
       - name: Create Pull Request
         id: create-pr
-        uses: peter-evans/create-pull-request@2b011faafdcbc9ceb11414d64d0573f37c774b04
+        uses: peter-evans/create-pull-request@284f54f989303d2699d373481a0cfa13ad5a6666
         with:
           token: \${{ secrets.PROJEN_GITHUB_TOKEN }}
           commit-message: |-
@@ -2633,7 +2631,7 @@ jobs:
           fi
       - name: Alert Slack on old PRs
         if: \${{ steps.old_prs.outputs.pr_links }}
-        uses: slackapi/slack-github-action@v1.23.0
+        uses: slackapi/slack-github-action@e28cf165c92ffef168d23c5c9000cffc8a25e117
         env:
           SLACK_WEBHOOK_URL: \${{ secrets.ALERT_PRS_SLACK_WEBHOOK_URL }}
         with:
@@ -2696,9 +2694,7 @@ jobs:
       - name: Revert package.json version bump
         run: git checkout package.json
       - name: Setup Copywrite tool
-        uses: hashicorp/setup-copywrite@3ace06ad72e6ec679ea8572457b17dbc3960b8ce
-        with:
-          token: \${{ secrets.GITHUB_TOKEN }}
+        uses: hashicorp/setup-copywrite@867a1a2a064a0626db322392806428f7dc59cb3e
       - name: Add headers using Copywrite tool
         run: copywrite headers
       - name: Find mutations
@@ -2976,7 +2972,7 @@ jobs:
       - name: Regenerate bindings
         run: yarn run fetch && yarn run compile && yarn run docgen
       - name: Create PR
-        uses: peter-evans/create-pull-request@2b011faafdcbc9ceb11414d64d0573f37c774b04
+        uses: peter-evans/create-pull-request@284f54f989303d2699d373481a0cfa13ad5a6666
         with:
           token: \${{ secrets.GITHUB_TOKEN }}
           branch: cdktf-next-pr
@@ -3032,7 +3028,7 @@ jobs:
         run: yarn docgen
       - name: Create Pull Request
         if: \${{ steps.check_version.outputs.new_version == 'available' }}
-        uses: peter-evans/create-pull-request@2b011faafdcbc9ceb11414d64d0573f37c774b04
+        uses: peter-evans/create-pull-request@284f54f989303d2699d373481a0cfa13ad5a6666
         with:
           commit-message: \\"chore: upgrade provider from \`\${{ steps.current_version.outputs.value }}\` to version \`\${{ steps.new_version.outputs.value }}\`\\"
           branch: auto/provider-upgrade
@@ -3446,7 +3442,7 @@ jobs:
       issues: write
       pull-requests: write
     steps:
-      - uses: actions/stale@a20b814fb01b71def3bd6f56e7494d667ddf28da
+      - uses: actions/stale@1160a2240286f5da8ec72b1c0816ce2481aabf84
         with:
           days-before-stale: -1
           days-before-close: -1
@@ -3527,7 +3523,7 @@ jobs:
           git config user.email \\"github-team-tf-cdk@hashicorp.com\\"
       - name: Create Pull Request
         id: create-pr
-        uses: peter-evans/create-pull-request@2b011faafdcbc9ceb11414d64d0573f37c774b04
+        uses: peter-evans/create-pull-request@284f54f989303d2699d373481a0cfa13ad5a6666
         with:
           token: \${{ secrets.PROJEN_GITHUB_TOKEN }}
           commit-message: |-
@@ -5211,7 +5207,7 @@ jobs:
           fi
       - name: Alert Slack on old PRs
         if: \${{ steps.old_prs.outputs.pr_links }}
-        uses: slackapi/slack-github-action@v1.23.0
+        uses: slackapi/slack-github-action@e28cf165c92ffef168d23c5c9000cffc8a25e117
         env:
           SLACK_WEBHOOK_URL: \${{ secrets.ALERT_PRS_SLACK_WEBHOOK_URL }}
         with:
@@ -5271,9 +5267,7 @@ jobs:
       - name: Revert package.json version bump
         run: git checkout package.json
       - name: Setup Copywrite tool
-        uses: hashicorp/setup-copywrite@3ace06ad72e6ec679ea8572457b17dbc3960b8ce
-        with:
-          token: \${{ secrets.GITHUB_TOKEN }}
+        uses: hashicorp/setup-copywrite@867a1a2a064a0626db322392806428f7dc59cb3e
       - name: Add headers using Copywrite tool
         run: copywrite headers
       - name: Find mutations
@@ -5533,7 +5527,7 @@ jobs:
       - name: Regenerate bindings
         run: yarn run fetch && yarn run compile && yarn run docgen
       - name: Create PR
-        uses: peter-evans/create-pull-request@2b011faafdcbc9ceb11414d64d0573f37c774b04
+        uses: peter-evans/create-pull-request@284f54f989303d2699d373481a0cfa13ad5a6666
         with:
           token: \${{ secrets.GITHUB_TOKEN }}
           branch: cdktf-next-pr
@@ -5586,7 +5580,7 @@ jobs:
         run: yarn docgen
       - name: Create Pull Request
         if: \${{ steps.check_version.outputs.new_version == 'available' }}
-        uses: peter-evans/create-pull-request@2b011faafdcbc9ceb11414d64d0573f37c774b04
+        uses: peter-evans/create-pull-request@284f54f989303d2699d373481a0cfa13ad5a6666
         with:
           commit-message: \\"chore: upgrade provider from \`\${{ steps.current_version.outputs.value }}\` to version \`\${{ steps.new_version.outputs.value }}\`\\"
           branch: auto/provider-upgrade
@@ -5979,7 +5973,7 @@ jobs:
       issues: write
       pull-requests: write
     steps:
-      - uses: actions/stale@a20b814fb01b71def3bd6f56e7494d667ddf28da
+      - uses: actions/stale@1160a2240286f5da8ec72b1c0816ce2481aabf84
         with:
           days-before-stale: -1
           days-before-close: -1
@@ -6060,7 +6054,7 @@ jobs:
           git config user.email \\"github-team-tf-cdk@hashicorp.com\\"
       - name: Create Pull Request
         id: create-pr
-        uses: peter-evans/create-pull-request@2b011faafdcbc9ceb11414d64d0573f37c774b04
+        uses: peter-evans/create-pull-request@284f54f989303d2699d373481a0cfa13ad5a6666
         with:
           token: \${{ secrets.PROJEN_GITHUB_TOKEN }}
           commit-message: |-

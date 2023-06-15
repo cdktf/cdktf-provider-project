@@ -65,9 +65,10 @@ const githubActionPinnedVersions = {
   "actions/setup-dotnet": "607fce577a46308457984d59e4954e075820f10a", // v3.0.3
   "actions/setup-python": "bd6b4b6205c4dbad673328db7b31b7fab9e241c0", // v4.6.1
   "dessant/lock-threads": "c1b35aecc5cdb1a34539d14196df55838bb2f836", // v4.0.0
-  "peter-evans/create-pull-request": "2b011faafdcbc9ceb11414d64d0573f37c774b04", // v4.2.3
+  "peter-evans/create-pull-request": "284f54f989303d2699d373481a0cfa13ad5a6666", // v5.0.1
   "imjohnbo/issue-bot": "6924a99d928dc228f407d34eb3d0149eda73f2a7", // v3.4.3
-  "actions/stale": "a20b814fb01b71def3bd6f56e7494d667ddf28da", // v4.1.1
+  "actions/stale": "1160a2240286f5da8ec72b1c0816ce2481aabf84", // v8.0.0
+  "slackapi/slack-github-action": "e28cf165c92ffef168d23c5c9000cffc8a25e117", // v1.24.0
 };
 
 export class CdktfProviderProject extends cdk.JsiiProject {
