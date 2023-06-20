@@ -1164,11 +1164,16 @@ docs
     },
     {
       \\"name\\": \\"jsii-docgen\\",
-      \\"version\\": \\">=7.1.2\\",
+      \\"version\\": \\"~9.0.0\\",
       \\"type\\": \\"build\\"
     },
     {
       \\"name\\": \\"jsii-pacmak\\",
+      \\"type\\": \\"build\\"
+    },
+    {
+      \\"name\\": \\"jsii-rosetta\\",
+      \\"version\\": \\"~5.1.2\\",
       \\"type\\": \\"build\\"
     },
     {
@@ -1594,19 +1599,19 @@ docs
           \\"exec\\": \\"yarn upgrade npm-check-updates\\"
         },
         {
-          \\"exec\\": \\"npm-check-updates --dep dev --upgrade --target=minor --reject='cdktf-cli,cdktf,constructs,jsii-docgen,jsii,node-fetch'\\"
+          \\"exec\\": \\"npm-check-updates --dep dev --upgrade --target=minor --reject='cdktf-cli,cdktf,constructs,jsii-docgen,jsii-rosetta,jsii,node-fetch'\\"
         },
         {
-          \\"exec\\": \\"npm-check-updates --dep optional --upgrade --target=minor --reject='cdktf-cli,cdktf,constructs,jsii-docgen,jsii,node-fetch'\\"
+          \\"exec\\": \\"npm-check-updates --dep optional --upgrade --target=minor --reject='cdktf-cli,cdktf,constructs,jsii-docgen,jsii-rosetta,jsii,node-fetch'\\"
         },
         {
-          \\"exec\\": \\"npm-check-updates --dep peer --upgrade --target=minor --reject='cdktf-cli,cdktf,constructs,jsii-docgen,jsii,node-fetch'\\"
+          \\"exec\\": \\"npm-check-updates --dep peer --upgrade --target=minor --reject='cdktf-cli,cdktf,constructs,jsii-docgen,jsii-rosetta,jsii,node-fetch'\\"
         },
         {
-          \\"exec\\": \\"npm-check-updates --dep prod --upgrade --target=minor --reject='cdktf-cli,cdktf,constructs,jsii-docgen,jsii,node-fetch'\\"
+          \\"exec\\": \\"npm-check-updates --dep prod --upgrade --target=minor --reject='cdktf-cli,cdktf,constructs,jsii-docgen,jsii-rosetta,jsii,node-fetch'\\"
         },
         {
-          \\"exec\\": \\"npm-check-updates --dep bundle --upgrade --target=minor --reject='cdktf-cli,cdktf,constructs,jsii-docgen,jsii,node-fetch'\\"
+          \\"exec\\": \\"npm-check-updates --dep bundle --upgrade --target=minor --reject='cdktf-cli,cdktf,constructs,jsii-docgen,jsii-rosetta,jsii,node-fetch'\\"
         },
         {
           \\"exec\\": \\"yarn install --check-files\\"
@@ -2155,8 +2160,9 @@ The repository is managed by [Repository Manager](https://github.com/hashicorp/c
     \\"dot-prop\\": \\"^5.2.0\\",
     \\"jsii\\": \\"1.x\\",
     \\"jsii-diff\\": \\"*\\",
-    \\"jsii-docgen\\": \\">=7.1.2\\",
+    \\"jsii-docgen\\": \\"~9.0.0\\",
     \\"jsii-pacmak\\": \\"*\\",
+    \\"jsii-rosetta\\": \\"~5.1.2\\",
     \\"node-fetch\\": \\"cjs\\",
     \\"npm-check-updates\\": \\"^16\\",
     \\"projen\\": \\"*\\",
@@ -3740,11 +3746,16 @@ docs
     },
     {
       \\"name\\": \\"jsii-docgen\\",
-      \\"version\\": \\">=7.1.2\\",
+      \\"version\\": \\"~9.0.0\\",
       \\"type\\": \\"build\\"
     },
     {
       \\"name\\": \\"jsii-pacmak\\",
+      \\"type\\": \\"build\\"
+    },
+    {
+      \\"name\\": \\"jsii-rosetta\\",
+      \\"version\\": \\"~5.1.2\\",
       \\"type\\": \\"build\\"
     },
     {
@@ -4170,19 +4181,19 @@ docs
           \\"exec\\": \\"yarn upgrade npm-check-updates\\"
         },
         {
-          \\"exec\\": \\"npm-check-updates --dep dev --upgrade --target=minor --reject='cdktf-cli,cdktf,constructs,jsii-docgen,jsii,node-fetch'\\"
+          \\"exec\\": \\"npm-check-updates --dep dev --upgrade --target=minor --reject='cdktf-cli,cdktf,constructs,jsii-docgen,jsii-rosetta,jsii,node-fetch'\\"
         },
         {
-          \\"exec\\": \\"npm-check-updates --dep optional --upgrade --target=minor --reject='cdktf-cli,cdktf,constructs,jsii-docgen,jsii,node-fetch'\\"
+          \\"exec\\": \\"npm-check-updates --dep optional --upgrade --target=minor --reject='cdktf-cli,cdktf,constructs,jsii-docgen,jsii-rosetta,jsii,node-fetch'\\"
         },
         {
-          \\"exec\\": \\"npm-check-updates --dep peer --upgrade --target=minor --reject='cdktf-cli,cdktf,constructs,jsii-docgen,jsii,node-fetch'\\"
+          \\"exec\\": \\"npm-check-updates --dep peer --upgrade --target=minor --reject='cdktf-cli,cdktf,constructs,jsii-docgen,jsii-rosetta,jsii,node-fetch'\\"
         },
         {
-          \\"exec\\": \\"npm-check-updates --dep prod --upgrade --target=minor --reject='cdktf-cli,cdktf,constructs,jsii-docgen,jsii,node-fetch'\\"
+          \\"exec\\": \\"npm-check-updates --dep prod --upgrade --target=minor --reject='cdktf-cli,cdktf,constructs,jsii-docgen,jsii-rosetta,jsii,node-fetch'\\"
         },
         {
-          \\"exec\\": \\"npm-check-updates --dep bundle --upgrade --target=minor --reject='cdktf-cli,cdktf,constructs,jsii-docgen,jsii,node-fetch'\\"
+          \\"exec\\": \\"npm-check-updates --dep bundle --upgrade --target=minor --reject='cdktf-cli,cdktf,constructs,jsii-docgen,jsii-rosetta,jsii,node-fetch'\\"
         },
         {
           \\"exec\\": \\"yarn install --check-files\\"
@@ -4731,8 +4742,9 @@ The repository is managed by [Repository Manager](https://github.com/hashicorp/c
     \\"dot-prop\\": \\"^5.2.0\\",
     \\"jsii\\": \\"1.x\\",
     \\"jsii-diff\\": \\"*\\",
-    \\"jsii-docgen\\": \\">=7.1.2\\",
+    \\"jsii-docgen\\": \\"~9.0.0\\",
     \\"jsii-pacmak\\": \\"*\\",
+    \\"jsii-rosetta\\": \\"~5.1.2\\",
     \\"node-fetch\\": \\"cjs\\",
     \\"npm-check-updates\\": \\"^16\\",
     \\"projen\\": \\"*\\",
@@ -6271,11 +6283,16 @@ docs
     },
     {
       \\"name\\": \\"jsii-docgen\\",
-      \\"version\\": \\">=7.1.2\\",
+      \\"version\\": \\"~9.0.0\\",
       \\"type\\": \\"build\\"
     },
     {
       \\"name\\": \\"jsii-pacmak\\",
+      \\"type\\": \\"build\\"
+    },
+    {
+      \\"name\\": \\"jsii-rosetta\\",
+      \\"version\\": \\"~5.1.2\\",
       \\"type\\": \\"build\\"
     },
     {
@@ -6701,19 +6718,19 @@ docs
           \\"exec\\": \\"yarn upgrade npm-check-updates\\"
         },
         {
-          \\"exec\\": \\"npm-check-updates --dep dev --upgrade --target=minor --reject='cdktf-cli,cdktf,constructs,jsii-docgen,jsii,node-fetch'\\"
+          \\"exec\\": \\"npm-check-updates --dep dev --upgrade --target=minor --reject='cdktf-cli,cdktf,constructs,jsii-docgen,jsii-rosetta,jsii,node-fetch'\\"
         },
         {
-          \\"exec\\": \\"npm-check-updates --dep optional --upgrade --target=minor --reject='cdktf-cli,cdktf,constructs,jsii-docgen,jsii,node-fetch'\\"
+          \\"exec\\": \\"npm-check-updates --dep optional --upgrade --target=minor --reject='cdktf-cli,cdktf,constructs,jsii-docgen,jsii-rosetta,jsii,node-fetch'\\"
         },
         {
-          \\"exec\\": \\"npm-check-updates --dep peer --upgrade --target=minor --reject='cdktf-cli,cdktf,constructs,jsii-docgen,jsii,node-fetch'\\"
+          \\"exec\\": \\"npm-check-updates --dep peer --upgrade --target=minor --reject='cdktf-cli,cdktf,constructs,jsii-docgen,jsii-rosetta,jsii,node-fetch'\\"
         },
         {
-          \\"exec\\": \\"npm-check-updates --dep prod --upgrade --target=minor --reject='cdktf-cli,cdktf,constructs,jsii-docgen,jsii,node-fetch'\\"
+          \\"exec\\": \\"npm-check-updates --dep prod --upgrade --target=minor --reject='cdktf-cli,cdktf,constructs,jsii-docgen,jsii-rosetta,jsii,node-fetch'\\"
         },
         {
-          \\"exec\\": \\"npm-check-updates --dep bundle --upgrade --target=minor --reject='cdktf-cli,cdktf,constructs,jsii-docgen,jsii,node-fetch'\\"
+          \\"exec\\": \\"npm-check-updates --dep bundle --upgrade --target=minor --reject='cdktf-cli,cdktf,constructs,jsii-docgen,jsii-rosetta,jsii,node-fetch'\\"
         },
         {
           \\"exec\\": \\"yarn install --check-files\\"
@@ -7262,8 +7279,9 @@ The repository is managed by [Repository Manager](https://github.com/hashicorp/c
     \\"dot-prop\\": \\"^5.2.0\\",
     \\"jsii\\": \\"1.x\\",
     \\"jsii-diff\\": \\"*\\",
-    \\"jsii-docgen\\": \\">=7.1.2\\",
+    \\"jsii-docgen\\": \\"~9.0.0\\",
     \\"jsii-pacmak\\": \\"*\\",
+    \\"jsii-rosetta\\": \\"~5.1.2\\",
     \\"node-fetch\\": \\"cjs\\",
     \\"npm-check-updates\\": \\"^16\\",
     \\"projen\\": \\"*\\",
