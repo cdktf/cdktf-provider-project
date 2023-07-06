@@ -201,6 +201,23 @@ export class CdktfProviderProject extends cdk.JsiiProject {
                 },
               },
               conditions: [
+                "#files!=0",
+                "label=automerge",
+                "-label~=(do-not-merge)",
+                "-draft",
+                "author=team-tf-cdk",
+              ],
+            },
+            {
+              name: "Close PRs with no changes",
+              actions: {
+                close: {
+                  message:
+                    "Closing this automatic PR because there are no changes to merge",
+                },
+              },
+              conditions: [
+                "#files=0",
                 "label=automerge",
                 "-label~=(do-not-merge)",
                 "-draft",
