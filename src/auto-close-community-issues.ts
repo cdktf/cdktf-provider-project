@@ -80,7 +80,7 @@ export class AutoCloseCommunityIssues {
       permissions: {
         pullRequests: JobPermission.WRITE,
       },
-      if: "github.event.issue.author_association != 'OWNER' && github.event.issue.author_association != 'MEMBER' && github.event.issue.author_association != 'COLLABORATOR'",
+      if: "github.event.pull_request.author_association != 'OWNER' && github.event.pull_request.author_association != 'MEMBER' && github.event.pull_request.author_association != 'COLLABORATOR'",
       steps: [
         {
           name: "Auto-close PRs by non-collaborators",
