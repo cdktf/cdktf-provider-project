@@ -1580,7 +1580,8 @@ docs
         \\"CHANGELOG\\": \\"dist/changelog.md\\",
         \\"BUMPFILE\\": \\"dist/version.txt\\",
         \\"RELEASETAG\\": \\"dist/releasetag.txt\\",
-        \\"RELEASE_TAG_PREFIX\\": \\"\\"
+        \\"RELEASE_TAG_PREFIX\\": \\"\\",
+        \\"MIN_MAJOR\\": \\"1\\"
       },
       \\"steps\\": [
         {
@@ -4162,7 +4163,8 @@ docs
         \\"CHANGELOG\\": \\"dist/changelog.md\\",
         \\"BUMPFILE\\": \\"dist/version.txt\\",
         \\"RELEASETAG\\": \\"dist/releasetag.txt\\",
-        \\"RELEASE_TAG_PREFIX\\": \\"\\"
+        \\"RELEASE_TAG_PREFIX\\": \\"\\",
+        \\"MIN_MAJOR\\": \\"1\\"
       },
       \\"steps\\": [
         {
@@ -6699,7 +6701,8 @@ docs
         \\"CHANGELOG\\": \\"dist/changelog.md\\",
         \\"BUMPFILE\\": \\"dist/version.txt\\",
         \\"RELEASETAG\\": \\"dist/releasetag.txt\\",
-        \\"RELEASE_TAG_PREFIX\\": \\"\\"
+        \\"RELEASE_TAG_PREFIX\\": \\"\\",
+        \\"MIN_MAJOR\\": \\"1\\"
       },
       \\"steps\\": [
         {
