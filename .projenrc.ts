@@ -4,6 +4,7 @@
  */
 
 import { cdk } from "projen";
+import { UpgradeDependenciesSchedule } from "projen/lib/javascript";
 import { CustomizedLicense } from "./src/customized-license";
 import { LockIssues } from "./src/lock-issues";
 
@@ -32,7 +33,7 @@ const project = new cdk.JsiiProject({
   license: "MPL-2.0",
   defaultReleaseBranch: "main",
   releaseToNpm: true,
-  minNodeVersion: "16.13.0",
+  minNodeVersion: "16.14.0",
   mergify: false,
   scripts: {
     "eslint:fix": "eslint . --ext .ts --fix",
@@ -41,6 +42,7 @@ const project = new cdk.JsiiProject({
   depsUpgradeOptions: {
     workflowOptions: {
       labels: ["dependencies"],
+      schedule: UpgradeDependenciesSchedule.WEEKLY,
     },
   },
   workflowGitIdentity: {
