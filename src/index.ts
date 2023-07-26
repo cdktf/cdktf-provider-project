@@ -16,6 +16,9 @@ import { ProviderUpgrade } from "./provider-upgrade";
 import { CheckForUpgradesScriptFile } from "./scripts/check-for-upgrades";
 import { ShouldReleaseScriptFile } from "./scripts/should-release";
 
+// ensure new projects start with 1.0.0 so that every following breaking change leads to an increased major version
+const MIN_MAJOR_VERSION = 1;
+
 export interface CdktfProviderProjectOptions extends cdk.JsiiProjectOptions {
   readonly useCustomGithubRunner?: boolean;
   readonly terraformProvider: string;
@@ -187,7 +190,7 @@ export class CdktfProviderProject extends cdk.JsiiProject {
         email: "github-team-tf-cdk@hashicorp.com",
       },
       workflowRunsOn,
-      minMajorVersion: 1, // ensure new projects start with 1.0.0 so that every following breaking change leads to an increased major version
+      minMajorVersion: MIN_MAJOR_VERSION,
       githubOptions: {
         mergify: true,
         mergifyOptions: {
@@ -396,6 +399,7 @@ export class CdktfProviderProject extends cdk.JsiiProject {
         BUMPFILE: "dist/version.txt",
         RELEASETAG: "dist/releasetag.txt",
         RELEASE_TAG_PREFIX: "",
+        MIN_MAJOR: String(MIN_MAJOR_VERSION),
       },
     });
     this.preCompileTask.spawn(unconditionalBump);
