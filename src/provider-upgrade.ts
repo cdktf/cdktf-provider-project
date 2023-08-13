@@ -8,6 +8,7 @@ import { JobPermission } from "projen/lib/github/workflows-model";
 
 interface ProviderUpgradeOptions {
   checkForUpgradesScriptPath: string;
+  versionFileUpdateScriptPath: string;
   workflowRunsOn: string[];
   nodeHeapSize: string;
 }
@@ -21,6 +22,11 @@ export class ProviderUpgrade {
   ) {
     project.addTask("check-if-new-provider-version", {
       exec: `node ./${options.checkForUpgradesScriptPath}`,
+    });
+
+    // add version update as a project task
+    project.addTask("update-version-file", {
+      exec: `node ./${options.versionFileUpdateScriptPath}`,
     });
 
     const workflow = project.github?.addWorkflow("provider-upgrade");
@@ -76,6 +82,7 @@ export class ProviderUpgrade {
           // generate docs
           { run: "yarn compile", if: newerVersionAvailable },
           { run: "yarn docgen", if: newerVersionAvailable },
+          { run: "yarn version-file-update", if: newerVersionAvailable },
 
           // submit a PR
           {
