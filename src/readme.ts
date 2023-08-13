@@ -11,6 +11,7 @@ export interface ReadmeFileOptions extends FileBaseOptions {
   fqproviderName: string;
   providerVersion: string;
   packageInfo: PackageInfo;
+  underlyingTerraformVersion: string;
 }
 
 export class ReadmeFile extends FileBase {
@@ -22,8 +23,13 @@ export class ReadmeFile extends FileBase {
   }
 
   protected synthesizeContent(resolver: IResolver) {
-    const { providerName, fqproviderName, providerVersion, packageInfo } =
-      resolver.resolve(this.options) as ReadmeFileOptions;
+    const {
+      providerName,
+      fqproviderName,
+      providerVersion,
+      packageInfo,
+      underlyingTerraformVersion,
+    } = resolver.resolve(this.options) as ReadmeFileOptions;
 
     const fqpnURL = fqproviderName.includes("/")
       ? fqproviderName
@@ -33,7 +39,11 @@ export class ReadmeFile extends FileBase {
       : "";
 
     return `
-# Terraform CDK ${providerName} Provider ${providerVersion}
+# Terraform CDK ${providerName} Provider ${
+      underlyingTerraformVersion !== "<unknown>"
+        ? underlyingTerraformVersion
+        : ""
+    } tracks ${providerVersion}
 
 This repo builds and publishes the Terraform ${providerName} Provider bindings for [CDK for Terraform](https://cdk.tf).
 
@@ -41,25 +51,37 @@ This repo builds and publishes the Terraform ${providerName} Provider bindings f
 
 ### NPM
 
-The npm package is available at [https://www.npmjs.com/package/${packageInfo.npm.name}](https://www.npmjs.com/package/${packageInfo.npm.name}).
+The npm package is available at [https://www.npmjs.com/package/${
+      packageInfo.npm.name
+    }](https://www.npmjs.com/package/${packageInfo.npm.name}).
 
 \`npm install ${packageInfo.npm.name}\`
 
 ### PyPI
 
-The PyPI package is available at [https://pypi.org/project/${packageInfo.python.distName}](https://pypi.org/project/${packageInfo.python.distName}).
+The PyPI package is available at [https://pypi.org/project/${
+      packageInfo.python.distName
+    }](https://pypi.org/project/${packageInfo.python.distName}).
 
 \`pipenv install ${packageInfo.python.distName}\`
 
 ### Nuget
 
-The Nuget package is available at [https://www.nuget.org/packages/${packageInfo.publishToNuget.packageId}](https://www.nuget.org/packages/${packageInfo.publishToNuget.packageId}).
+The Nuget package is available at [https://www.nuget.org/packages/${
+      packageInfo.publishToNuget.packageId
+    }](https://www.nuget.org/packages/${packageInfo.publishToNuget.packageId}).
 
 \`dotnet add package ${packageInfo.publishToNuget.packageId}\`
 
 ### Maven
 
-The Maven package is available at [https://mvnrepository.com/artifact/${packageInfo.publishToMaven.mavenGroupId}/${packageInfo.publishToMaven.mavenArtifactId}](https://mvnrepository.com/artifact/${packageInfo.publishToMaven.mavenGroupId}/${packageInfo.publishToMaven.mavenArtifactId}).
+The Maven package is available at [https://mvnrepository.com/artifact/${
+      packageInfo.publishToMaven.mavenGroupId
+    }/${
+      packageInfo.publishToMaven.mavenArtifactId
+    }](https://mvnrepository.com/artifact/${
+      packageInfo.publishToMaven.mavenGroupId
+    }/${packageInfo.publishToMaven.mavenArtifactId}).
 
 \`\`\`
 <dependency>
@@ -72,9 +94,13 @@ The Maven package is available at [https://mvnrepository.com/artifact/${packageI
 
 ### Go
 
-The go package is generated into the [\`${packageInfo.publishToGo?.moduleName}\`](https://${packageInfo.publishToGo?.moduleName}) package.
+The go package is generated into the [\`${
+      packageInfo.publishToGo?.moduleName
+    }\`](https://${packageInfo.publishToGo?.moduleName}) package.
 
-\`go get ${packageInfo.publishToGo?.moduleName}/${packageInfo.publishToGo?.packageName}\`
+\`go get ${packageInfo.publishToGo?.moduleName}/${
+      packageInfo.publishToGo?.packageName
+    }\`
 
 ## Docs
 

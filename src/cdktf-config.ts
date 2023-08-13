@@ -24,6 +24,7 @@ interface CdktfConfigOptions {
 }
 
 export class CdktfConfig {
+  public underlyingTerraformProviderVersion: string;
   constructor(project: cdk.JsiiProject, options: CdktfConfigOptions) {
     const { terraformProvider, providerName, jsiiVersion } = options;
 
@@ -127,6 +128,8 @@ export class CdktfConfig {
       actualProviderVersion = version as string;
     }
 
+    this.underlyingTerraformProviderVersion = actualProviderVersion;
+
     project.addFields({
       cdktf: {
         provider: {
@@ -157,6 +160,9 @@ export class CdktfConfig {
       },
     });
 
-    new ReadmeFile(project, "README.md", options);
+    new ReadmeFile(project, "README.md", {
+      ...options,
+      underlyingTerraformVersion: actualProviderVersion,
+    });
   }
 }
