@@ -39,49 +39,44 @@ export class ReadmeFile extends FileBase {
       : "";
 
     return `
-# Terraform CDK ${providerName} Provider ${
-      underlyingTerraformVersion !== "<unknown>"
-        ? underlyingTerraformVersion
-        : ""
-    } tracks ${providerVersion}
+# Terraform CDK ${providerName} Provider tracks ${providerVersion}
 
 This repo builds and publishes the Terraform ${providerName} Provider bindings for [CDK for Terraform](https://cdk.tf).
+
+${underlyingTerraformVersion !== "<unknown>"
+        ? `Is based directly on ${providerName} ${underlyingTerraformVersion}`
+        : ''
+      }
 
 ## Available Packages
 
 ### NPM
 
-The npm package is available at [https://www.npmjs.com/package/${
-      packageInfo.npm.name
-    }](https://www.npmjs.com/package/${packageInfo.npm.name}).
+The npm package is available at [https://www.npmjs.com/package/${packageInfo.npm.name
+      }](https://www.npmjs.com/package/${packageInfo.npm.name}).
 
 \`npm install ${packageInfo.npm.name}\`
 
 ### PyPI
 
-The PyPI package is available at [https://pypi.org/project/${
-      packageInfo.python.distName
-    }](https://pypi.org/project/${packageInfo.python.distName}).
+The PyPI package is available at [https://pypi.org/project/${packageInfo.python.distName
+      }](https://pypi.org/project/${packageInfo.python.distName}).
 
 \`pipenv install ${packageInfo.python.distName}\`
 
 ### Nuget
 
-The Nuget package is available at [https://www.nuget.org/packages/${
-      packageInfo.publishToNuget.packageId
-    }](https://www.nuget.org/packages/${packageInfo.publishToNuget.packageId}).
+The Nuget package is available at [https://www.nuget.org/packages/${packageInfo.publishToNuget.packageId
+      }](https://www.nuget.org/packages/${packageInfo.publishToNuget.packageId}).
 
 \`dotnet add package ${packageInfo.publishToNuget.packageId}\`
 
 ### Maven
 
-The Maven package is available at [https://mvnrepository.com/artifact/${
-      packageInfo.publishToMaven.mavenGroupId
-    }/${
-      packageInfo.publishToMaven.mavenArtifactId
-    }](https://mvnrepository.com/artifact/${
-      packageInfo.publishToMaven.mavenGroupId
-    }/${packageInfo.publishToMaven.mavenArtifactId}).
+The Maven package is available at [https://mvnrepository.com/artifact/${packageInfo.publishToMaven.mavenGroupId
+      }/${packageInfo.publishToMaven.mavenArtifactId
+      }](https://mvnrepository.com/artifact/${packageInfo.publishToMaven.mavenGroupId
+      }/${packageInfo.publishToMaven.mavenArtifactId}).
 
 \`\`\`
 <dependency>
@@ -94,13 +89,11 @@ The Maven package is available at [https://mvnrepository.com/artifact/${
 
 ### Go
 
-The go package is generated into the [\`${
-      packageInfo.publishToGo?.moduleName
-    }\`](https://${packageInfo.publishToGo?.moduleName}) package.
+The go package is generated into the [\`${packageInfo.publishToGo?.moduleName
+      }\`](https://${packageInfo.publishToGo?.moduleName}) package.
 
-\`go get ${packageInfo.publishToGo?.moduleName}/${
-      packageInfo.publishToGo?.packageName
-    }\`
+\`go get ${packageInfo.publishToGo?.moduleName}/${packageInfo.publishToGo?.packageName
+      }\`
 
 ## Docs
 
@@ -121,7 +114,7 @@ This project is explicitly not tracking the Terraform ${providerName} Provider v
 These are the upstream dependencies:
 
 - [Terraform CDK](https://cdk.tf)
-- [Terraform ${providerName} Provider](https://registry.terraform.io/providers/${fqpnURL}/${versionURL})
+- [Terraform ${providerName} Provider](https://registry.terraform.io/providers/${fqpnURL}/${underlyingTerraformVersion !== "<unknown>" ? underlyingTerraformVersion : versionURL})
     - This links to the minimum version being tracked, you can find the latest released version [in our releases](https://github.com/cdktf/cdktf-provider-${providerName}/releases)
 - [Terraform Engine](https://terraform.io)
 
