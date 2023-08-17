@@ -1,5 +1,5 @@
 {
-  "name": "@cdktf/provider-project",
+  "name": "@maed223/cdktf-provider-project-test",
   "repository": {
     "type": "git",
     "url": "https://github.com/hashicorp/cdktf-provider-project.git"

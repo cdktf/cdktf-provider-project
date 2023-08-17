@@ -93,17 +93,17 @@ test("README contains provided Namespace", () => {
     expect.stringContaining(
       "- [Terraform random Provider](https://registry.terraform.io/providers/hashicorp/random/3.1.0)"
     ) &&
-    expect.stringContaining(
-      "- This links to the minimum version being tracked, you can find the latest released version [in our releases](https://github.com/cdktf/cdktf-provider-random/releases)"
-    )
+      expect.stringContaining(
+        "- This links to the minimum version being tracked, you can find the latest released version [in our releases](https://github.com/cdktf/cdktf-provider-random/releases)"
+      )
   );
 
   expect(snapshotWithoutVersion["README.md"]).toEqual(
     expect.stringContaining(
       "- [Terraform random Provider](https://registry.terraform.io/providers/hashicorp/random/)"
     ) &&
-    expect.stringContaining(
-      "- This links to the minimum version being tracked, you can find the latest released version [in our releases](https://github.com/cdktf/cdktf-provider-random/releases)"
-    )
+      expect.stringContaining(
+        "- This links to the minimum version being tracked, you can find the latest released version [in our releases](https://github.com/cdktf/cdktf-provider-random/releases)"
+      )
   );
 });
