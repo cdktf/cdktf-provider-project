@@ -41,11 +41,11 @@ const fs = require("fs")
 const TERRAFORM_PROVIDER_VERSION = "${underlyingTerraformProviderVersion}" 
 const CDKTF_VERSION = "${cdktfVersion}" 
 const PREBUILT_PROVIDER_VERSION = "${prebuiltProviderVersion}" 
-const SEPARATOR = "| --- | --- | --- |\n"
+const SEPARATOR = "| --- | --- | --- |\\n"
 
 (function main() {
     if (!fs.existsSync("VERSIONS_COMPATIBILITY.md")) {
-        const header = \`| Prebuilt Provider Version | Terraform Provider Version | CDKTF Version |\n\${ separator }\`
+        const header = \`| Prebuilt Provider Version | Terraform Provider Version | CDKTF Version |\\n\${ separator }\`
         fs.writeFileSync("VERSIONS.md", header)
     }
 
