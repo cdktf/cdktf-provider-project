@@ -41,23 +41,25 @@ const fs = require("fs")
 const TERRAFORM_PROVIDER_VERSION = "${underlyingTerraformProviderVersion}" 
 const CDKTF_VERSION = "${cdktfVersion}" 
 const PREBUILT_PROVIDER_VERSION = "${prebuiltProviderVersion}" 
-const SEPARATOR = "| --- | --- | --- |\\n"
+const SEPARATOR = | --- | --- | --- |\n
 
 (function main() {
     if (!fs.existsSync("VERSIONS_COMPATIBILITY.md")) {
-        const header = \`| Prebuilt Provider Version | Terraform Provider Version | CDKTF Version |\\n\${ separator }\`
+        const header = \`| Prebuilt Provider Version | Terraform Provider Version | CDKTF Version |
+        \${ SEPARATOR }\`
         fs.writeFileSync("VERSIONS.md", header)
     }
 
     // read file contents
     const text = fs.readFileSync("VERSIONS_COMPATIBILITY.md", "utf8")
     // split on separator - between header and entries
-    const parts = text.split(separator)
+    const parts = text.split(SEPARATOR)
     const header = parts[0]
     // split leads to empty space when no entries are present
     const oldEntries = parts[1] === " " ? '' : parts[1]
-    const newVersionEntry = \`| \${ PREBUILT_PROVIDER_VERSION }  | \${ TERRAFORM_PROVIDER_VERSION } | \${ CDKTF_VERSION } |\n\`;
-    fs.writeFileSync("VERSIONS_COMPATIBILITY.md", header + separator + newVersionEntry + oldEntries)
+    const newVersionEntry = \`| \${ PREBUILT_PROVIDER_VERSION }  | \${ TERRAFORM_PROVIDER_VERSION } | \${ CDKTF_VERSION } |
+    \`;
+    fs.writeFileSync("VERSIONS_COMPATIBILITY.md", header + SEPARATOR + newVersionEntry + oldEntries)
 })();            
 `;
   }
