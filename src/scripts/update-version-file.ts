@@ -30,7 +30,8 @@ export class UpdateVersionFile extends FileBase {
       prebuiltProviderVersion,
       cdktfVersion,
     } = resolver.resolve(this.options) as UpdateVersionFileOptions;
-
+    // possible soultion is to have it as a variable that we template into the string rather than put it directly, avoids falsely evaluating it in returning the string
+    const NEW_LINE = "\n";
     return `
 /**
  * Copyright (c) HashiCorp, Inc.
@@ -40,13 +41,13 @@ const fs = require("fs")
 // set by the projen file that generates this script
 const TERRAFORM_PROVIDER_VERSION = "${underlyingTerraformProviderVersion}" 
 const CDKTF_VERSION = "${cdktfVersion}" 
-const PREBUILT_PROVIDER_VERSION = "${prebuiltProviderVersion}" 
-const SEPARATOR = | --- | --- | --- |\n
+const PREBUILT_PROVIDER_VERSION = "${prebuiltProviderVersion}"
+const NEW_LINE = "${NEW_LINE}"
+const SEPARATOR = \`| --- | --- | --- |\${NEW_LINE}\`
 
 (function main() {
     if (!fs.existsSync("VERSIONS_COMPATIBILITY.md")) {
-        const header = \`| Prebuilt Provider Version | Terraform Provider Version | CDKTF Version |
-        \${ SEPARATOR }\`
+        const header = \`| Prebuilt Provider Version | Terraform Provider Version | CDKTF Version |\${NEW_LINE}\${ SEPARATOR }\`
         fs.writeFileSync("VERSIONS.md", header)
     }
 
@@ -57,8 +58,7 @@ const SEPARATOR = | --- | --- | --- |\n
     const header = parts[0]
     // split leads to empty space when no entries are present
     const oldEntries = parts[1] === " " ? '' : parts[1]
-    const newVersionEntry = \`| \${ PREBUILT_PROVIDER_VERSION }  | \${ TERRAFORM_PROVIDER_VERSION } | \${ CDKTF_VERSION } |
-    \`;
+    const newVersionEntry = \`| \${ PREBUILT_PROVIDER_VERSION }  | \${ TERRAFORM_PROVIDER_VERSION } | \${ CDKTF_VERSION } |\${NEW_LINE}\`;
     fs.writeFileSync("VERSIONS_COMPATIBILITY.md", header + SEPARATOR + newVersionEntry + oldEntries)
 })();            
 `;
