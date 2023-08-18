@@ -31,6 +31,8 @@ jobs:
         uses: hashicorp/setup-copywrite@867a1a2a064a0626db322392806428f7dc59cb3e
       - name: Add headers using Copywrite tool
         run: copywrite headers
+      - name: Update Version Compatiblity File
+        run: yarn update-version-file
       - name: Find mutations
         id: self_mutation
         run: |-

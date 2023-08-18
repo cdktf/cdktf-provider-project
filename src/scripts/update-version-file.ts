@@ -10,7 +10,6 @@ import { NodeProject } from "projen/lib/javascript";
 // underlying provider version, prebuilt provider version, current cdktf version (im guessing, tho can imagine how itd be different)
 export interface UpdateVersionFileOptions extends FileBaseOptions {
   underlyingTerraformProviderVersion: string;
-  prebuiltProviderVersion: string;
   cdktfVersion: string;
 }
 
@@ -25,13 +24,10 @@ export class UpdateVersionFile extends FileBase {
   }
 
   protected synthesizeContent(resolver: IResolver): string | undefined {
-    let {
-      underlyingTerraformProviderVersion,
-      prebuiltProviderVersion,
-      cdktfVersion,
-    } = resolver.resolve(this.options) as UpdateVersionFileOptions;
+    let { underlyingTerraformProviderVersion, cdktfVersion } = resolver.resolve(
+      this.options
+    ) as UpdateVersionFileOptions;
     // possible soultion is to have it as a variable that we template into the string rather than put it directly, avoids falsely evaluating it in returning the string
-    const NEW_LINE = "\n";
     return `
 /**
  * Copyright (c) HashiCorp, Inc.
@@ -41,27 +37,29 @@ export class UpdateVersionFile extends FileBase {
 (function main() {
     const fs = require("fs")
     // set by the projen file that generates this script
-    const TERRAFORM_PROVIDER_VERSION = "${underlyingTerraformProviderVersion}" 
-    const CDKTF_VERSION = "${cdktfVersion}" 
-    const PREBUILT_PROVIDER_VERSION = "${prebuiltProviderVersion}"
-    const NEW_LINE = "${NEW_LINE}"
-    const SEPARATOR = \`| --- | --- | --- |\${NEW_LINE}\`
+    const TERRAFORM_PROVIDER_VERSION = "${underlyingTerraformProviderVersion}"
+    const CDKTF_VERSION = "${cdktfVersion}"
+    const PREBUILT_PROVIDER_VERSION = fs.readFileSync("./dist/version.txt", "utf8")
+    const SEPARATOR = \`| --- | --- | --- |\\n\`
 
     if (!fs.existsSync("VERSIONS_COMPATIBILITY.md")) {
-        const header = \`| Prebuilt Provider Version | Terraform Provider Version | CDKTF Version |\${NEW_LINE}\${ SEPARATOR }\`
-        fs.writeFileSync("VERSIONS_COMPATIBILITY.md.md", header)
+        const header = \`| Prebuilt Provider Version | Terraform Provider Version | CDKTF Version |\\n\${SEPARATOR}\`
+        fs.writeFileSync("VERSIONS_COMPATIBILITY.md", header)
     }
 
-    // read file contents
     const text = fs.readFileSync("VERSIONS_COMPATIBILITY.md", "utf8")
-    // split on separator - between header and entries
     const parts = text.split(SEPARATOR)
     const header = parts[0]
-    // split leads to empty space when no entries are present
-    const oldEntries = parts[1] === " " ? '' : parts[1]
-    const newVersionEntry = \`| \${ PREBUILT_PROVIDER_VERSION }  | \${ TERRAFORM_PROVIDER_VERSION } | \${ CDKTF_VERSION } |\${NEW_LINE}\`;
-    fs.writeFileSync("VERSIONS_COMPATIBILITY.md", header + SEPARATOR + newVersionEntry + oldEntries)
-})();            
+    const oldEntries = parts[1]
+    const newVersionEntry = \`| \${PREBUILT_PROVIDER_VERSION} | \${TERRAFORM_PROVIDER_VERSION} | \${CDKTF_VERSION} |\`;
+    // suboptimal, but only way to tell at this point in the build workflow if the there has actually been a provider/cdktf upgrade done
+    const isNewEntry = !oldEntries.split("\\n").some((entry) => {
+        return (entry === newVersionEntry)
+    });
+    if (isNewEntry) {
+        fs.writeFileSync("VERSIONS_COMPATIBILITY.md", \`\${header}\${SEPARATOR}\${newVersionEntry}\\n\${oldEntries}\`)
+    }
+})();    
 `;
   }
 }

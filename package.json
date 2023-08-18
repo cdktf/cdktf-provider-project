@@ -1,5 +1,5 @@
 {
-  "name": "@maed223/cdktf-provider-project-test",
+  "name": "@maed223/provider-project-test-4",
   "repository": {
     "type": "git",
     "url": "https://github.com/hashicorp/cdktf-provider-project.git"
@@ -30,7 +30,7 @@
     "projen": "npx projen"
   },
   "author": {
-    "name": "HashiCorp",
+    "name": "mead223",
     "url": "https://hashicorp.com",
     "organization": true
   },
@@ -84,7 +84,7 @@
   "publishConfig": {
     "access": "public"
   },
-  "version": "0.1.2",
+  "version": "0.0.8",
   "jest": {
     "testMatch": [
       "<rootDir>/src/**/__tests__/**/*.ts?(x)",

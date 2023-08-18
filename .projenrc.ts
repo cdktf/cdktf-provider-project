@@ -20,8 +20,8 @@ const githubActionPinnedVersions = {
 };
 
 const project = new cdk.JsiiProject({
-  name: "@cdktf/provider-project",
-  author: "HashiCorp",
+  name: "@maed223/provider-project-test-4",
+  author: "mead223",
   authorAddress: "https://hashicorp.com",
   repositoryUrl: "https://github.com/hashicorp/cdktf-provider-project.git",
   authorOrganization: true,
@@ -65,7 +65,11 @@ project.buildWorkflow?.addPostBuildSteps(
     name: "Setup Copywrite tool",
     uses: "hashicorp/setup-copywrite@867a1a2a064a0626db322392806428f7dc59cb3e", // v1.1.2
   },
-  { name: "Add headers using Copywrite tool", run: "copywrite headers" }
+  { name: "Add headers using Copywrite tool", run: "copywrite headers" },
+  {
+    name: "Update Version Compatiblity File",
+    run: "yarn update-version-file",
+  }
 );
 
 // Use pinned versions of github actions

@@ -311,15 +311,15 @@ export class CdktfProviderProject extends cdk.JsiiProject {
       providerVersion,
       fqproviderName,
     });
-    // the prebuilt provider version might be harder to find than i thought - you got this tho
     const versionFileUpdateScript = new UpdateVersionFile(this, {
       underlyingTerraformProviderVersion,
-      prebuiltProviderVersion: "",
       cdktfVersion,
+    });
+    this.addTask("update-version-file", {
+      exec: `node ./${versionFileUpdateScript.path}`,
     });
     new ProviderUpgrade(this, {
       checkForUpgradesScriptPath: upgradeScript.path,
-      versionFileUpdateScriptPath: versionFileUpdateScript.path,
       workflowRunsOn,
       nodeHeapSize: maxOldSpaceSize,
     });
