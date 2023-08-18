@@ -37,15 +37,16 @@ export class UpdateVersionFile extends FileBase {
  * Copyright (c) HashiCorp, Inc.
  * SPDX-License-Identifier: MPL-2.0
  */
-const fs = require("fs")
-// set by the projen file that generates this script
-const TERRAFORM_PROVIDER_VERSION = "${underlyingTerraformProviderVersion}" 
-const CDKTF_VERSION = "${cdktfVersion}" 
-const PREBUILT_PROVIDER_VERSION = "${prebuiltProviderVersion}"
-const NEW_LINE = "${NEW_LINE}"
-const SEPARATOR = \`| --- | --- | --- |\${NEW_LINE}\`
 
 (function main() {
+    const fs = require("fs")
+    // set by the projen file that generates this script
+    const TERRAFORM_PROVIDER_VERSION = "${underlyingTerraformProviderVersion}" 
+    const CDKTF_VERSION = "${cdktfVersion}" 
+    const PREBUILT_PROVIDER_VERSION = "${prebuiltProviderVersion}"
+    const NEW_LINE = "${NEW_LINE}"
+    const SEPARATOR = \`| --- | --- | --- |\${NEW_LINE}\`
+
     if (!fs.existsSync("VERSIONS_COMPATIBILITY.md")) {
         const header = \`| Prebuilt Provider Version | Terraform Provider Version | CDKTF Version |\${NEW_LINE}\${ SEPARATOR }\`
         fs.writeFileSync("VERSIONS_COMPATIBILITY.md.md", header)
