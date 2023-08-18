@@ -48,7 +48,7 @@ const SEPARATOR = \`| --- | --- | --- |\${NEW_LINE}\`
 (function main() {
     if (!fs.existsSync("VERSIONS_COMPATIBILITY.md")) {
         const header = \`| Prebuilt Provider Version | Terraform Provider Version | CDKTF Version |\${NEW_LINE}\${ SEPARATOR }\`
-        fs.writeFileSync("VERSIONS.md", header)
+        fs.writeFileSync("VERSIONS_COMPATIBILITY.md.md", header)
     }
 
     // read file contents
