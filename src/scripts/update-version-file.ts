@@ -21,6 +21,7 @@ export class UpdateVersionFile extends FileBase {
     this.options = options;
 
     project.addDevDeps("fs");
+    project.addDevDeps("path");
   }
 
   protected synthesizeContent(resolver: IResolver): string | undefined {
@@ -36,10 +37,12 @@ export class UpdateVersionFile extends FileBase {
 
 (function main() {
     const fs = require("fs")
+    const path = require("path")
     // set by the projen file that generates this script
     const TERRAFORM_PROVIDER_VERSION = "${underlyingTerraformProviderVersion}"
     const CDKTF_VERSION = "${cdktfVersion}"
-    const PREBUILT_PROVIDER_VERSION = fs.readFileSync("./dist/version.txt", "utf8")
+    const filePath = path.join(__dirname, "../dist/version.txt")
+    const PREBUILT_PROVIDER_VERSION = fs.readFileSync(filePath, "utf8")
     const SEPARATOR = \`| --- | --- | --- |\\n\`
 
     if (!fs.existsSync("VERSIONS_COMPATIBILITY.md")) {

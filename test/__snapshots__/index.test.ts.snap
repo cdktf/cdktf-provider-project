@@ -158,6 +158,10 @@ jobs:
         run: git config --global --add safe.directory $(pwd)
       - name: build
         run: npx projen build
+      - name: changelog file
+        run: cat dist/changelog.md
+      - name: Update Version Compatiblity File
+        run: yarn update-version-file
       - name: Revert package.json version bump
         run: git checkout package.json
       - name: Setup Copywrite tool
@@ -1198,6 +1202,10 @@ docs
       \\"type\\": \\"build\\"
     },
     {
+      \\"name\\": \\"path\\",
+      \\"type\\": \\"build\\"
+    },
+    {
       \\"name\\": \\"projen\\",
       \\"type\\": \\"build\\"
     },
@@ -2183,6 +2191,7 @@ The repository is managed by [Repository Manager](https://github.com/hashicorp/c
     \\"jsii-rosetta\\": \\"~5.1.2\\",
     \\"node-fetch\\": \\"cjs\\",
     \\"npm-check-updates\\": \\"^16\\",
+    \\"path\\": \\"*\\",
     \\"projen\\": \\"*\\",
     \\"standard-version\\": \\"^9\\",
     \\"typescript\\": \\"*\\"
@@ -2523,10 +2532,12 @@ const execSync = require(\\"child_process\\").execSync;
 
 (function main() {
     const fs = require(\\"fs\\")
+    const path = require(\\"path\\")
     // set by the projen file that generates this script
     const TERRAFORM_PROVIDER_VERSION = \\"<unknown>\\"
     const CDKTF_VERSION = \\">=0.12.2 <0.14.0\\"
-    const PREBUILT_PROVIDER_VERSION = fs.readFileSync(\\"./dist/version.txt\\", \\"utf8\\")
+    const filePath = path.join(__dirname, \\"../dist/version.txt\\")
+    const PREBUILT_PROVIDER_VERSION = fs.readFileSync(filePath, \\"utf8\\")
     const SEPARATOR = \`| --- | --- | --- |\\\\n\`
 
     if (!fs.existsSync(\\"VERSIONS_COMPATIBILITY.md\\")) {
@@ -2749,6 +2760,10 @@ jobs:
         run: git config --global --add safe.directory $(pwd)
       - name: build
         run: npx projen build
+      - name: changelog file
+        run: cat dist/changelog.md
+      - name: Update Version Compatiblity File
+        run: yarn update-version-file
       - name: Revert package.json version bump
         run: git checkout package.json
       - name: Setup Copywrite tool
@@ -3831,6 +3846,10 @@ docs
       \\"type\\": \\"build\\"
     },
     {
+      \\"name\\": \\"path\\",
+      \\"type\\": \\"build\\"
+    },
+    {
       \\"name\\": \\"projen\\",
       \\"type\\": \\"build\\"
     },
@@ -4816,6 +4835,7 @@ The repository is managed by [Repository Manager](https://github.com/hashicorp/c
     \\"jsii-rosetta\\": \\"~5.1.2\\",
     \\"node-fetch\\": \\"cjs\\",
     \\"npm-check-updates\\": \\"^16\\",
+    \\"path\\": \\"*\\",
     \\"projen\\": \\"*\\",
     \\"standard-version\\": \\"^9\\",
     \\"typescript\\": \\"*\\"
@@ -5156,10 +5176,12 @@ const execSync = require(\\"child_process\\").execSync;
 
 (function main() {
     const fs = require(\\"fs\\")
+    const path = require(\\"path\\")
     // set by the projen file that generates this script
     const TERRAFORM_PROVIDER_VERSION = \\"<unknown>\\"
     const CDKTF_VERSION = \\"0.10.3\\"
-    const PREBUILT_PROVIDER_VERSION = fs.readFileSync(\\"./dist/version.txt\\", \\"utf8\\")
+    const filePath = path.join(__dirname, \\"../dist/version.txt\\")
+    const PREBUILT_PROVIDER_VERSION = fs.readFileSync(filePath, \\"utf8\\")
     const SEPARATOR = \`| --- | --- | --- |\\\\n\`
 
     if (!fs.existsSync(\\"VERSIONS_COMPATIBILITY.md\\")) {
@@ -5379,6 +5401,10 @@ jobs:
         run: git config --global --add safe.directory $(pwd)
       - name: build
         run: npx projen build
+      - name: changelog file
+        run: cat dist/changelog.md
+      - name: Update Version Compatiblity File
+        run: yarn update-version-file
       - name: Revert package.json version bump
         run: git checkout package.json
       - name: Setup Copywrite tool
@@ -6419,6 +6445,10 @@ docs
       \\"type\\": \\"build\\"
     },
     {
+      \\"name\\": \\"path\\",
+      \\"type\\": \\"build\\"
+    },
+    {
       \\"name\\": \\"projen\\",
       \\"type\\": \\"build\\"
     },
@@ -7404,6 +7434,7 @@ The repository is managed by [Repository Manager](https://github.com/hashicorp/c
     \\"jsii-rosetta\\": \\"~5.1.2\\",
     \\"node-fetch\\": \\"cjs\\",
     \\"npm-check-updates\\": \\"^16\\",
+    \\"path\\": \\"*\\",
     \\"projen\\": \\"*\\",
     \\"standard-version\\": \\"^9\\",
     \\"typescript\\": \\"*\\"
@@ -7744,10 +7775,12 @@ const execSync = require(\\"child_process\\").execSync;
 
 (function main() {
     const fs = require(\\"fs\\")
+    const path = require(\\"path\\")
     // set by the projen file that generates this script
     const TERRAFORM_PROVIDER_VERSION = \\"<unknown>\\"
     const CDKTF_VERSION = \\"0.10.3\\"
-    const PREBUILT_PROVIDER_VERSION = fs.readFileSync(\\"./dist/version.txt\\", \\"utf8\\")
+    const filePath = path.join(__dirname, \\"../dist/version.txt\\")
+    const PREBUILT_PROVIDER_VERSION = fs.readFileSync(filePath, \\"utf8\\")
     const SEPARATOR = \`| --- | --- | --- |\\\\n\`
 
     if (!fs.existsSync(\\"VERSIONS_COMPATIBILITY.md\\")) {

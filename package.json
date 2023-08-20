@@ -84,7 +84,7 @@
   "publishConfig": {
     "access": "public"
   },
-  "version": "0.0.8",
+  "version": "0.0.27",
   "jest": {
     "testMatch": [
       "<rootDir>/src/**/__tests__/**/*.ts?(x)",
