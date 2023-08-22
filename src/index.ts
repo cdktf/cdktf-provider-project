@@ -147,16 +147,20 @@ export class CdktfProviderProject extends cdk.JsiiProject {
             run: "cd .repo && yarn install --check-files --frozen-lockfile",
           },
           {
-            name: "Create go artifact",
-            run: "cd .repo && npx projen package:go",
-          },
-          {
             name: "Setup Copywrite tool",
             uses: "hashicorp/setup-copywrite@867a1a2a064a0626db322392806428f7dc59cb3e", // v1.1.2
           },
           {
+            name: "Copy copywrite hcl file",
+            run: "cp .copywrite.hcl .repo/.copywrite.hcl",
+          },
+          {
             name: "Add headers using Copywrite tool",
-            run: "copywrite headers",
+            run: "cd .repo && copywrite headers",
+          },
+          {
+            name: "Create go artifact",
+            run: "cd .repo && npx projen package:go",
           },
           {
             name: "Collect go Artifact",
