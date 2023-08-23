@@ -837,7 +837,7 @@ jobs:
       - name: Add headers using Copywrite tool
         run: cd .repo/dist/go && copywrite headers
       - name: Remove copywrite hcl file
-        run: rm -f .repo/go/.copywrite.hcl
+        run: rm -f .repo/dist/go/.copywrite.hcl
       - name: Collect go Artifact
         run: mv .repo/dist dist
       - name: Release
@@ -3428,7 +3428,7 @@ jobs:
       - name: Add headers using Copywrite tool
         run: cd .repo/dist/go && copywrite headers
       - name: Remove copywrite hcl file
-        run: rm -f .repo/go/.copywrite.hcl
+        run: rm -f .repo/dist/go/.copywrite.hcl
       - name: Collect go Artifact
         run: mv .repo/dist dist
       - name: Release
@@ -5974,7 +5974,7 @@ jobs:
       - name: Add headers using Copywrite tool
         run: cd .repo/dist/go && copywrite headers
       - name: Remove copywrite hcl file
-        run: rm -f .repo/go/.copywrite.hcl
+        run: rm -f .repo/dist/go/.copywrite.hcl
       - name: Collect go Artifact
         run: mv .repo/dist dist
       - name: Release
