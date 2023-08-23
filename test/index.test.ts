@@ -106,3 +106,18 @@ test("README contains provided Namespace", () => {
       )
   );
 });
+
+test("golang release workflow has copyright headers", () => {
+  const snapshot = synthSnapshot(getProject());
+  const release = snapshot[".github/workflows/release.yml"];
+  const releaseLines = release.split("\n");
+  const releaseGoLineIndex = releaseLines.findIndex((line: string) =>
+    line.includes("release_go")
+  );
+
+  expect(releaseGoLineIndex).toBeGreaterThan(0);
+
+  expect(releaseLines.slice(releaseGoLineIndex + 1).join("\n")).toEqual(
+    expect.stringContaining("hashicorp/setup-copywrite")
+  );
+});
