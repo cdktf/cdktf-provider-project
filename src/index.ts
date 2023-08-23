@@ -166,7 +166,7 @@ export class CdktfProviderProject extends cdk.JsiiProject {
           },
           {
             name: "Remove copywrite hcl file",
-            run: "rm -f .repo/go/.copywrite.hcl",
+            run: "rm -f .repo/dist/go/.copywrite.hcl",
           },
           {
             name: "Collect go Artifact",
