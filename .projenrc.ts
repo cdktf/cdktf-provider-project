@@ -5,17 +5,21 @@
 
 import { cdk } from "projen";
 import { UpgradeDependenciesSchedule } from "projen/lib/javascript";
+import { AutoApprove } from "./projenrc/auto-approve";
+import { Automerge } from "./projenrc/automerge";
+import { UpgradeNode } from "./projenrc/upgrade-node";
 import { CustomizedLicense } from "./src/customized-license";
 import { LockIssues } from "./src/lock-issues";
 
 const githubActionPinnedVersions = {
-  "actions/checkout": "8e5e7e5ab8b370d6c329ec480221332ada57f0ab", // v3.5.2
+  "actions/checkout": "c85c95e3d7251135ab7dc9ce3241c5835cc595a9", // v3.5.3
+  "actions/download-artifact": "9bc31d5ccc31df68ecc42ccf4149144866c47d8a", // v3.0.2
+  "actions/github-script": "d7906e4ad0b1822421a7e6a35d5ca353c962f410", // v6.4.1
   "actions/setup-node": "64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c", // v3.6.0
   "actions/upload-artifact": "0b7f8abb1508181956e8e162db84b466c27e18ce", // v3.1.2
-  "actions/download-artifact": "9bc31d5ccc31df68ecc42ccf4149144866c47d8a", // v3.0.2
-  "dessant/lock-threads": "c1b35aecc5cdb1a34539d14196df55838bb2f836", // v4.0.0
   "amannn/action-semantic-pull-request":
     "c3cd5d1ea3580753008872425915e343e351ab54", // v5.2.0
+  "dessant/lock-threads": "c1b35aecc5cdb1a34539d14196df55838bb2f836", // v4.0.0
   "peter-evans/create-pull-request": "284f54f989303d2699d373481a0cfa13ad5a6666", // v5.0.1
 };
 
@@ -23,12 +27,16 @@ const project = new cdk.JsiiProject({
   name: "@cdktf/provider-project",
   author: "HashiCorp",
   authorAddress: "https://hashicorp.com",
-  repositoryUrl: "https://github.com/hashicorp/cdktf-provider-project.git",
+  repositoryUrl: "https://github.com/cdktf/cdktf-provider-project.git",
   authorOrganization: true,
   licensed: false, // we do supply our own license file with a custom header
   peerDeps: ["projen@^0.71.46"],
   deps: ["change-case", "fs-extra"],
-  devDeps: ["@types/fs-extra", "glob"],
+  devDeps: [
+    "@types/fs-extra",
+    "glob",
+    "node-fetch", // @TODO this can be removed once we upgrade to Node 18 and use native fetch
+  ],
   bundledDeps: ["change-case", "fs-extra"],
   license: "MPL-2.0",
   defaultReleaseBranch: "main",
@@ -56,6 +64,9 @@ project.addFields({ publishConfig: { access: "public" } });
 
 new CustomizedLicense(project, 2020);
 new LockIssues(project);
+new AutoApprove(project);
+new Automerge(project);
+new UpgradeNode(project);
 
 // Run copywrite tool to add copyright headers to all files
 // This is for this repository itself, not for the projects
