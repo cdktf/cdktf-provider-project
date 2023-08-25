@@ -400,8 +400,8 @@ jobs:
           node-version: 16.14.0
       - name: Install dependencies
         run: yarn install --check-files --frozen-lockfile
-      - name: release
-        run: npx projen release
+      - name: force-release
+        run: npx projen force-release
       - name: Backup artifact permissions
         run: cd dist && getfacl -R . > permissions-backup.acl
         continue-on-error: true
@@ -1522,6 +1522,31 @@ docs
         }
       ]
     },
+    \\"force-release\\": {
+      \\"name\\": \\"force-release\\",
+      \\"description\\": \\"Force a release\\",
+      \\"env\\": {
+        \\"RELEASE\\": \\"true\\",
+        \\"MIN_MAJOR\\": \\"1\\"
+      },
+      \\"steps\\": [
+        {
+          \\"exec\\": \\"rm -fr dist\\"
+        },
+        {
+          \\"spawn\\": \\"bump\\"
+        },
+        {
+          \\"spawn\\": \\"build\\"
+        },
+        {
+          \\"spawn\\": \\"unbump\\"
+        },
+        {
+          \\"exec\\": \\"git diff --ignore-space-at-eol --exit-code\\"
+        }
+      ]
+    },
     \\"install\\": {
       \\"name\\": \\"install\\",
       \\"description\\": \\"Install project dependencies and update lockfile (non-frozen)\\",
@@ -2235,6 +2260,7 @@ The repository is managed by [Repository Manager](https://github.com/hashicorp/c
     \\"docgen\\": \\"npx projen docgen\\",
     \\"eject\\": \\"npx projen eject\\",
     \\"fetch\\": \\"npx projen fetch\\",
+    \\"force-release\\": \\"npx projen force-release\\",
     \\"package\\": \\"npx projen package\\",
     \\"package-all\\": \\"npx projen package-all\\",
     \\"package:dotnet\\": \\"npx projen package:dotnet\\",
@@ -3073,8 +3099,8 @@ jobs:
           node-version: 16.14.0
       - name: Install dependencies
         run: yarn install --check-files --frozen-lockfile
-      - name: release
-        run: npx projen release
+      - name: force-release
+        run: npx projen force-release
       - name: Backup artifact permissions
         run: cd dist && getfacl -R . > permissions-backup.acl
         continue-on-error: true
@@ -4222,6 +4248,31 @@ docs
         }
       ]
     },
+    \\"force-release\\": {
+      \\"name\\": \\"force-release\\",
+      \\"description\\": \\"Force a release\\",
+      \\"env\\": {
+        \\"RELEASE\\": \\"true\\",
+        \\"MIN_MAJOR\\": \\"1\\"
+      },
+      \\"steps\\": [
+        {
+          \\"exec\\": \\"rm -fr dist\\"
+        },
+        {
+          \\"spawn\\": \\"bump\\"
+        },
+        {
+          \\"spawn\\": \\"build\\"
+        },
+        {
+          \\"spawn\\": \\"unbump\\"
+        },
+        {
+          \\"exec\\": \\"git diff --ignore-space-at-eol --exit-code\\"
+        }
+      ]
+    },
     \\"install\\": {
       \\"name\\": \\"install\\",
       \\"description\\": \\"Install project dependencies and update lockfile (non-frozen)\\",
@@ -4935,6 +4986,7 @@ The repository is managed by [Repository Manager](https://github.com/hashicorp/c
     \\"docgen\\": \\"npx projen docgen\\",
     \\"eject\\": \\"npx projen eject\\",
     \\"fetch\\": \\"npx projen fetch\\",
+    \\"force-release\\": \\"npx projen force-release\\",
     \\"package\\": \\"npx projen package\\",
     \\"package-all\\": \\"npx projen package-all\\",
     \\"package:dotnet\\": \\"npx projen package:dotnet\\",
@@ -5749,8 +5801,8 @@ jobs:
           node-version: 16.14.0
       - name: Install dependencies
         run: yarn install --check-files --frozen-lockfile
-      - name: release
-        run: npx projen release
+      - name: force-release
+        run: npx projen force-release
       - name: Backup artifact permissions
         run: cd dist && getfacl -R . > permissions-backup.acl
         continue-on-error: true
@@ -6871,6 +6923,31 @@ docs
         }
       ]
     },
+    \\"force-release\\": {
+      \\"name\\": \\"force-release\\",
+      \\"description\\": \\"Force a release\\",
+      \\"env\\": {
+        \\"RELEASE\\": \\"true\\",
+        \\"MIN_MAJOR\\": \\"1\\"
+      },
+      \\"steps\\": [
+        {
+          \\"exec\\": \\"rm -fr dist\\"
+        },
+        {
+          \\"spawn\\": \\"bump\\"
+        },
+        {
+          \\"spawn\\": \\"build\\"
+        },
+        {
+          \\"spawn\\": \\"unbump\\"
+        },
+        {
+          \\"exec\\": \\"git diff --ignore-space-at-eol --exit-code\\"
+        }
+      ]
+    },
     \\"install\\": {
       \\"name\\": \\"install\\",
       \\"description\\": \\"Install project dependencies and update lockfile (non-frozen)\\",
@@ -7584,6 +7661,7 @@ The repository is managed by [Repository Manager](https://github.com/hashicorp/c
     \\"docgen\\": \\"npx projen docgen\\",
     \\"eject\\": \\"npx projen eject\\",
     \\"fetch\\": \\"npx projen fetch\\",
+    \\"force-release\\": \\"npx projen force-release\\",
     \\"package\\": \\"npx projen package\\",
     \\"package-all\\": \\"npx projen package-all\\",
     \\"package:dotnet\\": \\"npx projen package:dotnet\\",
