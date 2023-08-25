@@ -8,6 +8,7 @@ import { AutoCloseCommunityIssues } from "./auto-close-community-issues";
 import { CdktfConfig } from "./cdktf-config";
 import { CopyrightHeaders } from "./copyright-headers";
 import { CustomizedLicense } from "./customized-license";
+import { ForceRelease } from "./force-release";
 import { GithubIssues } from "./github-issues";
 import { LockIssues } from "./lock-issues";
 import { NextVersionPr } from "./next-version-pr";
@@ -360,6 +361,9 @@ export class CdktfProviderProject extends cdk.JsiiProject {
     new AlertOpenPrs(this, {
       slackWebhookUrl: "${{ secrets.ALERT_PRS_SLACK_WEBHOOK_URL }}",
       repository,
+    });
+    new ForceRelease(this, {
+      workflowRunsOn,
     });
 
     new TextFile(this, ".github/CODEOWNERS", {
