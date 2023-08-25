@@ -68,7 +68,7 @@ export class ForceRelease {
           name: "Install dependencies",
           run: "yarn install --check-files --frozen-lockfile",
         },
-        { name: "release", run: "npx projen release" },
+        { name: "force-release", run: "npx projen force-release" },
         {
           name: "Backup artifact permissions",
           run: "cd dist && getfacl -R . > permissions-backup.acl",
