@@ -158,7 +158,7 @@ export class CdktfProviderProject extends cdk.JsiiProject {
           },
           {
             name: "Copy copywrite hcl file",
-            run: "cp .copywrite.hcl .repo/dist/go/.copywrite.hcl",
+            run: "cp .repo/.copywrite.hcl .repo/dist/go/.copywrite.hcl",
           },
           {
             name: "Add headers using Copywrite tool",
