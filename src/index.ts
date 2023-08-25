@@ -73,6 +73,7 @@ const githubActionPinnedVersions = {
   "imjohnbo/issue-bot": "6924a99d928dc228f407d34eb3d0149eda73f2a7", // v3.4.3
   "actions/stale": "1160a2240286f5da8ec72b1c0816ce2481aabf84", // v8.0.0
   "slackapi/slack-github-action": "e28cf165c92ffef168d23c5c9000cffc8a25e117", // v1.24.0
+  "hashicorp/setup-copywrite": "867a1a2a064a0626db322392806428f7dc59cb3e", // v1.1.2
 };
 
 export class CdktfProviderProject extends cdk.JsiiProject {
@@ -155,7 +156,7 @@ export class CdktfProviderProject extends cdk.JsiiProject {
           },
           {
             name: "Setup Copywrite tool",
-            uses: "hashicorp/setup-copywrite@867a1a2a064a0626db322392806428f7dc59cb3e", // v1.1.2
+            uses: "hashicorp/setup-copywrite",
           },
           {
             name: "Copy copywrite hcl file",

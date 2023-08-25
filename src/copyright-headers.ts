@@ -7,7 +7,7 @@ export class CopyrightHeaders {
     project.buildWorkflow?.addPostBuildSteps(
       {
         name: "Setup Copywrite tool",
-        uses: "hashicorp/setup-copywrite@867a1a2a064a0626db322392806428f7dc59cb3e", // v1.1.2
+        uses: "hashicorp/setup-copywrite",
       },
       { name: "Add headers using Copywrite tool", run: "copywrite headers" }
     );
