@@ -24,7 +24,7 @@ export class ForceRelease {
             required: true,
             description: "The sha of the commit to release",
           },
-          publishToGo: {
+          publish_to_go: {
             name: "publish_to_go",
             type: "boolean",
             required: true,
@@ -147,10 +147,11 @@ export class ForceRelease {
         },
         {
           name: "Release",
+          if: "${{ inputs.publish_to_go }}",
           env: {
             GIT_USER_NAME: "CDK for Terraform Team",
             GIT_USER_EMAIL: "github-team-tf-cdk@hashicorp.com",
-            GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}",
+            GITHUB_TOKEN: "${{ secrets.GO_GITHUB_TOKEN }}",
           },
           run: "npx -p publib@latest publib-golang",
         },
