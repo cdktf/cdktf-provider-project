@@ -380,13 +380,6 @@ export class CdktfProviderProject extends cdk.JsiiProject {
     new ShouldReleaseScriptFile(this, {});
 
     const releaseTask = this.tasks.tryFind("release")!;
-    // Keep the original release task to be used by the force-release workflow
-    this.addTask("force-release", {
-      description: "Force a release",
-      steps: releaseTask.steps,
-      env: (releaseTask as any)._env,
-    });
-
     this.removeTask("release");
     this.addTask("release", {
       description: releaseTask.description,
