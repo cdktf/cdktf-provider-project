@@ -16,6 +16,7 @@ import { PackageInfo } from "./package-info";
 import { ProviderUpgrade } from "./provider-upgrade";
 import { CheckForUpgradesScriptFile } from "./scripts/check-for-upgrades";
 import { ShouldReleaseScriptFile } from "./scripts/should-release";
+import { VersionCompatibilityMatrix } from "./version-compatibility-matrix";
 
 // ensure new projects start with 1.0.0 so that every following breaking change leads to an increased major version
 const MIN_MAJOR_VERSION = 1;
@@ -334,7 +335,7 @@ export class CdktfProviderProject extends cdk.JsiiProject {
 
     this.pinGithubActionVersions(githubActionPinnedVersions);
 
-    new CdktfConfig(this, {
+    const { underlyingTerraformProviderVersion } = new CdktfConfig(this, {
       terraformProvider,
       providerName,
       fqproviderName,
@@ -348,6 +349,10 @@ export class CdktfProviderProject extends cdk.JsiiProject {
     const upgradeScript = new CheckForUpgradesScriptFile(this, {
       providerVersion,
       fqproviderName,
+    });
+    new VersionCompatibilityMatrix(this, {
+      underlyingTerraformProviderVersion,
+      cdktfVersion,
     });
     new ProviderUpgrade(this, {
       checkForUpgradesScriptPath: upgradeScript.path,
@@ -394,7 +399,7 @@ export class CdktfProviderProject extends cdk.JsiiProject {
     const gitRemoteJob = releaseJobSteps.find((it) => it.id === "git_remote");
     assert(
       gitRemoteJob.run ===
-        'echo "latest_commit=$(git ls-remote origin -h ${{ github.ref }} | cut -f1)" >> $GITHUB_OUTPUT',
+      'echo "latest_commit=$(git ls-remote origin -h ${{ github.ref }} | cut -f1)" >> $GITHUB_OUTPUT',
       "git_remote step in release workflow did not match expected string, please check if the workaround still works!"
     );
     const previousCommand = gitRemoteJob.run;
