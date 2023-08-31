@@ -3,17 +3,17 @@
 
 ## Structs <a name="Structs"></a>
 
-### CdktfProviderProjectOptions <a name="@cdktf/provider-project.CdktfProviderProjectOptions"></a>
+### CdktfProviderProjectOptions <a name="@maed223/provider-project-test-4.CdktfProviderProjectOptions"></a>
 
 #### Initializer <a name="[object Object].Initializer"></a>
 
 ```typescript
-import { CdktfProviderProjectOptions } from '@cdktf/provider-project'
+import { CdktfProviderProjectOptions } from '@maed223/provider-project-test-4'
 
 const cdktfProviderProjectOptions: CdktfProviderProjectOptions = { ... }
 ```
 
-##### `name`<sup>Required</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.name"></a>
+##### `name`<sup>Required</sup> <a name="@maed223/provider-project-test-4.CdktfProviderProjectOptions.property.name"></a>
 
 ```typescript
 public readonly name: string;
@@ -26,7 +26,7 @@ This is the name of your project.
 
 ---
 
-##### `commitGenerated`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.commitGenerated"></a>
+##### `commitGenerated`<sup>Optional</sup> <a name="@maed223/provider-project-test-4.CdktfProviderProjectOptions.property.commitGenerated"></a>
 
 ```typescript
 public readonly commitGenerated: boolean;
@@ -39,7 +39,7 @@ Whether to commit the managed files by default.
 
 ---
 
-##### `gitIgnoreOptions`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.gitIgnoreOptions"></a>
+##### `gitIgnoreOptions`<sup>Optional</sup> <a name="@maed223/provider-project-test-4.CdktfProviderProjectOptions.property.gitIgnoreOptions"></a>
 
 ```typescript
 public readonly gitIgnoreOptions: IgnoreFileOptions;
@@ -51,7 +51,7 @@ Configuration options for .gitignore file.
 
 ---
 
-##### `gitOptions`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.gitOptions"></a>
+##### `gitOptions`<sup>Optional</sup> <a name="@maed223/provider-project-test-4.CdktfProviderProjectOptions.property.gitOptions"></a>
 
 ```typescript
 public readonly gitOptions: GitOptions;
@@ -63,7 +63,7 @@ Configuration options for git.
 
 ---
 
-##### `logging`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.logging"></a>
+##### `logging`<sup>Optional</sup> <a name="@maed223/provider-project-test-4.CdktfProviderProjectOptions.property.logging"></a>
 
 ```typescript
 public readonly logging: LoggerOptions;
@@ -76,7 +76,7 @@ Configure logging options such as verbosity.
 
 ---
 
-##### `outdir`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.outdir"></a>
+##### `outdir`<sup>Optional</sup> <a name="@maed223/provider-project-test-4.CdktfProviderProjectOptions.property.outdir"></a>
 
 ```typescript
 public readonly outdir: string;
@@ -95,7 +95,7 @@ sub-projects.
 
 ---
 
-##### `parent`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.parent"></a>
+##### `parent`<sup>Optional</sup> <a name="@maed223/provider-project-test-4.CdktfProviderProjectOptions.property.parent"></a>
 
 ```typescript
 public readonly parent: Project;
@@ -107,7 +107,7 @@ The parent project, if this project is part of a bigger project.
 
 ---
 
-##### `projenCommand`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.projenCommand"></a>
+##### `projenCommand`<sup>Optional</sup> <a name="@maed223/provider-project-test-4.CdktfProviderProjectOptions.property.projenCommand"></a>
 
 ```typescript
 public readonly projenCommand: string;
@@ -122,7 +122,7 @@ Can be used to customize in special environments.
 
 ---
 
-##### `projenrcJson`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.projenrcJson"></a>
+##### `projenrcJson`<sup>Optional</sup> <a name="@maed223/provider-project-test-4.CdktfProviderProjectOptions.property.projenrcJson"></a>
 
 ```typescript
 public readonly projenrcJson: boolean;
@@ -135,7 +135,7 @@ Generate (once) .projenrc.json (in JSON). Set to `false` in order to disable .pr
 
 ---
 
-##### `projenrcJsonOptions`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.projenrcJsonOptions"></a>
+##### `projenrcJsonOptions`<sup>Optional</sup> <a name="@maed223/provider-project-test-4.CdktfProviderProjectOptions.property.projenrcJsonOptions"></a>
 
 ```typescript
 public readonly projenrcJsonOptions: ProjenrcJsonOptions;
@@ -148,7 +148,7 @@ Options for .projenrc.json.
 
 ---
 
-##### `renovatebot`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.renovatebot"></a>
+##### `renovatebot`<sup>Optional</sup> <a name="@maed223/provider-project-test-4.CdktfProviderProjectOptions.property.renovatebot"></a>
 
 ```typescript
 public readonly renovatebot: boolean;
@@ -161,7 +161,7 @@ Use renovatebot to handle dependency upgrades.
 
 ---
 
-##### `renovatebotOptions`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.renovatebotOptions"></a>
+##### `renovatebotOptions`<sup>Optional</sup> <a name="@maed223/provider-project-test-4.CdktfProviderProjectOptions.property.renovatebotOptions"></a>
 
 ```typescript
 public readonly renovatebotOptions: RenovatebotOptions;
@@ -174,7 +174,7 @@ Options for renovatebot.
 
 ---
 
-##### `autoApproveOptions`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.autoApproveOptions"></a>
+##### `autoApproveOptions`<sup>Optional</sup> <a name="@maed223/provider-project-test-4.CdktfProviderProjectOptions.property.autoApproveOptions"></a>
 
 ```typescript
 public readonly autoApproveOptions: AutoApproveOptions;
@@ -187,7 +187,7 @@ Enable and configure the 'auto approve' workflow.
 
 ---
 
-##### `autoMerge`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.autoMerge"></a>
+##### `autoMerge`<sup>Optional</sup> <a name="@maed223/provider-project-test-4.CdktfProviderProjectOptions.property.autoMerge"></a>
 
 ```typescript
 public readonly autoMerge: boolean;
@@ -203,7 +203,7 @@ is set to false.
 
 ---
 
-##### `autoMergeOptions`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.autoMergeOptions"></a>
+##### `autoMergeOptions`<sup>Optional</sup> <a name="@maed223/provider-project-test-4.CdktfProviderProjectOptions.property.autoMergeOptions"></a>
 
 ```typescript
 public readonly autoMergeOptions: AutoMergeOptions;
@@ -219,7 +219,7 @@ Has no effect if
 
 ---
 
-##### `clobber`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.clobber"></a>
+##### `clobber`<sup>Optional</sup> <a name="@maed223/provider-project-test-4.CdktfProviderProjectOptions.property.clobber"></a>
 
 ```typescript
 public readonly clobber: boolean;
@@ -232,7 +232,7 @@ Add a `clobber` task which resets the repo to origin.
 
 ---
 
-##### `devContainer`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.devContainer"></a>
+##### `devContainer`<sup>Optional</sup> <a name="@maed223/provider-project-test-4.CdktfProviderProjectOptions.property.devContainer"></a>
 
 ```typescript
 public readonly devContainer: boolean;
@@ -245,7 +245,7 @@ Add a VSCode development environment (used for GitHub Codespaces).
 
 ---
 
-##### `github`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.github"></a>
+##### `github`<sup>Optional</sup> <a name="@maed223/provider-project-test-4.CdktfProviderProjectOptions.property.github"></a>
 
 ```typescript
 public readonly github: boolean;
@@ -260,7 +260,7 @@ Enabled by default for root projects. Disabled for non-root projects.
 
 ---
 
-##### `githubOptions`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.githubOptions"></a>
+##### `githubOptions`<sup>Optional</sup> <a name="@maed223/provider-project-test-4.CdktfProviderProjectOptions.property.githubOptions"></a>
 
 ```typescript
 public readonly githubOptions: GitHubOptions;
@@ -273,7 +273,7 @@ Options for GitHub integration.
 
 ---
 
-##### `gitpod`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.gitpod"></a>
+##### `gitpod`<sup>Optional</sup> <a name="@maed223/provider-project-test-4.CdktfProviderProjectOptions.property.gitpod"></a>
 
 ```typescript
 public readonly gitpod: boolean;
@@ -286,7 +286,7 @@ Add a Gitpod development environment.
 
 ---
 
-##### ~~`mergify`~~<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.mergify"></a>
+##### ~~`mergify`~~<sup>Optional</sup> <a name="@maed223/provider-project-test-4.CdktfProviderProjectOptions.property.mergify"></a>
 
 - *Deprecated:* use `githubOptions.mergify` instead
 
@@ -301,7 +301,7 @@ Whether mergify should be enabled on this repository or not.
 
 ---
 
-##### ~~`mergifyOptions`~~<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.mergifyOptions"></a>
+##### ~~`mergifyOptions`~~<sup>Optional</sup> <a name="@maed223/provider-project-test-4.CdktfProviderProjectOptions.property.mergifyOptions"></a>
 
 - *Deprecated:* use `githubOptions.mergifyOptions` instead
 
@@ -316,7 +316,7 @@ Options for mergify.
 
 ---
 
-##### ~~`projectType`~~<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.projectType"></a>
+##### ~~`projectType`~~<sup>Optional</sup> <a name="@maed223/provider-project-test-4.CdktfProviderProjectOptions.property.projectType"></a>
 
 - *Deprecated:* no longer supported at the base project level
 
@@ -331,7 +331,7 @@ Which type of project this is (library/app).
 
 ---
 
-##### `projenCredentials`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.projenCredentials"></a>
+##### `projenCredentials`<sup>Optional</sup> <a name="@maed223/provider-project-test-4.CdktfProviderProjectOptions.property.projenCredentials"></a>
 
 ```typescript
 public readonly projenCredentials: GithubCredentials;
@@ -344,7 +344,7 @@ Choose a method of providing GitHub API access for projen workflows.
 
 ---
 
-##### ~~`projenTokenSecret`~~<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.projenTokenSecret"></a>
+##### ~~`projenTokenSecret`~~<sup>Optional</sup> <a name="@maed223/provider-project-test-4.CdktfProviderProjectOptions.property.projenTokenSecret"></a>
 
 - *Deprecated:* use `projenCredentials`
 
@@ -362,7 +362,7 @@ and `packages` scope.
 
 ---
 
-##### `readme`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.readme"></a>
+##### `readme`<sup>Optional</sup> <a name="@maed223/provider-project-test-4.CdktfProviderProjectOptions.property.readme"></a>
 
 ```typescript
 public readonly readme: SampleReadmeProps;
@@ -375,7 +375,7 @@ The README setup.
 
 ---
 
-##### `stale`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.stale"></a>
+##### `stale`<sup>Optional</sup> <a name="@maed223/provider-project-test-4.CdktfProviderProjectOptions.property.stale"></a>
 
 ```typescript
 public readonly stale: boolean;
@@ -390,7 +390,7 @@ See `staleOptions` for options.
 
 ---
 
-##### `staleOptions`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.staleOptions"></a>
+##### `staleOptions`<sup>Optional</sup> <a name="@maed223/provider-project-test-4.CdktfProviderProjectOptions.property.staleOptions"></a>
 
 ```typescript
 public readonly staleOptions: StaleOptions;
@@ -405,7 +405,7 @@ To disable set `stale` to `false`.
 
 ---
 
-##### `vscode`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.vscode"></a>
+##### `vscode`<sup>Optional</sup> <a name="@maed223/provider-project-test-4.CdktfProviderProjectOptions.property.vscode"></a>
 
 ```typescript
 public readonly vscode: boolean;
@@ -420,7 +420,7 @@ Enabled by default for root projects. Disabled for non-root projects.
 
 ---
 
-##### `allowLibraryDependencies`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.allowLibraryDependencies"></a>
+##### `allowLibraryDependencies`<sup>Optional</sup> <a name="@maed223/provider-project-test-4.CdktfProviderProjectOptions.property.allowLibraryDependencies"></a>
 
 ```typescript
 public readonly allowLibraryDependencies: boolean;
@@ -436,7 +436,7 @@ for specifying these.
 
 ---
 
-##### `authorEmail`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.authorEmail"></a>
+##### `authorEmail`<sup>Optional</sup> <a name="@maed223/provider-project-test-4.CdktfProviderProjectOptions.property.authorEmail"></a>
 
 ```typescript
 public readonly authorEmail: string;
@@ -448,7 +448,7 @@ Author's e-mail.
 
 ---
 
-##### `authorName`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.authorName"></a>
+##### `authorName`<sup>Optional</sup> <a name="@maed223/provider-project-test-4.CdktfProviderProjectOptions.property.authorName"></a>
 
 ```typescript
 public readonly authorName: string;
@@ -460,7 +460,7 @@ Author's name.
 
 ---
 
-##### `authorOrganization`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.authorOrganization"></a>
+##### `authorOrganization`<sup>Optional</sup> <a name="@maed223/provider-project-test-4.CdktfProviderProjectOptions.property.authorOrganization"></a>
 
 ```typescript
 public readonly authorOrganization: boolean;
@@ -472,7 +472,7 @@ Is the author an organization.
 
 ---
 
-##### `authorUrl`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.authorUrl"></a>
+##### `authorUrl`<sup>Optional</sup> <a name="@maed223/provider-project-test-4.CdktfProviderProjectOptions.property.authorUrl"></a>
 
 ```typescript
 public readonly authorUrl: string;
@@ -484,7 +484,7 @@ Author's URL / Website.
 
 ---
 
-##### `autoDetectBin`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.autoDetectBin"></a>
+##### `autoDetectBin`<sup>Optional</sup> <a name="@maed223/provider-project-test-4.CdktfProviderProjectOptions.property.autoDetectBin"></a>
 
 ```typescript
 public readonly autoDetectBin: boolean;
@@ -497,7 +497,7 @@ Automatically add all executables under the `bin` directory to your `package.jso
 
 ---
 
-##### `bin`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.bin"></a>
+##### `bin`<sup>Optional</sup> <a name="@maed223/provider-project-test-4.CdktfProviderProjectOptions.property.bin"></a>
 
 ```typescript
 public readonly bin: {[ key: string ]: string};
@@ -513,7 +513,7 @@ executable file under `bin` will automatically be added to this section.
 
 ---
 
-##### `bugsEmail`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.bugsEmail"></a>
+##### `bugsEmail`<sup>Optional</sup> <a name="@maed223/provider-project-test-4.CdktfProviderProjectOptions.property.bugsEmail"></a>
 
 ```typescript
 public readonly bugsEmail: string;
@@ -525,7 +525,7 @@ The email address to which issues should be reported.
 
 ---
 
-##### `bugsUrl`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.bugsUrl"></a>
+##### `bugsUrl`<sup>Optional</sup> <a name="@maed223/provider-project-test-4.CdktfProviderProjectOptions.property.bugsUrl"></a>
 
 ```typescript
 public readonly bugsUrl: string;
@@ -537,7 +537,7 @@ The url to your project's issue tracker.
 
 ---
 
-##### `bundledDeps`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.bundledDeps"></a>
+##### `bundledDeps`<sup>Optional</sup> <a name="@maed223/provider-project-test-4.CdktfProviderProjectOptions.property.bundledDeps"></a>
 
 ```typescript
 public readonly bundledDeps: string[];
@@ -560,7 +560,7 @@ this will be what you `package.json` will eventually include.
 
 ---
 
-##### `codeArtifactOptions`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.codeArtifactOptions"></a>
+##### `codeArtifactOptions`<sup>Optional</sup> <a name="@maed223/provider-project-test-4.CdktfProviderProjectOptions.property.codeArtifactOptions"></a>
 
 ```typescript
 public readonly codeArtifactOptions: CodeArtifactOptions;
@@ -575,7 +575,7 @@ This is required if publishing packages to, or installing scoped packages from A
 
 ---
 
-##### `deps`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.deps"></a>
+##### `deps`<sup>Optional</sup> <a name="@maed223/provider-project-test-4.CdktfProviderProjectOptions.property.deps"></a>
 
 ```typescript
 public readonly deps: string[];
@@ -595,7 +595,7 @@ this will be what you `package.json` will eventually include.
 
 ---
 
-##### `description`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.description"></a>
+##### `description`<sup>Optional</sup> <a name="@maed223/provider-project-test-4.CdktfProviderProjectOptions.property.description"></a>
 
 ```typescript
 public readonly description: string;
@@ -610,7 +610,7 @@ See https://classic.yarnpkg.com/en/docs/package-json/#toc-description
 
 ---
 
-##### `devDeps`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.devDeps"></a>
+##### `devDeps`<sup>Optional</sup> <a name="@maed223/provider-project-test-4.CdktfProviderProjectOptions.property.devDeps"></a>
 
 ```typescript
 public readonly devDeps: string[];
@@ -634,7 +634,7 @@ this will be what you `package.json` will eventually include.
 
 ---
 
-##### `entrypoint`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.entrypoint"></a>
+##### `entrypoint`<sup>Optional</sup> <a name="@maed223/provider-project-test-4.CdktfProviderProjectOptions.property.entrypoint"></a>
 
 ```typescript
 public readonly entrypoint: string;
@@ -649,7 +649,7 @@ Set to an empty string to not include `main` in your package.json
 
 ---
 
-##### `homepage`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.homepage"></a>
+##### `homepage`<sup>Optional</sup> <a name="@maed223/provider-project-test-4.CdktfProviderProjectOptions.property.homepage"></a>
 
 ```typescript
 public readonly homepage: string;
@@ -661,7 +661,7 @@ Package's Homepage / Website.
 
 ---
 
-##### `keywords`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.keywords"></a>
+##### `keywords`<sup>Optional</sup> <a name="@maed223/provider-project-test-4.CdktfProviderProjectOptions.property.keywords"></a>
 
 ```typescript
 public readonly keywords: string[];
@@ -673,7 +673,7 @@ Keywords to include in `package.json`.
 
 ---
 
-##### `license`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.license"></a>
+##### `license`<sup>Optional</sup> <a name="@maed223/provider-project-test-4.CdktfProviderProjectOptions.property.license"></a>
 
 ```typescript
 public readonly license: string;
@@ -689,7 +689,7 @@ Use the `licensed` option if you want to no license to be specified.
 
 ---
 
-##### `licensed`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.licensed"></a>
+##### `licensed`<sup>Optional</sup> <a name="@maed223/provider-project-test-4.CdktfProviderProjectOptions.property.licensed"></a>
 
 ```typescript
 public readonly licensed: boolean;
@@ -702,7 +702,7 @@ Indicates if a license should be added.
 
 ---
 
-##### `maxNodeVersion`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.maxNodeVersion"></a>
+##### `maxNodeVersion`<sup>Optional</sup> <a name="@maed223/provider-project-test-4.CdktfProviderProjectOptions.property.maxNodeVersion"></a>
 
 ```typescript
 public readonly maxNodeVersion: string;
@@ -715,7 +715,7 @@ Minimum node.js version to require via `engines` (inclusive).
 
 ---
 
-##### `minNodeVersion`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.minNodeVersion"></a>
+##### `minNodeVersion`<sup>Optional</sup> <a name="@maed223/provider-project-test-4.CdktfProviderProjectOptions.property.minNodeVersion"></a>
 
 ```typescript
 public readonly minNodeVersion: string;
@@ -728,7 +728,7 @@ Minimum Node.js version to require via package.json `engines` (inclusive).
 
 ---
 
-##### `npmAccess`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.npmAccess"></a>
+##### `npmAccess`<sup>Optional</sup> <a name="@maed223/provider-project-test-4.CdktfProviderProjectOptions.property.npmAccess"></a>
 
 ```typescript
 public readonly npmAccess: NpmAccess;
@@ -743,7 +743,7 @@ Access level of the npm package.
 
 ---
 
-##### ~~`npmRegistry`~~<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.npmRegistry"></a>
+##### ~~`npmRegistry`~~<sup>Optional</sup> <a name="@maed223/provider-project-test-4.CdktfProviderProjectOptions.property.npmRegistry"></a>
 
 - *Deprecated:* use `npmRegistryUrl` instead
 
@@ -759,7 +759,7 @@ Cannot be set together with `npmRegistryUrl`.
 
 ---
 
-##### `npmRegistryUrl`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.npmRegistryUrl"></a>
+##### `npmRegistryUrl`<sup>Optional</sup> <a name="@maed223/provider-project-test-4.CdktfProviderProjectOptions.property.npmRegistryUrl"></a>
 
 ```typescript
 public readonly npmRegistryUrl: string;
@@ -774,7 +774,7 @@ Must be a URL (e.g. start with "https://" or "http://")
 
 ---
 
-##### `npmTokenSecret`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.npmTokenSecret"></a>
+##### `npmTokenSecret`<sup>Optional</sup> <a name="@maed223/provider-project-test-4.CdktfProviderProjectOptions.property.npmTokenSecret"></a>
 
 ```typescript
 public readonly npmTokenSecret: string;
@@ -787,7 +787,7 @@ GitHub secret which contains the NPM token to use when publishing packages.
 
 ---
 
-##### `packageManager`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.packageManager"></a>
+##### `packageManager`<sup>Optional</sup> <a name="@maed223/provider-project-test-4.CdktfProviderProjectOptions.property.packageManager"></a>
 
 ```typescript
 public readonly packageManager: NodePackageManager;
@@ -800,7 +800,7 @@ The Node Package Manager used to execute scripts.
 
 ---
 
-##### `packageName`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.packageName"></a>
+##### `packageName`<sup>Optional</sup> <a name="@maed223/provider-project-test-4.CdktfProviderProjectOptions.property.packageName"></a>
 
 ```typescript
 public readonly packageName: string;
@@ -813,7 +813,7 @@ The "name" in package.json.
 
 ---
 
-##### `peerDependencyOptions`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.peerDependencyOptions"></a>
+##### `peerDependencyOptions`<sup>Optional</sup> <a name="@maed223/provider-project-test-4.CdktfProviderProjectOptions.property.peerDependencyOptions"></a>
 
 ```typescript
 public readonly peerDependencyOptions: PeerDependencyOptions;
@@ -825,7 +825,7 @@ Options for `peerDeps`.
 
 ---
 
-##### `peerDeps`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.peerDeps"></a>
+##### `peerDeps`<sup>Optional</sup> <a name="@maed223/provider-project-test-4.CdktfProviderProjectOptions.property.peerDeps"></a>
 
 ```typescript
 public readonly peerDeps: string[];
@@ -852,7 +852,7 @@ test your module against the lowest peer version required.
 
 ---
 
-##### `pnpmVersion`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.pnpmVersion"></a>
+##### `pnpmVersion`<sup>Optional</sup> <a name="@maed223/provider-project-test-4.CdktfProviderProjectOptions.property.pnpmVersion"></a>
 
 ```typescript
 public readonly pnpmVersion: string;
@@ -865,7 +865,7 @@ The version of PNPM to use if using PNPM as a package manager.
 
 ---
 
-##### `repository`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.repository"></a>
+##### `repository`<sup>Optional</sup> <a name="@maed223/provider-project-test-4.CdktfProviderProjectOptions.property.repository"></a>
 
 ```typescript
 public readonly repository: string;
@@ -879,7 +879,7 @@ See https://classic.yarnpkg.com/en/docs/package-json/#toc-repository
 
 ---
 
-##### `repositoryDirectory`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.repositoryDirectory"></a>
+##### `repositoryDirectory`<sup>Optional</sup> <a name="@maed223/provider-project-test-4.CdktfProviderProjectOptions.property.repositoryDirectory"></a>
 
 ```typescript
 public readonly repositoryDirectory: string;
@@ -891,7 +891,7 @@ If the package.json for your package is not in the root directory (for example i
 
 ---
 
-##### `scopedPackagesOptions`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.scopedPackagesOptions"></a>
+##### `scopedPackagesOptions`<sup>Optional</sup> <a name="@maed223/provider-project-test-4.CdktfProviderProjectOptions.property.scopedPackagesOptions"></a>
 
 ```typescript
 public readonly scopedPackagesOptions: ScopedPackagesOptions[];
@@ -904,7 +904,7 @@ Options for privately hosted scoped packages.
 
 ---
 
-##### ~~`scripts`~~<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.scripts"></a>
+##### ~~`scripts`~~<sup>Optional</sup> <a name="@maed223/provider-project-test-4.CdktfProviderProjectOptions.property.scripts"></a>
 
 - *Deprecated:* use `project.addTask()` or `package.setScript()`
 
@@ -923,7 +923,7 @@ Also adds the script as a task.
 
 ---
 
-##### `stability`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.stability"></a>
+##### `stability`<sup>Optional</sup> <a name="@maed223/provider-project-test-4.CdktfProviderProjectOptions.property.stability"></a>
 
 ```typescript
 public readonly stability: string;
@@ -935,7 +935,7 @@ Package's Stability.
 
 ---
 
-##### `jsiiReleaseVersion`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.jsiiReleaseVersion"></a>
+##### `jsiiReleaseVersion`<sup>Optional</sup> <a name="@maed223/provider-project-test-4.CdktfProviderProjectOptions.property.jsiiReleaseVersion"></a>
 
 ```typescript
 public readonly jsiiReleaseVersion: string;
@@ -948,7 +948,7 @@ Version requirement of `publib` which is used to publish modules to npm.
 
 ---
 
-##### `majorVersion`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.majorVersion"></a>
+##### `majorVersion`<sup>Optional</sup> <a name="@maed223/provider-project-test-4.CdktfProviderProjectOptions.property.majorVersion"></a>
 
 ```typescript
 public readonly majorVersion: number;
@@ -964,7 +964,7 @@ If not specified, we bump the global latest version.
 
 ---
 
-##### `minMajorVersion`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.minMajorVersion"></a>
+##### `minMajorVersion`<sup>Optional</sup> <a name="@maed223/provider-project-test-4.CdktfProviderProjectOptions.property.minMajorVersion"></a>
 
 ```typescript
 public readonly minMajorVersion: number;
@@ -982,7 +982,7 @@ Can not be set together with `majorVersion`.
 
 ---
 
-##### `npmDistTag`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.npmDistTag"></a>
+##### `npmDistTag`<sup>Optional</sup> <a name="@maed223/provider-project-test-4.CdktfProviderProjectOptions.property.npmDistTag"></a>
 
 ```typescript
 public readonly npmDistTag: string;
@@ -998,7 +998,7 @@ for each branch.
 
 ---
 
-##### `postBuildSteps`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.postBuildSteps"></a>
+##### `postBuildSteps`<sup>Optional</sup> <a name="@maed223/provider-project-test-4.CdktfProviderProjectOptions.property.postBuildSteps"></a>
 
 ```typescript
 public readonly postBuildSteps: JobStep[];
@@ -1011,7 +1011,7 @@ Steps to execute after build as part of the release workflow.
 
 ---
 
-##### `prerelease`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.prerelease"></a>
+##### `prerelease`<sup>Optional</sup> <a name="@maed223/provider-project-test-4.CdktfProviderProjectOptions.property.prerelease"></a>
 
 ```typescript
 public readonly prerelease: string;
@@ -1024,7 +1024,7 @@ Bump versions from the default branch as pre-releases (e.g. "beta", "alpha", "pr
 
 ---
 
-##### `publishDryRun`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.publishDryRun"></a>
+##### `publishDryRun`<sup>Optional</sup> <a name="@maed223/provider-project-test-4.CdktfProviderProjectOptions.property.publishDryRun"></a>
 
 ```typescript
 public readonly publishDryRun: boolean;
@@ -1037,7 +1037,7 @@ Instead of actually publishing to package managers, just print the publishing co
 
 ---
 
-##### `publishTasks`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.publishTasks"></a>
+##### `publishTasks`<sup>Optional</sup> <a name="@maed223/provider-project-test-4.CdktfProviderProjectOptions.property.publishTasks"></a>
 
 ```typescript
 public readonly publishTasks: boolean;
@@ -1053,7 +1053,7 @@ in order to create a publishing task for each publishing activity.
 
 ---
 
-##### `releaseBranches`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.releaseBranches"></a>
+##### `releaseBranches`<sup>Optional</sup> <a name="@maed223/provider-project-test-4.CdktfProviderProjectOptions.property.releaseBranches"></a>
 
 ```typescript
 public readonly releaseBranches: {[ key: string ]: BranchOptions};
@@ -1074,7 +1074,7 @@ be provided for the default branch.
 
 ---
 
-##### ~~`releaseEveryCommit`~~<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.releaseEveryCommit"></a>
+##### ~~`releaseEveryCommit`~~<sup>Optional</sup> <a name="@maed223/provider-project-test-4.CdktfProviderProjectOptions.property.releaseEveryCommit"></a>
 
 - *Deprecated:* Use `releaseTrigger: ReleaseTrigger.continuous()` instead
 
@@ -1089,7 +1089,7 @@ Automatically release new versions every commit to one of branches in `releaseBr
 
 ---
 
-##### `releaseFailureIssue`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.releaseFailureIssue"></a>
+##### `releaseFailureIssue`<sup>Optional</sup> <a name="@maed223/provider-project-test-4.CdktfProviderProjectOptions.property.releaseFailureIssue"></a>
 
 ```typescript
 public readonly releaseFailureIssue: boolean;
@@ -1102,7 +1102,7 @@ Create a github issue on every failed publishing task.
 
 ---
 
-##### `releaseFailureIssueLabel`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.releaseFailureIssueLabel"></a>
+##### `releaseFailureIssueLabel`<sup>Optional</sup> <a name="@maed223/provider-project-test-4.CdktfProviderProjectOptions.property.releaseFailureIssueLabel"></a>
 
 ```typescript
 public readonly releaseFailureIssueLabel: string;
@@ -1117,7 +1117,7 @@ Only applies if `releaseFailureIssue` is true.
 
 ---
 
-##### ~~`releaseSchedule`~~<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.releaseSchedule"></a>
+##### ~~`releaseSchedule`~~<sup>Optional</sup> <a name="@maed223/provider-project-test-4.CdktfProviderProjectOptions.property.releaseSchedule"></a>
 
 - *Deprecated:* Use `releaseTrigger: ReleaseTrigger.scheduled()` instead
 
@@ -1132,7 +1132,7 @@ CRON schedule to trigger new releases.
 
 ---
 
-##### `releaseTagPrefix`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.releaseTagPrefix"></a>
+##### `releaseTagPrefix`<sup>Optional</sup> <a name="@maed223/provider-project-test-4.CdktfProviderProjectOptions.property.releaseTagPrefix"></a>
 
 ```typescript
 public readonly releaseTagPrefix: string;
@@ -1150,7 +1150,7 @@ with the new prefix.
 
 ---
 
-##### `releaseTrigger`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.releaseTrigger"></a>
+##### `releaseTrigger`<sup>Optional</sup> <a name="@maed223/provider-project-test-4.CdktfProviderProjectOptions.property.releaseTrigger"></a>
 
 ```typescript
 public readonly releaseTrigger: ReleaseTrigger;
@@ -1163,7 +1163,7 @@ The release trigger to use.
 
 ---
 
-##### `releaseWorkflowName`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.releaseWorkflowName"></a>
+##### `releaseWorkflowName`<sup>Optional</sup> <a name="@maed223/provider-project-test-4.CdktfProviderProjectOptions.property.releaseWorkflowName"></a>
 
 ```typescript
 public readonly releaseWorkflowName: string;
@@ -1176,7 +1176,7 @@ The name of the default release workflow.
 
 ---
 
-##### `releaseWorkflowSetupSteps`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.releaseWorkflowSetupSteps"></a>
+##### `releaseWorkflowSetupSteps`<sup>Optional</sup> <a name="@maed223/provider-project-test-4.CdktfProviderProjectOptions.property.releaseWorkflowSetupSteps"></a>
 
 ```typescript
 public readonly releaseWorkflowSetupSteps: JobStep[];
@@ -1188,7 +1188,7 @@ A set of workflow steps to execute in order to setup the workflow container.
 
 ---
 
-##### `versionrcOptions`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.versionrcOptions"></a>
+##### `versionrcOptions`<sup>Optional</sup> <a name="@maed223/provider-project-test-4.CdktfProviderProjectOptions.property.versionrcOptions"></a>
 
 ```typescript
 public readonly versionrcOptions: {[ key: string ]: any};
@@ -1203,7 +1203,7 @@ Given values either append to default configuration or overwrite values in it.
 
 ---
 
-##### `workflowContainerImage`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.workflowContainerImage"></a>
+##### `workflowContainerImage`<sup>Optional</sup> <a name="@maed223/provider-project-test-4.CdktfProviderProjectOptions.property.workflowContainerImage"></a>
 
 ```typescript
 public readonly workflowContainerImage: string;
@@ -1216,7 +1216,7 @@ Container image to use for GitHub workflows.
 
 ---
 
-##### `workflowRunsOn`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.workflowRunsOn"></a>
+##### `workflowRunsOn`<sup>Optional</sup> <a name="@maed223/provider-project-test-4.CdktfProviderProjectOptions.property.workflowRunsOn"></a>
 
 ```typescript
 public readonly workflowRunsOn: string[];
@@ -1229,7 +1229,7 @@ Github Runner selection labels.
 
 ---
 
-##### `defaultReleaseBranch`<sup>Required</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.defaultReleaseBranch"></a>
+##### `defaultReleaseBranch`<sup>Required</sup> <a name="@maed223/provider-project-test-4.CdktfProviderProjectOptions.property.defaultReleaseBranch"></a>
 
 ```typescript
 public readonly defaultReleaseBranch: string;
@@ -1242,7 +1242,7 @@ The name of the main release branch.
 
 ---
 
-##### `artifactsDirectory`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.artifactsDirectory"></a>
+##### `artifactsDirectory`<sup>Optional</sup> <a name="@maed223/provider-project-test-4.CdktfProviderProjectOptions.property.artifactsDirectory"></a>
 
 ```typescript
 public readonly artifactsDirectory: string;
@@ -1255,7 +1255,7 @@ A directory which will contain build artifacts.
 
 ---
 
-##### `autoApproveUpgrades`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.autoApproveUpgrades"></a>
+##### `autoApproveUpgrades`<sup>Optional</sup> <a name="@maed223/provider-project-test-4.CdktfProviderProjectOptions.property.autoApproveUpgrades"></a>
 
 ```typescript
 public readonly autoApproveUpgrades: boolean;
@@ -1270,7 +1270,7 @@ Throw if set to true but `autoApproveOptions` are not defined.
 
 ---
 
-##### `buildWorkflow`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.buildWorkflow"></a>
+##### `buildWorkflow`<sup>Optional</sup> <a name="@maed223/provider-project-test-4.CdktfProviderProjectOptions.property.buildWorkflow"></a>
 
 ```typescript
 public readonly buildWorkflow: boolean;
@@ -1283,7 +1283,7 @@ Define a GitHub workflow for building PRs.
 
 ---
 
-##### `buildWorkflowTriggers`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.buildWorkflowTriggers"></a>
+##### `buildWorkflowTriggers`<sup>Optional</sup> <a name="@maed223/provider-project-test-4.CdktfProviderProjectOptions.property.buildWorkflowTriggers"></a>
 
 ```typescript
 public readonly buildWorkflowTriggers: Triggers;
@@ -1296,7 +1296,7 @@ Build workflow triggers.
 
 ---
 
-##### `bundlerOptions`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.bundlerOptions"></a>
+##### `bundlerOptions`<sup>Optional</sup> <a name="@maed223/provider-project-test-4.CdktfProviderProjectOptions.property.bundlerOptions"></a>
 
 ```typescript
 public readonly bundlerOptions: BundlerOptions;
@@ -1308,7 +1308,7 @@ Options for `Bundler`.
 
 ---
 
-##### `codeCov`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.codeCov"></a>
+##### `codeCov`<sup>Optional</sup> <a name="@maed223/provider-project-test-4.CdktfProviderProjectOptions.property.codeCov"></a>
 
 ```typescript
 public readonly codeCov: boolean;
@@ -1321,7 +1321,7 @@ Define a GitHub workflow step for sending code coverage metrics to https://codec
 
 ---
 
-##### `codeCovTokenSecret`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.codeCovTokenSecret"></a>
+##### `codeCovTokenSecret`<sup>Optional</sup> <a name="@maed223/provider-project-test-4.CdktfProviderProjectOptions.property.codeCovTokenSecret"></a>
 
 ```typescript
 public readonly codeCovTokenSecret: string;
@@ -1334,7 +1334,7 @@ Define the secret name for a specified https://codecov.io/ token A secret is req
 
 ---
 
-##### `copyrightOwner`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.copyrightOwner"></a>
+##### `copyrightOwner`<sup>Optional</sup> <a name="@maed223/provider-project-test-4.CdktfProviderProjectOptions.property.copyrightOwner"></a>
 
 ```typescript
 public readonly copyrightOwner: string;
@@ -1347,7 +1347,7 @@ License copyright owner.
 
 ---
 
-##### `copyrightPeriod`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.copyrightPeriod"></a>
+##### `copyrightPeriod`<sup>Optional</sup> <a name="@maed223/provider-project-test-4.CdktfProviderProjectOptions.property.copyrightPeriod"></a>
 
 ```typescript
 public readonly copyrightPeriod: string;
@@ -1360,7 +1360,7 @@ The copyright years to put in the LICENSE file.
 
 ---
 
-##### `dependabot`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.dependabot"></a>
+##### `dependabot`<sup>Optional</sup> <a name="@maed223/provider-project-test-4.CdktfProviderProjectOptions.property.dependabot"></a>
 
 ```typescript
 public readonly dependabot: boolean;
@@ -1375,7 +1375,7 @@ Cannot be used in conjunction with `depsUpgrade`.
 
 ---
 
-##### `dependabotOptions`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.dependabotOptions"></a>
+##### `dependabotOptions`<sup>Optional</sup> <a name="@maed223/provider-project-test-4.CdktfProviderProjectOptions.property.dependabotOptions"></a>
 
 ```typescript
 public readonly dependabotOptions: DependabotOptions;
@@ -1388,7 +1388,7 @@ Options for dependabot.
 
 ---
 
-##### `depsUpgrade`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.depsUpgrade"></a>
+##### `depsUpgrade`<sup>Optional</sup> <a name="@maed223/provider-project-test-4.CdktfProviderProjectOptions.property.depsUpgrade"></a>
 
 ```typescript
 public readonly depsUpgrade: boolean;
@@ -1403,7 +1403,7 @@ Cannot be used in conjunction with `dependabot`.
 
 ---
 
-##### `depsUpgradeOptions`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.depsUpgradeOptions"></a>
+##### `depsUpgradeOptions`<sup>Optional</sup> <a name="@maed223/provider-project-test-4.CdktfProviderProjectOptions.property.depsUpgradeOptions"></a>
 
 ```typescript
 public readonly depsUpgradeOptions: UpgradeDependenciesOptions;
@@ -1416,7 +1416,7 @@ Options for `UpgradeDependencies`.
 
 ---
 
-##### `gitignore`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.gitignore"></a>
+##### `gitignore`<sup>Optional</sup> <a name="@maed223/provider-project-test-4.CdktfProviderProjectOptions.property.gitignore"></a>
 
 ```typescript
 public readonly gitignore: string[];
@@ -1428,7 +1428,7 @@ Additional entries to .gitignore.
 
 ---
 
-##### `jest`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.jest"></a>
+##### `jest`<sup>Optional</sup> <a name="@maed223/provider-project-test-4.CdktfProviderProjectOptions.property.jest"></a>
 
 ```typescript
 public readonly jest: boolean;
@@ -1441,7 +1441,7 @@ Setup jest unit tests.
 
 ---
 
-##### `jestOptions`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.jestOptions"></a>
+##### `jestOptions`<sup>Optional</sup> <a name="@maed223/provider-project-test-4.CdktfProviderProjectOptions.property.jestOptions"></a>
 
 ```typescript
 public readonly jestOptions: JestOptions;
@@ -1454,7 +1454,7 @@ Jest options.
 
 ---
 
-##### `mutableBuild`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.mutableBuild"></a>
+##### `mutableBuild`<sup>Optional</sup> <a name="@maed223/provider-project-test-4.CdktfProviderProjectOptions.property.mutableBuild"></a>
 
 ```typescript
 public readonly mutableBuild: boolean;
@@ -1473,7 +1473,7 @@ Implies that PR builds do not have anti-tamper checks.
 
 ---
 
-##### ~~`npmignore`~~<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.npmignore"></a>
+##### ~~`npmignore`~~<sup>Optional</sup> <a name="@maed223/provider-project-test-4.CdktfProviderProjectOptions.property.npmignore"></a>
 
 - *Deprecated:* - use `project.addPackageIgnore`
 
@@ -1487,7 +1487,7 @@ Additional entries to .npmignore.
 
 ---
 
-##### `npmignoreEnabled`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.npmignoreEnabled"></a>
+##### `npmignoreEnabled`<sup>Optional</sup> <a name="@maed223/provider-project-test-4.CdktfProviderProjectOptions.property.npmignoreEnabled"></a>
 
 ```typescript
 public readonly npmignoreEnabled: boolean;
@@ -1500,7 +1500,7 @@ Defines an .npmignore file. Normally this is only needed for libraries that are 
 
 ---
 
-##### `npmIgnoreOptions`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.npmIgnoreOptions"></a>
+##### `npmIgnoreOptions`<sup>Optional</sup> <a name="@maed223/provider-project-test-4.CdktfProviderProjectOptions.property.npmIgnoreOptions"></a>
 
 ```typescript
 public readonly npmIgnoreOptions: IgnoreFileOptions;
@@ -1512,7 +1512,7 @@ Configuration options for .npmignore file.
 
 ---
 
-##### `package`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.package"></a>
+##### `package`<sup>Optional</sup> <a name="@maed223/provider-project-test-4.CdktfProviderProjectOptions.property.package"></a>
 
 ```typescript
 public readonly package: boolean;
@@ -1525,7 +1525,7 @@ Defines a `package` task that will produce an npm tarball under the artifacts di
 
 ---
 
-##### `prettier`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.prettier"></a>
+##### `prettier`<sup>Optional</sup> <a name="@maed223/provider-project-test-4.CdktfProviderProjectOptions.property.prettier"></a>
 
 ```typescript
 public readonly prettier: boolean;
@@ -1538,7 +1538,7 @@ Setup prettier.
 
 ---
 
-##### `prettierOptions`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.prettierOptions"></a>
+##### `prettierOptions`<sup>Optional</sup> <a name="@maed223/provider-project-test-4.CdktfProviderProjectOptions.property.prettierOptions"></a>
 
 ```typescript
 public readonly prettierOptions: PrettierOptions;
@@ -1551,7 +1551,7 @@ Prettier options.
 
 ---
 
-##### `projenDevDependency`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.projenDevDependency"></a>
+##### `projenDevDependency`<sup>Optional</sup> <a name="@maed223/provider-project-test-4.CdktfProviderProjectOptions.property.projenDevDependency"></a>
 
 ```typescript
 public readonly projenDevDependency: boolean;
@@ -1564,7 +1564,7 @@ Indicates of "projen" should be installed as a devDependency.
 
 ---
 
-##### `projenrcJs`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.projenrcJs"></a>
+##### `projenrcJs`<sup>Optional</sup> <a name="@maed223/provider-project-test-4.CdktfProviderProjectOptions.property.projenrcJs"></a>
 
 ```typescript
 public readonly projenrcJs: boolean;
@@ -1577,7 +1577,7 @@ Generate (once) .projenrc.js (in JavaScript). Set to `false` in order to disable
 
 ---
 
-##### `projenrcJsOptions`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.projenrcJsOptions"></a>
+##### `projenrcJsOptions`<sup>Optional</sup> <a name="@maed223/provider-project-test-4.CdktfProviderProjectOptions.property.projenrcJsOptions"></a>
 
 ```typescript
 public readonly projenrcJsOptions: ProjenrcOptions;
@@ -1590,7 +1590,7 @@ Options for .projenrc.js.
 
 ---
 
-##### `projenVersion`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.projenVersion"></a>
+##### `projenVersion`<sup>Optional</sup> <a name="@maed223/provider-project-test-4.CdktfProviderProjectOptions.property.projenVersion"></a>
 
 ```typescript
 public readonly projenVersion: string;
@@ -1603,7 +1603,7 @@ Version of projen to install.
 
 ---
 
-##### `pullRequestTemplate`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.pullRequestTemplate"></a>
+##### `pullRequestTemplate`<sup>Optional</sup> <a name="@maed223/provider-project-test-4.CdktfProviderProjectOptions.property.pullRequestTemplate"></a>
 
 ```typescript
 public readonly pullRequestTemplate: boolean;
@@ -1616,7 +1616,7 @@ Include a GitHub pull request template.
 
 ---
 
-##### `pullRequestTemplateContents`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.pullRequestTemplateContents"></a>
+##### `pullRequestTemplateContents`<sup>Optional</sup> <a name="@maed223/provider-project-test-4.CdktfProviderProjectOptions.property.pullRequestTemplateContents"></a>
 
 ```typescript
 public readonly pullRequestTemplateContents: string[];
@@ -1629,7 +1629,7 @@ The contents of the pull request template.
 
 ---
 
-##### `release`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.release"></a>
+##### `release`<sup>Optional</sup> <a name="@maed223/provider-project-test-4.CdktfProviderProjectOptions.property.release"></a>
 
 ```typescript
 public readonly release: boolean;
@@ -1642,7 +1642,7 @@ Add release management to this project.
 
 ---
 
-##### `releaseToNpm`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.releaseToNpm"></a>
+##### `releaseToNpm`<sup>Optional</sup> <a name="@maed223/provider-project-test-4.CdktfProviderProjectOptions.property.releaseToNpm"></a>
 
 ```typescript
 public readonly releaseToNpm: boolean;
@@ -1655,7 +1655,7 @@ Automatically release to npm when new versions are introduced.
 
 ---
 
-##### ~~`releaseWorkflow`~~<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.releaseWorkflow"></a>
+##### ~~`releaseWorkflow`~~<sup>Optional</sup> <a name="@maed223/provider-project-test-4.CdktfProviderProjectOptions.property.releaseWorkflow"></a>
 
 - *Deprecated:* see `release`.
 
@@ -1670,7 +1670,7 @@ DEPRECATED: renamed to `release`.
 
 ---
 
-##### `workflowBootstrapSteps`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.workflowBootstrapSteps"></a>
+##### `workflowBootstrapSteps`<sup>Optional</sup> <a name="@maed223/provider-project-test-4.CdktfProviderProjectOptions.property.workflowBootstrapSteps"></a>
 
 ```typescript
 public readonly workflowBootstrapSteps: JobStep[];
@@ -1683,7 +1683,7 @@ Workflow steps to use in order to bootstrap this repo.
 
 ---
 
-##### `workflowGitIdentity`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.workflowGitIdentity"></a>
+##### `workflowGitIdentity`<sup>Optional</sup> <a name="@maed223/provider-project-test-4.CdktfProviderProjectOptions.property.workflowGitIdentity"></a>
 
 ```typescript
 public readonly workflowGitIdentity: GitIdentity;
@@ -1696,7 +1696,7 @@ The git identity to use in workflows.
 
 ---
 
-##### `workflowNodeVersion`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.workflowNodeVersion"></a>
+##### `workflowNodeVersion`<sup>Optional</sup> <a name="@maed223/provider-project-test-4.CdktfProviderProjectOptions.property.workflowNodeVersion"></a>
 
 ```typescript
 public readonly workflowNodeVersion: string;
@@ -1709,7 +1709,7 @@ The node version to use in GitHub workflows.
 
 ---
 
-##### `disableTsconfig`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.disableTsconfig"></a>
+##### `disableTsconfig`<sup>Optional</sup> <a name="@maed223/provider-project-test-4.CdktfProviderProjectOptions.property.disableTsconfig"></a>
 
 ```typescript
 public readonly disableTsconfig: boolean;
@@ -1722,7 +1722,7 @@ Do not generate a `tsconfig.json` file (used by jsii projects since tsconfig.jso
 
 ---
 
-##### `disableTsconfigDev`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.disableTsconfigDev"></a>
+##### `disableTsconfigDev`<sup>Optional</sup> <a name="@maed223/provider-project-test-4.CdktfProviderProjectOptions.property.disableTsconfigDev"></a>
 
 ```typescript
 public readonly disableTsconfigDev: boolean;
@@ -1735,7 +1735,7 @@ Do not generate a `tsconfig.dev.json` file.
 
 ---
 
-##### `docgen`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.docgen"></a>
+##### `docgen`<sup>Optional</sup> <a name="@maed223/provider-project-test-4.CdktfProviderProjectOptions.property.docgen"></a>
 
 ```typescript
 public readonly docgen: boolean;
@@ -1748,7 +1748,7 @@ Docgen by Typedoc.
 
 ---
 
-##### `docsDirectory`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.docsDirectory"></a>
+##### `docsDirectory`<sup>Optional</sup> <a name="@maed223/provider-project-test-4.CdktfProviderProjectOptions.property.docsDirectory"></a>
 
 ```typescript
 public readonly docsDirectory: string;
@@ -1761,7 +1761,7 @@ Docs directory.
 
 ---
 
-##### `entrypointTypes`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.entrypointTypes"></a>
+##### `entrypointTypes`<sup>Optional</sup> <a name="@maed223/provider-project-test-4.CdktfProviderProjectOptions.property.entrypointTypes"></a>
 
 ```typescript
 public readonly entrypointTypes: string;
@@ -1774,7 +1774,7 @@ The .d.ts file that includes the type declarations for this module.
 
 ---
 
-##### `eslint`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.eslint"></a>
+##### `eslint`<sup>Optional</sup> <a name="@maed223/provider-project-test-4.CdktfProviderProjectOptions.property.eslint"></a>
 
 ```typescript
 public readonly eslint: boolean;
@@ -1787,7 +1787,7 @@ Setup eslint.
 
 ---
 
-##### `eslintOptions`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.eslintOptions"></a>
+##### `eslintOptions`<sup>Optional</sup> <a name="@maed223/provider-project-test-4.CdktfProviderProjectOptions.property.eslintOptions"></a>
 
 ```typescript
 public readonly eslintOptions: EslintOptions;
@@ -1800,7 +1800,7 @@ Eslint options.
 
 ---
 
-##### `libdir`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.libdir"></a>
+##### `libdir`<sup>Optional</sup> <a name="@maed223/provider-project-test-4.CdktfProviderProjectOptions.property.libdir"></a>
 
 ```typescript
 public readonly libdir: string;
@@ -1813,7 +1813,7 @@ Typescript  artifacts output directory.
 
 ---
 
-##### `projenrcTs`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.projenrcTs"></a>
+##### `projenrcTs`<sup>Optional</sup> <a name="@maed223/provider-project-test-4.CdktfProviderProjectOptions.property.projenrcTs"></a>
 
 ```typescript
 public readonly projenrcTs: boolean;
@@ -1826,7 +1826,7 @@ Use TypeScript for your projenrc file (`.projenrc.ts`).
 
 ---
 
-##### `projenrcTsOptions`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.projenrcTsOptions"></a>
+##### `projenrcTsOptions`<sup>Optional</sup> <a name="@maed223/provider-project-test-4.CdktfProviderProjectOptions.property.projenrcTsOptions"></a>
 
 ```typescript
 public readonly projenrcTsOptions: ProjenrcOptions;
@@ -1838,7 +1838,7 @@ Options for .projenrc.ts.
 
 ---
 
-##### `sampleCode`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.sampleCode"></a>
+##### `sampleCode`<sup>Optional</sup> <a name="@maed223/provider-project-test-4.CdktfProviderProjectOptions.property.sampleCode"></a>
 
 ```typescript
 public readonly sampleCode: boolean;
@@ -1851,7 +1851,7 @@ Generate one-time sample in `src/` and `test/` if there are no files there.
 
 ---
 
-##### `srcdir`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.srcdir"></a>
+##### `srcdir`<sup>Optional</sup> <a name="@maed223/provider-project-test-4.CdktfProviderProjectOptions.property.srcdir"></a>
 
 ```typescript
 public readonly srcdir: string;
@@ -1864,7 +1864,7 @@ Typescript sources directory.
 
 ---
 
-##### `testdir`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.testdir"></a>
+##### `testdir`<sup>Optional</sup> <a name="@maed223/provider-project-test-4.CdktfProviderProjectOptions.property.testdir"></a>
 
 ```typescript
 public readonly testdir: string;
@@ -1882,7 +1882,7 @@ compile the code in-memory.
 
 ---
 
-##### `tsconfig`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.tsconfig"></a>
+##### `tsconfig`<sup>Optional</sup> <a name="@maed223/provider-project-test-4.CdktfProviderProjectOptions.property.tsconfig"></a>
 
 ```typescript
 public readonly tsconfig: TypescriptConfigOptions;
@@ -1895,7 +1895,7 @@ Custom TSConfig.
 
 ---
 
-##### `tsconfigDev`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.tsconfigDev"></a>
+##### `tsconfigDev`<sup>Optional</sup> <a name="@maed223/provider-project-test-4.CdktfProviderProjectOptions.property.tsconfigDev"></a>
 
 ```typescript
 public readonly tsconfigDev: TypescriptConfigOptions;
@@ -1908,7 +1908,7 @@ Custom tsconfig options for the development tsconfig.json file (used for testing
 
 ---
 
-##### `tsconfigDevFile`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.tsconfigDevFile"></a>
+##### `tsconfigDevFile`<sup>Optional</sup> <a name="@maed223/provider-project-test-4.CdktfProviderProjectOptions.property.tsconfigDevFile"></a>
 
 ```typescript
 public readonly tsconfigDevFile: string;
@@ -1921,7 +1921,7 @@ The name of the development tsconfig.json file.
 
 ---
 
-##### `typescriptVersion`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.typescriptVersion"></a>
+##### `typescriptVersion`<sup>Optional</sup> <a name="@maed223/provider-project-test-4.CdktfProviderProjectOptions.property.typescriptVersion"></a>
 
 ```typescript
 public readonly typescriptVersion: string;
@@ -1937,7 +1937,7 @@ same minor, so we recommend using a `~` dependency (e.g. `~1.2.3`).
 
 ---
 
-##### `author`<sup>Required</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.author"></a>
+##### `author`<sup>Required</sup> <a name="@maed223/provider-project-test-4.CdktfProviderProjectOptions.property.author"></a>
 
 ```typescript
 public readonly author: string;
@@ -1950,7 +1950,7 @@ The name of the library author.
 
 ---
 
-##### `authorAddress`<sup>Required</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.authorAddress"></a>
+##### `authorAddress`<sup>Required</sup> <a name="@maed223/provider-project-test-4.CdktfProviderProjectOptions.property.authorAddress"></a>
 
 ```typescript
 public readonly authorAddress: string;
@@ -1963,7 +1963,7 @@ Email or URL of the library author.
 
 ---
 
-##### `repositoryUrl`<sup>Required</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.repositoryUrl"></a>
+##### `repositoryUrl`<sup>Required</sup> <a name="@maed223/provider-project-test-4.CdktfProviderProjectOptions.property.repositoryUrl"></a>
 
 ```typescript
 public readonly repositoryUrl: string;
@@ -1976,7 +1976,7 @@ Git repository URL.
 
 ---
 
-##### `compat`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.compat"></a>
+##### `compat`<sup>Optional</sup> <a name="@maed223/provider-project-test-4.CdktfProviderProjectOptions.property.compat"></a>
 
 ```typescript
 public readonly compat: boolean;
@@ -1992,7 +1992,7 @@ You can manually run compatibility tests using `yarn compat` if this feature is 
 
 ---
 
-##### `compatIgnore`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.compatIgnore"></a>
+##### `compatIgnore`<sup>Optional</sup> <a name="@maed223/provider-project-test-4.CdktfProviderProjectOptions.property.compatIgnore"></a>
 
 ```typescript
 public readonly compatIgnore: string;
@@ -2005,7 +2005,7 @@ Name of the ignore file for API compatibility tests.
 
 ---
 
-##### `compressAssembly`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.compressAssembly"></a>
+##### `compressAssembly`<sup>Optional</sup> <a name="@maed223/provider-project-test-4.CdktfProviderProjectOptions.property.compressAssembly"></a>
 
 ```typescript
 public readonly compressAssembly: boolean;
@@ -2018,7 +2018,7 @@ Emit a compressed version of the assembly.
 
 ---
 
-##### `docgenFilePath`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.docgenFilePath"></a>
+##### `docgenFilePath`<sup>Optional</sup> <a name="@maed223/provider-project-test-4.CdktfProviderProjectOptions.property.docgenFilePath"></a>
 
 ```typescript
 public readonly docgenFilePath: string;
@@ -2031,7 +2031,7 @@ File path for generated docs.
 
 ---
 
-##### ~~`dotnet`~~<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.dotnet"></a>
+##### ~~`dotnet`~~<sup>Optional</sup> <a name="@maed223/provider-project-test-4.CdktfProviderProjectOptions.property.dotnet"></a>
 
 - *Deprecated:* use `publishToNuget`
 
@@ -2043,7 +2043,7 @@ public readonly dotnet: JsiiDotNetTarget;
 
 ---
 
-##### `excludeTypescript`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.excludeTypescript"></a>
+##### `excludeTypescript`<sup>Optional</sup> <a name="@maed223/provider-project-test-4.CdktfProviderProjectOptions.property.excludeTypescript"></a>
 
 ```typescript
 public readonly excludeTypescript: string[];
@@ -2061,7 +2061,7 @@ that cannot be compiled with jsii's compiler settings.
 
 ---
 
-##### `jsiiVersion`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.jsiiVersion"></a>
+##### `jsiiVersion`<sup>Optional</sup> <a name="@maed223/provider-project-test-4.CdktfProviderProjectOptions.property.jsiiVersion"></a>
 
 ```typescript
 public readonly jsiiVersion: string;
@@ -2081,7 +2081,7 @@ and should remain on the same minor, so we recommend using a `~` dependency
 
 ---
 
-##### `publishToGo`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.publishToGo"></a>
+##### `publishToGo`<sup>Optional</sup> <a name="@maed223/provider-project-test-4.CdktfProviderProjectOptions.property.publishToGo"></a>
 
 ```typescript
 public readonly publishToGo: JsiiGoTarget;
@@ -2094,7 +2094,7 @@ Publish Go bindings to a git repository.
 
 ---
 
-##### `publishToMaven`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.publishToMaven"></a>
+##### `publishToMaven`<sup>Optional</sup> <a name="@maed223/provider-project-test-4.CdktfProviderProjectOptions.property.publishToMaven"></a>
 
 ```typescript
 public readonly publishToMaven: JsiiJavaTarget;
@@ -2107,7 +2107,7 @@ Publish to maven.
 
 ---
 
-##### `publishToNuget`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.publishToNuget"></a>
+##### `publishToNuget`<sup>Optional</sup> <a name="@maed223/provider-project-test-4.CdktfProviderProjectOptions.property.publishToNuget"></a>
 
 ```typescript
 public readonly publishToNuget: JsiiDotNetTarget;
@@ -2120,7 +2120,7 @@ Publish to NuGet.
 
 ---
 
-##### `publishToPypi`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.publishToPypi"></a>
+##### `publishToPypi`<sup>Optional</sup> <a name="@maed223/provider-project-test-4.CdktfProviderProjectOptions.property.publishToPypi"></a>
 
 ```typescript
 public readonly publishToPypi: JsiiPythonTarget;
@@ -2133,7 +2133,7 @@ Publish to pypi.
 
 ---
 
-##### ~~`python`~~<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.python"></a>
+##### ~~`python`~~<sup>Optional</sup> <a name="@maed223/provider-project-test-4.CdktfProviderProjectOptions.property.python"></a>
 
 - *Deprecated:* use `publishToPyPi`
 
@@ -2145,7 +2145,7 @@ public readonly python: JsiiPythonTarget;
 
 ---
 
-##### `rootdir`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.rootdir"></a>
+##### `rootdir`<sup>Optional</sup> <a name="@maed223/provider-project-test-4.CdktfProviderProjectOptions.property.rootdir"></a>
 
 ```typescript
 public readonly rootdir: string;
@@ -2156,7 +2156,7 @@ public readonly rootdir: string;
 
 ---
 
-##### `cdktfVersion`<sup>Required</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.cdktfVersion"></a>
+##### `cdktfVersion`<sup>Required</sup> <a name="@maed223/provider-project-test-4.CdktfProviderProjectOptions.property.cdktfVersion"></a>
 
 ```typescript
 public readonly cdktfVersion: string;
@@ -2166,7 +2166,7 @@ public readonly cdktfVersion: string;
 
 ---
 
-##### `constructsVersion`<sup>Required</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.constructsVersion"></a>
+##### `constructsVersion`<sup>Required</sup> <a name="@maed223/provider-project-test-4.CdktfProviderProjectOptions.property.constructsVersion"></a>
 
 ```typescript
 public readonly constructsVersion: string;
@@ -2176,7 +2176,7 @@ public readonly constructsVersion: string;
 
 ---
 
-##### `terraformProvider`<sup>Required</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.terraformProvider"></a>
+##### `terraformProvider`<sup>Required</sup> <a name="@maed223/provider-project-test-4.CdktfProviderProjectOptions.property.terraformProvider"></a>
 
 ```typescript
 public readonly terraformProvider: string;
@@ -2186,7 +2186,7 @@ public readonly terraformProvider: string;
 
 ---
 
-##### `creationYear`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.creationYear"></a>
+##### `creationYear`<sup>Optional</sup> <a name="@maed223/provider-project-test-4.CdktfProviderProjectOptions.property.creationYear"></a>
 
 ```typescript
 public readonly creationYear: number;
@@ -2200,7 +2200,7 @@ Will fall back to the current year if not specified.
 
 ---
 
-##### `forceMajorVersion`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.forceMajorVersion"></a>
+##### `forceMajorVersion`<sup>Optional</sup> <a name="@maed223/provider-project-test-4.CdktfProviderProjectOptions.property.forceMajorVersion"></a>
 
 ```typescript
 public readonly forceMajorVersion: number;
@@ -2210,7 +2210,7 @@ public readonly forceMajorVersion: number;
 
 ---
 
-##### `githubNamespace`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.githubNamespace"></a>
+##### `githubNamespace`<sup>Optional</sup> <a name="@maed223/provider-project-test-4.CdktfProviderProjectOptions.property.githubNamespace"></a>
 
 ```typescript
 public readonly githubNamespace: string;
@@ -2224,7 +2224,7 @@ Used for GitHub org name and package scoping
 
 ---
 
-##### `mavenEndpoint`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.mavenEndpoint"></a>
+##### `mavenEndpoint`<sup>Optional</sup> <a name="@maed223/provider-project-test-4.CdktfProviderProjectOptions.property.mavenEndpoint"></a>
 
 ```typescript
 public readonly mavenEndpoint: string;
@@ -2234,7 +2234,7 @@ public readonly mavenEndpoint: string;
 
 ---
 
-##### `mavenOrg`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.mavenOrg"></a>
+##### `mavenOrg`<sup>Optional</sup> <a name="@maed223/provider-project-test-4.CdktfProviderProjectOptions.property.mavenOrg"></a>
 
 ```typescript
 public readonly mavenOrg: string;
@@ -2246,7 +2246,7 @@ defaults to "hashicorp".
 
 ---
 
-##### `namespace`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.namespace"></a>
+##### `namespace`<sup>Optional</sup> <a name="@maed223/provider-project-test-4.CdktfProviderProjectOptions.property.namespace"></a>
 
 ```typescript
 public readonly namespace: string;
@@ -2258,7 +2258,7 @@ defaults to "cdktf".
 
 ---
 
-##### `nugetOrg`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.nugetOrg"></a>
+##### `nugetOrg`<sup>Optional</sup> <a name="@maed223/provider-project-test-4.CdktfProviderProjectOptions.property.nugetOrg"></a>
 
 ```typescript
 public readonly nugetOrg: string;
@@ -2270,7 +2270,7 @@ defaults to "HashiCorp".
 
 ---
 
-##### `useCustomGithubRunner`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.useCustomGithubRunner"></a>
+##### `useCustomGithubRunner`<sup>Optional</sup> <a name="@maed223/provider-project-test-4.CdktfProviderProjectOptions.property.useCustomGithubRunner"></a>
 
 ```typescript
 public readonly useCustomGithubRunner: boolean;
@@ -2282,19 +2282,19 @@ public readonly useCustomGithubRunner: boolean;
 
 ## Classes <a name="Classes"></a>
 
-### CdktfProviderProject <a name="@cdktf/provider-project.CdktfProviderProject"></a>
+### CdktfProviderProject <a name="@maed223/provider-project-test-4.CdktfProviderProject"></a>
 
-#### Initializers <a name="@cdktf/provider-project.CdktfProviderProject.Initializer"></a>
+#### Initializers <a name="@maed223/provider-project-test-4.CdktfProviderProject.Initializer"></a>
 
 ```typescript
-import { CdktfProviderProject } from '@cdktf/provider-project'
+import { CdktfProviderProject } from '@maed223/provider-project-test-4'
 
 new CdktfProviderProject(options: CdktfProviderProjectOptions)
 ```
 
-##### `options`<sup>Required</sup> <a name="@cdktf/provider-project.CdktfProviderProject.parameter.options"></a>
+##### `options`<sup>Required</sup> <a name="@maed223/provider-project-test-4.CdktfProviderProject.parameter.options"></a>
 
-- *Type:* [`@cdktf/provider-project.CdktfProviderProjectOptions`](#@cdktf/provider-project.CdktfProviderProjectOptions)
+- *Type:* [`@maed223/provider-project-test-4.CdktfProviderProjectOptions`](#@maed223/provider-project-test-4.CdktfProviderProjectOptions)
 
 ---
 

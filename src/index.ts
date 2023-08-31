@@ -16,6 +16,7 @@ import { PackageInfo } from "./package-info";
 import { ProviderUpgrade } from "./provider-upgrade";
 import { CheckForUpgradesScriptFile } from "./scripts/check-for-upgrades";
 import { ShouldReleaseScriptFile } from "./scripts/should-release";
+import { VersionCompatibilityMatrix } from "./version-compatibility-matrix";
 
 // ensure new projects start with 1.0.0 so that every following breaking change leads to an increased major version
 const MIN_MAJOR_VERSION = 1;
@@ -333,8 +334,7 @@ export class CdktfProviderProject extends cdk.JsiiProject {
     );
 
     this.pinGithubActionVersions(githubActionPinnedVersions);
-
-    new CdktfConfig(this, {
+    const { underlyingTerraformProviderVersion } = new CdktfConfig(this, {
       terraformProvider,
       providerName,
       fqproviderName,
@@ -348,6 +348,10 @@ export class CdktfProviderProject extends cdk.JsiiProject {
     const upgradeScript = new CheckForUpgradesScriptFile(this, {
       providerVersion,
       fqproviderName,
+    });
+    new VersionCompatibilityMatrix(this, {
+      underlyingTerraformProviderVersion,
+      cdktfVersion,
     });
     new ProviderUpgrade(this, {
       checkForUpgradesScriptPath: upgradeScript.path,
