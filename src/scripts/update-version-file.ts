@@ -9,27 +9,27 @@ import { NodeProject } from "projen/lib/javascript";
 // whats needed here to update file??
 // underlying provider version, prebuilt provider version, current cdktf version (im guessing, tho can imagine how itd be different)
 export interface UpdateVersionFileOptions extends FileBaseOptions {
-    underlyingTerraformProviderVersion: string;
-    cdktfVersion: string;
+  underlyingTerraformProviderVersion: string;
+  cdktfVersion: string;
 }
 
 export class UpdateVersionFile extends FileBase {
-    protected readonly options: UpdateVersionFileOptions;
+  protected readonly options: UpdateVersionFileOptions;
 
-    constructor(project: NodeProject, options: UpdateVersionFileOptions) {
-        super(project, "scripts/update-version-file.js", options);
-        this.options = options;
+  constructor(project: NodeProject, options: UpdateVersionFileOptions) {
+    super(project, "scripts/update-version-file.js", options);
+    this.options = options;
 
-        project.addDevDeps("fs");
-        project.addDevDeps("path");
-    }
+    project.addDevDeps("fs");
+    project.addDevDeps("path");
+  }
 
-    protected synthesizeContent(resolver: IResolver): string | undefined {
-        let { underlyingTerraformProviderVersion, cdktfVersion } = resolver.resolve(
-            this.options
-        ) as UpdateVersionFileOptions;
+  protected synthesizeContent(resolver: IResolver): string | undefined {
+    let { underlyingTerraformProviderVersion, cdktfVersion } = resolver.resolve(
+      this.options
+    ) as UpdateVersionFileOptions;
 
-        return `
+    return `
 /**
  * Copyright (c) HashiCorp, Inc.
  * SPDX-License-Identifier: MPL-2.0
@@ -61,5 +61,5 @@ export class UpdateVersionFile extends FileBase {
     }
 })();    
 `;
-    }
+  }
 }
