@@ -395,7 +395,7 @@ export class CdktfProviderProject extends cdk.JsiiProject {
     const gitRemoteJob = releaseJobSteps.find((it) => it.id === "git_remote");
     assert(
       gitRemoteJob.run ===
-      'echo "latest_commit=$(git ls-remote origin -h ${{ github.ref }} | cut -f1)" >> $GITHUB_OUTPUT',
+        'echo "latest_commit=$(git ls-remote origin -h ${{ github.ref }} | cut -f1)" >> $GITHUB_OUTPUT',
       "git_remote step in release workflow did not match expected string, please check if the workaround still works!"
     );
     const previousCommand = gitRemoteJob.run;
