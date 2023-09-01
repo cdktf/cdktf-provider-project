@@ -159,8 +159,6 @@ jobs:
         run: git config --global --add safe.directory $(pwd)
       - name: build
         run: npx projen build
-      - name: changelog file
-        run: cat dist/changelog.md
       - name: Update Version Compatiblity File
         run: yarn update-version-file
       - name: Revert package.json version bump
@@ -2646,7 +2644,7 @@ const execSync = require(\\"child_process\\").execSync;
     // set by the projen file that generates this script
     const TERRAFORM_PROVIDER_VERSION = \\"<unknown>\\"
     const CDKTF_VERSION = \\">=0.12.2 <0.14.0\\"
-    const filePath = path.join(__dirname, \\"../dist/version.txt\\")
+    const filePath = path.join(__dirname, \\"../dist/dist/version.txt\\")
     const PREBUILT_PROVIDER_VERSION = fs.readFileSync(filePath, \\"utf8\\")
     const SEPARATOR = \`| --- | --- | --- |\\\\n\`
     if (!fs.existsSync(\\"VERSIONS_COMPATIBILITY.md\\")) {
@@ -2869,8 +2867,6 @@ jobs:
         run: git config --global --add safe.directory $(pwd)
       - name: build
         run: npx projen build
-      - name: changelog file
-        run: cat dist/changelog.md
       - name: Update Version Compatiblity File
         run: yarn update-version-file
       - name: Revert package.json version bump
@@ -5404,7 +5400,7 @@ const execSync = require(\\"child_process\\").execSync;
     // set by the projen file that generates this script
     const TERRAFORM_PROVIDER_VERSION = \\"<unknown>\\"
     const CDKTF_VERSION = \\"0.10.3\\"
-    const filePath = path.join(__dirname, \\"../dist/version.txt\\")
+    const filePath = path.join(__dirname, \\"../dist/dist/version.txt\\")
     const PREBUILT_PROVIDER_VERSION = fs.readFileSync(filePath, \\"utf8\\")
     const SEPARATOR = \`| --- | --- | --- |\\\\n\`
     if (!fs.existsSync(\\"VERSIONS_COMPATIBILITY.md\\")) {
@@ -5624,8 +5620,6 @@ jobs:
         run: git config --global --add safe.directory $(pwd)
       - name: build
         run: npx projen build
-      - name: changelog file
-        run: cat dist/changelog.md
       - name: Update Version Compatiblity File
         run: yarn update-version-file
       - name: Revert package.json version bump
@@ -8111,7 +8105,7 @@ const execSync = require(\\"child_process\\").execSync;
     // set by the projen file that generates this script
     const TERRAFORM_PROVIDER_VERSION = \\"<unknown>\\"
     const CDKTF_VERSION = \\"0.10.3\\"
-    const filePath = path.join(__dirname, \\"../dist/version.txt\\")
+    const filePath = path.join(__dirname, \\"../dist/dist/version.txt\\")
     const PREBUILT_PROVIDER_VERSION = fs.readFileSync(filePath, \\"utf8\\")
     const SEPARATOR = \`| --- | --- | --- |\\\\n\`
     if (!fs.existsSync(\\"VERSIONS_COMPATIBILITY.md\\")) {

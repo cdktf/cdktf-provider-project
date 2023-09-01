@@ -25,10 +25,6 @@ export class VersionCompatibilityMatrix {
       exec: `node ./${versionFileUpdateScript.path}`,
     });
     project.buildWorkflow?.addPostBuildSteps({
-      name: "changelog file",
-      run: "cat dist/changelog.md",
-    });
-    project.buildWorkflow?.addPostBuildSteps({
       name: "Update Version Compatiblity File",
       run: "yarn update-version-file",
     });
