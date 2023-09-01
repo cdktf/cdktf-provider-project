@@ -350,10 +350,6 @@ export class CdktfProviderProject extends cdk.JsiiProject {
       providerVersion,
       fqproviderName,
     });
-    new VersionCompatibilityMatrix(this, {
-      underlyingTerraformProviderVersion,
-      cdktfVersion,
-    });
     new ProviderUpgrade(this, {
       checkForUpgradesScriptPath: upgradeScript.path,
       workflowRunsOn,
@@ -399,7 +395,7 @@ export class CdktfProviderProject extends cdk.JsiiProject {
     const gitRemoteJob = releaseJobSteps.find((it) => it.id === "git_remote");
     assert(
       gitRemoteJob.run ===
-        'echo "latest_commit=$(git ls-remote origin -h ${{ github.ref }} | cut -f1)" >> $GITHUB_OUTPUT',
+      'echo "latest_commit=$(git ls-remote origin -h ${{ github.ref }} | cut -f1)" >> $GITHUB_OUTPUT',
       "git_remote step in release workflow did not match expected string, please check if the workaround still works!"
     );
     const previousCommand = gitRemoteJob.run;
@@ -458,6 +454,12 @@ export class CdktfProviderProject extends cdk.JsiiProject {
     this.buildWorkflow?.addPostBuildSteps({
       name: "Revert package.json version bump",
       run: "git checkout package.json",
+    });
+    // Don't move above "Revert package.json version bump" step
+    // needs package.json to have correct version
+    new VersionCompatibilityMatrix(this, {
+      underlyingTerraformProviderVersion,
+      cdktfVersion,
     });
 
     new CopyrightHeaders(this);

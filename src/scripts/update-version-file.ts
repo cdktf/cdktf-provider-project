@@ -40,8 +40,10 @@ export class UpdateVersionFile extends FileBase {
     // set by the projen file that generates this script
     const TERRAFORM_PROVIDER_VERSION = "${underlyingTerraformProviderVersion}"
     const CDKTF_VERSION = "${cdktfVersion}"
-    const filePath = path.join(__dirname, "../dist/dist/version.txt")
-    const PREBUILT_PROVIDER_VERSION = fs.readFileSync(filePath, "utf8")
+    const filePath = path.join(__dirname, "../package.json")
+    const packageJson = JSON.parse(fs.readFileSync(filePath, "utf8"))
+    const PREBUILT_PROVIDER_VERSION = packageJson.version
+    console.log("PREBUILT_PROVIDER_VERSION", PREBUILT_PROVIDER_VERSION)
     const SEPARATOR = \`| --- | --- | --- |\\n\`
     if (!fs.existsSync("VERSIONS_COMPATIBILITY.md")) {
         const header = \`| Prebuilt Provider Version | Terraform Provider Version | CDKTF Version |\\n\${SEPARATOR}\`
