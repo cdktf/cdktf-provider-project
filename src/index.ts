@@ -59,7 +59,6 @@ const getMavenName = (providerName: string): string => {
 };
 
 const githubActionPinnedVersions = {
-  "peter-evans/close-issue": "276d7966e389d888f011539a86c8920025ea0626", // v3.0.1,
   "actions/checkout": "8e5e7e5ab8b370d6c329ec480221332ada57f0ab", // v3.5.2
   "actions/setup-node": "64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c", // v3.6.0
   "actions/upload-artifact": "0b7f8abb1508181956e8e162db84b466c27e18ce", // v3.1.2
