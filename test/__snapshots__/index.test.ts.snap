@@ -1022,7 +1022,7 @@ name: upgrade-main
 on:
   workflow_dispatch: {}
   schedule:
-    - cron: 0 0 * * *
+    - cron: 0 0 * * 1
 jobs:
   upgrade:
     name: Upgrade
@@ -3748,7 +3748,7 @@ name: upgrade-main
 on:
   workflow_dispatch: {}
   schedule:
-    - cron: 0 0 * * *
+    - cron: 0 0 * * 1
 jobs:
   upgrade:
     name: Upgrade
@@ -6423,7 +6423,7 @@ name: upgrade-main
 on:
   workflow_dispatch: {}
   schedule:
-    - cron: 0 0 * * *
+    - cron: 0 0 * * 1
 jobs:
   upgrade:
     name: Upgrade

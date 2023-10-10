@@ -3,6 +3,7 @@ import assert = require("assert");
 import { pascalCase } from "change-case";
 import { TextFile, cdk, github, JsonPatch } from "projen";
 import { JobStep } from "projen/lib/github/workflows-model";
+import { UpgradeDependenciesSchedule } from "projen/lib/javascript";
 import { AlertOpenPrs } from "./alert-open-prs";
 import { AutoCloseCommunityIssues } from "./auto-close-community-issues";
 import { CdktfConfig } from "./cdktf-config";
@@ -212,6 +213,7 @@ export class CdktfProviderProject extends cdk.JsiiProject {
       depsUpgradeOptions: {
         workflowOptions: {
           labels: ["automerge", "dependencies"],
+          schedule: UpgradeDependenciesSchedule.WEEKLY,
         },
       },
       python: packageInfo.python,
