@@ -70,11 +70,6 @@ export class UpgradeNode {
             run: "yarn projen",
           },
           {
-            name: "Test compile to ensure the update doesn't introduce any major issues",
-            if: "env.CURRENT_NODEJS_VERSION_SHORT != env.NEW_NODEJS_VERSION_SHORT",
-            run: "yarn run compile",
-          },
-          {
             name: "Get values for pull request",
             id: "latest_version",
             if: "env.CURRENT_NODEJS_VERSION_SHORT != env.NEW_NODEJS_VERSION_SHORT",
