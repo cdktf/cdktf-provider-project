@@ -122,6 +122,8 @@ jobs:
       issues: write
     if: github.event.issue.author_association != 'OWNER' && github.event.issue.author_association != 'MEMBER' && github.event.issue.author_association != 'COLLABORATOR'
     steps:
+      - name: Checkout
+        uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab
       - name: Auto-close issues by non-collaborators
         env:
           GH_TOKEN: \${{ secrets.GITHUB_TOKEN }}
@@ -145,6 +147,8 @@ jobs:
       pull-requests: write
     if: github.event.pull_request.author_association != 'OWNER' && github.event.pull_request.author_association != 'MEMBER' && github.event.pull_request.author_association != 'COLLABORATOR'
     steps:
+      - name: Checkout
+        uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab
       - name: Auto-close PRs by non-collaborators
         env:
           GH_TOKEN: \${{ secrets.GITHUB_TOKEN }}
@@ -2798,6 +2802,8 @@ jobs:
       issues: write
     if: github.event.issue.author_association != 'OWNER' && github.event.issue.author_association != 'MEMBER' && github.event.issue.author_association != 'COLLABORATOR'
     steps:
+      - name: Checkout
+        uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab
       - name: Auto-close issues by non-collaborators
         env:
           GH_TOKEN: \${{ secrets.GITHUB_TOKEN }}
@@ -2821,6 +2827,8 @@ jobs:
       pull-requests: write
     if: github.event.pull_request.author_association != 'OWNER' && github.event.pull_request.author_association != 'MEMBER' && github.event.pull_request.author_association != 'COLLABORATOR'
     steps:
+      - name: Checkout
+        uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab
       - name: Auto-close PRs by non-collaborators
         env:
           GH_TOKEN: \${{ secrets.GITHUB_TOKEN }}
@@ -5525,6 +5533,8 @@ jobs:
       issues: write
     if: github.event.issue.author_association != 'OWNER' && github.event.issue.author_association != 'MEMBER' && github.event.issue.author_association != 'COLLABORATOR'
     steps:
+      - name: Checkout
+        uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab
       - name: Auto-close issues by non-collaborators
         env:
           GH_TOKEN: \${{ secrets.GITHUB_TOKEN }}
@@ -5548,6 +5558,8 @@ jobs:
       pull-requests: write
     if: github.event.pull_request.author_association != 'OWNER' && github.event.pull_request.author_association != 'MEMBER' && github.event.pull_request.author_association != 'COLLABORATOR'
     steps:
+      - name: Checkout
+        uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab
       - name: Auto-close PRs by non-collaborators
         env:
           GH_TOKEN: \${{ secrets.GITHUB_TOKEN }}
