@@ -82,6 +82,7 @@
     },
     {
       "name": "node-fetch",
+      "version": "~2",
       "type": "build"
     },
     {

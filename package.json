@@ -53,7 +53,7 @@
     "jsii-diff": "^1.70.0",
     "jsii-docgen": "^3.8.31",
     "jsii-pacmak": "^1.70.0",
-    "node-fetch": "^3.3.2",
+    "node-fetch": "~2",
     "npm-check-updates": "^16",
     "prettier": "^2.7.1",
     "projen": "0.71.46",
