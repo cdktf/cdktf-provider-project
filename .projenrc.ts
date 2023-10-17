@@ -35,7 +35,7 @@ const project = new cdk.JsiiProject({
   devDeps: [
     "@types/fs-extra",
     "glob",
-    "node-fetch", // @TODO this can be removed once we upgrade to Node 18 and use native fetch
+    "node-fetch@~2", // @TODO this can be removed once we upgrade to Node 18 and use native fetch
   ],
   bundledDeps: ["change-case", "fs-extra"],
   license: "MPL-2.0",
