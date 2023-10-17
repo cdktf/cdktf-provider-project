@@ -56,6 +56,10 @@ export class AutoCloseCommunityIssues {
       if: "github.event.issue.author_association != 'OWNER' && github.event.issue.author_association != 'MEMBER' && github.event.issue.author_association != 'COLLABORATOR'",
       steps: [
         {
+          name: "Checkout",
+          uses: "actions/checkout@v4",
+        },
+        {
           name: "Auto-close issues by non-collaborators",
           env: {
             GH_TOKEN: "${{ secrets.GITHUB_TOKEN }}",
@@ -82,6 +86,10 @@ export class AutoCloseCommunityIssues {
       },
       if: "github.event.pull_request.author_association != 'OWNER' && github.event.pull_request.author_association != 'MEMBER' && github.event.pull_request.author_association != 'COLLABORATOR'",
       steps: [
+        {
+          name: "Checkout",
+          uses: "actions/checkout@v4",
+        },
         {
           name: "Auto-close PRs by non-collaborators",
           env: {
