@@ -54,7 +54,7 @@ export class AutoCloseCommunityIssues {
       permissions: {
         issues: JobPermission.WRITE,
       },
-      if: `github.event.issue.user.login == 'team-tf-cdk' || contains(${maintainerStatuses}, github.event.issue.author_association)`,
+      if: `github.event.issue.user.login != 'team-tf-cdk' && !contains(${maintainerStatuses}, github.event.issue.author_association)`,
       steps: [
         {
           name: "Checkout",
@@ -85,7 +85,7 @@ export class AutoCloseCommunityIssues {
       permissions: {
         pullRequests: JobPermission.WRITE,
       },
-      if: `github.event.pull_request.user.login == 'team-tf-cdk' || contains(${maintainerStatuses}, github.event.pull_request.author_association)`,
+      if: `github.event.pull_request.user.login != 'team-tf-cdk' && !contains(${maintainerStatuses}, github.event.pull_request.author_association)`,
       steps: [
         {
           name: "Checkout",
