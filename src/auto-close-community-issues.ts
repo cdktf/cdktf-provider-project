@@ -97,7 +97,7 @@ export class AutoCloseCommunityIssues {
             GH_TOKEN: "${{ secrets.GITHUB_TOKEN }}",
           },
           run:
-            'gh pr close ${{ github.event.pull_request.number }} --delete-branch --comment "' +
+            'gh pr close ${{ github.event.pull_request.number }} --comment "' +
             comment +
             '"',
         },
