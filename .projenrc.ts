@@ -30,6 +30,7 @@ const project = new cdk.JsiiProject({
   repositoryUrl: "https://github.com/cdktf/cdktf-provider-project.git",
   authorOrganization: true,
   licensed: false, // we do supply our own license file with a custom header
+  pullRequestTemplate: false,
   peerDeps: ["projen@^0.71.46"],
   deps: ["change-case", "fs-extra"],
   devDeps: [
@@ -38,7 +39,6 @@ const project = new cdk.JsiiProject({
     "node-fetch@~2", // @TODO this can be removed once we upgrade to Node 18 and use native fetch
   ],
   bundledDeps: ["change-case", "fs-extra"],
-  license: "MPL-2.0",
   defaultReleaseBranch: "main",
   releaseToNpm: true,
   minNodeVersion: "16.14.0",
@@ -68,6 +68,10 @@ new AutoApprove(project);
 new Automerge(project);
 new UpgradeNode(project);
 
+project.addPackageIgnore("projenrc");
+project.addPackageIgnore("/.projenrc.ts");
+project.addPackageIgnore(".copywrite.hcl");
+
 // Run copywrite tool to add copyright headers to all files
 // This is for this repository itself, not for the projects
 // using this Projen template
@@ -82,6 +86,20 @@ project.buildWorkflow?.addPostBuildSteps(
 // Use pinned versions of github actions
 Object.entries(githubActionPinnedVersions).forEach(([name, sha]) => {
   project.github?.actions.set(name, `${name}@${sha}`);
+});
+
+const releaseWorkflow = project.tryFindObjectFile(
+  ".github/workflows/release.yml"
+);
+releaseWorkflow?.addOverride("on.push", {
+  branches: ["main"],
+  "paths-ignore": [
+    // don't do a release if the change was only to these files/directories
+    ".github/ISSUE_TEMPLATE/**",
+    ".github/CODEOWNERS",
+    ".github/dependabot.yml",
+    ".github/**/*.md",
+  ],
 });
 
 project.synth();
