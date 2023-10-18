@@ -37,6 +37,7 @@ export class AutoCloseCommunityIssues {
       },
     });
 
+    const maintainerStatuses = `fromJSON('["OWNER", "MEMBER", "COLLABORATOR", "CONTRIBUTOR"]')`;
     const comment =
       `Hi there! 👋 We appreciate your interest, but this is probably not the right place. 
       All the code in this repository is auto-generated using 
@@ -53,7 +54,7 @@ export class AutoCloseCommunityIssues {
       permissions: {
         issues: JobPermission.WRITE,
       },
-      if: "github.event.issue.author_association != 'OWNER' && github.event.issue.author_association != 'MEMBER' && github.event.issue.author_association != 'COLLABORATOR'",
+      if: `github.event.issue.user.login == 'team-tf-cdk' || contains(${maintainerStatuses}, github.event.issue.author_association)`,
       steps: [
         {
           name: "Checkout",
@@ -84,7 +85,7 @@ export class AutoCloseCommunityIssues {
       permissions: {
         pullRequests: JobPermission.WRITE,
       },
-      if: "github.event.pull_request.author_association != 'OWNER' && github.event.pull_request.author_association != 'MEMBER' && github.event.pull_request.author_association != 'COLLABORATOR'",
+      if: `github.event.pull_request.user.login == 'team-tf-cdk' || contains(${maintainerStatuses}, github.event.pull_request.author_association)`,
       steps: [
         {
           name: "Checkout",
