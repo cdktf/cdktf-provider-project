@@ -1053,6 +1053,19 @@ in order to create a publishing task for each publishing activity.
 
 ---
 
+##### `releasableCommits`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.releasableCommits"></a>
+
+```typescript
+public readonly releasableCommits: ReleasableCommits;
+```
+
+- *Type:* [`projen.ReleasableCommits`](#projen.ReleasableCommits)
+- *Default:* ReleasableCommits.everyCommit()
+
+Find commits that should be considered releasable Used to decide if a release is required.
+
+---
+
 ##### `releaseBranches`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.releaseBranches"></a>
 
 ```typescript
@@ -1229,6 +1242,18 @@ Github Runner selection labels.
 
 ---
 
+##### `workflowRunsOnGroup`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.workflowRunsOnGroup"></a>
+
+```typescript
+public readonly workflowRunsOnGroup: GroupRunnerOptions;
+```
+
+- *Type:* [`projen.GroupRunnerOptions`](#projen.GroupRunnerOptions)
+
+Github Runner Group selection options.
+
+---
+
 ##### `defaultReleaseBranch`<sup>Required</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.defaultReleaseBranch"></a>
 
 ```typescript
@@ -1317,7 +1342,7 @@ public readonly codeCov: boolean;
 - *Type:* `boolean`
 - *Default:* false
 
-Define a GitHub workflow step for sending code coverage metrics to https://codecov.io/ Uses codecov/codecov-action@v3 A secret is required for private repos. Configured with @codeCovTokenSecret.
+Define a GitHub workflow step for sending code coverage metrics to https://codecov.io/ Uses codecov/codecov-action@v3 A secret is required for private repos. Configured with `@codeCovTokenSecret`.
 
 ---
 
@@ -1397,7 +1422,7 @@ public readonly depsUpgrade: boolean;
 - *Type:* `boolean`
 - *Default:* true
 
-Use github workflows to handle dependency upgrades.
+Use tasks and github workflows to handle dependency upgrades.
 
 Cannot be used in conjunction with `dependabot`.
 
@@ -1706,6 +1731,19 @@ public readonly workflowNodeVersion: string;
 - *Default:* same as `minNodeVersion`
 
 The node version to use in GitHub workflows.
+
+---
+
+##### `workflowPackageCache`<sup>Optional</sup> <a name="@cdktf/provider-project.CdktfProviderProjectOptions.property.workflowPackageCache"></a>
+
+```typescript
+public readonly workflowPackageCache: boolean;
+```
+
+- *Type:* `boolean`
+- *Default:* false
+
+Enable Node.js package cache in GitHub workflows.
 
 ---
 
