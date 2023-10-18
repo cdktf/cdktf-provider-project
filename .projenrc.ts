@@ -42,7 +42,7 @@ const project = new cdk.JsiiProject({
   bundledDeps: ["change-case", "fs-extra"],
   defaultReleaseBranch: "main",
   releaseToNpm: true,
-  minNodeVersion: "16.14.0",
+  minNodeVersion: "18.12.0",
   mergify: false,
   scripts: {
     "eslint:fix": "eslint . --ext .ts --fix",
