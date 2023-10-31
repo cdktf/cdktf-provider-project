@@ -11,7 +11,7 @@ const getProject = (
 ): CdktfProviderProject =>
   new CdktfProviderProject({
     name: "test",
-    terraformProvider: "random",
+    terraformProvider: "random@~>2.0",
     author: "cdktf-team",
     authorAddress: "cdktf-team address",
     cdktfVersion: "0.10.3",

@@ -157,6 +157,9 @@ export class CdktfConfig {
       },
     });
 
-    new ReadmeFile(project, "README.md", options);
+    new ReadmeFile(project, "README.md", {
+      ...options,
+      underlyingTerraformVersion: actualProviderVersion,
+    });
   }
 }
