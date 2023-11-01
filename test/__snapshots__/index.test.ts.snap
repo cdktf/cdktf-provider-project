@@ -123,7 +123,7 @@ jobs:
     if: github.event.issue.user.login != 'team-tf-cdk' && !contains(fromJSON('[\\"OWNER\\", \\"MEMBER\\", \\"COLLABORATOR\\", \\"CONTRIBUTOR\\"]'), github.event.issue.author_association)
     steps:
       - name: Checkout
-        uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11
       - name: Auto-close issues by non-collaborators
         env:
           GH_TOKEN: \${{ secrets.GITHUB_TOKEN }}
@@ -148,7 +148,7 @@ jobs:
     if: github.event.pull_request.user.login != 'team-tf-cdk' && !contains(fromJSON('[\\"OWNER\\", \\"MEMBER\\", \\"COLLABORATOR\\", \\"CONTRIBUTOR\\"]'), github.event.pull_request.author_association)
     steps:
       - name: Checkout
-        uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11
       - name: Auto-close PRs by non-collaborators
         env:
           GH_TOKEN: \${{ secrets.GITHUB_TOKEN }}
@@ -175,7 +175,7 @@ jobs:
       CI: \\"true\\"
     steps:
       - name: Checkout
-        uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11
         with:
           ref: \${{ github.event.pull_request.head.ref }}
           repository: \${{ github.event.pull_request.head.repo.full_name }}
@@ -199,7 +199,7 @@ jobs:
           git diff --staged --patch --exit-code > .repo.patch || echo \\"self_mutation_happened=true\\" >> $GITHUB_OUTPUT
       - name: Upload patch
         if: steps.self_mutation.outputs.self_mutation_happened
-        uses: actions/upload-artifact@0b7f8abb1508181956e8e162db84b466c27e18ce
+        uses: actions/upload-artifact@a8a3f3ad30e3422c9c7b888a15615d19a852ae32
         with:
           name: .repo.patch
           path: .repo.patch
@@ -213,7 +213,7 @@ jobs:
         run: cd dist && getfacl -R . > permissions-backup.acl
         continue-on-error: true
       - name: Upload artifact
-        uses: actions/upload-artifact@0b7f8abb1508181956e8e162db84b466c27e18ce
+        uses: actions/upload-artifact@a8a3f3ad30e3422c9c7b888a15615d19a852ae32
         with:
           name: build-artifact
           path: dist
@@ -225,7 +225,7 @@ jobs:
     if: always() && needs.build.outputs.self_mutation_happened && !(github.event.pull_request.head.repo.full_name != github.repository)
     steps:
       - name: Checkout
-        uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11
         with:
           token: \${{ secrets.PROJEN_GITHUB_TOKEN }}
           ref: \${{ github.event.pull_request.head.ref }}
@@ -254,7 +254,7 @@ jobs:
     permissions: {}
     if: \\"! needs.build.outputs.self_mutation_happened\\"
     steps:
-      - uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c
+      - uses: actions/setup-node@8f152de45cc393bb48ce5d89d36b731f54556e65
         with:
           node-version: 18.x
       - name: Download build artifacts
@@ -279,11 +279,11 @@ jobs:
     permissions: {}
     if: \\"! needs.build.outputs.self_mutation_happened\\"
     steps:
-      - uses: actions/setup-java@5ffc13f4174014e2d4d4572b3d74c3fa61aeb2c2
+      - uses: actions/setup-java@0ab4596768b603586c0de567f2430c30f5b0d2b0
         with:
           distribution: temurin
           java-version: 11.x
-      - uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c
+      - uses: actions/setup-node@8f152de45cc393bb48ce5d89d36b731f54556e65
         with:
           node-version: 18.x
       - name: Download build artifacts
@@ -308,10 +308,10 @@ jobs:
     permissions: {}
     if: \\"! needs.build.outputs.self_mutation_happened\\"
     steps:
-      - uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c
+      - uses: actions/setup-node@8f152de45cc393bb48ce5d89d36b731f54556e65
         with:
           node-version: 18.x
-      - uses: actions/setup-python@bd6b4b6205c4dbad673328db7b31b7fab9e241c0
+      - uses: actions/setup-python@65d7f2d534ac1bc67fcd62888c5f4f3d2cb2b236
         with:
           python-version: 3.x
       - name: Download build artifacts
@@ -336,10 +336,10 @@ jobs:
     permissions: {}
     if: \\"! needs.build.outputs.self_mutation_happened\\"
     steps:
-      - uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c
+      - uses: actions/setup-node@8f152de45cc393bb48ce5d89d36b731f54556e65
         with:
           node-version: 18.x
-      - uses: actions/setup-dotnet@607fce577a46308457984d59e4954e075820f10a
+      - uses: actions/setup-dotnet@3447fd6a9f9e57506b15f895c5b76d3b197dc7c2
         with:
           dotnet-version: 3.x
       - name: Download build artifacts
@@ -364,10 +364,10 @@ jobs:
     permissions: {}
     if: \\"! needs.build.outputs.self_mutation_happened\\"
     steps:
-      - uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c
+      - uses: actions/setup-node@8f152de45cc393bb48ce5d89d36b731f54556e65
         with:
           node-version: 18.x
-      - uses: actions/setup-go@fac708d6674e30b6ba41289acaab6d4b75aa0753
+      - uses: actions/setup-go@93397bea11091df50f3d7e59dc26a7711a8bcfbe
         with:
           go-version: ^1.16.0
       - name: Download build artifacts
@@ -412,7 +412,7 @@ jobs:
       CI: \\"true\\"
     steps:
       - name: Checkout
-        uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11
         with:
           ref: \${{ inputs.sha }}
           fetch-depth: 0
@@ -423,7 +423,7 @@ jobs:
           git config user.name \\"github-actions\\"
           git config user.email \\"github-actions@github.com\\"
       - name: Setup Node.js
-        uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c
+        uses: actions/setup-node@8f152de45cc393bb48ce5d89d36b731f54556e65
         with:
           node-version: 16.14.0
       - name: Install dependencies
@@ -434,7 +434,7 @@ jobs:
         run: cd dist && getfacl -R . > permissions-backup.acl
         continue-on-error: true
       - name: Upload artifact
-        uses: actions/upload-artifact@0b7f8abb1508181956e8e162db84b466c27e18ce
+        uses: actions/upload-artifact@a8a3f3ad30e3422c9c7b888a15615d19a852ae32
         with:
           name: build-artifact
           path: dist
@@ -448,11 +448,11 @@ jobs:
       CI: \\"true\\"
     steps:
       - name: Setup Node.js
-        uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c
+        uses: actions/setup-node@8f152de45cc393bb48ce5d89d36b731f54556e65
         with:
           node-version: 16.14.0
       - name: Setup Go
-        uses: actions/setup-go@fac708d6674e30b6ba41289acaab6d4b75aa0753
+        uses: actions/setup-go@93397bea11091df50f3d7e59dc26a7711a8bcfbe
         with:
           go-version: ^1.16.0
       - name: Download build artifacts
@@ -500,7 +500,7 @@ jobs:
       pull-requests: write
       issues: write
     steps:
-      - uses: dessant/lock-threads@c1b35aecc5cdb1a34539d14196df55838bb2f836
+      - uses: dessant/lock-threads@be8aa5be94131386884a6da4189effda9b14aa21
         with:
           issue-comment: I'm going to lock this issue because it has been closed for at least 7 days. This helps our maintainers find and focus on the active issues. If you've found a problem that seems similar to this, please [open a new issue](https://github.com/cdktf/cdktf-provider-project/issues/new) so we can investigate further.
           issue-inactive-days: 7
@@ -523,7 +523,7 @@ jobs:
       CHECKPOINT_DISABLE: \\"1\\"
     steps:
       - name: Checkout
-        uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11
         with:
           ref: \${{ github.event.pull_request.head.ref }}
           repository: \${{ github.event.pull_request.head.repo.full_name }}
@@ -549,7 +549,7 @@ jobs:
       - name: Regenerate bindings
         run: yarn run fetch && yarn run compile && yarn run docgen
       - name: Create PR
-        uses: peter-evans/create-pull-request@284f54f989303d2699d373481a0cfa13ad5a6666
+        uses: peter-evans/create-pull-request@153407881ec5c347639a548ade7d8ad1d6740e38
         with:
           token: \${{ secrets.GITHUB_TOKEN }}
           branch: cdktf-next-pr
@@ -579,7 +579,7 @@ jobs:
       NODE_OPTIONS: --max-old-space-size=6656
     steps:
       - name: Checkout
-        uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11
       - run: yarn install
       - id: check_version
         run: yarn check-if-new-provider-version
@@ -602,7 +602,7 @@ jobs:
         run: yarn docgen
       - name: Create Pull Request
         if: \${{ steps.check_version.outputs.new_version == 'available' }}
-        uses: peter-evans/create-pull-request@284f54f989303d2699d373481a0cfa13ad5a6666
+        uses: peter-evans/create-pull-request@153407881ec5c347639a548ade7d8ad1d6740e38
         with:
           commit-message: \\"fix: upgrade provider from \`\${{ steps.current_version.outputs.value }}\` to version \`\${{ steps.new_version.outputs.value }}\`\\"
           branch: auto/provider-upgrade
@@ -634,7 +634,7 @@ jobs:
     permissions:
       pull-requests: write
     steps:
-      - uses: amannn/action-semantic-pull-request@v5.0.2
+      - uses: amannn/action-semantic-pull-request@47b15d52c5c30e94a17ec87eb8dd51ff5221fed9
         env:
           GITHUB_TOKEN: \${{ secrets.GITHUB_TOKEN }}
         with:
@@ -664,7 +664,7 @@ jobs:
       CI: \\"true\\"
     steps:
       - name: Checkout
-        uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11
         with:
           fetch-depth: 0
       - name: Set git config safe.directory
@@ -686,7 +686,7 @@ jobs:
         continue-on-error: true
       - name: Upload artifact
         if: \${{ steps.git_remote.outputs.latest_commit == github.sha }}
-        uses: actions/upload-artifact@0b7f8abb1508181956e8e162db84b466c27e18ce
+        uses: actions/upload-artifact@a8a3f3ad30e3422c9c7b888a15615d19a852ae32
         with:
           name: build-artifact
           path: dist
@@ -699,7 +699,7 @@ jobs:
       issues: write
     if: needs.release.outputs.latest_commit == github.sha
     steps:
-      - uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c
+      - uses: actions/setup-node@8f152de45cc393bb48ce5d89d36b731f54556e65
         with:
           node-version: 18.x
       - name: Download build artifacts
@@ -742,7 +742,7 @@ jobs:
       issues: write
     if: needs.release.outputs.latest_commit == github.sha
     steps:
-      - uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c
+      - uses: actions/setup-node@8f152de45cc393bb48ce5d89d36b731f54556e65
         with:
           node-version: 18.x
       - name: Download build artifacts
@@ -789,11 +789,11 @@ jobs:
       issues: write
     if: needs.release.outputs.latest_commit == github.sha
     steps:
-      - uses: actions/setup-java@5ffc13f4174014e2d4d4572b3d74c3fa61aeb2c2
+      - uses: actions/setup-java@0ab4596768b603586c0de567f2430c30f5b0d2b0
         with:
           distribution: temurin
           java-version: 11.x
-      - uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c
+      - uses: actions/setup-node@8f152de45cc393bb48ce5d89d36b731f54556e65
         with:
           node-version: 18.x
       - name: Download build artifacts
@@ -844,10 +844,10 @@ jobs:
       issues: write
     if: needs.release.outputs.latest_commit == github.sha
     steps:
-      - uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c
+      - uses: actions/setup-node@8f152de45cc393bb48ce5d89d36b731f54556e65
         with:
           node-version: 18.x
-      - uses: actions/setup-python@bd6b4b6205c4dbad673328db7b31b7fab9e241c0
+      - uses: actions/setup-python@65d7f2d534ac1bc67fcd62888c5f4f3d2cb2b236
         with:
           python-version: 3.x
       - name: Download build artifacts
@@ -893,10 +893,10 @@ jobs:
       issues: write
     if: needs.release.outputs.latest_commit == github.sha
     steps:
-      - uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c
+      - uses: actions/setup-node@8f152de45cc393bb48ce5d89d36b731f54556e65
         with:
           node-version: 18.x
-      - uses: actions/setup-dotnet@607fce577a46308457984d59e4954e075820f10a
+      - uses: actions/setup-dotnet@3447fd6a9f9e57506b15f895c5b76d3b197dc7c2
         with:
           dotnet-version: 3.x
       - name: Download build artifacts
@@ -941,10 +941,10 @@ jobs:
       issues: write
     if: needs.release.outputs.latest_commit == github.sha
     steps:
-      - uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c
+      - uses: actions/setup-node@8f152de45cc393bb48ce5d89d36b731f54556e65
         with:
           node-version: 18.x
-      - uses: actions/setup-go@fac708d6674e30b6ba41289acaab6d4b75aa0753
+      - uses: actions/setup-go@93397bea11091df50f3d7e59dc26a7711a8bcfbe
         with:
           go-version: ^1.16.0
       - name: Download build artifacts
@@ -1039,7 +1039,7 @@ jobs:
       patch_created: \${{ steps.create_patch.outputs.patch_created }}
     steps:
       - name: Checkout
-        uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11
         with:
           ref: main
       - name: Set git config safe.directory
@@ -1055,7 +1055,7 @@ jobs:
           git diff --staged --patch --exit-code > .repo.patch || echo \\"patch_created=true\\" >> $GITHUB_OUTPUT
       - name: Upload patch
         if: steps.create_patch.outputs.patch_created
-        uses: actions/upload-artifact@0b7f8abb1508181956e8e162db84b466c27e18ce
+        uses: actions/upload-artifact@a8a3f3ad30e3422c9c7b888a15615d19a852ae32
         with:
           name: .repo.patch
           path: .repo.patch
@@ -1068,7 +1068,7 @@ jobs:
     if: \${{ needs.upgrade.outputs.patch_created }}
     steps:
       - name: Checkout
-        uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11
         with:
           ref: main
       - name: Set git config safe.directory
@@ -1086,7 +1086,7 @@ jobs:
           git config user.email \\"github-team-tf-cdk@hashicorp.com\\"
       - name: Create Pull Request
         id: create-pr
-        uses: peter-evans/create-pull-request@284f54f989303d2699d373481a0cfa13ad5a6666
+        uses: peter-evans/create-pull-request@153407881ec5c347639a548ade7d8ad1d6740e38
         with:
           token: \${{ secrets.PROJEN_GITHUB_TOKEN }}
           commit-message: |-
@@ -2794,7 +2794,7 @@ jobs:
     if: github.event.issue.user.login != 'team-tf-cdk' && !contains(fromJSON('[\\"OWNER\\", \\"MEMBER\\", \\"COLLABORATOR\\", \\"CONTRIBUTOR\\"]'), github.event.issue.author_association)
     steps:
       - name: Checkout
-        uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11
       - name: Auto-close issues by non-collaborators
         env:
           GH_TOKEN: \${{ secrets.GITHUB_TOKEN }}
@@ -2819,7 +2819,7 @@ jobs:
     if: github.event.pull_request.user.login != 'team-tf-cdk' && !contains(fromJSON('[\\"OWNER\\", \\"MEMBER\\", \\"COLLABORATOR\\", \\"CONTRIBUTOR\\"]'), github.event.pull_request.author_association)
     steps:
       - name: Checkout
-        uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11
       - name: Auto-close PRs by non-collaborators
         env:
           GH_TOKEN: \${{ secrets.GITHUB_TOKEN }}
@@ -2849,7 +2849,7 @@ jobs:
       CI: \\"true\\"
     steps:
       - name: Checkout
-        uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11
         with:
           ref: \${{ github.event.pull_request.head.ref }}
           repository: \${{ github.event.pull_request.head.repo.full_name }}
@@ -2873,7 +2873,7 @@ jobs:
           git diff --staged --patch --exit-code > .repo.patch || echo \\"self_mutation_happened=true\\" >> $GITHUB_OUTPUT
       - name: Upload patch
         if: steps.self_mutation.outputs.self_mutation_happened
-        uses: actions/upload-artifact@0b7f8abb1508181956e8e162db84b466c27e18ce
+        uses: actions/upload-artifact@a8a3f3ad30e3422c9c7b888a15615d19a852ae32
         with:
           name: .repo.patch
           path: .repo.patch
@@ -2887,7 +2887,7 @@ jobs:
         run: cd dist && getfacl -R . > permissions-backup.acl
         continue-on-error: true
       - name: Upload artifact
-        uses: actions/upload-artifact@0b7f8abb1508181956e8e162db84b466c27e18ce
+        uses: actions/upload-artifact@a8a3f3ad30e3422c9c7b888a15615d19a852ae32
         with:
           name: build-artifact
           path: dist
@@ -2902,7 +2902,7 @@ jobs:
     if: always() && needs.build.outputs.self_mutation_happened && !(github.event.pull_request.head.repo.full_name != github.repository)
     steps:
       - name: Checkout
-        uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11
         with:
           token: \${{ secrets.PROJEN_GITHUB_TOKEN }}
           ref: \${{ github.event.pull_request.head.ref }}
@@ -2934,7 +2934,7 @@ jobs:
     permissions: {}
     if: \\"! needs.build.outputs.self_mutation_happened\\"
     steps:
-      - uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c
+      - uses: actions/setup-node@8f152de45cc393bb48ce5d89d36b731f54556e65
         with:
           node-version: 18.x
       - name: Download build artifacts
@@ -2962,11 +2962,11 @@ jobs:
     permissions: {}
     if: \\"! needs.build.outputs.self_mutation_happened\\"
     steps:
-      - uses: actions/setup-java@5ffc13f4174014e2d4d4572b3d74c3fa61aeb2c2
+      - uses: actions/setup-java@0ab4596768b603586c0de567f2430c30f5b0d2b0
         with:
           distribution: temurin
           java-version: 11.x
-      - uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c
+      - uses: actions/setup-node@8f152de45cc393bb48ce5d89d36b731f54556e65
         with:
           node-version: 18.x
       - name: Download build artifacts
@@ -2994,10 +2994,10 @@ jobs:
     permissions: {}
     if: \\"! needs.build.outputs.self_mutation_happened\\"
     steps:
-      - uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c
+      - uses: actions/setup-node@8f152de45cc393bb48ce5d89d36b731f54556e65
         with:
           node-version: 18.x
-      - uses: actions/setup-python@bd6b4b6205c4dbad673328db7b31b7fab9e241c0
+      - uses: actions/setup-python@65d7f2d534ac1bc67fcd62888c5f4f3d2cb2b236
         with:
           python-version: 3.x
       - name: Download build artifacts
@@ -3025,10 +3025,10 @@ jobs:
     permissions: {}
     if: \\"! needs.build.outputs.self_mutation_happened\\"
     steps:
-      - uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c
+      - uses: actions/setup-node@8f152de45cc393bb48ce5d89d36b731f54556e65
         with:
           node-version: 18.x
-      - uses: actions/setup-dotnet@607fce577a46308457984d59e4954e075820f10a
+      - uses: actions/setup-dotnet@3447fd6a9f9e57506b15f895c5b76d3b197dc7c2
         with:
           dotnet-version: 3.x
       - name: Download build artifacts
@@ -3056,10 +3056,10 @@ jobs:
     permissions: {}
     if: \\"! needs.build.outputs.self_mutation_happened\\"
     steps:
-      - uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c
+      - uses: actions/setup-node@8f152de45cc393bb48ce5d89d36b731f54556e65
         with:
           node-version: 18.x
-      - uses: actions/setup-go@fac708d6674e30b6ba41289acaab6d4b75aa0753
+      - uses: actions/setup-go@93397bea11091df50f3d7e59dc26a7711a8bcfbe
         with:
           go-version: ^1.16.0
       - name: Download build artifacts
@@ -3107,7 +3107,7 @@ jobs:
       CI: \\"true\\"
     steps:
       - name: Checkout
-        uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11
         with:
           ref: \${{ inputs.sha }}
           fetch-depth: 0
@@ -3118,7 +3118,7 @@ jobs:
           git config user.name \\"github-actions\\"
           git config user.email \\"github-actions@github.com\\"
       - name: Setup Node.js
-        uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c
+        uses: actions/setup-node@8f152de45cc393bb48ce5d89d36b731f54556e65
         with:
           node-version: 16.14.0
       - name: Install dependencies
@@ -3129,7 +3129,7 @@ jobs:
         run: cd dist && getfacl -R . > permissions-backup.acl
         continue-on-error: true
       - name: Upload artifact
-        uses: actions/upload-artifact@0b7f8abb1508181956e8e162db84b466c27e18ce
+        uses: actions/upload-artifact@a8a3f3ad30e3422c9c7b888a15615d19a852ae32
         with:
           name: build-artifact
           path: dist
@@ -3146,11 +3146,11 @@ jobs:
       CI: \\"true\\"
     steps:
       - name: Setup Node.js
-        uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c
+        uses: actions/setup-node@8f152de45cc393bb48ce5d89d36b731f54556e65
         with:
           node-version: 16.14.0
       - name: Setup Go
-        uses: actions/setup-go@fac708d6674e30b6ba41289acaab6d4b75aa0753
+        uses: actions/setup-go@93397bea11091df50f3d7e59dc26a7711a8bcfbe
         with:
           go-version: ^1.16.0
       - name: Download build artifacts
@@ -3198,7 +3198,7 @@ jobs:
       pull-requests: write
       issues: write
     steps:
-      - uses: dessant/lock-threads@c1b35aecc5cdb1a34539d14196df55838bb2f836
+      - uses: dessant/lock-threads@be8aa5be94131386884a6da4189effda9b14aa21
         with:
           issue-comment: I'm going to lock this issue because it has been closed for at least 7 days. This helps our maintainers find and focus on the active issues. If you've found a problem that seems similar to this, please [open a new issue](https://github.com/cdktf/cdktf-provider-project/issues/new) so we can investigate further.
           issue-inactive-days: 7
@@ -3221,7 +3221,7 @@ jobs:
       CHECKPOINT_DISABLE: \\"1\\"
     steps:
       - name: Checkout
-        uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11
         with:
           ref: \${{ github.event.pull_request.head.ref }}
           repository: \${{ github.event.pull_request.head.repo.full_name }}
@@ -3247,7 +3247,7 @@ jobs:
       - name: Regenerate bindings
         run: yarn run fetch && yarn run compile && yarn run docgen
       - name: Create PR
-        uses: peter-evans/create-pull-request@284f54f989303d2699d373481a0cfa13ad5a6666
+        uses: peter-evans/create-pull-request@153407881ec5c347639a548ade7d8ad1d6740e38
         with:
           token: \${{ secrets.GITHUB_TOKEN }}
           branch: cdktf-next-pr
@@ -3280,7 +3280,7 @@ jobs:
       NODE_OPTIONS: --max-old-space-size=31744
     steps:
       - name: Checkout
-        uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11
       - run: yarn install
       - id: check_version
         run: yarn check-if-new-provider-version
@@ -3303,7 +3303,7 @@ jobs:
         run: yarn docgen
       - name: Create Pull Request
         if: \${{ steps.check_version.outputs.new_version == 'available' }}
-        uses: peter-evans/create-pull-request@284f54f989303d2699d373481a0cfa13ad5a6666
+        uses: peter-evans/create-pull-request@153407881ec5c347639a548ade7d8ad1d6740e38
         with:
           commit-message: \\"fix: upgrade provider from \`\${{ steps.current_version.outputs.value }}\` to version \`\${{ steps.new_version.outputs.value }}\`\\"
           branch: auto/provider-upgrade
@@ -3335,7 +3335,7 @@ jobs:
     permissions:
       pull-requests: write
     steps:
-      - uses: amannn/action-semantic-pull-request@v5.0.2
+      - uses: amannn/action-semantic-pull-request@47b15d52c5c30e94a17ec87eb8dd51ff5221fed9
         env:
           GITHUB_TOKEN: \${{ secrets.GITHUB_TOKEN }}
         with:
@@ -3368,7 +3368,7 @@ jobs:
       CI: \\"true\\"
     steps:
       - name: Checkout
-        uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11
         with:
           fetch-depth: 0
       - name: Set git config safe.directory
@@ -3390,7 +3390,7 @@ jobs:
         continue-on-error: true
       - name: Upload artifact
         if: \${{ steps.git_remote.outputs.latest_commit == github.sha }}
-        uses: actions/upload-artifact@0b7f8abb1508181956e8e162db84b466c27e18ce
+        uses: actions/upload-artifact@a8a3f3ad30e3422c9c7b888a15615d19a852ae32
         with:
           name: build-artifact
           path: dist
@@ -3406,7 +3406,7 @@ jobs:
       issues: write
     if: needs.release.outputs.latest_commit == github.sha
     steps:
-      - uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c
+      - uses: actions/setup-node@8f152de45cc393bb48ce5d89d36b731f54556e65
         with:
           node-version: 18.x
       - name: Download build artifacts
@@ -3452,7 +3452,7 @@ jobs:
       issues: write
     if: needs.release.outputs.latest_commit == github.sha
     steps:
-      - uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c
+      - uses: actions/setup-node@8f152de45cc393bb48ce5d89d36b731f54556e65
         with:
           node-version: 18.x
       - name: Download build artifacts
@@ -3502,11 +3502,11 @@ jobs:
       issues: write
     if: needs.release.outputs.latest_commit == github.sha
     steps:
-      - uses: actions/setup-java@5ffc13f4174014e2d4d4572b3d74c3fa61aeb2c2
+      - uses: actions/setup-java@0ab4596768b603586c0de567f2430c30f5b0d2b0
         with:
           distribution: temurin
           java-version: 11.x
-      - uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c
+      - uses: actions/setup-node@8f152de45cc393bb48ce5d89d36b731f54556e65
         with:
           node-version: 18.x
       - name: Download build artifacts
@@ -3560,10 +3560,10 @@ jobs:
       issues: write
     if: needs.release.outputs.latest_commit == github.sha
     steps:
-      - uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c
+      - uses: actions/setup-node@8f152de45cc393bb48ce5d89d36b731f54556e65
         with:
           node-version: 18.x
-      - uses: actions/setup-python@bd6b4b6205c4dbad673328db7b31b7fab9e241c0
+      - uses: actions/setup-python@65d7f2d534ac1bc67fcd62888c5f4f3d2cb2b236
         with:
           python-version: 3.x
       - name: Download build artifacts
@@ -3612,10 +3612,10 @@ jobs:
       issues: write
     if: needs.release.outputs.latest_commit == github.sha
     steps:
-      - uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c
+      - uses: actions/setup-node@8f152de45cc393bb48ce5d89d36b731f54556e65
         with:
           node-version: 18.x
-      - uses: actions/setup-dotnet@607fce577a46308457984d59e4954e075820f10a
+      - uses: actions/setup-dotnet@3447fd6a9f9e57506b15f895c5b76d3b197dc7c2
         with:
           dotnet-version: 3.x
       - name: Download build artifacts
@@ -3663,10 +3663,10 @@ jobs:
       issues: write
     if: needs.release.outputs.latest_commit == github.sha
     steps:
-      - uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c
+      - uses: actions/setup-node@8f152de45cc393bb48ce5d89d36b731f54556e65
         with:
           node-version: 18.x
-      - uses: actions/setup-go@fac708d6674e30b6ba41289acaab6d4b75aa0753
+      - uses: actions/setup-go@93397bea11091df50f3d7e59dc26a7711a8bcfbe
         with:
           go-version: ^1.16.0
       - name: Download build artifacts
@@ -3761,7 +3761,7 @@ jobs:
       patch_created: \${{ steps.create_patch.outputs.patch_created }}
     steps:
       - name: Checkout
-        uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11
         with:
           ref: main
       - name: Set git config safe.directory
@@ -3777,7 +3777,7 @@ jobs:
           git diff --staged --patch --exit-code > .repo.patch || echo \\"patch_created=true\\" >> $GITHUB_OUTPUT
       - name: Upload patch
         if: steps.create_patch.outputs.patch_created
-        uses: actions/upload-artifact@0b7f8abb1508181956e8e162db84b466c27e18ce
+        uses: actions/upload-artifact@a8a3f3ad30e3422c9c7b888a15615d19a852ae32
         with:
           name: .repo.patch
           path: .repo.patch
@@ -3790,7 +3790,7 @@ jobs:
     if: \${{ needs.upgrade.outputs.patch_created }}
     steps:
       - name: Checkout
-        uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11
         with:
           ref: main
       - name: Set git config safe.directory
@@ -3808,7 +3808,7 @@ jobs:
           git config user.email \\"github-team-tf-cdk@hashicorp.com\\"
       - name: Create Pull Request
         id: create-pr
-        uses: peter-evans/create-pull-request@284f54f989303d2699d373481a0cfa13ad5a6666
+        uses: peter-evans/create-pull-request@153407881ec5c347639a548ade7d8ad1d6740e38
         with:
           token: \${{ secrets.PROJEN_GITHUB_TOKEN }}
           commit-message: |-
@@ -5516,7 +5516,7 @@ jobs:
     if: github.event.issue.user.login != 'team-tf-cdk' && !contains(fromJSON('[\\"OWNER\\", \\"MEMBER\\", \\"COLLABORATOR\\", \\"CONTRIBUTOR\\"]'), github.event.issue.author_association)
     steps:
       - name: Checkout
-        uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11
       - name: Auto-close issues by non-collaborators
         env:
           GH_TOKEN: \${{ secrets.GITHUB_TOKEN }}
@@ -5541,7 +5541,7 @@ jobs:
     if: github.event.pull_request.user.login != 'team-tf-cdk' && !contains(fromJSON('[\\"OWNER\\", \\"MEMBER\\", \\"COLLABORATOR\\", \\"CONTRIBUTOR\\"]'), github.event.pull_request.author_association)
     steps:
       - name: Checkout
-        uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11
       - name: Auto-close PRs by non-collaborators
         env:
           GH_TOKEN: \${{ secrets.GITHUB_TOKEN }}
@@ -5568,7 +5568,7 @@ jobs:
       CI: \\"true\\"
     steps:
       - name: Checkout
-        uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11
         with:
           ref: \${{ github.event.pull_request.head.ref }}
           repository: \${{ github.event.pull_request.head.repo.full_name }}
@@ -5592,7 +5592,7 @@ jobs:
           git diff --staged --patch --exit-code > .repo.patch || echo \\"self_mutation_happened=true\\" >> $GITHUB_OUTPUT
       - name: Upload patch
         if: steps.self_mutation.outputs.self_mutation_happened
-        uses: actions/upload-artifact@0b7f8abb1508181956e8e162db84b466c27e18ce
+        uses: actions/upload-artifact@a8a3f3ad30e3422c9c7b888a15615d19a852ae32
         with:
           name: .repo.patch
           path: .repo.patch
@@ -5606,7 +5606,7 @@ jobs:
         run: cd dist && getfacl -R . > permissions-backup.acl
         continue-on-error: true
       - name: Upload artifact
-        uses: actions/upload-artifact@0b7f8abb1508181956e8e162db84b466c27e18ce
+        uses: actions/upload-artifact@a8a3f3ad30e3422c9c7b888a15615d19a852ae32
         with:
           name: build-artifact
           path: dist
@@ -5618,7 +5618,7 @@ jobs:
     if: always() && needs.build.outputs.self_mutation_happened && !(github.event.pull_request.head.repo.full_name != github.repository)
     steps:
       - name: Checkout
-        uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11
         with:
           token: \${{ secrets.PROJEN_GITHUB_TOKEN }}
           ref: \${{ github.event.pull_request.head.ref }}
@@ -5647,7 +5647,7 @@ jobs:
     permissions: {}
     if: \\"! needs.build.outputs.self_mutation_happened\\"
     steps:
-      - uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c
+      - uses: actions/setup-node@8f152de45cc393bb48ce5d89d36b731f54556e65
         with:
           node-version: 18.x
       - name: Download build artifacts
@@ -5672,11 +5672,11 @@ jobs:
     permissions: {}
     if: \\"! needs.build.outputs.self_mutation_happened\\"
     steps:
-      - uses: actions/setup-java@5ffc13f4174014e2d4d4572b3d74c3fa61aeb2c2
+      - uses: actions/setup-java@0ab4596768b603586c0de567f2430c30f5b0d2b0
         with:
           distribution: temurin
           java-version: 11.x
-      - uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c
+      - uses: actions/setup-node@8f152de45cc393bb48ce5d89d36b731f54556e65
         with:
           node-version: 18.x
       - name: Download build artifacts
@@ -5701,10 +5701,10 @@ jobs:
     permissions: {}
     if: \\"! needs.build.outputs.self_mutation_happened\\"
     steps:
-      - uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c
+      - uses: actions/setup-node@8f152de45cc393bb48ce5d89d36b731f54556e65
         with:
           node-version: 18.x
-      - uses: actions/setup-python@bd6b4b6205c4dbad673328db7b31b7fab9e241c0
+      - uses: actions/setup-python@65d7f2d534ac1bc67fcd62888c5f4f3d2cb2b236
         with:
           python-version: 3.x
       - name: Download build artifacts
@@ -5729,10 +5729,10 @@ jobs:
     permissions: {}
     if: \\"! needs.build.outputs.self_mutation_happened\\"
     steps:
-      - uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c
+      - uses: actions/setup-node@8f152de45cc393bb48ce5d89d36b731f54556e65
         with:
           node-version: 18.x
-      - uses: actions/setup-dotnet@607fce577a46308457984d59e4954e075820f10a
+      - uses: actions/setup-dotnet@3447fd6a9f9e57506b15f895c5b76d3b197dc7c2
         with:
           dotnet-version: 3.x
       - name: Download build artifacts
@@ -5757,10 +5757,10 @@ jobs:
     permissions: {}
     if: \\"! needs.build.outputs.self_mutation_happened\\"
     steps:
-      - uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c
+      - uses: actions/setup-node@8f152de45cc393bb48ce5d89d36b731f54556e65
         with:
           node-version: 18.x
-      - uses: actions/setup-go@fac708d6674e30b6ba41289acaab6d4b75aa0753
+      - uses: actions/setup-go@93397bea11091df50f3d7e59dc26a7711a8bcfbe
         with:
           go-version: ^1.16.0
       - name: Download build artifacts
@@ -5805,7 +5805,7 @@ jobs:
       CI: \\"true\\"
     steps:
       - name: Checkout
-        uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11
         with:
           ref: \${{ inputs.sha }}
           fetch-depth: 0
@@ -5816,7 +5816,7 @@ jobs:
           git config user.name \\"github-actions\\"
           git config user.email \\"github-actions@github.com\\"
       - name: Setup Node.js
-        uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c
+        uses: actions/setup-node@8f152de45cc393bb48ce5d89d36b731f54556e65
         with:
           node-version: 16.14.0
       - name: Install dependencies
@@ -5827,7 +5827,7 @@ jobs:
         run: cd dist && getfacl -R . > permissions-backup.acl
         continue-on-error: true
       - name: Upload artifact
-        uses: actions/upload-artifact@0b7f8abb1508181956e8e162db84b466c27e18ce
+        uses: actions/upload-artifact@a8a3f3ad30e3422c9c7b888a15615d19a852ae32
         with:
           name: build-artifact
           path: dist
@@ -5841,11 +5841,11 @@ jobs:
       CI: \\"true\\"
     steps:
       - name: Setup Node.js
-        uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c
+        uses: actions/setup-node@8f152de45cc393bb48ce5d89d36b731f54556e65
         with:
           node-version: 16.14.0
       - name: Setup Go
-        uses: actions/setup-go@fac708d6674e30b6ba41289acaab6d4b75aa0753
+        uses: actions/setup-go@93397bea11091df50f3d7e59dc26a7711a8bcfbe
         with:
           go-version: ^1.16.0
       - name: Download build artifacts
@@ -5893,7 +5893,7 @@ jobs:
       pull-requests: write
       issues: write
     steps:
-      - uses: dessant/lock-threads@c1b35aecc5cdb1a34539d14196df55838bb2f836
+      - uses: dessant/lock-threads@be8aa5be94131386884a6da4189effda9b14aa21
         with:
           issue-comment: I'm going to lock this issue because it has been closed for at least 7 days. This helps our maintainers find and focus on the active issues. If you've found a problem that seems similar to this, please [open a new issue](https://github.com/cdktf/cdktf-provider-project/issues/new) so we can investigate further.
           issue-inactive-days: 7
@@ -5916,7 +5916,7 @@ jobs:
       CHECKPOINT_DISABLE: \\"1\\"
     steps:
       - name: Checkout
-        uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11
         with:
           ref: \${{ github.event.pull_request.head.ref }}
           repository: \${{ github.event.pull_request.head.repo.full_name }}
@@ -5942,7 +5942,7 @@ jobs:
       - name: Regenerate bindings
         run: yarn run fetch && yarn run compile && yarn run docgen
       - name: Create PR
-        uses: peter-evans/create-pull-request@284f54f989303d2699d373481a0cfa13ad5a6666
+        uses: peter-evans/create-pull-request@153407881ec5c347639a548ade7d8ad1d6740e38
         with:
           token: \${{ secrets.GITHUB_TOKEN }}
           branch: cdktf-next-pr
@@ -5972,7 +5972,7 @@ jobs:
       NODE_OPTIONS: --max-old-space-size=6656
     steps:
       - name: Checkout
-        uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11
       - run: yarn install
       - id: check_version
         run: yarn check-if-new-provider-version
@@ -5995,7 +5995,7 @@ jobs:
         run: yarn docgen
       - name: Create Pull Request
         if: \${{ steps.check_version.outputs.new_version == 'available' }}
-        uses: peter-evans/create-pull-request@284f54f989303d2699d373481a0cfa13ad5a6666
+        uses: peter-evans/create-pull-request@153407881ec5c347639a548ade7d8ad1d6740e38
         with:
           commit-message: \\"fix: upgrade provider from \`\${{ steps.current_version.outputs.value }}\` to version \`\${{ steps.new_version.outputs.value }}\`\\"
           branch: auto/provider-upgrade
@@ -6027,7 +6027,7 @@ jobs:
     permissions:
       pull-requests: write
     steps:
-      - uses: amannn/action-semantic-pull-request@v5.0.2
+      - uses: amannn/action-semantic-pull-request@47b15d52c5c30e94a17ec87eb8dd51ff5221fed9
         env:
           GITHUB_TOKEN: \${{ secrets.GITHUB_TOKEN }}
         with:
@@ -6057,7 +6057,7 @@ jobs:
       CI: \\"true\\"
     steps:
       - name: Checkout
-        uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11
         with:
           fetch-depth: 0
       - name: Set git config safe.directory
@@ -6079,7 +6079,7 @@ jobs:
         continue-on-error: true
       - name: Upload artifact
         if: \${{ steps.git_remote.outputs.latest_commit == github.sha }}
-        uses: actions/upload-artifact@0b7f8abb1508181956e8e162db84b466c27e18ce
+        uses: actions/upload-artifact@a8a3f3ad30e3422c9c7b888a15615d19a852ae32
         with:
           name: build-artifact
           path: dist
@@ -6092,7 +6092,7 @@ jobs:
       issues: write
     if: needs.release.outputs.latest_commit == github.sha
     steps:
-      - uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c
+      - uses: actions/setup-node@8f152de45cc393bb48ce5d89d36b731f54556e65
         with:
           node-version: 18.x
       - name: Download build artifacts
@@ -6135,7 +6135,7 @@ jobs:
       issues: write
     if: needs.release.outputs.latest_commit == github.sha
     steps:
-      - uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c
+      - uses: actions/setup-node@8f152de45cc393bb48ce5d89d36b731f54556e65
         with:
           node-version: 18.x
       - name: Download build artifacts
@@ -6182,11 +6182,11 @@ jobs:
       issues: write
     if: needs.release.outputs.latest_commit == github.sha
     steps:
-      - uses: actions/setup-java@5ffc13f4174014e2d4d4572b3d74c3fa61aeb2c2
+      - uses: actions/setup-java@0ab4596768b603586c0de567f2430c30f5b0d2b0
         with:
           distribution: temurin
           java-version: 11.x
-      - uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c
+      - uses: actions/setup-node@8f152de45cc393bb48ce5d89d36b731f54556e65
         with:
           node-version: 18.x
       - name: Download build artifacts
@@ -6237,10 +6237,10 @@ jobs:
       issues: write
     if: needs.release.outputs.latest_commit == github.sha
     steps:
-      - uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c
+      - uses: actions/setup-node@8f152de45cc393bb48ce5d89d36b731f54556e65
         with:
           node-version: 18.x
-      - uses: actions/setup-python@bd6b4b6205c4dbad673328db7b31b7fab9e241c0
+      - uses: actions/setup-python@65d7f2d534ac1bc67fcd62888c5f4f3d2cb2b236
         with:
           python-version: 3.x
       - name: Download build artifacts
@@ -6286,10 +6286,10 @@ jobs:
       issues: write
     if: needs.release.outputs.latest_commit == github.sha
     steps:
-      - uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c
+      - uses: actions/setup-node@8f152de45cc393bb48ce5d89d36b731f54556e65
         with:
           node-version: 18.x
-      - uses: actions/setup-dotnet@607fce577a46308457984d59e4954e075820f10a
+      - uses: actions/setup-dotnet@3447fd6a9f9e57506b15f895c5b76d3b197dc7c2
         with:
           dotnet-version: 3.x
       - name: Download build artifacts
@@ -6334,10 +6334,10 @@ jobs:
       issues: write
     if: needs.release.outputs.latest_commit == github.sha
     steps:
-      - uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c
+      - uses: actions/setup-node@8f152de45cc393bb48ce5d89d36b731f54556e65
         with:
           node-version: 18.x
-      - uses: actions/setup-go@fac708d6674e30b6ba41289acaab6d4b75aa0753
+      - uses: actions/setup-go@93397bea11091df50f3d7e59dc26a7711a8bcfbe
         with:
           go-version: ^1.16.0
       - name: Download build artifacts
@@ -6432,7 +6432,7 @@ jobs:
       patch_created: \${{ steps.create_patch.outputs.patch_created }}
     steps:
       - name: Checkout
-        uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11
         with:
           ref: main
       - name: Set git config safe.directory
@@ -6448,7 +6448,7 @@ jobs:
           git diff --staged --patch --exit-code > .repo.patch || echo \\"patch_created=true\\" >> $GITHUB_OUTPUT
       - name: Upload patch
         if: steps.create_patch.outputs.patch_created
-        uses: actions/upload-artifact@0b7f8abb1508181956e8e162db84b466c27e18ce
+        uses: actions/upload-artifact@a8a3f3ad30e3422c9c7b888a15615d19a852ae32
         with:
           name: .repo.patch
           path: .repo.patch
@@ -6461,7 +6461,7 @@ jobs:
     if: \${{ needs.upgrade.outputs.patch_created }}
     steps:
       - name: Checkout
-        uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11
         with:
           ref: main
       - name: Set git config safe.directory
@@ -6479,7 +6479,7 @@ jobs:
           git config user.email \\"github-team-tf-cdk@hashicorp.com\\"
       - name: Create Pull Request
         id: create-pr
-        uses: peter-evans/create-pull-request@284f54f989303d2699d373481a0cfa13ad5a6666
+        uses: peter-evans/create-pull-request@153407881ec5c347639a548ade7d8ad1d6740e38
         with:
           token: \${{ secrets.PROJEN_GITHUB_TOKEN }}
           commit-message: |-
