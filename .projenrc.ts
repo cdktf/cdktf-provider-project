@@ -12,10 +12,10 @@ import { CustomizedLicense } from "./src/customized-license";
 import { LockIssues } from "./src/lock-issues";
 
 const githubActionPinnedVersions = {
-  "actions/checkout": "8ade135a41bc03ea155e62e844d188df1ea18608", // v4.1.0
+  "actions/checkout": "b4ffde65f46336ab88eb53be808477a3936bae11", // v4.1.1
   "actions/download-artifact": "9bc31d5ccc31df68ecc42ccf4149144866c47d8a", // v3.0.2
   "actions/github-script": "d7906e4ad0b1822421a7e6a35d5ca353c962f410", // v6.4.1
-  "actions/setup-node": "5e21ff4d9bc1a8cf6de233a3057d20ec6b3fb69d", // v3.8.1
+  "actions/setup-node": "8f152de45cc393bb48ce5d89d36b731f54556e65", // v4.0.0
   "actions/upload-artifact": "a8a3f3ad30e3422c9c7b888a15615d19a852ae32", // v3.1.3
   "amannn/action-semantic-pull-request":
     "47b15d52c5c30e94a17ec87eb8dd51ff5221fed9", // v5.3.0
