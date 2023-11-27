@@ -1325,11 +1325,6 @@ scripts
       "type": "build"
     },
     {
-      "name": "node-fetch",
-      "version": "cjs",
-      "type": "build"
-    },
-    {
       "name": "projen",
       "type": "build"
     },
@@ -2290,7 +2285,6 @@ The repository is managed by [Repository Manager](https://github.com/hashicorp/c
     "jsii-docgen": "~9.0.0",
     "jsii-pacmak": "*",
     "jsii-rosetta": "~5.1.2",
-    "node-fetch": "cjs",
     "projen": "*",
     "standard-version": "^9",
     "typescript": "*"
@@ -2397,7 +2391,6 @@ The repository is managed by [Repository Manager](https://github.com/hashicorp/c
  * Copyright (c) HashiCorp, Inc.
  * SPDX-License-Identifier: MPL-2.0
  */
-const fetch = require("node-fetch");
 const semver = require("semver");
 const actions = require("@actions/core");
 
@@ -4039,11 +4032,6 @@ scripts
       "type": "build"
     },
     {
-      "name": "node-fetch",
-      "version": "cjs",
-      "type": "build"
-    },
-    {
       "name": "projen",
       "type": "build"
     },
@@ -5004,7 +4992,6 @@ The repository is managed by [Repository Manager](https://github.com/hashicorp/c
     "jsii-docgen": "~9.0.0",
     "jsii-pacmak": "*",
     "jsii-rosetta": "~5.1.2",
-    "node-fetch": "cjs",
     "projen": "*",
     "standard-version": "^9",
     "typescript": "*"
@@ -5111,7 +5098,6 @@ The repository is managed by [Repository Manager](https://github.com/hashicorp/c
  * Copyright (c) HashiCorp, Inc.
  * SPDX-License-Identifier: MPL-2.0
  */
-const fetch = require("node-fetch");
 const semver = require("semver");
 const actions = require("@actions/core");
 
@@ -6702,11 +6688,6 @@ scripts
       "type": "build"
     },
     {
-      "name": "node-fetch",
-      "version": "cjs",
-      "type": "build"
-    },
-    {
       "name": "projen",
       "type": "build"
     },
@@ -7667,7 +7648,6 @@ The repository is managed by [Repository Manager](https://github.com/hashicorp/c
     "jsii-docgen": "~9.0.0",
     "jsii-pacmak": "*",
     "jsii-rosetta": "~5.1.2",
-    "node-fetch": "cjs",
     "projen": "*",
     "standard-version": "^9",
     "typescript": "*"
@@ -7774,7 +7754,6 @@ The repository is managed by [Repository Manager](https://github.com/hashicorp/c
  * Copyright (c) HashiCorp, Inc.
  * SPDX-License-Identifier: MPL-2.0
  */
-const fetch = require("node-fetch");
 const semver = require("semver");
 const actions = require("@actions/core");
 

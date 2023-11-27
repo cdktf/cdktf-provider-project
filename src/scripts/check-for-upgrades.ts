@@ -20,10 +20,6 @@ export class CheckForUpgradesScriptFile extends FileBase {
   ) {
     super(project, "scripts/check-for-upgrades.js", options);
     this.options = options;
-
-    // commonjs version, We can remove this import when we are on Node 18
-    // (currently ubuntu-latest is still on Node 16)
-    project.addDevDeps("node-fetch@cjs");
   }
 
   protected synthesizeContent(resolver: IResolver): string | undefined {
@@ -41,7 +37,6 @@ export class CheckForUpgradesScriptFile extends FileBase {
  * Copyright (c) HashiCorp, Inc.
  * SPDX-License-Identifier: MPL-2.0
  */
-const fetch = require("node-fetch");
 const semver = require("semver");
 const actions = require("@actions/core");
 
