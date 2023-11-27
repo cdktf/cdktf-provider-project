@@ -88,6 +88,7 @@ export class CdktfProviderProject extends cdk.JsiiProject {
       constructsVersion,
       minNodeVersion,
       jsiiVersion,
+      typescriptVersion,
       authorName = "HashiCorp",
       namespace = "cdktf",
       githubNamespace = "cdktf",
@@ -192,10 +193,13 @@ export class CdktfProviderProject extends cdk.JsiiProject {
 
     super({
       ...options,
+      authorAddress,
+      authorName,
+      minNodeVersion,
       workflowContainerImage,
+      workflowRunsOn,
       licensed: false, // we do supply our own license file with a custom header
       releaseToNpm: true,
-      minNodeVersion,
       devDeps: [
         "@actions/core@^1.1.0",
         "dot-prop@^5.2.0",
@@ -206,8 +210,6 @@ export class CdktfProviderProject extends cdk.JsiiProject {
       keywords: ["cdktf", "terraform", "cdk", "provider", providerName],
       sampleCode: false,
       jest: false,
-      authorAddress,
-      authorName,
       authorOrganization: true,
       defaultReleaseBranch: "main",
       repository: `https://github.com/${repository}.git`,
@@ -231,7 +233,6 @@ export class CdktfProviderProject extends cdk.JsiiProject {
         name: "team-tf-cdk",
         email: "github-team-tf-cdk@hashicorp.com",
       },
-      workflowRunsOn,
       minMajorVersion: MIN_MAJOR_VERSION,
       githubOptions: {
         mergify: true,
@@ -346,6 +347,7 @@ export class CdktfProviderProject extends cdk.JsiiProject {
       cdktfVersion,
       constructsVersion,
       jsiiVersion,
+      typescriptVersion,
       packageInfo,
       githubNamespace,
     });

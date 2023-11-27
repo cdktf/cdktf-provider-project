@@ -31,8 +31,8 @@ const project = new cdk.JsiiProject({
   authorOrganization: true,
   licensed: false, // we do supply our own license file with a custom header
   pullRequestTemplate: false,
-  jsiiVersion: "^5.0.1",
-  peerDeps: ["projen@^0.75.0"],
+  jsiiVersion: "~5.2.0",
+  peerDeps: ["projen@^0.77.2", "constructs@^10.3.0"],
   deps: ["change-case", "fs-extra"],
   devDeps: ["@types/fs-extra", "glob"],
   bundledDeps: ["change-case", "fs-extra"],
