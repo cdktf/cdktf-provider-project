@@ -21,11 +21,13 @@ interface CdktfConfigOptions {
   packageInfo: PackageInfo;
   githubNamespace: string;
   jsiiVersion?: string;
+  typescriptVersion?: string;
 }
 
 export class CdktfConfig {
   constructor(project: cdk.JsiiProject, options: CdktfConfigOptions) {
-    const { terraformProvider, providerName, jsiiVersion } = options;
+    const { terraformProvider, providerName, jsiiVersion, typescriptVersion } =
+      options;
 
     const cdktfVersion = options.cdktfVersion;
     const constructsVersion = options.constructsVersion;
@@ -39,6 +41,9 @@ export class CdktfConfig {
 
     if (jsiiVersion) {
       project.addDevDeps(`jsii@${jsiiVersion}`);
+    }
+    if (typescriptVersion) {
+      project.addDevDeps(`typescript@${typescriptVersion}`);
     }
 
     const fetchTask = project.addTask("fetch", {
@@ -143,6 +148,10 @@ export class CdktfConfig {
       project.npmignore.exclude("cdktf.json");
       project.npmignore.exclude("API.md");
       project.npmignore.exclude("docs");
+      project.npmignore.exclude("scripts");
+      project.npmignore.exclude(".projenrc.js");
+      project.npmignore.exclude(".copywrite.hcl");
+      project.npmignore.exclude(".mergify.yml");
     }
     project.gitignore.exclude(".gen");
     project.gitignore.exclude(".terraform");

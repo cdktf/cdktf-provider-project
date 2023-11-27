@@ -24,11 +24,12 @@
       "type": "build"
     },
     {
-      "name": "eslint-config-prettier",
+      "name": "constructs",
+      "version": "^10.0.0",
       "type": "build"
     },
     {
-      "name": "eslint-import-resolver-node",
+      "name": "eslint-config-prettier",
       "type": "build"
     },
     {
@@ -75,17 +76,12 @@
     },
     {
       "name": "jsii-rosetta",
-      "version": "^5.0.1",
+      "version": "~5.2.0",
       "type": "build"
     },
     {
       "name": "jsii",
-      "version": "^5.0.1",
-      "type": "build"
-    },
-    {
-      "name": "npm-check-updates",
-      "version": "^16",
+      "version": "~5.2.0",
       "type": "build"
     },
     {
@@ -122,8 +118,13 @@
       "type": "bundled"
     },
     {
+      "name": "constructs",
+      "version": "^10.3.0",
+      "type": "peer"
+    },
+    {
       "name": "projen",
-      "version": "^0.75.0",
+      "version": "^0.77.2",
       "type": "peer"
     },
     {
