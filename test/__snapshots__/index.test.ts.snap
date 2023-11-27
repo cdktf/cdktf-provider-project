@@ -1307,7 +1307,7 @@ scripts
     },
     {
       "name": "jsii-docgen",
-      "version": "~9.0.0",
+      "version": "^10.2.3",
       "type": "build"
     },
     {
@@ -1731,13 +1731,13 @@ scripts
       },
       "steps": [
         {
-          "exec": "npx npm-check-updates@16 --upgrade --target=minor --peer --dep=dev,peer,prod,optional --filter=@actions/core,@cdktf/provider-project,@types/node,dot-prop,jsii-diff,jsii-pacmak,projen,standard-version,typescript"
+          "exec": "npx npm-check-updates@16 --upgrade --target=minor --peer --dep=dev,peer,prod,optional --filter=@actions/core,@cdktf/provider-project,@types/node,dot-prop,jsii-diff,jsii-docgen,jsii-pacmak,projen,standard-version,typescript"
         },
         {
           "exec": "yarn install --check-files"
         },
         {
-          "exec": "yarn upgrade @actions/core @cdktf/provider-project @types/node dot-prop jsii-diff jsii-pacmak projen standard-version typescript"
+          "exec": "yarn upgrade @actions/core @cdktf/provider-project @types/node dot-prop jsii-diff jsii-docgen jsii-pacmak projen standard-version typescript"
         },
         {
           "exec": "npx projen"
@@ -2282,7 +2282,7 @@ The repository is managed by [Repository Manager](https://github.com/hashicorp/c
     "dot-prop": "^5.2.0",
     "jsii": "1.x",
     "jsii-diff": "*",
-    "jsii-docgen": "~9.0.0",
+    "jsii-docgen": "^10.2.3",
     "jsii-pacmak": "*",
     "jsii-rosetta": "~5.1.2",
     "projen": "*",
@@ -4014,7 +4014,7 @@ scripts
     },
     {
       "name": "jsii-docgen",
-      "version": "~9.0.0",
+      "version": "^10.2.3",
       "type": "build"
     },
     {
@@ -4438,13 +4438,13 @@ scripts
       },
       "steps": [
         {
-          "exec": "npx npm-check-updates@16 --upgrade --target=minor --peer --dep=dev,peer,prod,optional --filter=@actions/core,@cdktf/provider-project,@types/node,dot-prop,jsii-diff,jsii-pacmak,projen,standard-version,typescript"
+          "exec": "npx npm-check-updates@16 --upgrade --target=minor --peer --dep=dev,peer,prod,optional --filter=@actions/core,@cdktf/provider-project,@types/node,dot-prop,jsii-diff,jsii-docgen,jsii-pacmak,projen,standard-version,typescript"
         },
         {
           "exec": "yarn install --check-files"
         },
         {
-          "exec": "yarn upgrade @actions/core @cdktf/provider-project @types/node dot-prop jsii-diff jsii-pacmak projen standard-version typescript"
+          "exec": "yarn upgrade @actions/core @cdktf/provider-project @types/node dot-prop jsii-diff jsii-docgen jsii-pacmak projen standard-version typescript"
         },
         {
           "exec": "npx projen"
@@ -4989,7 +4989,7 @@ The repository is managed by [Repository Manager](https://github.com/hashicorp/c
     "dot-prop": "^5.2.0",
     "jsii": "1.x",
     "jsii-diff": "*",
-    "jsii-docgen": "~9.0.0",
+    "jsii-docgen": "^10.2.3",
     "jsii-pacmak": "*",
     "jsii-rosetta": "~5.1.2",
     "projen": "*",
@@ -6670,7 +6670,7 @@ scripts
     },
     {
       "name": "jsii-docgen",
-      "version": "~9.0.0",
+      "version": "^10.2.3",
       "type": "build"
     },
     {
@@ -7094,13 +7094,13 @@ scripts
       },
       "steps": [
         {
-          "exec": "npx npm-check-updates@16 --upgrade --target=minor --peer --dep=dev,peer,prod,optional --filter=@actions/core,@cdktf/provider-project,@types/node,dot-prop,jsii-diff,jsii-pacmak,projen,standard-version,typescript"
+          "exec": "npx npm-check-updates@16 --upgrade --target=minor --peer --dep=dev,peer,prod,optional --filter=@actions/core,@cdktf/provider-project,@types/node,dot-prop,jsii-diff,jsii-docgen,jsii-pacmak,projen,standard-version,typescript"
         },
         {
           "exec": "yarn install --check-files"
         },
         {
-          "exec": "yarn upgrade @actions/core @cdktf/provider-project @types/node dot-prop jsii-diff jsii-pacmak projen standard-version typescript"
+          "exec": "yarn upgrade @actions/core @cdktf/provider-project @types/node dot-prop jsii-diff jsii-docgen jsii-pacmak projen standard-version typescript"
         },
         {
           "exec": "npx projen"
@@ -7645,7 +7645,7 @@ The repository is managed by [Repository Manager](https://github.com/hashicorp/c
     "dot-prop": "^5.2.0",
     "jsii": "1.x",
     "jsii-diff": "*",
-    "jsii-docgen": "~9.0.0",
+    "jsii-docgen": "^10.2.3",
     "jsii-pacmak": "*",
     "jsii-rosetta": "~5.1.2",
     "projen": "*",

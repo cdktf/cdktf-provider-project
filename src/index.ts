@@ -411,7 +411,7 @@ export class CdktfProviderProject extends cdk.JsiiProject {
 
     // Submodule documentation generation
     this.gitignore.exclude("API.md"); // ignore the old file, we now generate it in the docs folder
-    this.addDevDeps("jsii-docgen@~9.0.0");
+    this.addDevDeps("jsii-docgen@^10.2.3");
     this.addDevDeps(`jsii-rosetta@~5.1.2`);
 
     const docgen = this.addTask("docgen", {
