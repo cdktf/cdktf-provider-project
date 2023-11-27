@@ -500,7 +500,7 @@ jobs:
       pull-requests: write
       issues: write
     steps:
-      - uses: dessant/lock-threads@be8aa5be94131386884a6da4189effda9b14aa21
+      - uses: dessant/lock-threads@d42e5f49803f3c4e14ffee0378e31481265dda22
         with:
           issue-comment: I'm going to lock this issue because it has been closed for at least 7 days. This helps our maintainers find and focus on the active issues. If you've found a problem that seems similar to this, please [open a new issue](https://github.com/cdktf/cdktf-provider-project/issues/new) so we can investigate further.
           issue-inactive-days: 7
@@ -634,7 +634,7 @@ jobs:
     permissions:
       pull-requests: write
     steps:
-      - uses: amannn/action-semantic-pull-request@47b15d52c5c30e94a17ec87eb8dd51ff5221fed9
+      - uses: amannn/action-semantic-pull-request@e9fabac35e210fea40ca5b14c0da95a099eff26f
         env:
           GITHUB_TOKEN: \${{ secrets.GITHUB_TOKEN }}
         with:
@@ -3198,7 +3198,7 @@ jobs:
       pull-requests: write
       issues: write
     steps:
-      - uses: dessant/lock-threads@be8aa5be94131386884a6da4189effda9b14aa21
+      - uses: dessant/lock-threads@d42e5f49803f3c4e14ffee0378e31481265dda22
         with:
           issue-comment: I'm going to lock this issue because it has been closed for at least 7 days. This helps our maintainers find and focus on the active issues. If you've found a problem that seems similar to this, please [open a new issue](https://github.com/cdktf/cdktf-provider-project/issues/new) so we can investigate further.
           issue-inactive-days: 7
@@ -3335,7 +3335,7 @@ jobs:
     permissions:
       pull-requests: write
     steps:
-      - uses: amannn/action-semantic-pull-request@47b15d52c5c30e94a17ec87eb8dd51ff5221fed9
+      - uses: amannn/action-semantic-pull-request@e9fabac35e210fea40ca5b14c0da95a099eff26f
         env:
           GITHUB_TOKEN: \${{ secrets.GITHUB_TOKEN }}
         with:
@@ -5893,7 +5893,7 @@ jobs:
       pull-requests: write
       issues: write
     steps:
-      - uses: dessant/lock-threads@be8aa5be94131386884a6da4189effda9b14aa21
+      - uses: dessant/lock-threads@d42e5f49803f3c4e14ffee0378e31481265dda22
         with:
           issue-comment: I'm going to lock this issue because it has been closed for at least 7 days. This helps our maintainers find and focus on the active issues. If you've found a problem that seems similar to this, please [open a new issue](https://github.com/cdktf/cdktf-provider-project/issues/new) so we can investigate further.
           issue-inactive-days: 7
@@ -6027,7 +6027,7 @@ jobs:
     permissions:
       pull-requests: write
     steps:
-      - uses: amannn/action-semantic-pull-request@47b15d52c5c30e94a17ec87eb8dd51ff5221fed9
+      - uses: amannn/action-semantic-pull-request@e9fabac35e210fea40ca5b14c0da95a099eff26f
         env:
           GITHUB_TOKEN: \${{ secrets.GITHUB_TOKEN }}
         with:
