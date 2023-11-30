@@ -5,6 +5,7 @@ import { TextFile, cdk, github, JsonPatch } from "projen";
 import { JobStep } from "projen/lib/github/workflows-model";
 import { UpgradeDependenciesSchedule } from "projen/lib/javascript";
 import { AlertOpenPrs } from "./alert-open-prs";
+import { AutoApprove } from "./auto-approve";
 import { AutoCloseCommunityIssues } from "./auto-close-community-issues";
 import { CdktfConfig } from "./cdktf-config";
 import { CopyrightHeaders } from "./copyright-headers";
@@ -217,7 +218,7 @@ export class CdktfProviderProject extends cdk.JsiiProject {
       eslint: false,
       depsUpgradeOptions: {
         workflowOptions: {
-          labels: ["automerge", "dependencies"],
+          labels: ["automerge", "auto-approve", "dependencies"],
           schedule: UpgradeDependenciesSchedule.WEEKLY,
         },
       },
@@ -362,6 +363,7 @@ export class CdktfProviderProject extends cdk.JsiiProject {
     });
     new CustomizedLicense(this, options.creationYear);
     new GithubIssues(this, { providerName });
+    new AutoApprove(this);
     new AutoCloseCommunityIssues(this, { providerName });
     new LockIssues(this);
     new NextVersionPr(this, "${{ secrets.GITHUB_TOKEN }}");

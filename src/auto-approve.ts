@@ -29,7 +29,7 @@ export class AutoApprove {
         steps: [
           {
             name: "Checkout PR",
-            uses: "actions/checkout@v3",
+            uses: "actions/checkout@v4",
             with: {
               ref: "${{ github.event.pull_request.head.ref }}",
               repository:

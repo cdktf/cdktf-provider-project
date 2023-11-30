@@ -87,7 +87,7 @@ export class ProviderUpgrade {
               branch: "auto/provider-upgrade",
               title: `fix: upgrade provider from \`${currentVersion}\` to version \`${newVersion}\``,
               body: `This PR upgrades the underlying Terraform provider to version ${newVersion}`,
-              labels: "automerge",
+              labels: "automerge,auto-approve",
               token: "${{ secrets.GH_TOKEN }}",
               "delete-branch": true,
               committer: "team-tf-cdk <github-team-tf-cdk@hashicorp.com>",
