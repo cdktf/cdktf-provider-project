@@ -36,6 +36,7 @@ export class ProviderUpgrade {
       "${{ steps.check_version.outputs.new_version == 'available' }}";
     const currentVersion = "${{ steps.current_version.outputs.value }}";
     const newVersion = "${{ steps.new_version.outputs.value }}";
+    const semanticType = "${{ steps.release.outputs.type }}";
 
     workflow.addJobs({
       upgrade: {
@@ -46,7 +47,7 @@ export class ProviderUpgrade {
         steps: [
           {
             name: "Checkout",
-            uses: "actions/checkout@v2",
+            uses: "actions/checkout@v4",
           },
           { run: "yarn install" },
           {
@@ -73,19 +74,35 @@ export class ProviderUpgrade {
             id: "new_version",
             run: `echo "value=$(jq -r '. | to_entries[] | .value' src/version.json)" >> $GITHUB_OUTPUT`,
           },
+          {
+            name: "Determine if this is a minor or patch release",
+            if: newerVersionAvailable,
+            id: "release",
+            env: {
+              CURRENT_VERSION: currentVersion,
+              NEW_VERSION: newVersion,
+            },
+            run: [
+              `CURRENT_VERSION_MINOR=$(cut -d "." -f 1 <<< "$CURRENT_VERSION")`,
+              `NEW_VERSION_MINOR=$(cut -d "." -f 1 <<< "$NEW_VERSION")`,
+              `[[ "$CURRENT_VERSION_MINOR" != "$NEW_VERSION_MINOR" ]] && IS_MINOR_RELEASE=true || IS_MINOR_RELEASE=false`,
+              `[[ "$IS_MINOR_RELEASE" == "true" ]] && SEMANTIC_TYPE=feat || SEMANTIC_TYPE=fix`,
+              `echo "is_minor=$IS_MINOR_RELEASE" >> $GITHUB_OUTPUT`,
+              `echo "type=$SEMANTIC_TYPE" >> $GITHUB_OUTPUT`,
+            ].join("\n"),
+          },
           // generate docs
           { run: "yarn compile", if: newerVersionAvailable },
           { run: "yarn docgen", if: newerVersionAvailable },
-
           // submit a PR
           {
             name: "Create Pull Request",
             if: newerVersionAvailable,
             uses: "peter-evans/create-pull-request@v3",
             with: {
-              "commit-message": `fix: upgrade provider from \`${currentVersion}\` to version \`${newVersion}\``,
               branch: "auto/provider-upgrade",
-              title: `fix: upgrade provider from \`${currentVersion}\` to version \`${newVersion}\``,
+              "commit-message": `${semanticType}: upgrade provider from \`${currentVersion}\` to version \`${newVersion}\``,
+              title: `${semanticType}: upgrade provider from \`${currentVersion}\` to version \`${newVersion}\``,
               body: `This PR upgrades the underlying Terraform provider to version ${newVersion}`,
               labels: "automerge",
               token: "${{ secrets.GH_TOKEN }}",
