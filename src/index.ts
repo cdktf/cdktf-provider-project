@@ -7,6 +7,7 @@ import { UpgradeDependenciesSchedule } from "projen/lib/javascript";
 import { AlertOpenPrs } from "./alert-open-prs";
 import { AutoApprove } from "./auto-approve";
 import { AutoCloseCommunityIssues } from "./auto-close-community-issues";
+import { Automerge } from "./automerge";
 import { CdktfConfig } from "./cdktf-config";
 import { CopyrightHeaders } from "./copyright-headers";
 import { CustomizedLicense } from "./customized-license";
@@ -235,42 +236,6 @@ export class CdktfProviderProject extends cdk.JsiiProject {
         email: "github-team-tf-cdk@hashicorp.com",
       },
       minMajorVersion: MIN_MAJOR_VERSION,
-      githubOptions: {
-        mergify: true,
-        mergifyOptions: {
-          rules: [
-            {
-              name: "Automatically approve PRs with automerge label",
-              actions: {
-                review: {
-                  type: "APPROVE",
-                  message: "Automatically approved due to label",
-                },
-              },
-              conditions: [
-                "label=automerge",
-                "-label~=(do-not-merge)",
-                "-draft",
-                "author=team-tf-cdk",
-              ],
-            },
-            {
-              name: "Automatically close stale PRs",
-              actions: {
-                close: {
-                  message:
-                    "Closing this automatic PR, if it has not merged there is most likely a CI or CDKTF issue preventing it from merging",
-                },
-              },
-              conditions: [
-                "author=team-tf-cdk",
-                "-draft",
-                "created-at<1 day ago",
-              ],
-            },
-          ],
-        },
-      },
       stale: true,
       staleOptions: {
         issues: {
@@ -365,6 +330,7 @@ export class CdktfProviderProject extends cdk.JsiiProject {
     new GithubIssues(this, { providerName });
     new AutoApprove(this);
     new AutoCloseCommunityIssues(this, { providerName });
+    new Automerge(this);
     new LockIssues(this);
     new NextVersionPr(this, "${{ secrets.GITHUB_TOKEN }}");
     new AlertOpenPrs(this, {

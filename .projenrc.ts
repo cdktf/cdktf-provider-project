@@ -5,9 +5,9 @@
 
 import { cdk } from "projen";
 import { UpgradeDependenciesSchedule } from "projen/lib/javascript";
-import { Automerge } from "./projenrc/automerge";
 import { UpgradeNode } from "./projenrc/upgrade-node";
 import { AutoApprove } from "./src/auto-approve";
+import { Automerge } from "./src/automerge";
 import { CustomizedLicense } from "./src/customized-license";
 import { LockIssues } from "./src/lock-issues";
 
