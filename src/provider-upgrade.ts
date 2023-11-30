@@ -104,7 +104,7 @@ export class ProviderUpgrade {
               "commit-message": `${semanticType}: upgrade provider from \`${currentVersion}\` to version \`${newVersion}\``,
               title: `${semanticType}: upgrade provider from \`${currentVersion}\` to version \`${newVersion}\``,
               body: `This PR upgrades the underlying Terraform provider to version ${newVersion}`,
-              labels: "automerge",
+              labels: "automerge,auto-approve",
               token: "${{ secrets.GH_TOKEN }}",
               "delete-branch": true,
               committer: "team-tf-cdk <github-team-tf-cdk@hashicorp.com>",
