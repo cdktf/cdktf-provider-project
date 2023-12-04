@@ -62,7 +62,9 @@ export class ForceRelease {
         {
           name: "Setup Node.js",
           uses: "actions/setup-node",
-          with: { "node-version": "16.14.0" },
+          with: {
+            "node-version": project.minNodeVersion,
+          },
         },
         {
           name: "Install dependencies",
@@ -96,7 +98,9 @@ export class ForceRelease {
         {
           name: "Setup Node.js",
           uses: "actions/setup-node",
-          with: { "node-version": "16.14.0" },
+          with: {
+            "node-version": project.minNodeVersion,
+          },
         },
         {
           name: "Setup Go",
