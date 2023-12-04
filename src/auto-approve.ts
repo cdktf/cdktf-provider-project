@@ -21,6 +21,8 @@ export class AutoApprove {
       },
     });
 
+    (workflow.concurrency as any) = "${{ github.workflow }}-${{ github.ref }}";
+
     const maintainerStatuses = `fromJSON('["OWNER", "MEMBER", "COLLABORATOR"]')`;
     workflow.addJobs({
       approve: {
