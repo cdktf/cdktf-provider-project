@@ -250,13 +250,10 @@ export class CdktfProviderProject extends cdk.JsiiProject {
         },
         pullRequest: {
           staleLabel: "stale",
-          daysBeforeStale: 14,
-          staleMessage:
-            "14 days have passed since this PR was opened, and I assume other builds have succeeded in the meantime. " +
-            "If no one removes the `stale` label or comments, I'm going to auto-close this PR in 7 days.",
-          daysBeforeClose: 7,
-          closeMessage:
-            "I'm closing this PR automatically with the assumption that other builds have succeeded in the meantime.",
+          daysBeforeStale: 1,
+          staleMessage: `Closing this PR, if it has not merged there is most likely a CI or CDKTF issue preventing it from merging. If this has been a manual PR, please reopen it and add the \`no-auto-close\` label to prevent this from happening again.`,
+          daysBeforeClose: 0,
+          exemptLabels: ["no-auto-close"],
         },
       },
       docgen: false,
