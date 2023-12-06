@@ -83,8 +83,8 @@ export class ProviderUpgrade {
               NEW_VERSION: newVersion,
             },
             run: [
-              `CURRENT_VERSION_MINOR=$(cut -d "." -f 1 <<< "$CURRENT_VERSION")`,
-              `NEW_VERSION_MINOR=$(cut -d "." -f 1 <<< "$NEW_VERSION")`,
+              `CURRENT_VERSION_MINOR=$(cut -d "." -f 2 <<< "$CURRENT_VERSION")`,
+              `NEW_VERSION_MINOR=$(cut -d "." -f 2 <<< "$NEW_VERSION")`,
               `[[ "$CURRENT_VERSION_MINOR" != "$NEW_VERSION_MINOR" ]] && IS_MINOR_RELEASE=true || IS_MINOR_RELEASE=false`,
               `[[ "$IS_MINOR_RELEASE" == "true" ]] && SEMANTIC_TYPE=feat || SEMANTIC_TYPE=fix`,
               `echo "is_minor=$IS_MINOR_RELEASE" >> $GITHUB_OUTPUT`,
