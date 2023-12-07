@@ -7,6 +7,7 @@ import { UpgradeDependenciesSchedule } from "projen/lib/javascript";
 import { AlertOpenPrs } from "./alert-open-prs";
 import { AutoApprove } from "./auto-approve";
 import { AutoCloseCommunityIssues } from "./auto-close-community-issues";
+import { Automerge } from "./automerge";
 import { CdktfConfig } from "./cdktf-config";
 import { CopyrightHeaders } from "./copyright-headers";
 import { CustomizedLicense } from "./customized-license";
@@ -235,42 +236,6 @@ export class CdktfProviderProject extends cdk.JsiiProject {
         email: "github-team-tf-cdk@hashicorp.com",
       },
       minMajorVersion: MIN_MAJOR_VERSION,
-      githubOptions: {
-        mergify: true,
-        mergifyOptions: {
-          rules: [
-            {
-              name: "Automatically approve PRs with automerge label",
-              actions: {
-                review: {
-                  type: "APPROVE",
-                  message: "Automatically approved due to label",
-                },
-              },
-              conditions: [
-                "label=automerge",
-                "-label~=(do-not-merge)",
-                "-draft",
-                "author=team-tf-cdk",
-              ],
-            },
-            {
-              name: "Automatically close stale PRs",
-              actions: {
-                close: {
-                  message:
-                    "Closing this automatic PR, if it has not merged there is most likely a CI or CDKTF issue preventing it from merging",
-                },
-              },
-              conditions: [
-                "author=team-tf-cdk",
-                "-draft",
-                "created-at<1 day ago",
-              ],
-            },
-          ],
-        },
-      },
       stale: true,
       staleOptions: {
         issues: {
@@ -285,13 +250,10 @@ export class CdktfProviderProject extends cdk.JsiiProject {
         },
         pullRequest: {
           staleLabel: "stale",
-          daysBeforeStale: 14,
-          staleMessage:
-            "14 days have passed since this PR was opened, and I assume other builds have succeeded in the meantime. " +
-            "If no one removes the `stale` label or comments, I'm going to auto-close this PR in 7 days.",
-          daysBeforeClose: 7,
-          closeMessage:
-            "I'm closing this PR automatically with the assumption that other builds have succeeded in the meantime.",
+          daysBeforeStale: 1,
+          staleMessage: `Closing this PR, if it has not merged there is most likely a CI or CDKTF issue preventing it from merging. If this has been a manual PR, please reopen it and add the \`no-auto-close\` label to prevent this from happening again.`,
+          daysBeforeClose: 0,
+          exemptLabels: ["no-auto-close"],
         },
       },
       docgen: false,
@@ -365,6 +327,7 @@ export class CdktfProviderProject extends cdk.JsiiProject {
     new GithubIssues(this, { providerName });
     new AutoApprove(this);
     new AutoCloseCommunityIssues(this, { providerName });
+    new Automerge(this);
     new LockIssues(this);
     new NextVersionPr(this, "${{ secrets.GITHUB_TOKEN }}");
     new AlertOpenPrs(this, {
