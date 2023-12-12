@@ -49,7 +49,7 @@ This repo builds and publishes the [Terraform ${providerName} provider](https://
       underlyingTerraformVersion !== "<unknown>"
         ? underlyingTerraformVersion
         : versionURL
-    }) bindings for [CDK for Terraform](https://cdk.tf).
+    }/docs) bindings for [CDK for Terraform](https://cdk.tf).
 
 ## Available Packages
 

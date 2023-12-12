@@ -2146,7 +2146,7 @@ Exhibit B - “Incompatible With Secondary Licenses” Notice
   "README.md": "
 # CDKTF prebuilt bindings for hashicorp/random provider version ~>2.0
 
-This repo builds and publishes the [Terraform random provider](https://registry.terraform.io/providers/hashicorp/random/2.0.0) bindings for [CDK for Terraform](https://cdk.tf).
+This repo builds and publishes the [Terraform random provider](https://registry.terraform.io/providers/hashicorp/random/2.0.0/docs) bindings for [CDK for Terraform](https://cdk.tf).
 
 ## Available Packages
 
@@ -2222,7 +2222,7 @@ Please report bugs and issues to the [CDK for Terraform](https://cdk.tf) project
 
 ### Projen
 
-This is mostly based on [Projen](https://github.com/eladb/projen), which takes care of generating the entire repository.
+This is mostly based on [Projen](https://github.com/projen/projen), which takes care of generating the entire repository.
 
 ### cdktf-provider-project based on Projen
 
@@ -4872,7 +4872,7 @@ Exhibit B - “Incompatible With Secondary Licenses” Notice
   "README.md": "
 # CDKTF prebuilt bindings for hashicorp/random provider version ~>2.0
 
-This repo builds and publishes the [Terraform random provider](https://registry.terraform.io/providers/hashicorp/random/2.0.0) bindings for [CDK for Terraform](https://cdk.tf).
+This repo builds and publishes the [Terraform random provider](https://registry.terraform.io/providers/hashicorp/random/2.0.0/docs) bindings for [CDK for Terraform](https://cdk.tf).
 
 ## Available Packages
 
@@ -4948,7 +4948,7 @@ Please report bugs and issues to the [CDK for Terraform](https://cdk.tf) project
 
 ### Projen
 
-This is mostly based on [Projen](https://github.com/eladb/projen), which takes care of generating the entire repository.
+This is mostly based on [Projen](https://github.com/projen/projen), which takes care of generating the entire repository.
 
 ### cdktf-provider-project based on Projen
 
@@ -7547,7 +7547,7 @@ Exhibit B - “Incompatible With Secondary Licenses” Notice
   "README.md": "
 # CDKTF prebuilt bindings for hashicorp/random provider version ~>2.0
 
-This repo builds and publishes the [Terraform random provider](https://registry.terraform.io/providers/hashicorp/random/2.0.0) bindings for [CDK for Terraform](https://cdk.tf).
+This repo builds and publishes the [Terraform random provider](https://registry.terraform.io/providers/hashicorp/random/2.0.0/docs) bindings for [CDK for Terraform](https://cdk.tf).
 
 ## Available Packages
 
@@ -7623,7 +7623,7 @@ Please report bugs and issues to the [CDK for Terraform](https://cdk.tf) project
 
 ### Projen
 
-This is mostly based on [Projen](https://github.com/eladb/projen), which takes care of generating the entire repository.
+This is mostly based on [Projen](https://github.com/projen/projen), which takes care of generating the entire repository.
 
 ### cdktf-provider-project based on Projen
 
