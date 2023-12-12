@@ -112,6 +112,10 @@ export class CdktfProviderProject extends cdk.JsiiProject {
     const mavenName = `com.${mavenOrg}.${namespace}.providers.${getMavenName(
       providerName
     )}`;
+    const repositoryUrl = `github.com/${githubNamespace}/${namespace}-provider-${providerName.replace(
+      /-/g,
+      ""
+    )}`;
 
     const packageInfo: PackageInfo = {
       npm: {
@@ -138,10 +142,7 @@ export class CdktfProviderProject extends cdk.JsiiProject {
         mavenEndpoint,
       },
       publishToGo: {
-        moduleName: `github.com/${githubNamespace}/${namespace}-provider-${providerName.replace(
-          /-/g,
-          ""
-        )}-go`,
+        moduleName: `${repositoryUrl}-go`,
         gitUserEmail: "github-team-tf-cdk@hashicorp.com",
         gitUserName: "CDK for Terraform Team",
         packageName: providerName.replace(/-/g, ""),
@@ -175,6 +176,25 @@ export class CdktfProviderProject extends cdk.JsiiProject {
           {
             name: "Remove copywrite hcl file",
             run: "rm -f .repo/dist/go/.copywrite.hcl",
+          },
+          {
+            name: "Move the README file up a directory",
+            run: "mv .repo/dist/go/*/README.md .repo/dist/go/README.md",
+            continueOnError: true, // can be removed later once confirmed this works
+          },
+          {
+            name: "Remove some text from the README that doesn't apply to Go",
+            run: [
+              "sed -i 's/# CDKTF prebuilt bindings for/# CDKTF Go bindings for/' .repo/dist/go/README.md",
+              // @see https://stackoverflow.com/a/49511949
+              "sed -i -e '/## Available Packages/,/### Go/!b' -e '/### Go/!d;p; s/### Go/## Go Package/' -e 'd' .repo/dist/go/README.md",
+              // sed -e is black magic and for whatever reason the string replace doesn't work so let's try it again:
+              "sed -i 's/### Go/## Go Package/' .repo/dist/go/README.md",
+              // Just straight up delete these full lines and everything in between them:
+              "sed -i -e '/API.typescript.md/,/You can also visit a hosted version/!b' -e 'd' dist/go/README.md",
+              `sed -i 's|Find auto-generated docs for this provider here:|Find auto-generated docs for this provider [here](https://${repositoryUrl}/blob/main/docs/API.go.md).|' .repo/dist/go/README.md`,
+            ].join("\n"),
+            continueOnError: true, // can be removed later once confirmed this works
           },
           {
             name: "Collect go Artifact",
