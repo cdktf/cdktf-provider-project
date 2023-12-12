@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { JsiiProject } from "projen/lib/cdk";
 import { JobPermission, JobStep } from "projen/lib/github/workflows-model";
 import { PackageInfo } from "./package-info";
