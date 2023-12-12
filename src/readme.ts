@@ -12,6 +12,9 @@ export interface ReadmeFileOptions extends FileBaseOptions {
   providerVersion: string;
   packageInfo: PackageInfo;
   underlyingTerraformVersion: string;
+  cdktfVersion: string;
+  isDeprecated: boolean;
+  deprecationDate?: string;
 }
 
 export class ReadmeFile extends FileBase {
@@ -29,6 +32,8 @@ export class ReadmeFile extends FileBase {
       providerVersion,
       packageInfo,
       underlyingTerraformVersion,
+      isDeprecated,
+      deprecationDate,
     } = resolver.resolve(this.options) as ReadmeFileOptions;
 
     const fqpnURL = fqproviderName.includes("/")
@@ -37,21 +42,44 @@ export class ReadmeFile extends FileBase {
     const versionURL = providerVersion
       ? providerVersion.replace(/~>\s*/, "").concat(".0")
       : "";
+    const registryUrl = `https://registry.terraform.io/providers/${fqpnURL}/${
+      underlyingTerraformVersion !== "<unknown>"
+        ? underlyingTerraformVersion
+        : versionURL
+    }`;
+    const cdktfVersion = this.options.cdktfVersion.replace("^", "");
 
-    return `
+    const date =
+      deprecationDate ??
+      new Date().toLocaleDateString("en-US", {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+      });
+    const deprecationMessage = `
+HashiCorp made the decision to stop publishing new versions of prebuilt [Terraform ${providerName} provider](${registryUrl}) bindings for [CDK for Terraform](https://cdk.tf) on ${date}. As such, this repository has been archived and is no longer supported in any way by HashiCorp. Previously-published versions of this prebuilt provider will still continue to be available on the respective package managers (e.g. npm, PyPi, Maven, NuGet), but these will not be compatible with new releases of \`cdktf\` past \`${cdktfVersion}\` and are no longer eligible for commercial support.
+
+As a reminder, you can continue to use the \`${fqpnURL}\` provider in your CDK for Terraform (CDKTF) projects, even with newer versions of CDKTF, but you will need to generate the bindings locally. The easiest way to do so is to use the [\`provider add\` command](https://developer.hashicorp.com/terraform/cdktf/cli-reference/commands#provider-add), optionally with the \`--force-local\` flag enabled:
+
+  cdktf provider add ${fqpnURL} --force-local
+
+For more information and additional examples, check out our documentation on [generating provider bindings manually](https://cdk.tf/imports).
+    `.trim();
+
+    const readme = `
 # CDKTF prebuilt bindings for ${fqpnURL} provider version ${
       underlyingTerraformVersion !== "<unknown>"
         ? `${underlyingTerraformVersion}`
         : `${providerVersion}`
     }
 
-This repo builds and publishes the [Terraform ${providerName} provider](https://registry.terraform.io/providers/${fqpnURL}/${
-      underlyingTerraformVersion !== "<unknown>"
-        ? underlyingTerraformVersion
-        : versionURL
-    }/docs) bindings for [CDK for Terraform](https://cdk.tf).
+${
+  isDeprecated
+    ? deprecationMessage
+    : `This repo builds and publishes the [Terraform ${providerName} provider](${registryUrl}/docs) bindings for [CDK for Terraform](https://cdk.tf).`
+}
 
-## Available Packages
+## ${isDeprecated ? "Deprecated" : "Available"} Packages
 
 ### NPM
 
@@ -95,7 +123,6 @@ The Maven package is available at [https://mvnrepository.com/artifact/${
 </dependency>
 \`\`\`
 
-
 ### Go
 
 The go package is generated into the [\`${
@@ -117,7 +144,12 @@ Find auto-generated docs for this provider here:
 - [Go](./docs/API.go.md)
 
 You can also visit a hosted version of the documentation on [constructs.dev](https://constructs.dev/packages/@cdktf/provider-${providerName}).
+`;
 
+    return isDeprecated
+      ? readme
+      : readme +
+          `
 ## Versioning
 
 This project is explicitly not tracking the Terraform ${providerName} provider version 1:1. In fact, it always tracks \`latest\` of \`${providerVersion}\` with every release. If there are scenarios where you explicitly have to pin your provider version, you can do so by [generating the provider constructs manually](https://cdk.tf/imports).
@@ -125,11 +157,7 @@ This project is explicitly not tracking the Terraform ${providerName} provider v
 These are the upstream dependencies:
 
 - [CDK for Terraform](https://cdk.tf)
-- [Terraform ${providerName} provider](https://registry.terraform.io/providers/${fqpnURL}/${
-      underlyingTerraformVersion !== "<unknown>"
-        ? underlyingTerraformVersion
-        : versionURL
-    })
+- [Terraform ${providerName} provider](${registryUrl})
 - [Terraform Engine](https://terraform.io)
 
 If there are breaking changes (backward incompatible) in any of the above, the major version of this project will be bumped.

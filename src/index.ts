@@ -11,6 +11,7 @@ import { Automerge } from "./automerge";
 import { CdktfConfig } from "./cdktf-config";
 import { CopyrightHeaders } from "./copyright-headers";
 import { CustomizedLicense } from "./customized-license";
+import { DeprecatePackages } from "./deprecate-packages";
 import { ForceRelease } from "./force-release";
 import { GithubIssues } from "./github-issues";
 import { LockIssues } from "./lock-issues";
@@ -51,6 +52,17 @@ export interface CdktfProviderProjectOptions extends cdk.JsiiProjectOptions {
    * Will fall back to the current year if not specified.
    */
   readonly creationYear?: number;
+  /**
+   * Whether or not this prebuilt provider is deprecated.
+   * If true, no new versions will be published.
+   */
+  readonly isDeprecated?: boolean;
+  /**
+   * An optional date when the project should be considered deprecated,
+   * to be used in the README text. If no date is provided, then the
+   * date of the build will be used by default.
+   */
+  readonly deprecationDate?: string;
 }
 
 const authorAddress = "https://hashicorp.com";
@@ -90,6 +102,8 @@ export class CdktfProviderProject extends cdk.JsiiProject {
       minNodeVersion,
       jsiiVersion,
       typescriptVersion,
+      isDeprecated,
+      deprecationDate,
       authorName = "HashiCorp",
       namespace = "cdktf",
       githubNamespace = "cdktf",
@@ -97,6 +111,7 @@ export class CdktfProviderProject extends cdk.JsiiProject {
       nugetOrg = "HashiCorp",
       mavenOrg = "hashicorp",
     } = options;
+
     const [fqproviderName, providerVersion] = terraformProvider.split("@");
     const providerName = fqproviderName.split("/").pop();
     assert(providerName, `${terraformProvider} doesn't seem to be valid`);
@@ -334,6 +349,8 @@ export class CdktfProviderProject extends cdk.JsiiProject {
       typescriptVersion,
       packageInfo,
       githubNamespace,
+      deprecationDate,
+      isDeprecated: !!isDeprecated,
     });
     const upgradeScript = new CheckForUpgradesScriptFile(this, {
       providerVersion,
@@ -454,6 +471,11 @@ export class CdktfProviderProject extends cdk.JsiiProject {
     });
 
     new CopyrightHeaders(this);
+    new DeprecatePackages(this, {
+      providerName,
+      packageInfo,
+      isDeprecated: !!isDeprecated,
+    });
   }
 
   private pinGithubActionVersions(pinnedVersions: Record<string, string>) {
