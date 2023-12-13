@@ -1348,7 +1348,7 @@ scripts
     },
     {
       "name": "jsii-rosetta",
-      "version": "~5.1.2",
+      "version": "~5.2.0",
       "type": "build"
     },
     {
@@ -2318,7 +2318,7 @@ The repository is managed by [CDKTF Repository Manager](https://github.com/cdktf
     "jsii-diff": "*",
     "jsii-docgen": "^10.2.3",
     "jsii-pacmak": "*",
-    "jsii-rosetta": "~5.1.2",
+    "jsii-rosetta": "~5.2.0",
     "projen": "*",
     "standard-version": "^9",
     "typescript": "*"
@@ -4089,7 +4089,7 @@ scripts
     },
     {
       "name": "jsii-rosetta",
-      "version": "~5.1.2",
+      "version": "~5.2.0",
       "type": "build"
     },
     {
@@ -5059,7 +5059,7 @@ The repository is managed by [CDKTF Repository Manager](https://github.com/cdktf
     "jsii-diff": "*",
     "jsii-docgen": "^10.2.3",
     "jsii-pacmak": "*",
-    "jsii-rosetta": "~5.1.2",
+    "jsii-rosetta": "~5.2.0",
     "projen": "*",
     "standard-version": "^9",
     "typescript": "*"
@@ -6779,7 +6779,7 @@ scripts
     },
     {
       "name": "jsii-rosetta",
-      "version": "~5.1.2",
+      "version": "~5.2.0",
       "type": "build"
     },
     {
@@ -7749,7 +7749,7 @@ The repository is managed by [CDKTF Repository Manager](https://github.com/cdktf
     "jsii-diff": "*",
     "jsii-docgen": "^10.2.3",
     "jsii-pacmak": "*",
-    "jsii-rosetta": "~5.1.2",
+    "jsii-rosetta": "~5.2.0",
     "projen": "*",
     "standard-version": "^9",
     "typescript": "*"
