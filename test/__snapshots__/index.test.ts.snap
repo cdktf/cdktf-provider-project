@@ -1305,6 +1305,11 @@ scripts
       "type": "build"
     },
     {
+      "name": "semver",
+      "version": "^7.5.3",
+      "type": "build"
+    },
+    {
       "name": "standard-version",
       "version": "^9",
       "type": "build"
@@ -1711,13 +1716,13 @@ scripts
       },
       "steps": [
         {
-          "exec": "npx npm-check-updates@16 --upgrade --target=minor --peer --dep=dev,peer,prod,optional --filter=@actions/core,@cdktf/provider-project,@types/node,dot-prop,jsii-diff,jsii-docgen,jsii-pacmak,projen,standard-version,typescript"
+          "exec": "npx npm-check-updates@16 --upgrade --target=minor --peer --dep=dev,peer,prod,optional --filter=@actions/core,@cdktf/provider-project,@types/node,dot-prop,jsii-diff,jsii-docgen,jsii-pacmak,projen,semver,standard-version,typescript"
         },
         {
           "exec": "yarn install --check-files"
         },
         {
-          "exec": "yarn upgrade @actions/core @cdktf/provider-project @types/node dot-prop jsii-diff jsii-docgen jsii-pacmak projen standard-version typescript"
+          "exec": "yarn upgrade @actions/core @cdktf/provider-project @types/node dot-prop jsii-diff jsii-docgen jsii-pacmak projen semver standard-version typescript"
         },
         {
           "exec": "npx projen"
@@ -2263,6 +2268,7 @@ The repository is managed by [CDKTF Repository Manager](https://github.com/cdktf
     "jsii-pacmak": "*",
     "jsii-rosetta": "~5.2.0",
     "projen": "*",
+    "semver": "^7.5.3",
     "standard-version": "^9",
     "typescript": "*"
   },
@@ -3989,6 +3995,11 @@ scripts
       "type": "build"
     },
     {
+      "name": "semver",
+      "version": "^7.5.3",
+      "type": "build"
+    },
+    {
       "name": "standard-version",
       "version": "^9",
       "type": "build"
@@ -4395,13 +4406,13 @@ scripts
       },
       "steps": [
         {
-          "exec": "npx npm-check-updates@16 --upgrade --target=minor --peer --dep=dev,peer,prod,optional --filter=@actions/core,@cdktf/provider-project,@types/node,dot-prop,jsii-diff,jsii-docgen,jsii-pacmak,projen,standard-version,typescript"
+          "exec": "npx npm-check-updates@16 --upgrade --target=minor --peer --dep=dev,peer,prod,optional --filter=@actions/core,@cdktf/provider-project,@types/node,dot-prop,jsii-diff,jsii-docgen,jsii-pacmak,projen,semver,standard-version,typescript"
         },
         {
           "exec": "yarn install --check-files"
         },
         {
-          "exec": "yarn upgrade @actions/core @cdktf/provider-project @types/node dot-prop jsii-diff jsii-docgen jsii-pacmak projen standard-version typescript"
+          "exec": "yarn upgrade @actions/core @cdktf/provider-project @types/node dot-prop jsii-diff jsii-docgen jsii-pacmak projen semver standard-version typescript"
         },
         {
           "exec": "npx projen"
@@ -4947,6 +4958,7 @@ The repository is managed by [CDKTF Repository Manager](https://github.com/cdktf
     "jsii-pacmak": "*",
     "jsii-rosetta": "~5.2.0",
     "projen": "*",
+    "semver": "^7.5.3",
     "standard-version": "^9",
     "typescript": "*"
   },
@@ -6622,6 +6634,11 @@ scripts
       "type": "build"
     },
     {
+      "name": "semver",
+      "version": "^7.5.3",
+      "type": "build"
+    },
+    {
       "name": "standard-version",
       "version": "^9",
       "type": "build"
@@ -7028,13 +7045,13 @@ scripts
       },
       "steps": [
         {
-          "exec": "npx npm-check-updates@16 --upgrade --target=minor --peer --dep=dev,peer,prod,optional --filter=@actions/core,@cdktf/provider-project,@types/node,dot-prop,jsii-diff,jsii-docgen,jsii-pacmak,projen,standard-version,typescript"
+          "exec": "npx npm-check-updates@16 --upgrade --target=minor --peer --dep=dev,peer,prod,optional --filter=@actions/core,@cdktf/provider-project,@types/node,dot-prop,jsii-diff,jsii-docgen,jsii-pacmak,projen,semver,standard-version,typescript"
         },
         {
           "exec": "yarn install --check-files"
         },
         {
-          "exec": "yarn upgrade @actions/core @cdktf/provider-project @types/node dot-prop jsii-diff jsii-docgen jsii-pacmak projen standard-version typescript"
+          "exec": "yarn upgrade @actions/core @cdktf/provider-project @types/node dot-prop jsii-diff jsii-docgen jsii-pacmak projen semver standard-version typescript"
         },
         {
           "exec": "npx projen"
@@ -7580,6 +7597,7 @@ The repository is managed by [CDKTF Repository Manager](https://github.com/cdktf
     "jsii-pacmak": "*",
     "jsii-rosetta": "~5.2.0",
     "projen": "*",
+    "semver": "^7.5.3",
     "standard-version": "^9",
     "typescript": "*"
   },

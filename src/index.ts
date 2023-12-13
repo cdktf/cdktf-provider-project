@@ -224,6 +224,7 @@ export class CdktfProviderProject extends cdk.JsiiProject {
       devDeps: [
         "@actions/core@^1.1.0",
         "dot-prop@^5.2.0",
+        "semver@^7.5.3", // used by src/scripts/check-for-upgrades.ts
         ...(options.devDeps ?? []),
       ],
       name: packageInfo.npm.name,
