@@ -191,7 +191,7 @@ export class CdktfProviderProject extends cdk.JsiiProject {
               // sed -e is black magic and for whatever reason the string replace doesn't work so let's try it again:
               "sed -i 's/### Go/## Go Package/' .repo/dist/go/README.md",
               // Just straight up delete these full lines and everything in between them:
-              "sed -i -e '/API.typescript.md/,/You can also visit a hosted version/!b' -e 'd' dist/go/README.md",
+              "sed -i -e '/API.typescript.md/,/You can also visit a hosted version/!b' -e 'd' .repo/dist/go/README.md",
               `sed -i 's|Find auto-generated docs for this provider here:|Find auto-generated docs for this provider [here](https://${repositoryUrl}/blob/main/docs/API.go.md).|' .repo/dist/go/README.md`,
             ].join("\n"),
             continueOnError: true, // can be removed later once confirmed this works
