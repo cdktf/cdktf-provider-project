@@ -424,7 +424,13 @@ export class CdktfProviderProject extends cdk.JsiiProject {
     // Setting the version in package.json so the golang docs have the correct version
     const unconditionalBump = this.addTask("unconditional-bump", {
       description: "Set the version in package.json to the current version",
-      steps: [{ builtin: "release/bump-version" }],
+      steps: [
+        {
+          name: "Clear the changelog so that it doesn't get published twice",
+          exec: "rm $CHANGELOG",
+        },
+        { builtin: "release/bump-version" },
+      ],
       env: {
         OUTFILE: "package.json",
         CHANGELOG: "dist/changelog.md",
