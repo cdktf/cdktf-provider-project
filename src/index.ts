@@ -427,7 +427,7 @@ export class CdktfProviderProject extends cdk.JsiiProject {
       steps: [
         {
           name: "Clear the changelog so that it doesn't get published twice",
-          exec: "rm $CHANGELOG",
+          exec: "rm -f $CHANGELOG",
         },
         { builtin: "release/bump-version" },
       ],
