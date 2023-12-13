@@ -14,7 +14,6 @@ import { CustomizedLicense } from "./customized-license";
 import { ForceRelease } from "./force-release";
 import { GithubIssues } from "./github-issues";
 import { LockIssues } from "./lock-issues";
-import { NextVersionPr } from "./next-version-pr";
 import { PackageInfo } from "./package-info";
 import { ProviderUpgrade } from "./provider-upgrade";
 import { CheckForUpgradesScriptFile } from "./scripts/check-for-upgrades";
@@ -74,7 +73,7 @@ const githubActionPinnedVersions = {
   "actions/upload-artifact": "a8a3f3ad30e3422c9c7b888a15615d19a852ae32", // v3.1.3
   "amannn/action-semantic-pull-request":
     "e9fabac35e210fea40ca5b14c0da95a099eff26f", // v5.4.0
-  "dessant/lock-threads": "d42e5f49803f3c4e14ffee0378e31481265dda22", // v5.0.0
+  "dessant/lock-threads": "1bf7ec25051fe7c00bdd17e6a7cf3d7bfb7dc771", // v5.0.1
   "hashicorp/setup-copywrite": "867a1a2a064a0626db322392806428f7dc59cb3e", // v1.1.2
   "imjohnbo/issue-bot": "6924a99d928dc228f407d34eb3d0149eda73f2a7", // v3.4.3
   "peter-evans/create-pull-request": "153407881ec5c347639a548ade7d8ad1d6740e38", // v5.0.2
@@ -225,6 +224,7 @@ export class CdktfProviderProject extends cdk.JsiiProject {
       devDeps: [
         "@actions/core@^1.1.0",
         "dot-prop@^5.2.0",
+        "semver@^7.5.3", // used by src/scripts/check-for-upgrades.ts
         ...(options.devDeps ?? []),
       ],
       name: packageInfo.npm.name,
@@ -349,13 +349,13 @@ export class CdktfProviderProject extends cdk.JsiiProject {
     new AutoCloseCommunityIssues(this, { providerName });
     new Automerge(this);
     new LockIssues(this);
-    new NextVersionPr(this, "${{ secrets.GITHUB_TOKEN }}");
     new AlertOpenPrs(this, {
       slackWebhookUrl: "${{ secrets.ALERT_PRS_SLACK_WEBHOOK_URL }}",
       repository,
     });
     new ForceRelease(this, {
       workflowRunsOn,
+      repositoryUrl,
     });
 
     new TextFile(this, ".github/CODEOWNERS", {
@@ -397,7 +397,7 @@ export class CdktfProviderProject extends cdk.JsiiProject {
     // Submodule documentation generation
     this.gitignore.exclude("API.md"); // ignore the old file, we now generate it in the docs folder
     this.addDevDeps("jsii-docgen@^10.2.3");
-    this.addDevDeps(`jsii-rosetta@~5.1.2`);
+    this.addDevDeps(`jsii-rosetta@~5.2.0`);
 
     const docgen = this.addTask("docgen", {
       description: "Generate documentation for the project",

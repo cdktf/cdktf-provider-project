@@ -151,7 +151,6 @@ export class CdktfConfig {
       project.npmignore.exclude("scripts");
       project.npmignore.exclude(".projenrc.js");
       project.npmignore.exclude(".copywrite.hcl");
-      project.npmignore.exclude(".mergify.yml");
     }
     project.gitignore.exclude(".gen");
     project.gitignore.exclude(".terraform");
