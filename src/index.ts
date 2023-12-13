@@ -352,29 +352,32 @@ export class CdktfProviderProject extends cdk.JsiiProject {
       deprecationDate,
       isDeprecated: !!isDeprecated,
     });
-    const upgradeScript = new CheckForUpgradesScriptFile(this, {
-      providerVersion,
-      fqproviderName,
-    });
-    new ProviderUpgrade(this, {
-      checkForUpgradesScriptPath: upgradeScript.path,
-      workflowRunsOn,
-      nodeHeapSize: maxOldSpaceSize,
-    });
     new CustomizedLicense(this, options.creationYear);
     new GithubIssues(this, { providerName });
     new AutoApprove(this);
     new AutoCloseCommunityIssues(this, { providerName });
     new Automerge(this);
     new LockIssues(this);
-    new AlertOpenPrs(this, {
-      slackWebhookUrl: "${{ secrets.ALERT_PRS_SLACK_WEBHOOK_URL }}",
-      repository,
+
+    const upgradeScript = new CheckForUpgradesScriptFile(this, {
+      providerVersion,
+      fqproviderName,
     });
-    new ForceRelease(this, {
-      workflowRunsOn,
-      repositoryUrl,
-    });
+    if (!isDeprecated) {
+      new ProviderUpgrade(this, {
+        checkForUpgradesScriptPath: upgradeScript.path,
+        workflowRunsOn,
+        nodeHeapSize: maxOldSpaceSize,
+      });
+      new AlertOpenPrs(this, {
+        slackWebhookUrl: "${{ secrets.ALERT_PRS_SLACK_WEBHOOK_URL }}",
+        repository,
+      });
+      new ForceRelease(this, {
+        workflowRunsOn,
+        repositoryUrl,
+      });
+    }
 
     new TextFile(this, ".github/CODEOWNERS", {
       lines: [
