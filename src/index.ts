@@ -355,6 +355,7 @@ export class CdktfProviderProject extends cdk.JsiiProject {
     });
     new ForceRelease(this, {
       workflowRunsOn,
+      repositoryUrl,
     });
 
     new TextFile(this, ".github/CODEOWNERS", {
