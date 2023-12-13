@@ -1035,16 +1035,17 @@ jobs:
         continue-on-error: true
       - name: Copy the README file to the parent directory
         run: cp .repo/dist/go/*/README.md .repo/dist/go/README.md
-      - name: Collect go Artifact
-        run: mv .repo/dist dist
       - name: Mark the Go module as deprecated
         run: |-
-          find 'dist/go' -mindepth 2 -maxdepth 3 -type f -name 'go.mod' | xargs sed -i '1s|^|// Deprecated: HashiCorp is no longer publishing new versions of the prebuilt provider for random.
+          find '.repo/dist/go' -mindepth 2 -maxdepth 4 -type f -name 'go.mod' | xargs sed -i '1s|^|// Deprecated: HashiCorp is no longer publishing new versions of the prebuilt provider for random.
           // Previously-published versions of this prebuilt provider will still continue to be available as installable Go modules,
           // but these will not be compatible with newer versions of CDK for Terraform and are not eligible for commercial support.
           // You can continue to use the random provider in your CDK for Terraform projects with newer versions of CDKTF,
           // but you will need to generate the bindings locally. See https://cdk.tf/imports for details. 
           |'
+        continue-on-error: true
+      - name: Collect go Artifact
+        run: mv .repo/dist dist
       - name: Release
         env:
           GIT_USER_NAME: CDK for Terraform Team

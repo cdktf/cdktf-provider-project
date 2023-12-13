@@ -32,10 +32,11 @@ export class DeprecatePackages {
 
     const deprecationStep: JobStep = {
       name: "Mark the Go module as deprecated",
-      run: `find 'dist/go' -mindepth 2 -maxdepth 3 -type f -name 'go.mod' | xargs sed -i '1s|^|${deprecationMessageForGo} \n|'`,
+      run: `find '.repo/dist/go' -mindepth 2 -maxdepth 4 -type f -name 'go.mod' | xargs sed -i '1s|^|${deprecationMessageForGo} \n|'`,
+      continueOnError: true, // @TODO remove this once we confirm it to be working
     };
     if (isDeprecated) {
-      packageInfo.publishToGo?.prePublishSteps?.push(deprecationStep);
+      packageInfo.publishToGo?.prePublishSteps?.splice(-1, 0, deprecationStep);
     }
 
     const releaseWorkflow = project.github?.tryFindWorkflow("release");
