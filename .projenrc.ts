@@ -70,6 +70,47 @@ project.addPackageIgnore("projenrc");
 project.addPackageIgnore("/.projenrc.ts");
 project.addPackageIgnore(".copywrite.hcl");
 
+// Make sure 'chore' tasks also show up in the changelog
+// Changes in this repo can be quite consequential, so don't hide chores
+project.addFields({
+  "standard-version": {
+    types: [
+      {
+        type: "feat",
+        section: "Features",
+      },
+      {
+        type: "fix",
+        section: "Bug Fixes",
+      },
+      {
+        type: "chore",
+        section: "Updates",
+      },
+      {
+        type: "docs",
+        hidden: true,
+      },
+      {
+        type: "style",
+        hidden: true,
+      },
+      {
+        type: "refactor",
+        hidden: true,
+      },
+      {
+        type: "perf",
+        hidden: true,
+      },
+      {
+        type: "test",
+        hidden: true,
+      },
+    ],
+  },
+});
+
 // Run copywrite tool to add copyright headers to all files
 // This is for this repository itself, not for the projects
 // using this Projen template
