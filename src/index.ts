@@ -14,7 +14,6 @@ import { CustomizedLicense } from "./customized-license";
 import { ForceRelease } from "./force-release";
 import { GithubIssues } from "./github-issues";
 import { LockIssues } from "./lock-issues";
-import { NextVersionPr } from "./next-version-pr";
 import { PackageInfo } from "./package-info";
 import { ProviderUpgrade } from "./provider-upgrade";
 import { CheckForUpgradesScriptFile } from "./scripts/check-for-upgrades";
@@ -349,7 +348,6 @@ export class CdktfProviderProject extends cdk.JsiiProject {
     new AutoCloseCommunityIssues(this, { providerName });
     new Automerge(this);
     new LockIssues(this);
-    new NextVersionPr(this, "${{ secrets.GITHUB_TOKEN }}");
     new AlertOpenPrs(this, {
       slackWebhookUrl: "${{ secrets.ALERT_PRS_SLACK_WEBHOOK_URL }}",
       repository,
