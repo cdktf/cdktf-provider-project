@@ -3948,8 +3948,7 @@ public readonly deprecationDate: string;
 
 An optional date when the project should be considered deprecated, to be used in the README text.
 
-If no date is provided, then the
-date of the build will be used by default.
+If no date is provided, then the date of the build will be used by default.
 
 ---
 

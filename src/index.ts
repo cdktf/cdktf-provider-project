@@ -58,9 +58,8 @@ export interface CdktfProviderProjectOptions extends cdk.JsiiProjectOptions {
    */
   readonly isDeprecated?: boolean;
   /**
-   * An optional date when the project should be considered deprecated,
-   * to be used in the README text. If no date is provided, then the
-   * date of the build will be used by default.
+   * An optional date when the project should be considered deprecated, to be used in the README text.
+   * If no date is provided, then the date of the build will be used by default.
    */
   readonly deprecationDate?: string;
 }
@@ -198,7 +197,8 @@ export class CdktfProviderProject extends cdk.JsiiProject {
               // @see https://stackoverflow.com/a/49511949
               "sed -i -e '/## Available Packages/,/### Go/!b' -e '/### Go/!d;p; s/### Go/## Go Package/' -e 'd' .repo/dist/go/*/README.md",
               // sed -e is black magic and for whatever reason the string replace doesn't work so let's try it again:
-              "sed -i 's/### Go/## Go Package/' .repo/dist/go/*/README.md",
+              // eslint-disable-next-line prettier/prettier
+              `sed -i 's/### Go/## ${isDeprecated ? 'Deprecated' : 'Go'} Package/' .repo/dist/go/*/README.md`,
               // Just straight up delete these full lines and everything in between them:
               "sed -i -e '/API.typescript.md/,/You can also visit a hosted version/!b' -e 'd' .repo/dist/go/*/README.md",
               `sed -i 's|Find auto-generated docs for this provider here:|Find auto-generated docs for this provider [here](https://${repositoryUrl}/blob/main/docs/API.go.md).|' .repo/dist/go/*/README.md`,

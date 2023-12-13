@@ -17,13 +17,9 @@ export class DeprecatePackages {
   constructor(project: JsiiProject, options: DeprecatePackagesOptions) {
     const { providerName, packageInfo, isDeprecated } = options;
 
-    // This is not very DRY and I really don't care 🤪
     const deprecationMessageForNPM = [
-      `HashiCorp is no longer publishing new versions of the prebuilt provider for ${providerName}.`,
-      `Previously-published versions of this prebuilt provider will still continue to be available on NPM,`,
-      `but these will not be compatible with newer versions of CDK for Terraform and are not eligible for commercial support.`,
-      `You can continue to use the ${providerName} provider in your CDK for Terraform (CDKTF) projects, even with newer versions of CDKTF,`,
-      `but you will need to generate the bindings locally. See https://cdk.tf/imports for details.`,
+      `See https://cdk.tf/imports for details on how to continue to use the ${providerName} provider`,
+      `in your CDK for Terraform (CDKTF) projects by generating the bindings locally.`,
     ].join(" ");
     // @see https://github.com/golang/go/issues/40357
     const deprecationMessageForGo = [

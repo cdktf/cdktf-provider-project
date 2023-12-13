@@ -57,7 +57,7 @@ export class ReadmeFile extends FileBase {
         day: "numeric",
       });
     const deprecationMessage = `
-HashiCorp made the decision to stop publishing new versions of prebuilt [Terraform ${providerName} provider](${registryUrl}) bindings for [CDK for Terraform](https://cdk.tf) on ${date}. As such, this repository has been archived and is no longer supported in any way by HashiCorp. Previously-published versions of this prebuilt provider will still continue to be available on the respective package managers (e.g. npm, PyPi, Maven, NuGet), but these will not be compatible with new releases of \`cdktf\` past \`${cdktfVersion}\` and are no longer eligible for commercial support.
+HashiCorp made the decision to stop publishing new versions of prebuilt [Terraform ${providerName} provider](${registryUrl}) bindings for [CDK for Terraform](https://cdk.tf) on ${date}. As such, this repository has been archived and is no longer supported in any way by HashiCorp. Previously-published versions of this prebuilt provider will still continue to be available on their respective package managers (e.g. npm, PyPi, Maven, NuGet), but these will not be compatible with new releases of \`cdktf\` past \`${cdktfVersion}\` and are no longer eligible for commercial support.
 
 As a reminder, you can continue to use the \`${fqpnURL}\` provider in your CDK for Terraform (CDKTF) projects, even with newer versions of CDKTF, but you will need to generate the bindings locally. The easiest way to do so is to use the [\`provider add\` command](https://developer.hashicorp.com/terraform/cdktf/cli-reference/commands#provider-add), optionally with the \`--force-local\` flag enabled:
 
