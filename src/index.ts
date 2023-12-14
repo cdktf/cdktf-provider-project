@@ -240,7 +240,6 @@ export class CdktfProviderProject extends cdk.JsiiProject {
       devDeps: [
         "@actions/core@^1.1.0",
         "dot-prop@^5.2.0",
-        "semver@^7.5.3", // used by src/scripts/check-for-upgrades.ts
         ...(options.devDeps ?? []),
       ],
       name: packageInfo.npm.name,
@@ -253,6 +252,7 @@ export class CdktfProviderProject extends cdk.JsiiProject {
       repository: `https://github.com/${repository}.git`,
       mergify: false,
       eslint: false,
+      depsUpgrade: !isDeprecated,
       depsUpgradeOptions: {
         workflowOptions: {
           labels: ["automerge", "auto-approve", "dependencies"],
@@ -323,9 +323,12 @@ export class CdktfProviderProject extends cdk.JsiiProject {
       0,
       setSafeDirectory
     );
-    const { upgrade, pr } = (this.upgradeWorkflow as any).workflows[0].jobs;
-    upgrade.steps.splice(1, 0, setSafeDirectory);
-    pr.steps.splice(1, 0, setSafeDirectory);
+
+    if (!isDeprecated) {
+      const { upgrade, pr } = (this.upgradeWorkflow as any).workflows[0].jobs;
+      upgrade.steps.splice(1, 0, setSafeDirectory);
+      pr.steps.splice(1, 0, setSafeDirectory);
+    }
 
     // Fix maven issue (https://github.com/cdklabs/publib/pull/777)
     github.GitHub.of(this)?.tryFindWorkflow("release")?.file?.patch(
@@ -359,11 +362,11 @@ export class CdktfProviderProject extends cdk.JsiiProject {
     new Automerge(this);
     new LockIssues(this);
 
-    const upgradeScript = new CheckForUpgradesScriptFile(this, {
-      providerVersion,
-      fqproviderName,
-    });
     if (!isDeprecated) {
+      const upgradeScript = new CheckForUpgradesScriptFile(this, {
+        providerVersion,
+        fqproviderName,
+      });
       new ProviderUpgrade(this, {
         checkForUpgradesScriptPath: upgradeScript.path,
         workflowRunsOn,
