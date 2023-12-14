@@ -186,7 +186,7 @@ export class CdktfProviderProject extends cdk.JsiiProject {
               "sed -i 's/### Go/## Go Package/' .repo/dist/go/*/README.md",
               // Just straight up delete these full lines and everything in between them:
               "sed -i -e '/API.typescript.md/,/You can also visit a hosted version/!b' -e 'd' .repo/dist/go/*/README.md",
-              `sed -i 's|Find auto-generated docs for this provider here:|Find auto-generated docs for this provider [here](https://${options.repositoryUrl}/blob/main/docs/API.go.md).|' .repo/dist/go/*/README.md`,
+              `sed -i 's|Find auto-generated docs for this provider here:|Find auto-generated docs for this provider [here](https://${repositoryUrl}/blob/main/docs/API.go.md).|' .repo/dist/go/*/README.md`,
               // Just straight up delete these full lines and everything in between them:
               "sed -i -e '/### Provider Version/,/The provider version can be adjusted/!b' -e 'd' .repo/dist/go/*/README.md",
             ].join("\n"),
