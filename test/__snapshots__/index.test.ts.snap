@@ -1482,8 +1482,7 @@ scripts
         {
           "exec": "git diff --ignore-space-at-eol --exit-code"
         }
-      ],
-      "condition": "node ./scripts/should-release.js"
+      ]
     },
     "test": {
       "name": "test",

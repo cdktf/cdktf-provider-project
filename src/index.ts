@@ -397,7 +397,7 @@ export class CdktfProviderProject extends cdk.JsiiProject {
       description: releaseTask.description,
       steps: releaseTask.steps,
       env: (releaseTask as any)._env,
-      condition: "node ./scripts/should-release.js",
+      condition: !isDeprecated ? "node ./scripts/should-release.js" : undefined,
     });
 
     const releaseJobSteps: any[] = (
