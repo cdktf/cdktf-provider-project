@@ -389,31 +389,34 @@ export class CdktfProviderProject extends cdk.JsiiProject {
       ],
     });
 
-    new ShouldReleaseScriptFile(this, {});
+    if (!isDeprecated) {
+      new ShouldReleaseScriptFile(this, {});
 
-    const releaseTask = this.tasks.tryFind("release")!;
-    this.removeTask("release");
-    this.addTask("release", {
-      description: releaseTask.description,
-      steps: releaseTask.steps,
-      env: (releaseTask as any)._env,
-      condition: !isDeprecated ? "node ./scripts/should-release.js" : undefined,
-    });
+      const releaseTask = this.tasks.tryFind("release")!;
+      this.removeTask("release");
+      this.addTask("release", {
+        description: releaseTask.description,
+        steps: releaseTask.steps,
+        env: (releaseTask as any)._env,
+        condition: "node ./scripts/should-release.js",
+      });
 
-    const releaseJobSteps: any[] = (
-      this.github?.tryFindWorkflow("release") as any
-    ).jobs.release.steps;
-    const gitRemoteJob = releaseJobSteps.find((it) => it.id === "git_remote");
-    assert(
-      gitRemoteJob.run ===
-        'echo "latest_commit=$(git ls-remote origin -h ${{ github.ref }} | cut -f1)" >> $GITHUB_OUTPUT',
-      "git_remote step in release workflow did not match expected string, please check if the workaround still works!"
-    );
-    const previousCommand = gitRemoteJob.run;
-    const cancelCommand =
-      'echo "latest_commit=release_cancelled" >> $GITHUB_OUTPUT'; // this cancels the release via a non-matching SHA;
-    gitRemoteJob.run = `node ./scripts/should-release.js && ${previousCommand} || ${cancelCommand}`;
-    gitRemoteJob.name += " or cancel via faking a SHA if release was cancelled";
+      const releaseJobSteps: any[] = (
+        this.github?.tryFindWorkflow("release") as any
+      ).jobs.release.steps;
+      const gitRemoteJob = releaseJobSteps.find((it) => it.id === "git_remote");
+      assert(
+        gitRemoteJob.run ===
+          'echo "latest_commit=$(git ls-remote origin -h ${{ github.ref }} | cut -f1)" >> $GITHUB_OUTPUT',
+        "git_remote step in release workflow did not match expected string, please check if the workaround still works!"
+      );
+      const previousCommand = gitRemoteJob.run;
+      const cancelCommand =
+        'echo "latest_commit=release_cancelled" >> $GITHUB_OUTPUT'; // this cancels the release via a non-matching SHA;
+      gitRemoteJob.run = `node ./scripts/should-release.js && ${previousCommand} || ${cancelCommand}`;
+      gitRemoteJob.name +=
+        " or cancel via faking a SHA if release was cancelled";
+    }
 
     // Submodule documentation generation
     this.gitignore.exclude("API.md"); // ignore the old file, we now generate it in the docs folder
