@@ -11,6 +11,7 @@ import { Automerge } from "./automerge";
 import { CdktfConfig } from "./cdktf-config";
 import { CopyrightHeaders } from "./copyright-headers";
 import { CustomizedLicense } from "./customized-license";
+import { DeprecatePackages } from "./deprecate-packages";
 import { ForceRelease } from "./force-release";
 import { GithubIssues } from "./github-issues";
 import { LockIssues } from "./lock-issues";
@@ -51,6 +52,16 @@ export interface CdktfProviderProjectOptions extends cdk.JsiiProjectOptions {
    * Will fall back to the current year if not specified.
    */
   readonly creationYear?: number;
+  /**
+   * Whether or not this prebuilt provider is deprecated.
+   * If true, no new versions will be published.
+   */
+  readonly isDeprecated?: boolean;
+  /**
+   * An optional date when the project should be considered deprecated, to be used in the README text.
+   * If no date is provided, then the date of the build will be used by default.
+   */
+  readonly deprecationDate?: string;
 }
 
 const authorAddress = "https://hashicorp.com";
@@ -90,6 +101,8 @@ export class CdktfProviderProject extends cdk.JsiiProject {
       minNodeVersion,
       jsiiVersion,
       typescriptVersion,
+      isDeprecated,
+      deprecationDate,
       authorName = "HashiCorp",
       namespace = "cdktf",
       githubNamespace = "cdktf",
@@ -97,6 +110,7 @@ export class CdktfProviderProject extends cdk.JsiiProject {
       nugetOrg = "HashiCorp",
       mavenOrg = "hashicorp",
     } = options;
+
     const [fqproviderName, providerVersion] = terraformProvider.split("@");
     const providerName = fqproviderName.split("/").pop();
     assert(providerName, `${terraformProvider} doesn't seem to be valid`);
@@ -183,7 +197,8 @@ export class CdktfProviderProject extends cdk.JsiiProject {
               // @see https://stackoverflow.com/a/49511949
               "sed -i -e '/## Available Packages/,/### Go/!b' -e '/### Go/!d;p; s/### Go/## Go Package/' -e 'd' .repo/dist/go/*/README.md",
               // sed -e is black magic and for whatever reason the string replace doesn't work so let's try it again:
-              "sed -i 's/### Go/## Go Package/' .repo/dist/go/*/README.md",
+              // eslint-disable-next-line prettier/prettier
+              `sed -i 's/### Go/## ${isDeprecated ? 'Deprecated' : 'Go'} Package/' .repo/dist/go/*/README.md`,
               // Just straight up delete these full lines and everything in between them:
               "sed -i -e '/API.typescript.md/,/You can also visit a hosted version/!b' -e 'd' .repo/dist/go/*/README.md",
               `sed -i 's|Find auto-generated docs for this provider here:|Find auto-generated docs for this provider [here](https://${repositoryUrl}/blob/main/docs/API.go.md).|' .repo/dist/go/*/README.md`,
@@ -225,7 +240,6 @@ export class CdktfProviderProject extends cdk.JsiiProject {
       devDeps: [
         "@actions/core@^1.1.0",
         "dot-prop@^5.2.0",
-        "semver@^7.5.3", // used by src/scripts/check-for-upgrades.ts
         ...(options.devDeps ?? []),
       ],
       name: packageInfo.npm.name,
@@ -238,6 +252,7 @@ export class CdktfProviderProject extends cdk.JsiiProject {
       repository: `https://github.com/${repository}.git`,
       mergify: false,
       eslint: false,
+      depsUpgrade: !isDeprecated,
       depsUpgradeOptions: {
         workflowOptions: {
           labels: ["automerge", "auto-approve", "dependencies"],
@@ -308,9 +323,12 @@ export class CdktfProviderProject extends cdk.JsiiProject {
       0,
       setSafeDirectory
     );
-    const { upgrade, pr } = (this.upgradeWorkflow as any).workflows[0].jobs;
-    upgrade.steps.splice(1, 0, setSafeDirectory);
-    pr.steps.splice(1, 0, setSafeDirectory);
+
+    if (!isDeprecated) {
+      const { upgrade, pr } = (this.upgradeWorkflow as any).workflows[0].jobs;
+      upgrade.steps.splice(1, 0, setSafeDirectory);
+      pr.steps.splice(1, 0, setSafeDirectory);
+    }
 
     // Fix maven issue (https://github.com/cdklabs/publib/pull/777)
     github.GitHub.of(this)?.tryFindWorkflow("release")?.file?.patch(
@@ -334,15 +352,8 @@ export class CdktfProviderProject extends cdk.JsiiProject {
       typescriptVersion,
       packageInfo,
       githubNamespace,
-    });
-    const upgradeScript = new CheckForUpgradesScriptFile(this, {
-      providerVersion,
-      fqproviderName,
-    });
-    new ProviderUpgrade(this, {
-      checkForUpgradesScriptPath: upgradeScript.path,
-      workflowRunsOn,
-      nodeHeapSize: maxOldSpaceSize,
+      deprecationDate,
+      isDeprecated: !!isDeprecated,
     });
     new CustomizedLicense(this, options.creationYear);
     new GithubIssues(this, { providerName });
@@ -350,14 +361,26 @@ export class CdktfProviderProject extends cdk.JsiiProject {
     new AutoCloseCommunityIssues(this, { providerName });
     new Automerge(this);
     new LockIssues(this);
-    new AlertOpenPrs(this, {
-      slackWebhookUrl: "${{ secrets.ALERT_PRS_SLACK_WEBHOOK_URL }}",
-      repository,
-    });
-    new ForceRelease(this, {
-      workflowRunsOn,
-      repositoryUrl,
-    });
+
+    if (!isDeprecated) {
+      const upgradeScript = new CheckForUpgradesScriptFile(this, {
+        providerVersion,
+        fqproviderName,
+      });
+      new ProviderUpgrade(this, {
+        checkForUpgradesScriptPath: upgradeScript.path,
+        workflowRunsOn,
+        nodeHeapSize: maxOldSpaceSize,
+      });
+      new AlertOpenPrs(this, {
+        slackWebhookUrl: "${{ secrets.ALERT_PRS_SLACK_WEBHOOK_URL }}",
+        repository,
+      });
+      new ForceRelease(this, {
+        workflowRunsOn,
+        repositoryUrl,
+      });
+    }
 
     new TextFile(this, ".github/CODEOWNERS", {
       lines: [
@@ -369,31 +392,34 @@ export class CdktfProviderProject extends cdk.JsiiProject {
       ],
     });
 
-    new ShouldReleaseScriptFile(this, {});
+    if (!isDeprecated) {
+      new ShouldReleaseScriptFile(this, {});
 
-    const releaseTask = this.tasks.tryFind("release")!;
-    this.removeTask("release");
-    this.addTask("release", {
-      description: releaseTask.description,
-      steps: releaseTask.steps,
-      env: (releaseTask as any)._env,
-      condition: "node ./scripts/should-release.js",
-    });
+      const releaseTask = this.tasks.tryFind("release")!;
+      this.removeTask("release");
+      this.addTask("release", {
+        description: releaseTask.description,
+        steps: releaseTask.steps,
+        env: (releaseTask as any)._env,
+        condition: "node ./scripts/should-release.js",
+      });
 
-    const releaseJobSteps: any[] = (
-      this.github?.tryFindWorkflow("release") as any
-    ).jobs.release.steps;
-    const gitRemoteJob = releaseJobSteps.find((it) => it.id === "git_remote");
-    assert(
-      gitRemoteJob.run ===
-        'echo "latest_commit=$(git ls-remote origin -h ${{ github.ref }} | cut -f1)" >> $GITHUB_OUTPUT',
-      "git_remote step in release workflow did not match expected string, please check if the workaround still works!"
-    );
-    const previousCommand = gitRemoteJob.run;
-    const cancelCommand =
-      'echo "latest_commit=release_cancelled" >> $GITHUB_OUTPUT'; // this cancels the release via a non-matching SHA;
-    gitRemoteJob.run = `node ./scripts/should-release.js && ${previousCommand} || ${cancelCommand}`;
-    gitRemoteJob.name += " or cancel via faking a SHA if release was cancelled";
+      const releaseJobSteps: any[] = (
+        this.github?.tryFindWorkflow("release") as any
+      ).jobs.release.steps;
+      const gitRemoteJob = releaseJobSteps.find((it) => it.id === "git_remote");
+      assert(
+        gitRemoteJob.run ===
+          'echo "latest_commit=$(git ls-remote origin -h ${{ github.ref }} | cut -f1)" >> $GITHUB_OUTPUT',
+        "git_remote step in release workflow did not match expected string, please check if the workaround still works!"
+      );
+      const previousCommand = gitRemoteJob.run;
+      const cancelCommand =
+        'echo "latest_commit=release_cancelled" >> $GITHUB_OUTPUT'; // this cancels the release via a non-matching SHA;
+      gitRemoteJob.run = `node ./scripts/should-release.js && ${previousCommand} || ${cancelCommand}`;
+      gitRemoteJob.name +=
+        " or cancel via faking a SHA if release was cancelled";
+    }
 
     // Submodule documentation generation
     this.gitignore.exclude("API.md"); // ignore the old file, we now generate it in the docs folder
@@ -454,6 +480,11 @@ export class CdktfProviderProject extends cdk.JsiiProject {
     });
 
     new CopyrightHeaders(this);
+    new DeprecatePackages(this, {
+      providerName,
+      packageInfo,
+      isDeprecated: !!isDeprecated,
+    });
   }
 
   private pinGithubActionVersions(pinnedVersions: Record<string, string>) {

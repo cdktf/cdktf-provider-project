@@ -1670,8 +1670,10 @@ const cdktfProviderProjectOptions: CdktfProviderProjectOptions = { ... }
 | <code><a href="#@cdktf/provider-project.CdktfProviderProjectOptions.property.constructsVersion">constructsVersion</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#@cdktf/provider-project.CdktfProviderProjectOptions.property.terraformProvider">terraformProvider</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#@cdktf/provider-project.CdktfProviderProjectOptions.property.creationYear">creationYear</a></code> | <code>number</code> | The year of the creation of the repository, for copyright purposes. |
+| <code><a href="#@cdktf/provider-project.CdktfProviderProjectOptions.property.deprecationDate">deprecationDate</a></code> | <code>string</code> | An optional date when the project should be considered deprecated, to be used in the README text. |
 | <code><a href="#@cdktf/provider-project.CdktfProviderProjectOptions.property.forceMajorVersion">forceMajorVersion</a></code> | <code>number</code> | *No description.* |
 | <code><a href="#@cdktf/provider-project.CdktfProviderProjectOptions.property.githubNamespace">githubNamespace</a></code> | <code>string</code> | defaults to "cdktf" previously was "hashicorp". |
+| <code><a href="#@cdktf/provider-project.CdktfProviderProjectOptions.property.isDeprecated">isDeprecated</a></code> | <code>boolean</code> | Whether or not this prebuilt provider is deprecated. |
 | <code><a href="#@cdktf/provider-project.CdktfProviderProjectOptions.property.mavenEndpoint">mavenEndpoint</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#@cdktf/provider-project.CdktfProviderProjectOptions.property.mavenOrg">mavenOrg</a></code> | <code>string</code> | defaults to "hashicorp". |
 | <code><a href="#@cdktf/provider-project.CdktfProviderProjectOptions.property.namespace">namespace</a></code> | <code>string</code> | defaults to "cdktf". |
@@ -3936,6 +3938,20 @@ Will fall back to the current year if not specified.
 
 ---
 
+##### `deprecationDate`<sup>Optional</sup> <a name="deprecationDate" id="@cdktf/provider-project.CdktfProviderProjectOptions.property.deprecationDate"></a>
+
+```typescript
+public readonly deprecationDate: string;
+```
+
+- *Type:* string
+
+An optional date when the project should be considered deprecated, to be used in the README text.
+
+If no date is provided, then the date of the build will be used by default.
+
+---
+
 ##### `forceMajorVersion`<sup>Optional</sup> <a name="forceMajorVersion" id="@cdktf/provider-project.CdktfProviderProjectOptions.property.forceMajorVersion"></a>
 
 ```typescript
@@ -3957,6 +3973,20 @@ public readonly githubNamespace: string;
 defaults to "cdktf" previously was "hashicorp".
 
 Used for GitHub org name and package scoping
+
+---
+
+##### `isDeprecated`<sup>Optional</sup> <a name="isDeprecated" id="@cdktf/provider-project.CdktfProviderProjectOptions.property.isDeprecated"></a>
+
+```typescript
+public readonly isDeprecated: boolean;
+```
+
+- *Type:* boolean
+
+Whether or not this prebuilt provider is deprecated.
+
+If true, no new versions will be published.
 
 ---
 

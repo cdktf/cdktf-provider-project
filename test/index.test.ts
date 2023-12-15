@@ -115,3 +115,39 @@ test("golang release workflow has copyright headers", () => {
     expect.stringContaining("hashicorp/setup-copywrite")
   );
 });
+
+test("has a custom workflow and README if the project is deprecated", () => {
+  const snapshot = synthSnapshot(
+    getProject({ isDeprecated: true, deprecationDate: "December 11, 2023" })
+  );
+
+  expect(snapshot).toMatchSnapshot();
+
+  expect(JSON.parse(snapshot["package.json"])).toHaveProperty(
+    "cdktf.isDeprecated",
+    true
+  );
+
+  expect(snapshot["README.md"]).toEqual(
+    expect.stringContaining(
+      "HashiCorp made the decision to stop publishing new versions of"
+    )
+  );
+
+  const release = snapshot[".github/workflows/release.yml"];
+  expect(release).toEqual(
+    expect.stringContaining(
+      "Deprecate the package in package managers if needed"
+    )
+  );
+
+  const releaseLines = release.split("\n");
+  const releaseGoLineIndex = releaseLines.findIndex((line: string) =>
+    line.includes("release_go")
+  );
+  expect(releaseLines.slice(releaseGoLineIndex + 1).join("\n")).toEqual(
+    expect.stringContaining(
+      "// Deprecated: HashiCorp is no longer publishing new versions of the prebuilt provider for random."
+    )
+  );
+});

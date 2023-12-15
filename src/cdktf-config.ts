@@ -20,14 +20,30 @@ interface CdktfConfigOptions {
   constructsVersion: string;
   packageInfo: PackageInfo;
   githubNamespace: string;
+  /**
+   * Whether or not this prebuilt provider is deprecated.
+   * If true, no new versions will be published.
+   */
+  isDeprecated: boolean;
+  /**
+   * An optional date when the project should be considered deprecated,
+   * to be used in the README text. If no date is provided, then the
+   * date of the build will be used by default.
+   */
+  deprecationDate?: string;
   jsiiVersion?: string;
   typescriptVersion?: string;
 }
 
 export class CdktfConfig {
   constructor(project: cdk.JsiiProject, options: CdktfConfigOptions) {
-    const { terraformProvider, providerName, jsiiVersion, typescriptVersion } =
-      options;
+    const {
+      terraformProvider,
+      providerName,
+      jsiiVersion,
+      typescriptVersion,
+      isDeprecated,
+    } = options;
 
     const cdktfVersion = options.cdktfVersion;
     const constructsVersion = options.constructsVersion;
@@ -134,6 +150,7 @@ export class CdktfConfig {
 
     project.addFields({
       cdktf: {
+        isDeprecated,
         provider: {
           name: fullyQualifiedProviderName,
           version: actualProviderVersion,

@@ -20,6 +20,8 @@ export class CheckForUpgradesScriptFile extends FileBase {
   ) {
     super(project, "scripts/check-for-upgrades.js", options);
     this.options = options;
+
+    project.addDevDeps("semver@^7.5.3");
   }
 
   protected synthesizeContent(resolver: IResolver): string | undefined {
