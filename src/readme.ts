@@ -61,7 +61,7 @@ HashiCorp made the decision to stop publishing new versions of prebuilt [Terrafo
 
 As a reminder, you can continue to use the \`${fqpnURL}\` provider in your CDK for Terraform (CDKTF) projects, even with newer versions of CDKTF, but you will need to generate the bindings locally. The easiest way to do so is to use the [\`provider add\` command](https://developer.hashicorp.com/terraform/cdktf/cli-reference/commands#provider-add), optionally with the \`--force-local\` flag enabled:
 
-  cdktf provider add ${fqpnURL} --force-local
+\`cdktf provider add ${fqpnURL} --force-local\`
 
 For more information and additional examples, check out our documentation on [generating provider bindings manually](https://cdk.tf/imports).
     `.trim();
