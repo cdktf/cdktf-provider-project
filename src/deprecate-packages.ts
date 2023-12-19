@@ -28,11 +28,12 @@ export class DeprecatePackages {
       `// but these will not be compatible with newer versions of CDK for Terraform and are not eligible for commercial support.`,
       `// You can continue to use the ${providerName} provider in your CDK for Terraform projects with newer versions of CDKTF,`,
       `// but you will need to generate the bindings locally. See https://cdk.tf/imports for details.`,
-    ].join("\n");
+      ``,
+    ].join("\\n");
 
     const deprecationStep: JobStep = {
       name: "Mark the Go module as deprecated",
-      run: `find '.repo/dist/go' -mindepth 2 -maxdepth 4 -type f -name 'go.mod' | xargs sed -i '1s|^|${deprecationMessageForGo} \n|'`,
+      run: `find '.repo/dist/go' -mindepth 2 -maxdepth 4 -type f -name 'go.mod' | xargs sed -i '1s|^|${deprecationMessageForGo}|'`,
       continueOnError: true, // @TODO remove this once we confirm it to be working
     };
     if (isDeprecated) {
@@ -70,7 +71,10 @@ export class DeprecatePackages {
           {
             name: "Deprecate the package on NPM",
             if: "steps.check_status.outputs.is_deprecated",
-            run: `npm deprecate ${packageInfo.npm.name} "${deprecationMessageForNPM}"`,
+            run: [
+              'npm set "//$NPM_REGISTRY/:_authToken=$NPM_TOKEN"',
+              `npm deprecate ${packageInfo.npm.name} "${deprecationMessageForNPM}"`,
+            ].join("\n"),
             env: {
               NPM_REGISTRY: project.package.npmRegistry,
               NPM_TOKEN:
