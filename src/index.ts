@@ -392,10 +392,10 @@ export class CdktfProviderProject extends cdk.JsiiProject {
       ],
     });
 
+    const releaseTask = this.tasks.tryFind("release")!;
     if (!isDeprecated) {
       new ShouldReleaseScriptFile(this, {});
 
-      const releaseTask = this.tasks.tryFind("release")!;
       this.removeTask("release");
       this.addTask("release", {
         description: releaseTask.description,
@@ -419,6 +419,21 @@ export class CdktfProviderProject extends cdk.JsiiProject {
       gitRemoteJob.run = `node ./scripts/should-release.js && ${previousCommand} || ${cancelCommand}`;
       gitRemoteJob.name +=
         " or cancel via faking a SHA if release was cancelled";
+    }
+    if (isDeprecated) {
+      // It's not clear to me why, but 'unbump' doesn't seem to have an effect and `npx projen release` fails
+      // This isn't a very elegant solution but I also don't feel like fighting Projen over an edge case
+      const releaseTaskSteps = releaseTask.steps;
+      releaseTaskSteps.splice(-1, 0, {
+        exec: "git checkout HEAD -- package.json",
+      });
+
+      this.removeTask("release");
+      this.addTask("release", {
+        description: releaseTask.description,
+        steps: releaseTaskSteps,
+        env: (releaseTask as any)._env,
+      });
     }
 
     // Submodule documentation generation
