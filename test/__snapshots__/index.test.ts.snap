@@ -528,7 +528,9 @@ jobs:
         env:
           NPM_REGISTRY: registry.npmjs.org
           NPM_TOKEN: \${{ secrets.NPM_TOKEN }}
-        run: npm deprecate @cdktf/provider-random "See https://cdk.tf/imports for details on how to continue to use the random provider in your CDK for Terraform (CDKTF) projects by generating the bindings locally."
+        run: |-
+          npm set "//$NPM_REGISTRY/:_authToken=$NPM_TOKEN"
+          npm deprecate @cdktf/provider-random "See https://cdk.tf/imports for details on how to continue to use the random provider in your CDK for Terraform (CDKTF) projects by generating the bindings locally."
   release_github:
     name: Publish to GitHub Releases
     needs: release
@@ -820,13 +822,7 @@ jobs:
       - name: Copy the README file to the parent directory
         run: cp .repo/dist/go/*/README.md .repo/dist/go/README.md
       - name: Mark the Go module as deprecated
-        run: |-
-          find '.repo/dist/go' -mindepth 2 -maxdepth 4 -type f -name 'go.mod' | xargs sed -i '1s|^|// Deprecated: HashiCorp is no longer publishing new versions of the prebuilt provider for random.
-          // Previously-published versions of this prebuilt provider will still continue to be available as installable Go modules,
-          // but these will not be compatible with newer versions of CDK for Terraform and are not eligible for commercial support.
-          // You can continue to use the random provider in your CDK for Terraform projects with newer versions of CDKTF,
-          // but you will need to generate the bindings locally. See https://cdk.tf/imports for details. 
-          |'
+        run: "find '.repo/dist/go' -mindepth 2 -maxdepth 4 -type f -name 'go.mod' | xargs sed -i '1s|^|// Deprecated: HashiCorp is no longer publishing new versions of the prebuilt provider for random.\\\\n// Previously-published versions of this prebuilt provider will still continue to be available as installable Go modules,\\\\n// but these will not be compatible with newer versions of CDK for Terraform and are not eligible for commercial support.\\\\n// You can continue to use the random provider in your CDK for Terraform projects with newer versions of CDKTF,\\\\n// but you will need to generate the bindings locally. See https://cdk.tf/imports for details.\\\\n|'"
         continue-on-error: true
       - name: Collect go Artifact
         run: mv .repo/dist dist
@@ -1368,9 +1364,6 @@ scripts
         },
         {
           "spawn": "unbump"
-        },
-        {
-          "exec": "git checkout HEAD -- package.json"
         },
         {
           "exec": "git diff --ignore-space-at-eol --exit-code"
@@ -2804,7 +2797,9 @@ jobs:
         env:
           NPM_REGISTRY: registry.npmjs.org
           NPM_TOKEN: \${{ secrets.NPM_TOKEN }}
-        run: npm deprecate @cdktf/provider-random "See https://cdk.tf/imports for details on how to continue to use the random provider in your CDK for Terraform (CDKTF) projects by generating the bindings locally."
+        run: |-
+          npm set "//$NPM_REGISTRY/:_authToken=$NPM_TOKEN"
+          npm deprecate @cdktf/provider-random "See https://cdk.tf/imports for details on how to continue to use the random provider in your CDK for Terraform (CDKTF) projects by generating the bindings locally."
   release_github:
     name: Publish to GitHub Releases
     needs: release
@@ -5512,7 +5507,9 @@ jobs:
         env:
           NPM_REGISTRY: registry.npmjs.org
           NPM_TOKEN: \${{ secrets.NPM_TOKEN }}
-        run: npm deprecate @cdktf/provider-random "See https://cdk.tf/imports for details on how to continue to use the random provider in your CDK for Terraform (CDKTF) projects by generating the bindings locally."
+        run: |-
+          npm set "//$NPM_REGISTRY/:_authToken=$NPM_TOKEN"
+          npm deprecate @cdktf/provider-random "See https://cdk.tf/imports for details on how to continue to use the random provider in your CDK for Terraform (CDKTF) projects by generating the bindings locally."
   release_github:
     name: Publish to GitHub Releases
     needs: release
@@ -8205,7 +8202,9 @@ jobs:
         env:
           NPM_REGISTRY: registry.npmjs.org
           NPM_TOKEN: \${{ secrets.NPM_TOKEN }}
-        run: npm deprecate @cdktf/provider-random "See https://cdk.tf/imports for details on how to continue to use the random provider in your CDK for Terraform (CDKTF) projects by generating the bindings locally."
+        run: |-
+          npm set "//$NPM_REGISTRY/:_authToken=$NPM_TOKEN"
+          npm deprecate @cdktf/provider-random "See https://cdk.tf/imports for details on how to continue to use the random provider in your CDK for Terraform (CDKTF) projects by generating the bindings locally."
   release_github:
     name: Publish to GitHub Releases
     needs: release
