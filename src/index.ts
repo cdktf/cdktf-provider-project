@@ -205,7 +205,6 @@ export class CdktfProviderProject extends cdk.JsiiProject {
               // Just straight up delete these full lines and everything in between them:
               "sed -i -e '/### Provider Version/,/The provider version can be adjusted/!b' -e 'd' .repo/dist/go/*/README.md",
             ].join("\n"),
-            continueOnError: true,
           },
           {
             name: "Copy the README file to the parent directory",

@@ -34,7 +34,6 @@ export class DeprecatePackages {
     const deprecationStep: JobStep = {
       name: "Mark the Go module as deprecated",
       run: `find '.repo/dist/go' -mindepth 2 -maxdepth 4 -type f -name 'go.mod' | xargs sed -i '1s|^|${deprecationMessageForGo}|'`,
-      continueOnError: true, // @TODO remove this once we confirm it to be working
     };
     if (isDeprecated) {
       packageInfo.publishToGo?.prePublishSteps?.splice(-1, 0, deprecationStep);
