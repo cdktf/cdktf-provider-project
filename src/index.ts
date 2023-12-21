@@ -81,7 +81,7 @@ const githubActionPinnedVersions = {
   "actions/setup-java": "0ab4596768b603586c0de567f2430c30f5b0d2b0", // v3.13.0
   "actions/setup-node": "8f152de45cc393bb48ce5d89d36b731f54556e65", // v4.0.0
   "actions/setup-python": "65d7f2d534ac1bc67fcd62888c5f4f3d2cb2b236", // v4.7.1
-  "actions/stale": "1160a2240286f5da8ec72b1c0816ce2481aabf84", // v8.0.0
+  "actions/stale": "28ca1036281a5e5922ead5184a1bbf96e5fc984e", // v9.0.0
   "actions/upload-artifact": "a8a3f3ad30e3422c9c7b888a15615d19a852ae32", // v3.1.3
   "amannn/action-semantic-pull-request":
     "e9fabac35e210fea40ca5b14c0da95a099eff26f", // v5.4.0
