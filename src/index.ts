@@ -11,6 +11,7 @@ import { Automerge } from "./automerge";
 import { CdktfConfig } from "./cdktf-config";
 import { CopyrightHeaders } from "./copyright-headers";
 import { CustomizedLicense } from "./customized-license";
+import { Dependabot } from "./dependabot";
 import { DeprecatePackages } from "./deprecate-packages";
 import { ForceRelease } from "./force-release";
 import { GithubIssues } from "./github-issues";
@@ -291,6 +292,7 @@ export class CdktfProviderProject extends cdk.JsiiProject {
           exemptLabels: ["no-auto-close"],
         },
       },
+      pullRequestTemplate: false,
       docgen: false,
     });
 
@@ -379,6 +381,7 @@ export class CdktfProviderProject extends cdk.JsiiProject {
         workflowRunsOn,
         repositoryUrl,
       });
+      new Dependabot(this);
     }
 
     new TextFile(this, ".github/CODEOWNERS", {
