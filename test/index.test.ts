@@ -13,7 +13,7 @@ const getProject = (
     name: "test",
     terraformProvider: "random@~>2.0",
     author: "cdktf-team",
-    authorAddress: "cdktf-team address",
+    authorAddress: "https://github.com/cdktf",
     cdktfVersion: "0.10.3",
     constructsVersion: "10.0.0",
     defaultReleaseBranch: "main",
