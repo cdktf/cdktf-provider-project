@@ -65,7 +65,6 @@ export interface CdktfProviderProjectOptions extends cdk.JsiiProjectOptions {
   readonly deprecationDate?: string;
 }
 
-const authorAddress = "https://hashicorp.com";
 const getMavenName = (providerName: string): string => {
   return ["null", "random"].includes(providerName)
     ? `${providerName}_provider`
@@ -105,6 +104,7 @@ export class CdktfProviderProject extends cdk.JsiiProject {
       isDeprecated,
       deprecationDate,
       authorName = "HashiCorp",
+      authorAddress = "https://hashicorp.com",
       namespace = "cdktf",
       githubNamespace = "cdktf",
       mavenEndpoint = "https://hashicorp.oss.sonatype.org",
