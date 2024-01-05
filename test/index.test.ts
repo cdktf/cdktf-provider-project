@@ -151,3 +151,13 @@ test("has a custom workflow and README if the project is deprecated", () => {
     )
   );
 });
+
+test("override licensee", () => {
+  const snapshot = synthSnapshot(
+    getProject({ creationYear: 2021, licensee: "Acme Corp" })
+  );
+
+  expect(snapshot.LICENSE).toEqual(
+    expect.stringContaining("Copyright (c) 2021 Acme Corp")
+  );
+});
