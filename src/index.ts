@@ -196,7 +196,8 @@ export class CdktfProviderProject extends cdk.JsiiProject {
             run: [
               "sed -i 's/# CDKTF prebuilt bindings for/# CDKTF Go bindings for/' .repo/dist/go/*/README.md",
               // @see https://stackoverflow.com/a/49511949
-              "sed -i -e '/## Available Packages/,/### Go/!b' -e '/### Go/!d;p; s/### Go/## Go Package/' -e 'd' .repo/dist/go/*/README.md",
+              // eslint-disable-next-line prettier/prettier
+              `sed -i -e '/## ${isDeprecated ? 'Deprecated' : 'Available'} Packages/,/### Go/!b' -e '/### Go/!d;p; s/### Go/## Go Package/' -e 'd' .repo/dist/go/*/README.md`,
               // sed -e is black magic and for whatever reason the string replace doesn't work so let's try it again:
               // eslint-disable-next-line prettier/prettier
               `sed -i 's/### Go/## ${isDeprecated ? 'Deprecated' : 'Go'} Package/' .repo/dist/go/*/README.md`,
