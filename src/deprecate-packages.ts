@@ -62,14 +62,14 @@ export class DeprecatePackages {
             name: "Check deprecation status",
             id: "check_status",
             run: [
-              `IS_DEPRECATED=$(npm pkg get cdktf.isDeprecated | tr -d '"')`,
+              `IS_DEPRECATED=$(cat package.json | jq .cdktf.isDeprecated -r)`,
               `echo "is_deprecated=$IS_DEPRECATED"`, // for easier debugging
               `echo "is_deprecated=$IS_DEPRECATED" >> $GITHUB_OUTPUT`,
             ].join("\n"),
           },
           {
             name: "Deprecate the package on NPM",
-            if: "steps.check_status.outputs.is_deprecated",
+            if: "steps.check_status.outputs.is_deprecated == 'true' || steps.check_status.outputs.is_deprecated == true",
             run: [
               'npm set "//$NPM_REGISTRY/:_authToken=$NPM_TOKEN"',
               `npm deprecate ${packageInfo.npm.name} "${deprecationMessageForNPM}"`,

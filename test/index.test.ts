@@ -161,3 +161,29 @@ test("override licensee", () => {
     expect.stringContaining("Copyright (c) 2021 Acme Corp")
   );
 });
+
+test("override maven org", () => {
+  const snapshot = synthSnapshot(getProject({ mavenOrg: "gofer" }));
+
+  expect(JSON.parse(snapshot["package.json"])).toHaveProperty(
+    "jsii.targets.java.maven.groupId",
+    "com.gofer"
+  );
+  expect(JSON.parse(snapshot["package.json"])).toHaveProperty(
+    "jsii.targets.java.package",
+    "com.gofer.cdktf.providers.random_provider"
+  );
+});
+
+test("override maven group id", () => {
+  const snapshot = synthSnapshot(getProject({ mavenGroupId: "dev.gofer" }));
+
+  expect(JSON.parse(snapshot["package.json"])).toHaveProperty(
+    "jsii.targets.java.maven.groupId",
+    "dev.gofer"
+  );
+  expect(JSON.parse(snapshot["package.json"])).toHaveProperty(
+    "jsii.targets.java.package",
+    "dev.gofer.cdktf.providers.random_provider"
+  );
+});

@@ -49,6 +49,10 @@ export interface CdktfProviderProjectOptions extends cdk.JsiiProjectOptions {
    */
   readonly mavenOrg?: string;
   /**
+   * defaults to "com.${mavenOrg}"
+   */
+  readonly mavenGroupId?: string;
+  /**
    * The year of the creation of the repository, for copyright purposes.
    * Will fall back to the current year if not specified.
    */
@@ -127,7 +131,8 @@ export class CdktfProviderProject extends cdk.JsiiProject {
     const nugetName = `${nugetOrg}.${pascalCase(
       namespace
     )}.Providers.${pascalCase(providerName)}`;
-    const mavenName = `com.${mavenOrg}.${namespace}.providers.${getMavenName(
+    const mavenGroupId = options.mavenGroupId ?? `com.${mavenOrg}`;
+    const mavenName = `${mavenGroupId}.${namespace}.providers.${getMavenName(
       providerName
     )}`;
     const repositoryUrl = `github.com/${githubNamespace}/${namespace}-provider-${providerName.replace(
@@ -155,7 +160,7 @@ export class CdktfProviderProject extends cdk.JsiiProject {
       },
       publishToMaven: {
         javaPackage: mavenName,
-        mavenGroupId: `com.${mavenOrg}`,
+        mavenGroupId: mavenGroupId,
         mavenArtifactId: `${namespace}-provider-${providerName}`,
         mavenEndpoint,
       },
@@ -200,7 +205,8 @@ export class CdktfProviderProject extends cdk.JsiiProject {
             run: [
               "sed -i 's/# CDKTF prebuilt bindings for/# CDKTF Go bindings for/' .repo/dist/go/*/README.md",
               // @see https://stackoverflow.com/a/49511949
-              "sed -i -e '/## Available Packages/,/### Go/!b' -e '/### Go/!d;p; s/### Go/## Go Package/' -e 'd' .repo/dist/go/*/README.md",
+              // eslint-disable-next-line prettier/prettier
+              `sed -i -e '/## ${isDeprecated ? 'Deprecated' : 'Available'} Packages/,/### Go/!b' -e '/### Go/!d;p; s/### Go/## Go Package/' -e 'd' .repo/dist/go/*/README.md`,
               // sed -e is black magic and for whatever reason the string replace doesn't work so let's try it again:
               // eslint-disable-next-line prettier/prettier
               `sed -i 's/### Go/## ${isDeprecated ? 'Deprecated' : 'Go'} Package/' .repo/dist/go/*/README.md`,

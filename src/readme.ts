@@ -131,7 +131,12 @@ The go package is generated into the [\`${
 
 \`go get ${packageInfo.publishToGo?.moduleName}/${
       packageInfo.publishToGo?.packageName
-    }\`
+    }/<version>\`
+
+Where \`<version>\` is the version of the prebuilt provider you would like to use e.g. \`v11\`. The full module name can be found
+within the [go.mod](https://${packageInfo.publishToGo?.moduleName}/blob/main/${
+      packageInfo.publishToGo?.packageName
+    }/go.mod#L1) file.
 
 ## Docs
 
