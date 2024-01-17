@@ -67,6 +67,10 @@ export interface CdktfProviderProjectOptions extends cdk.JsiiProjectOptions {
    * If no date is provided, then the date of the build will be used by default.
    */
   readonly deprecationDate?: string;
+  /**
+   * defaults to "HashiCorp, Inc."
+   */
+  readonly licensee?: string;
 }
 
 const getMavenName = (providerName: string): string => {
@@ -362,7 +366,7 @@ export class CdktfProviderProject extends cdk.JsiiProject {
       deprecationDate,
       isDeprecated: !!isDeprecated,
     });
-    new CustomizedLicense(this, options.creationYear);
+    new CustomizedLicense(this, options.creationYear, options.licensee);
     new GithubIssues(this, { providerName });
     new AutoApprove(this);
     new AutoCloseCommunityIssues(this, { providerName });

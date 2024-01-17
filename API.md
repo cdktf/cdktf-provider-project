@@ -1674,6 +1674,7 @@ const cdktfProviderProjectOptions: CdktfProviderProjectOptions = { ... }
 | <code><a href="#@cdktf/provider-project.CdktfProviderProjectOptions.property.forceMajorVersion">forceMajorVersion</a></code> | <code>number</code> | *No description.* |
 | <code><a href="#@cdktf/provider-project.CdktfProviderProjectOptions.property.githubNamespace">githubNamespace</a></code> | <code>string</code> | defaults to "cdktf" previously was "hashicorp". |
 | <code><a href="#@cdktf/provider-project.CdktfProviderProjectOptions.property.isDeprecated">isDeprecated</a></code> | <code>boolean</code> | Whether or not this prebuilt provider is deprecated. |
+| <code><a href="#@cdktf/provider-project.CdktfProviderProjectOptions.property.licensee">licensee</a></code> | <code>string</code> | defaults to "HashiCorp, Inc.". |
 | <code><a href="#@cdktf/provider-project.CdktfProviderProjectOptions.property.mavenEndpoint">mavenEndpoint</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#@cdktf/provider-project.CdktfProviderProjectOptions.property.mavenGroupId">mavenGroupId</a></code> | <code>string</code> | defaults to "com.${mavenOrg}". |
 | <code><a href="#@cdktf/provider-project.CdktfProviderProjectOptions.property.mavenOrg">mavenOrg</a></code> | <code>string</code> | defaults to "hashicorp". |
@@ -3988,6 +3989,18 @@ public readonly isDeprecated: boolean;
 Whether or not this prebuilt provider is deprecated.
 
 If true, no new versions will be published.
+
+---
+
+##### `licensee`<sup>Optional</sup> <a name="licensee" id="@cdktf/provider-project.CdktfProviderProjectOptions.property.licensee"></a>
+
+```typescript
+public readonly licensee: string;
+```
+
+- *Type:* string
+
+defaults to "HashiCorp, Inc.".
 
 ---
 
