@@ -49,6 +49,10 @@ export interface CdktfProviderProjectOptions extends cdk.JsiiProjectOptions {
    */
   readonly mavenOrg?: string;
   /**
+   * defaults to "com.${mavenOrg}"
+   */
+  readonly mavenGroupId?: string;
+  /**
    * The year of the creation of the repository, for copyright purposes.
    * Will fall back to the current year if not specified.
    */
@@ -123,7 +127,8 @@ export class CdktfProviderProject extends cdk.JsiiProject {
     const nugetName = `${nugetOrg}.${pascalCase(
       namespace
     )}.Providers.${pascalCase(providerName)}`;
-    const mavenName = `com.${mavenOrg}.${namespace}.providers.${getMavenName(
+    const mavenGroupId = options.mavenGroupId ?? `com.${mavenOrg}`;
+    const mavenName = `${mavenGroupId}.${namespace}.providers.${getMavenName(
       providerName
     )}`;
     const repositoryUrl = `github.com/${githubNamespace}/${namespace}-provider-${providerName.replace(
@@ -151,7 +156,7 @@ export class CdktfProviderProject extends cdk.JsiiProject {
       },
       publishToMaven: {
         javaPackage: mavenName,
-        mavenGroupId: `com.${mavenOrg}`,
+        mavenGroupId: mavenGroupId,
         mavenArtifactId: `${namespace}-provider-${providerName}`,
         mavenEndpoint,
       },
