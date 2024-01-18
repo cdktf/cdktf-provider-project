@@ -206,14 +206,12 @@ export class CdktfProviderProject extends cdk.JsiiProject {
               "sed -i 's/# CDKTF prebuilt bindings for/# CDKTF Go bindings for/' .repo/dist/go/*/README.md",
               // @see https://stackoverflow.com/a/49511949
               // eslint-disable-next-line prettier/prettier
-              `sed -i -e '/## ${
-                isDeprecated ? "Deprecated" : "Available"
-              } Packages/,/### Go/!b' -e '/### Go/!d;p; s/### Go/## Go Package/' -e 'd' .repo/dist/go/*/README.md`,
+              // prettier-ignore
+              `sed -i -e '/## ${isDeprecated ? "Deprecated" : "Available"} Packages/,/### Go/!b' -e '/### Go/!d;p; s/### Go/## Go Package/' -e 'd' .repo/dist/go/*/README.md`,
               // sed -e is black magic and for whatever reason the string replace doesn't work so let's try it again:
               // eslint-disable-next-line prettier/prettier
-              `sed -i 's/### Go/## ${
-                isDeprecated ? "Deprecated" : "Go"
-              } Package/' .repo/dist/go/*/README.md`,
+              // prettier-ignore
+              `sed -i 's/### Go/## ${isDeprecated ? "Deprecated" : "Go"} Package/' .repo/dist/go/*/README.md`,
               // Just straight up delete these full lines and everything in between them:
               "sed -i -e '/API.typescript.md/,/You can also visit a hosted version/!b' -e 'd' .repo/dist/go/*/README.md",
               `sed -i 's|Find auto-generated docs for this provider here:|Find auto-generated docs for this provider [here](https://${repositoryUrl}/blob/main/docs/API.go.md).|' .repo/dist/go/*/README.md`,
