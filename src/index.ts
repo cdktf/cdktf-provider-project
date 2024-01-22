@@ -431,7 +431,7 @@ export class CdktfProviderProject extends cdk.JsiiProject {
 
       const cancelCommand =
         'echo "latest_commit=release_cancelled" >> $GITHUB_OUTPUT'; // this cancels the release via a non-matching SHA;
-      gitRemoteJob.run = `node ./scripts/should-release.js && $(${previousCommand}) || ${cancelCommand}`;
+      gitRemoteJob.run = `node ./scripts/should-release.js && (${previousCommand}) || ${cancelCommand}`;
       gitRemoteJob.name +=
         " or cancel via faking a SHA if release was cancelled";
     }
