@@ -187,3 +187,21 @@ test("override maven group id", () => {
     "dev.gofer.cdktf.providers.random_provider"
   );
 });
+
+test("with minNodeVersion", () => {
+  const snapshot = synthSnapshot(
+    new CdktfProviderProject({
+      useCustomGithubRunner: false,
+      terraformProvider: "vancluever/acme@~> 2.10",
+      cdktfVersion: "^0.20.0",
+      constructsVersion: "^10.3.0",
+      minNodeVersion: "18.12.0",
+      jsiiVersion: "~5.3.0",
+      typescriptVersion: "~5.3.0", // NOTE: this should be the same major/minor version as JSII
+      devDeps: ["@cdktf/provider-project@^0.5.0"],
+      isDeprecated: false,
+    } as any)
+  );
+
+  expect(snapshot).toMatchSnapshot();
+});

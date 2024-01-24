@@ -338,17 +338,18 @@ export class CdktfProviderProject extends cdk.JsiiProject {
     );
 
     // ensure we don't fail if the release file is not present
-    // exit 0 if ./dist/dist/releasetag.txt is not present, otherwise exit 1
-    const oldRun: string = (this.release as any).defaultBranch.workflow.jobs
-      .release.steps[5].run;
+    const checkExistingTagStep = (
+      this.release as any
+    ).defaultBranch.workflow.jobs.release.steps.find(
+      (s: object) => "id" in s && s.id === "check_tag_exists"
+    );
+    const oldExistingTagRun: string = checkExistingTagStep.run;
     prettyAssertEqual(
-      oldRun.split("\n")[0],
+      oldExistingTagRun.split("\n")[0],
       "TAG=$(cat dist/dist/releasetag.txt)",
       "release step changed, please check if the workaround still works!"
     );
-    (
-      this.release as any
-    ).defaultBranch.workflow.jobs.release.steps[5].run = `if [ ! -f dist/dist/releasetag.txt ]; then (echo "exists=true" >> $GITHUB_OUTPUT) && exit 0; fi\n${oldRun}`;
+    checkExistingTagStep.run = `if [ ! -f dist/dist/releasetag.txt ]; then (echo "exists=true" >> $GITHUB_OUTPUT) && exit 0; fi\n${oldExistingTagRun}`;
 
     if (!isDeprecated) {
       const { upgrade, pr } = (this.upgradeWorkflow as any).workflows[0].jobs;
