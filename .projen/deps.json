@@ -125,7 +125,7 @@
     },
     {
       "name": "projen",
-      "version": "^0.79.2",
+      "version": "^0.79.3",
       "type": "peer"
     },
     {
