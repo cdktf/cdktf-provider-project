@@ -47,7 +47,7 @@ const project = new cdk.JsiiProject({
   prettier: true,
   depsUpgradeOptions: {
     workflowOptions: {
-      labels: ["dependencies"],
+      labels: ["automerge", "auto-approve", "dependencies"],
       schedule: UpgradeDependenciesSchedule.WEEKLY,
     },
   },
