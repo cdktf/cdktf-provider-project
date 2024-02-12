@@ -13,14 +13,14 @@ import { LockIssues } from "./src/lock-issues";
 
 const githubActionPinnedVersions = {
   "actions/checkout": "b4ffde65f46336ab88eb53be808477a3936bae11", // v4.1.1
-  "actions/download-artifact": "9bc31d5ccc31df68ecc42ccf4149144866c47d8a", // v3.0.2
+  "actions/download-artifact": "6b208ae046db98c579e8a3aa621ab581ff575935", // v4.1.1
   "actions/github-script": "60a0d83039c74a4aee543508d2ffcb1c3799cdea", // v7.0.1
-  "actions/setup-node": "8f152de45cc393bb48ce5d89d36b731f54556e65", // v4.0.0
-  "actions/upload-artifact": "a8a3f3ad30e3422c9c7b888a15615d19a852ae32", // v3.1.3
+  "actions/setup-node": "b39b52d1213e96004bfcb1c61a8a6fa8ab84f3e8", // v4.0.1
+  "actions/upload-artifact": "26f96dfa697d77e81fd5907df203aa23a56210a8", // v4.3.0
   "amannn/action-semantic-pull-request":
     "e9fabac35e210fea40ca5b14c0da95a099eff26f", // v5.4.0
   "dessant/lock-threads": "1bf7ec25051fe7c00bdd17e6a7cf3d7bfb7dc771", // v5.0.1
-  "peter-evans/create-pull-request": "153407881ec5c347639a548ade7d8ad1d6740e38", // v5.0.2
+  "peter-evans/create-pull-request": "b1ddad2c994a25fbc81a28b3ec0e368bb2021c50", // v6.0.0
 };
 
 const project = new cdk.JsiiProject({
