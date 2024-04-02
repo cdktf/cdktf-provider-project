@@ -412,7 +412,7 @@ jobs:
 name: lock
 on:
   schedule:
-    - cron: 20 2 * * *
+    - cron: 17 16 * * *
 jobs:
   lock:
     runs-on: ubuntu-latest
@@ -2642,7 +2642,7 @@ jobs:
 name: lock
 on:
   schedule:
-    - cron: 20 2 * * *
+    - cron: 17 16 * * *
 jobs:
   lock:
     runs-on: ubuntu-latest
@@ -5386,7 +5386,7 @@ jobs:
 name: lock
 on:
   schedule:
-    - cron: 20 2 * * *
+    - cron: 17 16 * * *
 jobs:
   lock:
     runs-on: ubuntu-latest
@@ -8127,7 +8127,7 @@ jobs:
 name: lock
 on:
   schedule:
-    - cron: 20 2 * * *
+    - cron: 17 16 * * *
 jobs:
   lock:
     runs-on: ubuntu-latest
@@ -10850,7 +10850,7 @@ jobs:
 name: lock
 on:
   schedule:
-    - cron: 20 2 * * *
+    - cron: 7 12 * * *
 jobs:
   lock:
     runs-on: ubuntu-latest
