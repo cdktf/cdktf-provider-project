@@ -22,7 +22,7 @@ export class LockIssues {
       .update(project.name)
       .digest("hex");
     const scheduleHour = parseInt(projectNameHash.slice(0, 2), 16) % 24;
-    const scheduleMinute = parseInt(projectNameHash.slice(2, 4), 16) % 24;
+    const scheduleMinute = parseInt(projectNameHash.slice(2, 4), 16) % 60;
 
     workflow.on({
       schedule: [{ cron: `${scheduleHour} ${scheduleMinute} * * *` }],
