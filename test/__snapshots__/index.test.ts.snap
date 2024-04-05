@@ -412,7 +412,7 @@ jobs:
 name: lock
 on:
   schedule:
-    - cron: 17 16 * * *
+    - cron: 4 5 * * *
 jobs:
   lock:
     runs-on: ubuntu-latest
@@ -857,7 +857,7 @@ jobs:
 name: stale
 on:
   schedule:
-    - cron: 0 1 * * *
+    - cron: 4 2 * * *
   workflow_dispatch: {}
 jobs:
   stale:
@@ -2159,9 +2159,8 @@ updates:
 
 name: alert-open-prs
 on:
-  workflow_dispatch: {}
   schedule:
-    - cron: "* */12 * * 1-5"
+    - cron: 4 9 * * 1-5
 jobs:
   check-open-prs:
     runs-on: ubuntu-latest
@@ -2642,7 +2641,7 @@ jobs:
 name: lock
 on:
   schedule:
-    - cron: 17 16 * * *
+    - cron: 4 5 * * *
 jobs:
   lock:
     runs-on: ubuntu-latest
@@ -3151,7 +3150,7 @@ jobs:
 name: stale
 on:
   schedule:
-    - cron: 0 1 * * *
+    - cron: 4 2 * * *
   workflow_dispatch: {}
 jobs:
   stale:
@@ -4876,9 +4875,8 @@ updates:
 
 name: alert-open-prs
 on:
-  workflow_dispatch: {}
   schedule:
-    - cron: "* */12 * * 1-5"
+    - cron: 4 9 * * 1-5
 jobs:
   check-open-prs:
     runs-on: ubuntu-latest
@@ -5386,7 +5384,7 @@ jobs:
 name: lock
 on:
   schedule:
-    - cron: 17 16 * * *
+    - cron: 4 5 * * *
 jobs:
   lock:
     runs-on: ubuntu-latest
@@ -5919,7 +5917,7 @@ jobs:
 name: stale
 on:
   schedule:
-    - cron: 0 1 * * *
+    - cron: 4 2 * * *
   workflow_dispatch: {}
 jobs:
   stale:
@@ -7644,9 +7642,8 @@ updates:
 
 name: alert-open-prs
 on:
-  workflow_dispatch: {}
   schedule:
-    - cron: "* */12 * * 1-5"
+    - cron: 4 9 * * 1-5
 jobs:
   check-open-prs:
     runs-on: ubuntu-latest
@@ -8127,7 +8124,7 @@ jobs:
 name: lock
 on:
   schedule:
-    - cron: 17 16 * * *
+    - cron: 4 5 * * *
 jobs:
   lock:
     runs-on: ubuntu-latest
@@ -8636,7 +8633,7 @@ jobs:
 name: stale
 on:
   schedule:
-    - cron: 0 1 * * *
+    - cron: 4 2 * * *
   workflow_dispatch: {}
 jobs:
   stale:
@@ -10361,9 +10358,8 @@ updates:
 
 name: alert-open-prs
 on:
-  workflow_dispatch: {}
   schedule:
-    - cron: "* */12 * * 1-5"
+    - cron: 12 15 * * 1-5
 jobs:
   check-open-prs:
     runs-on: ubuntu-latest
@@ -10850,7 +10846,7 @@ jobs:
 name: lock
 on:
   schedule:
-    - cron: 7 12 * * *
+    - cron: 12 1 * * *
 jobs:
   lock:
     runs-on: ubuntu-latest
@@ -11363,7 +11359,7 @@ jobs:
 name: stale
 on:
   schedule:
-    - cron: 0 1 * * *
+    - cron: 12 4 * * *
   workflow_dispatch: {}
 jobs:
   stale:

@@ -20,6 +20,7 @@ import { PackageInfo } from "./package-info";
 import { ProviderUpgrade } from "./provider-upgrade";
 import { CheckForUpgradesScriptFile } from "./scripts/check-for-upgrades";
 import { ShouldReleaseScriptFile } from "./scripts/should-release";
+import { generateRandomCron } from "./util/random-cron";
 
 // ensure new projects start with 1.0.0 so that every following breaking change leads to an increased major version
 const MIN_MAJOR_VERSION = 1;
@@ -449,6 +450,13 @@ export class CdktfProviderProject extends cdk.JsiiProject {
       gitRemoteJob.name +=
         " or cancel via faking a SHA if release was cancelled";
     }
+
+    const staleWorkflow = this.tryFindObjectFile(".github/workflows/stale.yml");
+    staleWorkflow?.addOverride("on.schedule", [
+      {
+        cron: generateRandomCron({ project: this, maxHour: 4, hourOffset: 1 }),
+      },
+    ]);
 
     // Submodule documentation generation
     this.gitignore.exclude("API.md"); // ignore the old file, we now generate it in the docs folder

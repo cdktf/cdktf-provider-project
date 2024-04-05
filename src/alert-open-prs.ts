@@ -6,6 +6,7 @@
 import { cdk } from "projen";
 import { GithubWorkflow } from "projen/lib/github";
 import { JobPermission } from "projen/lib/github/workflows-model";
+import { generateRandomCron, Schedule } from "./util/random-cron";
 
 const DEFAULT_MAX_HOURS_OPEN = 2;
 
@@ -25,8 +26,17 @@ export class AlertOpenPrs {
 
     const workflow = new GithubWorkflow(project.github!, "alert-open-prs");
     workflow.on({
-      workflowDispatch: {},
-      schedule: [{ cron: "* */12 * * 1-5" }], // every 12 hours, Monday-Friday
+      // run on weekdays sometime during working hours (8am-4pm UTC)
+      schedule: [
+        {
+          cron: generateRandomCron({
+            project,
+            maxHour: 8,
+            hourOffset: 8,
+            schedule: Schedule.Weekdays,
+          }),
+        },
+      ],
     });
     workflow.addJob("check-open-prs", {
       runsOn: ["ubuntu-latest"],
