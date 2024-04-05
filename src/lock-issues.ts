@@ -3,9 +3,9 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import { createHash } from "crypto";
 import { javascript } from "projen";
 import { JobPermission } from "projen/lib/github/workflows-model";
+import { generateRandomCron } from "./util/random-cron";
 
 /**
  * Automatically locks issues and PRs after 7 days. Note that 90% of the issues and PRs
@@ -18,14 +18,9 @@ export class LockIssues {
 
     if (!workflow) throw new Error("no workflow defined");
 
-    const projectNameHash = createHash("md5")
-      .update(project.name)
-      .digest("hex");
-    const scheduleHour = parseInt(projectNameHash.slice(0, 2), 16) % 24;
-    const scheduleMinute = parseInt(projectNameHash.slice(2, 4), 16) % 24;
-
     workflow.on({
-      schedule: [{ cron: `${scheduleHour} ${scheduleMinute} * * *` }],
+      // run daily sometime between midnight and 6am UTC
+      schedule: [{ cron: generateRandomCron({ project, maxHour: 6 }) }],
     });
 
     workflow.addJob("lock", {
