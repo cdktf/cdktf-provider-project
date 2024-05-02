@@ -20,7 +20,7 @@ import { PackageInfo } from "./package-info";
 import { ProviderUpgrade } from "./provider-upgrade";
 import { CheckForUpgradesScriptFile } from "./scripts/check-for-upgrades";
 import { ShouldReleaseScriptFile } from "./scripts/should-release";
-import { generateRandomCron } from "./util/random-cron";
+import { generateRandomCron, Schedule } from "./util/random-cron";
 
 // ensure new projects start with 1.0.0 so that every following breaking change leads to an increased major version
 const MIN_MAJOR_VERSION = 1;
@@ -81,23 +81,23 @@ const getMavenName = (providerName: string): string => {
 };
 
 const githubActionPinnedVersions = {
-  "actions/checkout": "b4ffde65f46336ab88eb53be808477a3936bae11", // v4.1.1
-  "actions/download-artifact": "c850b930e6ba138125429b7e5c93fc707a7f8427", // v4.1.4
+  "actions/checkout": "0ad4b8fadaa221de15dcec353f45205ec38ea70b", // v4.1.4
+  "actions/download-artifact": "65a9edc5881444af0b9093a5e628f2fe47ea3b2e", // v4.1.7
   "actions/github-script": "60a0d83039c74a4aee543508d2ffcb1c3799cdea", // v7.0.1
   "actions/setup-dotnet": "4d6c8fcf3c8f7a60068d26b594648e99df24cee3", // v4.0.0
   "actions/setup-go": "0c52d547c9bc32b1aa3301fd7a9cb496313a4491", // v5.0.0
-  "actions/setup-java": "9704b39bf258b59bc04b50fa2dd55e9ed76b47a8", // v4.1.0
-  "actions/setup-node": "b39b52d1213e96004bfcb1c61a8a6fa8ab84f3e8", // v4.0.1
-  "actions/setup-python": "0a5c61591373683505ea898e09a3ea4f39ef2b9c", // v5.0.0
+  "actions/setup-java": "99b8673ff64fbf99d8d325f52d9a5bdedb8483e9", // v4.2.1
+  "actions/setup-node": "60edb5dd545a775178f52524783378180af0d1f8", // v4.0.2
+  "actions/setup-python": "82c7e631bb3cdc910f68e0081d67478d79c6982d", // v5.1.0
   "actions/stale": "28ca1036281a5e5922ead5184a1bbf96e5fc984e", // v9.0.0
-  "actions/upload-artifact": "5d5d22a31266ced268874388b861e4b58bb5c2f3", // v4.3.1
+  "actions/upload-artifact": "65462800fd760344b1a7b4382951275a0abb4808", // v4.3.3
   "amannn/action-semantic-pull-request":
-    "e9fabac35e210fea40ca5b14c0da95a099eff26f", // v5.4.0
+    "cfb60706e18bc85e8aec535e3c577abe8f70378e", // v5.5.2
   "dessant/lock-threads": "1bf7ec25051fe7c00bdd17e6a7cf3d7bfb7dc771", // v5.0.1
   "hashicorp/setup-copywrite": "867a1a2a064a0626db322392806428f7dc59cb3e", // v1.1.2
   "imjohnbo/issue-bot": "572eed14422c4d6ca37e870f97e7da209422f5bd", // v3.4.4
-  "peter-evans/create-pull-request": "a4f52f8033a6168103c2538976c07b467e8163bc", // v6.0.1
-  "slackapi/slack-github-action": "6c661ce58804a1a20f6dc5fbee7f0381b469e001", // v1.25.0
+  "peter-evans/create-pull-request": "6d6857d36972b65feb161a90e484f2984215f83e", // v6.0.5
+  "slackapi/slack-github-action": "70cd7be8e40a46e8b0eced40b0de447bdb42f68e", // v1.26.0
 };
 
 export class CdktfProviderProject extends cdk.JsiiProject {
@@ -136,10 +136,11 @@ export class CdktfProviderProject extends cdk.JsiiProject {
     const mavenName = `${mavenGroupId}.${namespace}.providers.${getMavenName(
       providerName
     )}`;
-    const repositoryUrl = `github.com/${githubNamespace}/${namespace}-provider-${providerName.replace(
+    const repository = `${githubNamespace}/${namespace}-provider-${providerName.replace(
       /-/g,
       ""
     )}`;
+    const repositoryUrl = `github.com/${repository}`;
 
     const packageInfo: PackageInfo = {
       npm: {
@@ -231,11 +232,6 @@ export class CdktfProviderProject extends cdk.JsiiProject {
         ],
       },
     };
-
-    const repository = `${githubNamespace}/${namespace}-provider-${providerName.replace(
-      /-/g,
-      ""
-    )}`;
 
     const workflowRunsOn = options.useCustomGithubRunner
       ? ["custom", "linux", "custom-linux-medium"] // 8 core, 32 GB
@@ -458,10 +454,30 @@ export class CdktfProviderProject extends cdk.JsiiProject {
       },
     ]);
 
+    const upgradeWorkflow = this.tryFindObjectFile(
+      ".github/workflows/upgrade-main.yml"
+    );
+    upgradeWorkflow?.addOverride("on.schedule", [
+      {
+        cron: generateRandomCron({
+          project: this,
+          maxHour: 0,
+          hourOffset: 1,
+          schedule: Schedule.Weekly,
+        }),
+      },
+    ]);
+
     // Submodule documentation generation
     this.gitignore.exclude("API.md"); // ignore the old file, we now generate it in the docs folder
     this.addDevDeps("jsii-docgen@^10.2.3");
-    this.addDevDeps(`jsii-rosetta@~5.2.0`);
+    if (jsiiVersion) {
+      // NOTE: the below is making a broad assumption that you're passing a range like "~5.3.0" to jsiiVersion
+      // If you use that field to pass a very specific version (e.g. "5.3.11") then this might break
+      this.addDevDeps(`jsii-rosetta@${jsiiVersion}`);
+    } else {
+      this.addDevDeps(`jsii-rosetta`);
+    }
 
     const docgen = this.addTask("docgen", {
       description: "Generate documentation for the project",
