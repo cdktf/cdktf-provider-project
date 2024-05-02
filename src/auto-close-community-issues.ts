@@ -32,7 +32,7 @@ export class AutoCloseCommunityIssues {
       },
     });
     prWorkflow.on({
-      pullRequest: {
+      pullRequestTarget: {
         types: ["opened"],
       },
     });
@@ -52,6 +52,7 @@ export class AutoCloseCommunityIssues {
     issueWorkflow.addJob("autoclose", {
       runsOn: ["ubuntu-latest"],
       permissions: {
+        contents: JobPermission.READ,
         issues: JobPermission.WRITE,
       },
       if: `github.event.issue.user.login != 'team-tf-cdk' && !contains(${maintainerStatuses}, github.event.issue.author_association)`,
@@ -83,6 +84,7 @@ export class AutoCloseCommunityIssues {
     prWorkflow.addJob("autoclose", {
       runsOn: ["ubuntu-latest"],
       permissions: {
+        contents: JobPermission.READ,
         pullRequests: JobPermission.WRITE,
       },
       if: `github.event.pull_request.user.login != 'team-tf-cdk' && !contains(${maintainerStatuses}, github.event.pull_request.author_association)`,
