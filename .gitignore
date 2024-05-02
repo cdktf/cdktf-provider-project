@@ -40,14 +40,12 @@ junit.xml
 !/.prettierignore
 !/.prettierrc.json
 !/test/
+!/tsconfig.json
 !/tsconfig.dev.json
 !/src/
 /lib
 /dist/
 !/.eslintrc.json
-.jsii
-tsconfig.json
-!/API.md
 !/LICENSE
 !/.github/workflows/lock.yml
 !/.github/workflows/auto-approve.yml

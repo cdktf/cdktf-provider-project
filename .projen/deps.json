@@ -63,28 +63,6 @@
       "type": "build"
     },
     {
-      "name": "jsii-diff",
-      "type": "build"
-    },
-    {
-      "name": "jsii-docgen",
-      "type": "build"
-    },
-    {
-      "name": "jsii-pacmak",
-      "type": "build"
-    },
-    {
-      "name": "jsii-rosetta",
-      "version": "~5.3.0",
-      "type": "build"
-    },
-    {
-      "name": "jsii",
-      "version": "~5.3.0",
-      "type": "build"
-    },
-    {
       "name": "prettier",
       "type": "build"
     },

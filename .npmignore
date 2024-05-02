@@ -22,7 +22,6 @@ dist
 /.projenrc.js
 tsconfig.tsbuildinfo
 /.eslintrc.json
-!.jsii
 projenrc
 .copywrite.hcl
 /.gitattributes
