@@ -5,6 +5,7 @@
 
 import { javascript } from "projen";
 import { JobPermission } from "projen/lib/github/workflows-model";
+import { generateRandomCron } from "../src/util/random-cron";
 
 /**
  * Auto-updates Node to the next LTS version a month before the previous one goes EOL
@@ -17,7 +18,10 @@ export class UpgradeNode {
     if (!workflow) throw new Error("no workflow defined");
 
     workflow.on({
-      schedule: [{ cron: "23 3 * * *" }], // Runs once a day
+      // run daily sometime between midnight and 6am UTC
+      schedule: [
+        { cron: generateRandomCron({ project, maxHour: 3, hourOffset: 2 }) },
+      ],
       workflowDispatch: {}, // allow manual triggering
     });
 

@@ -5,6 +5,7 @@
 
 import { javascript } from "projen";
 import { JobPermission } from "projen/lib/github/workflows-model";
+import { generateRandomCron } from "./util/random-cron";
 
 interface ProviderUpgradeOptions {
   checkForUpgradesScriptPath: string;
@@ -28,7 +29,15 @@ export class ProviderUpgrade {
     if (!workflow) throw new Error("no workflow defined");
 
     workflow.on({
-      schedule: [{ cron: "0 3 * * *" }], // Run every day at 3 O'Clock
+      schedule: [
+        {
+          cron: generateRandomCron({
+            project,
+            maxHour: 0,
+            hourOffset: 3,
+          }),
+        },
+      ], // Run every day sometime between 3 and 4am
       workflowDispatch: {}, // allow manual triggering
     });
 
