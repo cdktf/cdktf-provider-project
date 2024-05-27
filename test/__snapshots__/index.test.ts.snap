@@ -5007,10 +5007,7 @@ on:
   workflow_dispatch: {}
 jobs:
   build:
-    runs-on:
-      - custom
-      - linux
-      - custom-linux-medium
+    runs-on: custom-linux-medium
     permissions:
       contents: write
     outputs:
@@ -5063,10 +5060,7 @@ jobs:
           path: dist
   self-mutation:
     needs: build
-    runs-on:
-      - custom
-      - linux
-      - custom-linux-medium
+    runs-on: custom-linux-medium
     permissions:
       contents: write
     if: always() && needs.build.outputs.self_mutation_happened && !(github.event.pull_request.head.repo.full_name != github.repository)
@@ -5097,10 +5091,7 @@ jobs:
           git push origin HEAD:$PULL_REQUEST_REF
   package-js:
     needs: build
-    runs-on:
-      - custom
-      - linux
-      - custom-linux-medium
+    runs-on: custom-linux-medium
     permissions: {}
     if: "! needs.build.outputs.self_mutation_happened"
     steps:
@@ -5125,10 +5116,7 @@ jobs:
         run: mv .repo/dist dist
   package-java:
     needs: build
-    runs-on:
-      - custom
-      - linux
-      - custom-linux-medium
+    runs-on: custom-linux-medium
     permissions: {}
     if: "! needs.build.outputs.self_mutation_happened"
     steps:
@@ -5157,10 +5145,7 @@ jobs:
         run: mv .repo/dist dist
   package-python:
     needs: build
-    runs-on:
-      - custom
-      - linux
-      - custom-linux-medium
+    runs-on: custom-linux-medium
     permissions: {}
     if: "! needs.build.outputs.self_mutation_happened"
     steps:
@@ -5188,10 +5173,7 @@ jobs:
         run: mv .repo/dist dist
   package-dotnet:
     needs: build
-    runs-on:
-      - custom
-      - linux
-      - custom-linux-medium
+    runs-on: custom-linux-medium
     permissions: {}
     if: "! needs.build.outputs.self_mutation_happened"
     steps:
@@ -5219,10 +5201,7 @@ jobs:
         run: mv .repo/dist dist
   package-go:
     needs: build
-    runs-on:
-      - custom
-      - linux
-      - custom-linux-medium
+    runs-on: custom-linux-medium
     permissions: {}
     if: "! needs.build.outputs.self_mutation_happened"
     steps:
@@ -5267,10 +5246,7 @@ on:
         description: Whether to publish to Go Repository
 jobs:
   force-release:
-    runs-on:
-      - custom
-      - linux
-      - custom-linux-medium
+    runs-on: custom-linux-medium
     permissions:
       contents: write
     env:
@@ -5305,10 +5281,7 @@ jobs:
   force_release_golang:
     name: Publish to Github Go Repository
     needs: force-release
-    runs-on:
-      - custom
-      - linux
-      - custom-linux-medium
+    runs-on: custom-linux-medium
     permissions:
       contents: read
     env:
@@ -5392,10 +5365,7 @@ on:
   workflow_dispatch: {}
 jobs:
   upgrade:
-    runs-on:
-      - custom
-      - linux
-      - custom-linux-medium
+    runs-on: custom-linux-medium
     permissions:
       pull-requests: write
       issues: write
@@ -5494,10 +5464,7 @@ on:
   workflow_dispatch: {}
 jobs:
   release:
-    runs-on:
-      - custom
-      - linux
-      - custom-linux-medium
+    runs-on: custom-linux-medium
     permissions:
       contents: write
     outputs:
@@ -5570,10 +5537,7 @@ jobs:
   release_github:
     name: Publish to GitHub Releases
     needs: release
-    runs-on:
-      - custom
-      - linux
-      - custom-linux-medium
+    runs-on: custom-linux-medium
     permissions:
       contents: write
       issues: write
@@ -5616,10 +5580,7 @@ jobs:
   release_npm:
     name: Publish to npm
     needs: release
-    runs-on:
-      - custom
-      - linux
-      - custom-linux-medium
+    runs-on: custom-linux-medium
     permissions:
       contents: read
       issues: write
@@ -5666,10 +5627,7 @@ jobs:
   release_maven:
     name: Publish to Maven Central
     needs: release
-    runs-on:
-      - custom
-      - linux
-      - custom-linux-medium
+    runs-on: custom-linux-medium
     permissions:
       contents: read
       issues: write
@@ -5724,10 +5682,7 @@ jobs:
   release_pypi:
     name: Publish to PyPI
     needs: release
-    runs-on:
-      - custom
-      - linux
-      - custom-linux-medium
+    runs-on: custom-linux-medium
     permissions:
       contents: read
       issues: write
@@ -5776,10 +5731,7 @@ jobs:
   release_nuget:
     name: Publish to NuGet Gallery
     needs: release
-    runs-on:
-      - custom
-      - linux
-      - custom-linux-medium
+    runs-on: custom-linux-medium
     permissions:
       contents: read
       issues: write
@@ -5827,10 +5779,7 @@ jobs:
   release_golang:
     name: Publish to GitHub Go Module Repository
     needs: release
-    runs-on:
-      - custom
-      - linux
-      - custom-linux-medium
+    runs-on: custom-linux-medium
     permissions:
       contents: read
       issues: write
