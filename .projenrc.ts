@@ -40,7 +40,7 @@ const project = new cdk.JsiiProject({
   typescriptVersion: "~5.3.0", // should always be the same major/minor as JSII
   peerDeps: ["projen@^0.79.3", "constructs@^10.3.0"],
   deps: ["change-case", "fs-extra"],
-  devDeps: ["@types/fs-extra", "glob"],
+  devDeps: ["@types/fs-extra", "glob", "@types/glob"],
   bundledDeps: ["change-case", "fs-extra"],
   defaultReleaseBranch: "main",
   releaseToNpm: true,
