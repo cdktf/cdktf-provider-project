@@ -50,6 +50,7 @@ export class LockIssues {
           },
         },
       ],
+      continueOnError: true, // this job fails quite frequently due to rate limit issues but it's really not a big deal if it does
     });
   }
 }
