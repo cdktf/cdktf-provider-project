@@ -86,7 +86,7 @@ jobs:
     if: contains(github.event.pull_request.labels.*.name, 'auto-approve') && github.event.pull_request.draft == false
     steps:
       - name: Checkout PR
-        uses: actions/checkout@0ad4b8fadaa221de15dcec353f45205ec38ea70b
+        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332
         with:
           ref: \${{ github.event.pull_request.head.ref }}
           repository: \${{ github.event.pull_request.head.repo.full_name }}
@@ -117,7 +117,7 @@ jobs:
     if: github.event.issue.user.login != 'team-tf-cdk' && !contains(fromJSON('["OWNER", "MEMBER", "COLLABORATOR", "CONTRIBUTOR"]'), github.event.issue.author_association)
     steps:
       - name: Checkout
-        uses: actions/checkout@0ad4b8fadaa221de15dcec353f45205ec38ea70b
+        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332
       - name: Auto-close issues by non-collaborators
         env:
           GH_TOKEN: \${{ secrets.GITHUB_TOKEN }}
@@ -143,7 +143,7 @@ jobs:
     if: github.event.pull_request.user.login != 'team-tf-cdk' && !contains(fromJSON('["OWNER", "MEMBER", "COLLABORATOR", "CONTRIBUTOR"]'), github.event.pull_request.author_association)
     steps:
       - name: Checkout
-        uses: actions/checkout@0ad4b8fadaa221de15dcec353f45205ec38ea70b
+        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332
       - name: Auto-close PRs by non-collaborators
         env:
           GH_TOKEN: \${{ secrets.GITHUB_TOKEN }}
@@ -173,7 +173,7 @@ jobs:
     if: contains(github.event.pull_request.labels.*.name, 'automerge') && !contains(github.event.pull_request.labels.*.name, 'do-not-merge') && github.event.pull_request.draft == false
     steps:
       - name: Checkout
-        uses: actions/checkout@0ad4b8fadaa221de15dcec353f45205ec38ea70b
+        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332
       - name: Turn on automerge for this PR by a trusted user or bot
         if: github.event.pull_request.user.login == 'team-tf-cdk' || contains(fromJSON('["OWNER", "MEMBER", "COLLABORATOR"]'), github.event.pull_request.author_association) || github.actor == 'dependabot[bot]'
         env:
@@ -197,7 +197,7 @@ jobs:
       CI: "true"
     steps:
       - name: Checkout
-        uses: actions/checkout@0ad4b8fadaa221de15dcec353f45205ec38ea70b
+        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332
         with:
           ref: \${{ github.event.pull_request.head.ref }}
           repository: \${{ github.event.pull_request.head.repo.full_name }}
@@ -211,7 +211,7 @@ jobs:
       - name: Revert package.json version bump
         run: git checkout package.json
       - name: Setup Copywrite tool
-        uses: hashicorp/setup-copywrite@867a1a2a064a0626db322392806428f7dc59cb3e
+        uses: hashicorp/setup-copywrite@32638da2d4e81d56a0764aa1547882fc4d209636
       - name: Add headers using Copywrite tool
         run: copywrite headers
       - name: Find mutations
@@ -247,7 +247,7 @@ jobs:
     if: always() && needs.build.outputs.self_mutation_happened && !(github.event.pull_request.head.repo.full_name != github.repository)
     steps:
       - name: Checkout
-        uses: actions/checkout@0ad4b8fadaa221de15dcec353f45205ec38ea70b
+        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332
         with:
           token: \${{ secrets.PROJEN_GITHUB_TOKEN }}
           ref: \${{ github.event.pull_request.head.ref }}
@@ -449,7 +449,7 @@ jobs:
     permissions:
       pull-requests: write
     steps:
-      - uses: amannn/action-semantic-pull-request@cfb60706e18bc85e8aec535e3c577abe8f70378e
+      - uses: amannn/action-semantic-pull-request@0723387faaf9b38adef4775cd42cfd5155ed6017
         env:
           GITHUB_TOKEN: \${{ secrets.GITHUB_TOKEN }}
         with:
@@ -480,7 +480,7 @@ jobs:
       CI: "true"
     steps:
       - name: Checkout
-        uses: actions/checkout@0ad4b8fadaa221de15dcec353f45205ec38ea70b
+        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332
         with:
           fetch-depth: 0
       - name: Set git config safe.directory
@@ -525,7 +525,7 @@ jobs:
       contents: read
     steps:
       - name: Checkout
-        uses: actions/checkout@0ad4b8fadaa221de15dcec353f45205ec38ea70b
+        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332
       - name: Install
         run: yarn install
       - name: Check deprecation status
@@ -814,7 +814,7 @@ jobs:
       - name: Create go artifact
         run: cd .repo && npx projen package:go
       - name: Setup Copywrite tool
-        uses: hashicorp/setup-copywrite@867a1a2a064a0626db322392806428f7dc59cb3e
+        uses: hashicorp/setup-copywrite@32638da2d4e81d56a0764aa1547882fc4d209636
       - name: Copy copywrite hcl file
         run: cp .repo/.copywrite.hcl .repo/dist/go/.copywrite.hcl
       - name: Add headers using Copywrite tool
@@ -2199,7 +2199,7 @@ jobs:
     if: contains(github.event.pull_request.labels.*.name, 'auto-approve') && github.event.pull_request.draft == false
     steps:
       - name: Checkout PR
-        uses: actions/checkout@0ad4b8fadaa221de15dcec353f45205ec38ea70b
+        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332
         with:
           ref: \${{ github.event.pull_request.head.ref }}
           repository: \${{ github.event.pull_request.head.repo.full_name }}
@@ -2230,7 +2230,7 @@ jobs:
     if: github.event.issue.user.login != 'team-tf-cdk' && !contains(fromJSON('["OWNER", "MEMBER", "COLLABORATOR", "CONTRIBUTOR"]'), github.event.issue.author_association)
     steps:
       - name: Checkout
-        uses: actions/checkout@0ad4b8fadaa221de15dcec353f45205ec38ea70b
+        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332
       - name: Auto-close issues by non-collaborators
         env:
           GH_TOKEN: \${{ secrets.GITHUB_TOKEN }}
@@ -2256,7 +2256,7 @@ jobs:
     if: github.event.pull_request.user.login != 'team-tf-cdk' && !contains(fromJSON('["OWNER", "MEMBER", "COLLABORATOR", "CONTRIBUTOR"]'), github.event.pull_request.author_association)
     steps:
       - name: Checkout
-        uses: actions/checkout@0ad4b8fadaa221de15dcec353f45205ec38ea70b
+        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332
       - name: Auto-close PRs by non-collaborators
         env:
           GH_TOKEN: \${{ secrets.GITHUB_TOKEN }}
@@ -2286,7 +2286,7 @@ jobs:
     if: contains(github.event.pull_request.labels.*.name, 'automerge') && !contains(github.event.pull_request.labels.*.name, 'do-not-merge') && github.event.pull_request.draft == false
     steps:
       - name: Checkout
-        uses: actions/checkout@0ad4b8fadaa221de15dcec353f45205ec38ea70b
+        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332
       - name: Turn on automerge for this PR by a trusted user or bot
         if: github.event.pull_request.user.login == 'team-tf-cdk' || contains(fromJSON('["OWNER", "MEMBER", "COLLABORATOR"]'), github.event.pull_request.author_association) || github.actor == 'dependabot[bot]'
         env:
@@ -2310,7 +2310,7 @@ jobs:
       CI: "true"
     steps:
       - name: Checkout
-        uses: actions/checkout@0ad4b8fadaa221de15dcec353f45205ec38ea70b
+        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332
         with:
           ref: \${{ github.event.pull_request.head.ref }}
           repository: \${{ github.event.pull_request.head.repo.full_name }}
@@ -2324,7 +2324,7 @@ jobs:
       - name: Revert package.json version bump
         run: git checkout package.json
       - name: Setup Copywrite tool
-        uses: hashicorp/setup-copywrite@867a1a2a064a0626db322392806428f7dc59cb3e
+        uses: hashicorp/setup-copywrite@32638da2d4e81d56a0764aa1547882fc4d209636
       - name: Add headers using Copywrite tool
         run: copywrite headers
       - name: Find mutations
@@ -2360,7 +2360,7 @@ jobs:
     if: always() && needs.build.outputs.self_mutation_happened && !(github.event.pull_request.head.repo.full_name != github.repository)
     steps:
       - name: Checkout
-        uses: actions/checkout@0ad4b8fadaa221de15dcec353f45205ec38ea70b
+        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332
         with:
           token: \${{ secrets.PROJEN_GITHUB_TOKEN }}
           ref: \${{ github.event.pull_request.head.ref }}
@@ -2547,7 +2547,7 @@ jobs:
       CI: "true"
     steps:
       - name: Checkout
-        uses: actions/checkout@0ad4b8fadaa221de15dcec353f45205ec38ea70b
+        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332
         with:
           ref: \${{ inputs.sha }}
           fetch-depth: 0
@@ -2603,7 +2603,7 @@ jobs:
       - name: Create Artifact
         run: cd .repo && npx projen package:go
       - name: Setup Copywrite tool
-        uses: hashicorp/setup-copywrite@867a1a2a064a0626db322392806428f7dc59cb3e
+        uses: hashicorp/setup-copywrite@32638da2d4e81d56a0764aa1547882fc4d209636
       - name: Copy copywrite hcl file
         run: cp .repo/.copywrite.hcl .repo/dist/go/.copywrite.hcl
       - name: Add headers using Copywrite tool
@@ -2670,7 +2670,7 @@ jobs:
       NODE_OPTIONS: --max-old-space-size=6656
     steps:
       - name: Checkout
-        uses: actions/checkout@0ad4b8fadaa221de15dcec353f45205ec38ea70b
+        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332
       - run: yarn install
       - id: check_version
         run: yarn check-if-new-provider-version
@@ -2706,7 +2706,7 @@ jobs:
         run: yarn docgen
       - name: Create Pull Request
         if: \${{ steps.check_version.outputs.new_version == 'available' }}
-        uses: peter-evans/create-pull-request@6d6857d36972b65feb161a90e484f2984215f83e
+        uses: peter-evans/create-pull-request@c5a7806660adbe173f04e3e038b0ccdcd758773c
         with:
           branch: auto/provider-upgrade
           commit-message: "\${{ steps.release.outputs.type }}: upgrade provider from \`\${{ steps.current_version.outputs.value }}\` to version \`\${{ steps.new_version.outputs.value }}\`"
@@ -2738,7 +2738,7 @@ jobs:
     permissions:
       pull-requests: write
     steps:
-      - uses: amannn/action-semantic-pull-request@cfb60706e18bc85e8aec535e3c577abe8f70378e
+      - uses: amannn/action-semantic-pull-request@0723387faaf9b38adef4775cd42cfd5155ed6017
         env:
           GITHUB_TOKEN: \${{ secrets.GITHUB_TOKEN }}
         with:
@@ -2769,7 +2769,7 @@ jobs:
       CI: "true"
     steps:
       - name: Checkout
-        uses: actions/checkout@0ad4b8fadaa221de15dcec353f45205ec38ea70b
+        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332
         with:
           fetch-depth: 0
       - name: Set git config safe.directory
@@ -2812,7 +2812,7 @@ jobs:
       contents: read
     steps:
       - name: Checkout
-        uses: actions/checkout@0ad4b8fadaa221de15dcec353f45205ec38ea70b
+        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332
       - name: Install
         run: yarn install
       - name: Check deprecation status
@@ -3101,7 +3101,7 @@ jobs:
       - name: Create go artifact
         run: cd .repo && npx projen package:go
       - name: Setup Copywrite tool
-        uses: hashicorp/setup-copywrite@867a1a2a064a0626db322392806428f7dc59cb3e
+        uses: hashicorp/setup-copywrite@32638da2d4e81d56a0764aa1547882fc4d209636
       - name: Copy copywrite hcl file
         run: cp .repo/.copywrite.hcl .repo/dist/go/.copywrite.hcl
       - name: Add headers using Copywrite tool
@@ -3188,7 +3188,7 @@ jobs:
       patch_created: \${{ steps.create_patch.outputs.patch_created }}
     steps:
       - name: Checkout
-        uses: actions/checkout@0ad4b8fadaa221de15dcec353f45205ec38ea70b
+        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332
         with:
           ref: main
       - name: Set git config safe.directory
@@ -3217,7 +3217,7 @@ jobs:
     if: \${{ needs.upgrade.outputs.patch_created }}
     steps:
       - name: Checkout
-        uses: actions/checkout@0ad4b8fadaa221de15dcec353f45205ec38ea70b
+        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332
         with:
           ref: main
       - name: Set git config safe.directory
@@ -3235,7 +3235,7 @@ jobs:
           git config user.email "github-team-tf-cdk@hashicorp.com"
       - name: Create Pull Request
         id: create-pr
-        uses: peter-evans/create-pull-request@6d6857d36972b65feb161a90e484f2984215f83e
+        uses: peter-evans/create-pull-request@c5a7806660adbe173f04e3e038b0ccdcd758773c
         with:
           token: \${{ secrets.PROJEN_GITHUB_TOKEN }}
           commit-message: |-
@@ -4907,7 +4907,7 @@ jobs:
     if: contains(github.event.pull_request.labels.*.name, 'auto-approve') && github.event.pull_request.draft == false
     steps:
       - name: Checkout PR
-        uses: actions/checkout@0ad4b8fadaa221de15dcec353f45205ec38ea70b
+        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332
         with:
           ref: \${{ github.event.pull_request.head.ref }}
           repository: \${{ github.event.pull_request.head.repo.full_name }}
@@ -4938,7 +4938,7 @@ jobs:
     if: github.event.issue.user.login != 'team-tf-cdk' && !contains(fromJSON('["OWNER", "MEMBER", "COLLABORATOR", "CONTRIBUTOR"]'), github.event.issue.author_association)
     steps:
       - name: Checkout
-        uses: actions/checkout@0ad4b8fadaa221de15dcec353f45205ec38ea70b
+        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332
       - name: Auto-close issues by non-collaborators
         env:
           GH_TOKEN: \${{ secrets.GITHUB_TOKEN }}
@@ -4964,7 +4964,7 @@ jobs:
     if: github.event.pull_request.user.login != 'team-tf-cdk' && !contains(fromJSON('["OWNER", "MEMBER", "COLLABORATOR", "CONTRIBUTOR"]'), github.event.pull_request.author_association)
     steps:
       - name: Checkout
-        uses: actions/checkout@0ad4b8fadaa221de15dcec353f45205ec38ea70b
+        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332
       - name: Auto-close PRs by non-collaborators
         env:
           GH_TOKEN: \${{ secrets.GITHUB_TOKEN }}
@@ -4994,7 +4994,7 @@ jobs:
     if: contains(github.event.pull_request.labels.*.name, 'automerge') && !contains(github.event.pull_request.labels.*.name, 'do-not-merge') && github.event.pull_request.draft == false
     steps:
       - name: Checkout
-        uses: actions/checkout@0ad4b8fadaa221de15dcec353f45205ec38ea70b
+        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332
       - name: Turn on automerge for this PR by a trusted user or bot
         if: github.event.pull_request.user.login == 'team-tf-cdk' || contains(fromJSON('["OWNER", "MEMBER", "COLLABORATOR"]'), github.event.pull_request.author_association) || github.actor == 'dependabot[bot]'
         env:
@@ -5018,7 +5018,7 @@ jobs:
       CI: "true"
     steps:
       - name: Checkout
-        uses: actions/checkout@0ad4b8fadaa221de15dcec353f45205ec38ea70b
+        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332
         with:
           ref: \${{ github.event.pull_request.head.ref }}
           repository: \${{ github.event.pull_request.head.repo.full_name }}
@@ -5032,7 +5032,7 @@ jobs:
       - name: Revert package.json version bump
         run: git checkout package.json
       - name: Setup Copywrite tool
-        uses: hashicorp/setup-copywrite@867a1a2a064a0626db322392806428f7dc59cb3e
+        uses: hashicorp/setup-copywrite@32638da2d4e81d56a0764aa1547882fc4d209636
       - name: Add headers using Copywrite tool
         run: copywrite headers
       - name: Find mutations
@@ -5068,7 +5068,7 @@ jobs:
     if: always() && needs.build.outputs.self_mutation_happened && !(github.event.pull_request.head.repo.full_name != github.repository)
     steps:
       - name: Checkout
-        uses: actions/checkout@0ad4b8fadaa221de15dcec353f45205ec38ea70b
+        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332
         with:
           token: \${{ secrets.PROJEN_GITHUB_TOKEN }}
           ref: \${{ github.event.pull_request.head.ref }}
@@ -5255,7 +5255,7 @@ jobs:
       CI: "true"
     steps:
       - name: Checkout
-        uses: actions/checkout@0ad4b8fadaa221de15dcec353f45205ec38ea70b
+        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332
         with:
           ref: \${{ inputs.sha }}
           fetch-depth: 0
@@ -5311,7 +5311,7 @@ jobs:
       - name: Create Artifact
         run: cd .repo && npx projen package:go
       - name: Setup Copywrite tool
-        uses: hashicorp/setup-copywrite@867a1a2a064a0626db322392806428f7dc59cb3e
+        uses: hashicorp/setup-copywrite@32638da2d4e81d56a0764aa1547882fc4d209636
       - name: Copy copywrite hcl file
         run: cp .repo/.copywrite.hcl .repo/dist/go/.copywrite.hcl
       - name: Add headers using Copywrite tool
@@ -5378,7 +5378,7 @@ jobs:
       NODE_OPTIONS: --max-old-space-size=31744
     steps:
       - name: Checkout
-        uses: actions/checkout@0ad4b8fadaa221de15dcec353f45205ec38ea70b
+        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332
       - run: yarn install
       - id: check_version
         run: yarn check-if-new-provider-version
@@ -5414,7 +5414,7 @@ jobs:
         run: yarn docgen
       - name: Create Pull Request
         if: \${{ steps.check_version.outputs.new_version == 'available' }}
-        uses: peter-evans/create-pull-request@6d6857d36972b65feb161a90e484f2984215f83e
+        uses: peter-evans/create-pull-request@c5a7806660adbe173f04e3e038b0ccdcd758773c
         with:
           branch: auto/provider-upgrade
           commit-message: "\${{ steps.release.outputs.type }}: upgrade provider from \`\${{ steps.current_version.outputs.value }}\` to version \`\${{ steps.new_version.outputs.value }}\`"
@@ -5446,7 +5446,7 @@ jobs:
     permissions:
       pull-requests: write
     steps:
-      - uses: amannn/action-semantic-pull-request@cfb60706e18bc85e8aec535e3c577abe8f70378e
+      - uses: amannn/action-semantic-pull-request@0723387faaf9b38adef4775cd42cfd5155ed6017
         env:
           GITHUB_TOKEN: \${{ secrets.GITHUB_TOKEN }}
         with:
@@ -5477,7 +5477,7 @@ jobs:
       CI: "true"
     steps:
       - name: Checkout
-        uses: actions/checkout@0ad4b8fadaa221de15dcec353f45205ec38ea70b
+        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332
         with:
           fetch-depth: 0
       - name: Set git config safe.directory
@@ -5520,7 +5520,7 @@ jobs:
       contents: read
     steps:
       - name: Checkout
-        uses: actions/checkout@0ad4b8fadaa221de15dcec353f45205ec38ea70b
+        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332
       - name: Install
         run: yarn install
       - name: Check deprecation status
@@ -5809,7 +5809,7 @@ jobs:
       - name: Create go artifact
         run: cd .repo && npx projen package:go
       - name: Setup Copywrite tool
-        uses: hashicorp/setup-copywrite@867a1a2a064a0626db322392806428f7dc59cb3e
+        uses: hashicorp/setup-copywrite@32638da2d4e81d56a0764aa1547882fc4d209636
       - name: Copy copywrite hcl file
         run: cp .repo/.copywrite.hcl .repo/dist/go/.copywrite.hcl
       - name: Add headers using Copywrite tool
@@ -5896,7 +5896,7 @@ jobs:
       patch_created: \${{ steps.create_patch.outputs.patch_created }}
     steps:
       - name: Checkout
-        uses: actions/checkout@0ad4b8fadaa221de15dcec353f45205ec38ea70b
+        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332
         with:
           ref: main
       - name: Set git config safe.directory
@@ -5925,7 +5925,7 @@ jobs:
     if: \${{ needs.upgrade.outputs.patch_created }}
     steps:
       - name: Checkout
-        uses: actions/checkout@0ad4b8fadaa221de15dcec353f45205ec38ea70b
+        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332
         with:
           ref: main
       - name: Set git config safe.directory
@@ -5943,7 +5943,7 @@ jobs:
           git config user.email "github-team-tf-cdk@hashicorp.com"
       - name: Create Pull Request
         id: create-pr
-        uses: peter-evans/create-pull-request@6d6857d36972b65feb161a90e484f2984215f83e
+        uses: peter-evans/create-pull-request@c5a7806660adbe173f04e3e038b0ccdcd758773c
         with:
           token: \${{ secrets.PROJEN_GITHUB_TOKEN }}
           commit-message: |-
@@ -7615,7 +7615,7 @@ jobs:
     if: contains(github.event.pull_request.labels.*.name, 'auto-approve') && github.event.pull_request.draft == false
     steps:
       - name: Checkout PR
-        uses: actions/checkout@0ad4b8fadaa221de15dcec353f45205ec38ea70b
+        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332
         with:
           ref: \${{ github.event.pull_request.head.ref }}
           repository: \${{ github.event.pull_request.head.repo.full_name }}
@@ -7646,7 +7646,7 @@ jobs:
     if: github.event.issue.user.login != 'team-tf-cdk' && !contains(fromJSON('["OWNER", "MEMBER", "COLLABORATOR", "CONTRIBUTOR"]'), github.event.issue.author_association)
     steps:
       - name: Checkout
-        uses: actions/checkout@0ad4b8fadaa221de15dcec353f45205ec38ea70b
+        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332
       - name: Auto-close issues by non-collaborators
         env:
           GH_TOKEN: \${{ secrets.GITHUB_TOKEN }}
@@ -7672,7 +7672,7 @@ jobs:
     if: github.event.pull_request.user.login != 'team-tf-cdk' && !contains(fromJSON('["OWNER", "MEMBER", "COLLABORATOR", "CONTRIBUTOR"]'), github.event.pull_request.author_association)
     steps:
       - name: Checkout
-        uses: actions/checkout@0ad4b8fadaa221de15dcec353f45205ec38ea70b
+        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332
       - name: Auto-close PRs by non-collaborators
         env:
           GH_TOKEN: \${{ secrets.GITHUB_TOKEN }}
@@ -7702,7 +7702,7 @@ jobs:
     if: contains(github.event.pull_request.labels.*.name, 'automerge') && !contains(github.event.pull_request.labels.*.name, 'do-not-merge') && github.event.pull_request.draft == false
     steps:
       - name: Checkout
-        uses: actions/checkout@0ad4b8fadaa221de15dcec353f45205ec38ea70b
+        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332
       - name: Turn on automerge for this PR by a trusted user or bot
         if: github.event.pull_request.user.login == 'team-tf-cdk' || contains(fromJSON('["OWNER", "MEMBER", "COLLABORATOR"]'), github.event.pull_request.author_association) || github.actor == 'dependabot[bot]'
         env:
@@ -7726,7 +7726,7 @@ jobs:
       CI: "true"
     steps:
       - name: Checkout
-        uses: actions/checkout@0ad4b8fadaa221de15dcec353f45205ec38ea70b
+        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332
         with:
           ref: \${{ github.event.pull_request.head.ref }}
           repository: \${{ github.event.pull_request.head.repo.full_name }}
@@ -7740,7 +7740,7 @@ jobs:
       - name: Revert package.json version bump
         run: git checkout package.json
       - name: Setup Copywrite tool
-        uses: hashicorp/setup-copywrite@867a1a2a064a0626db322392806428f7dc59cb3e
+        uses: hashicorp/setup-copywrite@32638da2d4e81d56a0764aa1547882fc4d209636
       - name: Add headers using Copywrite tool
         run: copywrite headers
       - name: Find mutations
@@ -7776,7 +7776,7 @@ jobs:
     if: always() && needs.build.outputs.self_mutation_happened && !(github.event.pull_request.head.repo.full_name != github.repository)
     steps:
       - name: Checkout
-        uses: actions/checkout@0ad4b8fadaa221de15dcec353f45205ec38ea70b
+        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332
         with:
           token: \${{ secrets.PROJEN_GITHUB_TOKEN }}
           ref: \${{ github.event.pull_request.head.ref }}
@@ -7963,7 +7963,7 @@ jobs:
       CI: "true"
     steps:
       - name: Checkout
-        uses: actions/checkout@0ad4b8fadaa221de15dcec353f45205ec38ea70b
+        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332
         with:
           ref: \${{ inputs.sha }}
           fetch-depth: 0
@@ -8019,7 +8019,7 @@ jobs:
       - name: Create Artifact
         run: cd .repo && npx projen package:go
       - name: Setup Copywrite tool
-        uses: hashicorp/setup-copywrite@867a1a2a064a0626db322392806428f7dc59cb3e
+        uses: hashicorp/setup-copywrite@32638da2d4e81d56a0764aa1547882fc4d209636
       - name: Copy copywrite hcl file
         run: cp .repo/.copywrite.hcl .repo/dist/go/.copywrite.hcl
       - name: Add headers using Copywrite tool
@@ -8086,7 +8086,7 @@ jobs:
       NODE_OPTIONS: --max-old-space-size=6656
     steps:
       - name: Checkout
-        uses: actions/checkout@0ad4b8fadaa221de15dcec353f45205ec38ea70b
+        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332
       - run: yarn install
       - id: check_version
         run: yarn check-if-new-provider-version
@@ -8122,7 +8122,7 @@ jobs:
         run: yarn docgen
       - name: Create Pull Request
         if: \${{ steps.check_version.outputs.new_version == 'available' }}
-        uses: peter-evans/create-pull-request@6d6857d36972b65feb161a90e484f2984215f83e
+        uses: peter-evans/create-pull-request@c5a7806660adbe173f04e3e038b0ccdcd758773c
         with:
           branch: auto/provider-upgrade
           commit-message: "\${{ steps.release.outputs.type }}: upgrade provider from \`\${{ steps.current_version.outputs.value }}\` to version \`\${{ steps.new_version.outputs.value }}\`"
@@ -8154,7 +8154,7 @@ jobs:
     permissions:
       pull-requests: write
     steps:
-      - uses: amannn/action-semantic-pull-request@cfb60706e18bc85e8aec535e3c577abe8f70378e
+      - uses: amannn/action-semantic-pull-request@0723387faaf9b38adef4775cd42cfd5155ed6017
         env:
           GITHUB_TOKEN: \${{ secrets.GITHUB_TOKEN }}
         with:
@@ -8185,7 +8185,7 @@ jobs:
       CI: "true"
     steps:
       - name: Checkout
-        uses: actions/checkout@0ad4b8fadaa221de15dcec353f45205ec38ea70b
+        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332
         with:
           fetch-depth: 0
       - name: Set git config safe.directory
@@ -8228,7 +8228,7 @@ jobs:
       contents: read
     steps:
       - name: Checkout
-        uses: actions/checkout@0ad4b8fadaa221de15dcec353f45205ec38ea70b
+        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332
       - name: Install
         run: yarn install
       - name: Check deprecation status
@@ -8517,7 +8517,7 @@ jobs:
       - name: Create go artifact
         run: cd .repo && npx projen package:go
       - name: Setup Copywrite tool
-        uses: hashicorp/setup-copywrite@867a1a2a064a0626db322392806428f7dc59cb3e
+        uses: hashicorp/setup-copywrite@32638da2d4e81d56a0764aa1547882fc4d209636
       - name: Copy copywrite hcl file
         run: cp .repo/.copywrite.hcl .repo/dist/go/.copywrite.hcl
       - name: Add headers using Copywrite tool
@@ -8604,7 +8604,7 @@ jobs:
       patch_created: \${{ steps.create_patch.outputs.patch_created }}
     steps:
       - name: Checkout
-        uses: actions/checkout@0ad4b8fadaa221de15dcec353f45205ec38ea70b
+        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332
         with:
           ref: main
       - name: Set git config safe.directory
@@ -8633,7 +8633,7 @@ jobs:
     if: \${{ needs.upgrade.outputs.patch_created }}
     steps:
       - name: Checkout
-        uses: actions/checkout@0ad4b8fadaa221de15dcec353f45205ec38ea70b
+        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332
         with:
           ref: main
       - name: Set git config safe.directory
@@ -8651,7 +8651,7 @@ jobs:
           git config user.email "github-team-tf-cdk@hashicorp.com"
       - name: Create Pull Request
         id: create-pr
-        uses: peter-evans/create-pull-request@6d6857d36972b65feb161a90e484f2984215f83e
+        uses: peter-evans/create-pull-request@c5a7806660adbe173f04e3e038b0ccdcd758773c
         with:
           token: \${{ secrets.PROJEN_GITHUB_TOKEN }}
           commit-message: |-
@@ -10323,7 +10323,7 @@ jobs:
     if: contains(github.event.pull_request.labels.*.name, 'auto-approve') && github.event.pull_request.draft == false
     steps:
       - name: Checkout PR
-        uses: actions/checkout@0ad4b8fadaa221de15dcec353f45205ec38ea70b
+        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332
         with:
           ref: \${{ github.event.pull_request.head.ref }}
           repository: \${{ github.event.pull_request.head.repo.full_name }}
@@ -10354,7 +10354,7 @@ jobs:
     if: github.event.issue.user.login != 'team-tf-cdk' && !contains(fromJSON('["OWNER", "MEMBER", "COLLABORATOR", "CONTRIBUTOR"]'), github.event.issue.author_association)
     steps:
       - name: Checkout
-        uses: actions/checkout@0ad4b8fadaa221de15dcec353f45205ec38ea70b
+        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332
       - name: Auto-close issues by non-collaborators
         env:
           GH_TOKEN: \${{ secrets.GITHUB_TOKEN }}
@@ -10380,7 +10380,7 @@ jobs:
     if: github.event.pull_request.user.login != 'team-tf-cdk' && !contains(fromJSON('["OWNER", "MEMBER", "COLLABORATOR", "CONTRIBUTOR"]'), github.event.pull_request.author_association)
     steps:
       - name: Checkout
-        uses: actions/checkout@0ad4b8fadaa221de15dcec353f45205ec38ea70b
+        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332
       - name: Auto-close PRs by non-collaborators
         env:
           GH_TOKEN: \${{ secrets.GITHUB_TOKEN }}
@@ -10410,7 +10410,7 @@ jobs:
     if: contains(github.event.pull_request.labels.*.name, 'automerge') && !contains(github.event.pull_request.labels.*.name, 'do-not-merge') && github.event.pull_request.draft == false
     steps:
       - name: Checkout
-        uses: actions/checkout@0ad4b8fadaa221de15dcec353f45205ec38ea70b
+        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332
       - name: Turn on automerge for this PR by a trusted user or bot
         if: github.event.pull_request.user.login == 'team-tf-cdk' || contains(fromJSON('["OWNER", "MEMBER", "COLLABORATOR"]'), github.event.pull_request.author_association) || github.actor == 'dependabot[bot]'
         env:
@@ -10434,7 +10434,7 @@ jobs:
       CI: "true"
     steps:
       - name: Checkout
-        uses: actions/checkout@0ad4b8fadaa221de15dcec353f45205ec38ea70b
+        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332
         with:
           ref: \${{ github.event.pull_request.head.ref }}
           repository: \${{ github.event.pull_request.head.repo.full_name }}
@@ -10452,7 +10452,7 @@ jobs:
       - name: Revert package.json version bump
         run: git checkout package.json
       - name: Setup Copywrite tool
-        uses: hashicorp/setup-copywrite@867a1a2a064a0626db322392806428f7dc59cb3e
+        uses: hashicorp/setup-copywrite@32638da2d4e81d56a0764aa1547882fc4d209636
       - name: Add headers using Copywrite tool
         run: copywrite headers
       - name: Find mutations
@@ -10488,7 +10488,7 @@ jobs:
     if: always() && needs.build.outputs.self_mutation_happened && !(github.event.pull_request.head.repo.full_name != github.repository)
     steps:
       - name: Checkout
-        uses: actions/checkout@0ad4b8fadaa221de15dcec353f45205ec38ea70b
+        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332
         with:
           token: \${{ secrets.PROJEN_GITHUB_TOKEN }}
           ref: \${{ github.event.pull_request.head.ref }}
@@ -10675,7 +10675,7 @@ jobs:
       CI: "true"
     steps:
       - name: Checkout
-        uses: actions/checkout@0ad4b8fadaa221de15dcec353f45205ec38ea70b
+        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332
         with:
           ref: \${{ inputs.sha }}
           fetch-depth: 0
@@ -10733,7 +10733,7 @@ jobs:
       - name: Create Artifact
         run: cd .repo && npx projen package:go
       - name: Setup Copywrite tool
-        uses: hashicorp/setup-copywrite@867a1a2a064a0626db322392806428f7dc59cb3e
+        uses: hashicorp/setup-copywrite@32638da2d4e81d56a0764aa1547882fc4d209636
       - name: Copy copywrite hcl file
         run: cp .repo/.copywrite.hcl .repo/dist/go/.copywrite.hcl
       - name: Add headers using Copywrite tool
@@ -10800,7 +10800,7 @@ jobs:
       NODE_OPTIONS: --max-old-space-size=6656
     steps:
       - name: Checkout
-        uses: actions/checkout@0ad4b8fadaa221de15dcec353f45205ec38ea70b
+        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332
       - run: yarn install
       - id: check_version
         run: yarn check-if-new-provider-version
@@ -10836,7 +10836,7 @@ jobs:
         run: yarn docgen
       - name: Create Pull Request
         if: \${{ steps.check_version.outputs.new_version == 'available' }}
-        uses: peter-evans/create-pull-request@6d6857d36972b65feb161a90e484f2984215f83e
+        uses: peter-evans/create-pull-request@c5a7806660adbe173f04e3e038b0ccdcd758773c
         with:
           branch: auto/provider-upgrade
           commit-message: "\${{ steps.release.outputs.type }}: upgrade provider from \`\${{ steps.current_version.outputs.value }}\` to version \`\${{ steps.new_version.outputs.value }}\`"
@@ -10868,7 +10868,7 @@ jobs:
     permissions:
       pull-requests: write
     steps:
-      - uses: amannn/action-semantic-pull-request@cfb60706e18bc85e8aec535e3c577abe8f70378e
+      - uses: amannn/action-semantic-pull-request@0723387faaf9b38adef4775cd42cfd5155ed6017
         env:
           GITHUB_TOKEN: \${{ secrets.GITHUB_TOKEN }}
         with:
@@ -10899,7 +10899,7 @@ jobs:
       CI: "true"
     steps:
       - name: Checkout
-        uses: actions/checkout@0ad4b8fadaa221de15dcec353f45205ec38ea70b
+        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332
         with:
           fetch-depth: 0
       - name: Set git config safe.directory
@@ -10946,7 +10946,7 @@ jobs:
       contents: read
     steps:
       - name: Checkout
-        uses: actions/checkout@0ad4b8fadaa221de15dcec353f45205ec38ea70b
+        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332
       - name: Install
         run: yarn install
       - name: Check deprecation status
@@ -11235,7 +11235,7 @@ jobs:
       - name: Create go artifact
         run: cd .repo && npx projen package:go
       - name: Setup Copywrite tool
-        uses: hashicorp/setup-copywrite@867a1a2a064a0626db322392806428f7dc59cb3e
+        uses: hashicorp/setup-copywrite@32638da2d4e81d56a0764aa1547882fc4d209636
       - name: Copy copywrite hcl file
         run: cp .repo/.copywrite.hcl .repo/dist/go/.copywrite.hcl
       - name: Add headers using Copywrite tool
@@ -11322,7 +11322,7 @@ jobs:
       patch_created: \${{ steps.create_patch.outputs.patch_created }}
     steps:
       - name: Checkout
-        uses: actions/checkout@0ad4b8fadaa221de15dcec353f45205ec38ea70b
+        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332
         with:
           ref: main
       - name: Set git config safe.directory
@@ -11355,7 +11355,7 @@ jobs:
     if: \${{ needs.upgrade.outputs.patch_created }}
     steps:
       - name: Checkout
-        uses: actions/checkout@0ad4b8fadaa221de15dcec353f45205ec38ea70b
+        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332
         with:
           ref: main
       - name: Set git config safe.directory
@@ -11373,7 +11373,7 @@ jobs:
           git config user.email "github-team-tf-cdk@hashicorp.com"
       - name: Create Pull Request
         id: create-pr
-        uses: peter-evans/create-pull-request@6d6857d36972b65feb161a90e484f2984215f83e
+        uses: peter-evans/create-pull-request@c5a7806660adbe173f04e3e038b0ccdcd758773c
         with:
           token: \${{ secrets.PROJEN_GITHUB_TOKEN }}
           commit-message: |-
