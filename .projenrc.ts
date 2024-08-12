@@ -89,6 +89,11 @@ const project = new cdk.JsiiProject({
   projenrcTs: true,
 });
 
+// @typescript-eslint v7+ requires Node.js 18.18, so we are stuck on v6
+// The below lines can probably be removed once Node 18 goes EOL and we upgrade minNodeVersion to 20
+project.addDevDeps("@typescript-eslint/eslint-plugin@^6");
+project.addDevDeps("@typescript-eslint/parser@^6");
+
 project.addFields({ publishConfig: { access: "public" } });
 
 new CustomizedLicense(project, 2020);

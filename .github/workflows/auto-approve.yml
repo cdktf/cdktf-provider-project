@@ -10,7 +10,7 @@ on:
       - reopened
 concurrency:
   group: ${{ github.workflow }}-${{ github.head_ref }}
-  cancelInProgress: true
+  cancel-in-progress: true
 jobs:
   approve:
     runs-on: ubuntu-latest
