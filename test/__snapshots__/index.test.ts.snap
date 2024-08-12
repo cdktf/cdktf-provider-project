@@ -221,7 +221,7 @@ jobs:
           git diff --staged --patch --exit-code > .repo.patch || echo "self_mutation_happened=true" >> $GITHUB_OUTPUT
       - name: Upload patch
         if: steps.self_mutation.outputs.self_mutation_happened
-        uses: actions/upload-artifact@65462800fd760344b1a7b4382951275a0abb4808
+        uses: actions/upload-artifact@89ef406dd8d7e03cfd12d9e0a4a378f454709029
         with:
           name: .repo.patch
           path: .repo.patch
@@ -235,7 +235,7 @@ jobs:
         run: cd dist && getfacl -R . > permissions-backup.acl
         continue-on-error: true
       - name: Upload artifact
-        uses: actions/upload-artifact@65462800fd760344b1a7b4382951275a0abb4808
+        uses: actions/upload-artifact@89ef406dd8d7e03cfd12d9e0a4a378f454709029
         with:
           name: build-artifact
           path: dist
@@ -253,7 +253,7 @@ jobs:
           ref: \${{ github.event.pull_request.head.ref }}
           repository: \${{ github.event.pull_request.head.repo.full_name }}
       - name: Download patch
-        uses: actions/download-artifact@65a9edc5881444af0b9093a5e628f2fe47ea3b2e
+        uses: actions/download-artifact@fa0a91b85d4f404e444e00e005971372dc801d16
         with:
           name: .repo.patch
           path: \${{ runner.temp }}
@@ -276,11 +276,11 @@ jobs:
     permissions: {}
     if: "! needs.build.outputs.self_mutation_happened"
     steps:
-      - uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8
+      - uses: actions/setup-node@1e60f620b9541d16bece96c5465dc8ee9832be0b
         with:
           node-version: 18.x
       - name: Download build artifacts
-        uses: actions/download-artifact@65a9edc5881444af0b9093a5e628f2fe47ea3b2e
+        uses: actions/download-artifact@fa0a91b85d4f404e444e00e005971372dc801d16
         with:
           name: build-artifact
           path: dist
@@ -305,11 +305,11 @@ jobs:
         with:
           distribution: temurin
           java-version: 11.x
-      - uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8
+      - uses: actions/setup-node@1e60f620b9541d16bece96c5465dc8ee9832be0b
         with:
           node-version: 18.x
       - name: Download build artifacts
-        uses: actions/download-artifact@65a9edc5881444af0b9093a5e628f2fe47ea3b2e
+        uses: actions/download-artifact@fa0a91b85d4f404e444e00e005971372dc801d16
         with:
           name: build-artifact
           path: dist
@@ -330,14 +330,14 @@ jobs:
     permissions: {}
     if: "! needs.build.outputs.self_mutation_happened"
     steps:
-      - uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8
+      - uses: actions/setup-node@1e60f620b9541d16bece96c5465dc8ee9832be0b
         with:
           node-version: 18.x
-      - uses: actions/setup-python@82c7e631bb3cdc910f68e0081d67478d79c6982d
+      - uses: actions/setup-python@39cd14951b08e74b54015e9e001cdefcf80e669f
         with:
           python-version: 3.x
       - name: Download build artifacts
-        uses: actions/download-artifact@65a9edc5881444af0b9093a5e628f2fe47ea3b2e
+        uses: actions/download-artifact@fa0a91b85d4f404e444e00e005971372dc801d16
         with:
           name: build-artifact
           path: dist
@@ -358,14 +358,14 @@ jobs:
     permissions: {}
     if: "! needs.build.outputs.self_mutation_happened"
     steps:
-      - uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8
+      - uses: actions/setup-node@1e60f620b9541d16bece96c5465dc8ee9832be0b
         with:
           node-version: 18.x
-      - uses: actions/setup-dotnet@4d6c8fcf3c8f7a60068d26b594648e99df24cee3
+      - uses: actions/setup-dotnet@6bd8b7f7774af54e05809fcc5431931b3eb1ddee
         with:
           dotnet-version: 3.x
       - name: Download build artifacts
-        uses: actions/download-artifact@65a9edc5881444af0b9093a5e628f2fe47ea3b2e
+        uses: actions/download-artifact@fa0a91b85d4f404e444e00e005971372dc801d16
         with:
           name: build-artifact
           path: dist
@@ -386,14 +386,14 @@ jobs:
     permissions: {}
     if: "! needs.build.outputs.self_mutation_happened"
     steps:
-      - uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8
+      - uses: actions/setup-node@1e60f620b9541d16bece96c5465dc8ee9832be0b
         with:
           node-version: 18.x
-      - uses: actions/setup-go@0c52d547c9bc32b1aa3301fd7a9cb496313a4491
+      - uses: actions/setup-go@0a12ed9d6a96ab950c8f026ed9f722fe0da7ef32
         with:
           go-version: ^1.16.0
       - name: Download build artifacts
-        uses: actions/download-artifact@65a9edc5881444af0b9093a5e628f2fe47ea3b2e
+        uses: actions/download-artifact@fa0a91b85d4f404e444e00e005971372dc801d16
         with:
           name: build-artifact
           path: dist
@@ -511,7 +511,7 @@ jobs:
         continue-on-error: true
       - name: Upload artifact
         if: \${{ steps.git_remote.outputs.latest_commit == github.sha }}
-        uses: actions/upload-artifact@65462800fd760344b1a7b4382951275a0abb4808
+        uses: actions/upload-artifact@89ef406dd8d7e03cfd12d9e0a4a378f454709029
         with:
           name: build-artifact
           path: dist
@@ -551,11 +551,11 @@ jobs:
       issues: write
     if: needs.release.outputs.tag_exists != 'true' && needs.release.outputs.latest_commit == github.sha
     steps:
-      - uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8
+      - uses: actions/setup-node@1e60f620b9541d16bece96c5465dc8ee9832be0b
         with:
           node-version: 18.x
       - name: Download build artifacts
-        uses: actions/download-artifact@65a9edc5881444af0b9093a5e628f2fe47ea3b2e
+        uses: actions/download-artifact@fa0a91b85d4f404e444e00e005971372dc801d16
         with:
           name: build-artifact
           path: dist
@@ -594,11 +594,11 @@ jobs:
       issues: write
     if: needs.release.outputs.tag_exists != 'true' && needs.release.outputs.latest_commit == github.sha
     steps:
-      - uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8
+      - uses: actions/setup-node@1e60f620b9541d16bece96c5465dc8ee9832be0b
         with:
           node-version: 18.x
       - name: Download build artifacts
-        uses: actions/download-artifact@65a9edc5881444af0b9093a5e628f2fe47ea3b2e
+        uses: actions/download-artifact@fa0a91b85d4f404e444e00e005971372dc801d16
         with:
           name: build-artifact
           path: dist
@@ -645,11 +645,11 @@ jobs:
         with:
           distribution: temurin
           java-version: 11.x
-      - uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8
+      - uses: actions/setup-node@1e60f620b9541d16bece96c5465dc8ee9832be0b
         with:
           node-version: 18.x
       - name: Download build artifacts
-        uses: actions/download-artifact@65a9edc5881444af0b9093a5e628f2fe47ea3b2e
+        uses: actions/download-artifact@fa0a91b85d4f404e444e00e005971372dc801d16
         with:
           name: build-artifact
           path: dist
@@ -696,14 +696,14 @@ jobs:
       issues: write
     if: needs.release.outputs.tag_exists != 'true' && needs.release.outputs.latest_commit == github.sha
     steps:
-      - uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8
+      - uses: actions/setup-node@1e60f620b9541d16bece96c5465dc8ee9832be0b
         with:
           node-version: 18.x
-      - uses: actions/setup-python@82c7e631bb3cdc910f68e0081d67478d79c6982d
+      - uses: actions/setup-python@39cd14951b08e74b54015e9e001cdefcf80e669f
         with:
           python-version: 3.x
       - name: Download build artifacts
-        uses: actions/download-artifact@65a9edc5881444af0b9093a5e628f2fe47ea3b2e
+        uses: actions/download-artifact@fa0a91b85d4f404e444e00e005971372dc801d16
         with:
           name: build-artifact
           path: dist
@@ -745,14 +745,14 @@ jobs:
       issues: write
     if: needs.release.outputs.tag_exists != 'true' && needs.release.outputs.latest_commit == github.sha
     steps:
-      - uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8
+      - uses: actions/setup-node@1e60f620b9541d16bece96c5465dc8ee9832be0b
         with:
           node-version: 18.x
-      - uses: actions/setup-dotnet@4d6c8fcf3c8f7a60068d26b594648e99df24cee3
+      - uses: actions/setup-dotnet@6bd8b7f7774af54e05809fcc5431931b3eb1ddee
         with:
           dotnet-version: 3.x
       - name: Download build artifacts
-        uses: actions/download-artifact@65a9edc5881444af0b9093a5e628f2fe47ea3b2e
+        uses: actions/download-artifact@fa0a91b85d4f404e444e00e005971372dc801d16
         with:
           name: build-artifact
           path: dist
@@ -793,14 +793,14 @@ jobs:
       issues: write
     if: needs.release.outputs.tag_exists != 'true' && needs.release.outputs.latest_commit == github.sha
     steps:
-      - uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8
+      - uses: actions/setup-node@1e60f620b9541d16bece96c5465dc8ee9832be0b
         with:
           node-version: 18.x
-      - uses: actions/setup-go@0c52d547c9bc32b1aa3301fd7a9cb496313a4491
+      - uses: actions/setup-go@0a12ed9d6a96ab950c8f026ed9f722fe0da7ef32
         with:
           go-version: ^1.16.0
       - name: Download build artifacts
-        uses: actions/download-artifact@65a9edc5881444af0b9093a5e628f2fe47ea3b2e
+        uses: actions/download-artifact@fa0a91b85d4f404e444e00e005971372dc801d16
         with:
           name: build-artifact
           path: dist
@@ -2334,7 +2334,7 @@ jobs:
           git diff --staged --patch --exit-code > .repo.patch || echo "self_mutation_happened=true" >> $GITHUB_OUTPUT
       - name: Upload patch
         if: steps.self_mutation.outputs.self_mutation_happened
-        uses: actions/upload-artifact@65462800fd760344b1a7b4382951275a0abb4808
+        uses: actions/upload-artifact@89ef406dd8d7e03cfd12d9e0a4a378f454709029
         with:
           name: .repo.patch
           path: .repo.patch
@@ -2348,7 +2348,7 @@ jobs:
         run: cd dist && getfacl -R . > permissions-backup.acl
         continue-on-error: true
       - name: Upload artifact
-        uses: actions/upload-artifact@65462800fd760344b1a7b4382951275a0abb4808
+        uses: actions/upload-artifact@89ef406dd8d7e03cfd12d9e0a4a378f454709029
         with:
           name: build-artifact
           path: dist
@@ -2366,7 +2366,7 @@ jobs:
           ref: \${{ github.event.pull_request.head.ref }}
           repository: \${{ github.event.pull_request.head.repo.full_name }}
       - name: Download patch
-        uses: actions/download-artifact@65a9edc5881444af0b9093a5e628f2fe47ea3b2e
+        uses: actions/download-artifact@fa0a91b85d4f404e444e00e005971372dc801d16
         with:
           name: .repo.patch
           path: \${{ runner.temp }}
@@ -2389,11 +2389,11 @@ jobs:
     permissions: {}
     if: "! needs.build.outputs.self_mutation_happened"
     steps:
-      - uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8
+      - uses: actions/setup-node@1e60f620b9541d16bece96c5465dc8ee9832be0b
         with:
           node-version: 18.x
       - name: Download build artifacts
-        uses: actions/download-artifact@65a9edc5881444af0b9093a5e628f2fe47ea3b2e
+        uses: actions/download-artifact@fa0a91b85d4f404e444e00e005971372dc801d16
         with:
           name: build-artifact
           path: dist
@@ -2418,11 +2418,11 @@ jobs:
         with:
           distribution: temurin
           java-version: 11.x
-      - uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8
+      - uses: actions/setup-node@1e60f620b9541d16bece96c5465dc8ee9832be0b
         with:
           node-version: 18.x
       - name: Download build artifacts
-        uses: actions/download-artifact@65a9edc5881444af0b9093a5e628f2fe47ea3b2e
+        uses: actions/download-artifact@fa0a91b85d4f404e444e00e005971372dc801d16
         with:
           name: build-artifact
           path: dist
@@ -2443,14 +2443,14 @@ jobs:
     permissions: {}
     if: "! needs.build.outputs.self_mutation_happened"
     steps:
-      - uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8
+      - uses: actions/setup-node@1e60f620b9541d16bece96c5465dc8ee9832be0b
         with:
           node-version: 18.x
-      - uses: actions/setup-python@82c7e631bb3cdc910f68e0081d67478d79c6982d
+      - uses: actions/setup-python@39cd14951b08e74b54015e9e001cdefcf80e669f
         with:
           python-version: 3.x
       - name: Download build artifacts
-        uses: actions/download-artifact@65a9edc5881444af0b9093a5e628f2fe47ea3b2e
+        uses: actions/download-artifact@fa0a91b85d4f404e444e00e005971372dc801d16
         with:
           name: build-artifact
           path: dist
@@ -2471,14 +2471,14 @@ jobs:
     permissions: {}
     if: "! needs.build.outputs.self_mutation_happened"
     steps:
-      - uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8
+      - uses: actions/setup-node@1e60f620b9541d16bece96c5465dc8ee9832be0b
         with:
           node-version: 18.x
-      - uses: actions/setup-dotnet@4d6c8fcf3c8f7a60068d26b594648e99df24cee3
+      - uses: actions/setup-dotnet@6bd8b7f7774af54e05809fcc5431931b3eb1ddee
         with:
           dotnet-version: 3.x
       - name: Download build artifacts
-        uses: actions/download-artifact@65a9edc5881444af0b9093a5e628f2fe47ea3b2e
+        uses: actions/download-artifact@fa0a91b85d4f404e444e00e005971372dc801d16
         with:
           name: build-artifact
           path: dist
@@ -2499,14 +2499,14 @@ jobs:
     permissions: {}
     if: "! needs.build.outputs.self_mutation_happened"
     steps:
-      - uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8
+      - uses: actions/setup-node@1e60f620b9541d16bece96c5465dc8ee9832be0b
         with:
           node-version: 18.x
-      - uses: actions/setup-go@0c52d547c9bc32b1aa3301fd7a9cb496313a4491
+      - uses: actions/setup-go@0a12ed9d6a96ab950c8f026ed9f722fe0da7ef32
         with:
           go-version: ^1.16.0
       - name: Download build artifacts
-        uses: actions/download-artifact@65a9edc5881444af0b9093a5e628f2fe47ea3b2e
+        uses: actions/download-artifact@fa0a91b85d4f404e444e00e005971372dc801d16
         with:
           name: build-artifact
           path: dist
@@ -2558,7 +2558,7 @@ jobs:
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
       - name: Setup Node.js
-        uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8
+        uses: actions/setup-node@1e60f620b9541d16bece96c5465dc8ee9832be0b
         with: {}
       - name: Install dependencies
         run: yarn install --check-files --frozen-lockfile
@@ -2568,7 +2568,7 @@ jobs:
         run: cd dist && getfacl -R . > permissions-backup.acl
         continue-on-error: true
       - name: Upload artifact
-        uses: actions/upload-artifact@65462800fd760344b1a7b4382951275a0abb4808
+        uses: actions/upload-artifact@89ef406dd8d7e03cfd12d9e0a4a378f454709029
         with:
           name: build-artifact
           path: dist
@@ -2582,14 +2582,14 @@ jobs:
       CI: "true"
     steps:
       - name: Setup Node.js
-        uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8
+        uses: actions/setup-node@1e60f620b9541d16bece96c5465dc8ee9832be0b
         with: {}
       - name: Setup Go
-        uses: actions/setup-go@0c52d547c9bc32b1aa3301fd7a9cb496313a4491
+        uses: actions/setup-go@0a12ed9d6a96ab950c8f026ed9f722fe0da7ef32
         with:
           go-version: ^1.16.0
       - name: Download build artifacts
-        uses: actions/download-artifact@65a9edc5881444af0b9093a5e628f2fe47ea3b2e
+        uses: actions/download-artifact@fa0a91b85d4f404e444e00e005971372dc801d16
         with:
           name: build-artifact
           path: dist
@@ -2798,7 +2798,7 @@ jobs:
         continue-on-error: true
       - name: Upload artifact
         if: \${{ steps.git_remote.outputs.latest_commit == github.sha }}
-        uses: actions/upload-artifact@65462800fd760344b1a7b4382951275a0abb4808
+        uses: actions/upload-artifact@89ef406dd8d7e03cfd12d9e0a4a378f454709029
         with:
           name: build-artifact
           path: dist
@@ -2838,11 +2838,11 @@ jobs:
       issues: write
     if: needs.release.outputs.tag_exists != 'true' && needs.release.outputs.latest_commit == github.sha
     steps:
-      - uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8
+      - uses: actions/setup-node@1e60f620b9541d16bece96c5465dc8ee9832be0b
         with:
           node-version: 18.x
       - name: Download build artifacts
-        uses: actions/download-artifact@65a9edc5881444af0b9093a5e628f2fe47ea3b2e
+        uses: actions/download-artifact@fa0a91b85d4f404e444e00e005971372dc801d16
         with:
           name: build-artifact
           path: dist
@@ -2881,11 +2881,11 @@ jobs:
       issues: write
     if: needs.release.outputs.tag_exists != 'true' && needs.release.outputs.latest_commit == github.sha
     steps:
-      - uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8
+      - uses: actions/setup-node@1e60f620b9541d16bece96c5465dc8ee9832be0b
         with:
           node-version: 18.x
       - name: Download build artifacts
-        uses: actions/download-artifact@65a9edc5881444af0b9093a5e628f2fe47ea3b2e
+        uses: actions/download-artifact@fa0a91b85d4f404e444e00e005971372dc801d16
         with:
           name: build-artifact
           path: dist
@@ -2932,11 +2932,11 @@ jobs:
         with:
           distribution: temurin
           java-version: 11.x
-      - uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8
+      - uses: actions/setup-node@1e60f620b9541d16bece96c5465dc8ee9832be0b
         with:
           node-version: 18.x
       - name: Download build artifacts
-        uses: actions/download-artifact@65a9edc5881444af0b9093a5e628f2fe47ea3b2e
+        uses: actions/download-artifact@fa0a91b85d4f404e444e00e005971372dc801d16
         with:
           name: build-artifact
           path: dist
@@ -2983,14 +2983,14 @@ jobs:
       issues: write
     if: needs.release.outputs.tag_exists != 'true' && needs.release.outputs.latest_commit == github.sha
     steps:
-      - uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8
+      - uses: actions/setup-node@1e60f620b9541d16bece96c5465dc8ee9832be0b
         with:
           node-version: 18.x
-      - uses: actions/setup-python@82c7e631bb3cdc910f68e0081d67478d79c6982d
+      - uses: actions/setup-python@39cd14951b08e74b54015e9e001cdefcf80e669f
         with:
           python-version: 3.x
       - name: Download build artifacts
-        uses: actions/download-artifact@65a9edc5881444af0b9093a5e628f2fe47ea3b2e
+        uses: actions/download-artifact@fa0a91b85d4f404e444e00e005971372dc801d16
         with:
           name: build-artifact
           path: dist
@@ -3032,14 +3032,14 @@ jobs:
       issues: write
     if: needs.release.outputs.tag_exists != 'true' && needs.release.outputs.latest_commit == github.sha
     steps:
-      - uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8
+      - uses: actions/setup-node@1e60f620b9541d16bece96c5465dc8ee9832be0b
         with:
           node-version: 18.x
-      - uses: actions/setup-dotnet@4d6c8fcf3c8f7a60068d26b594648e99df24cee3
+      - uses: actions/setup-dotnet@6bd8b7f7774af54e05809fcc5431931b3eb1ddee
         with:
           dotnet-version: 3.x
       - name: Download build artifacts
-        uses: actions/download-artifact@65a9edc5881444af0b9093a5e628f2fe47ea3b2e
+        uses: actions/download-artifact@fa0a91b85d4f404e444e00e005971372dc801d16
         with:
           name: build-artifact
           path: dist
@@ -3080,14 +3080,14 @@ jobs:
       issues: write
     if: needs.release.outputs.tag_exists != 'true' && needs.release.outputs.latest_commit == github.sha
     steps:
-      - uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8
+      - uses: actions/setup-node@1e60f620b9541d16bece96c5465dc8ee9832be0b
         with:
           node-version: 18.x
-      - uses: actions/setup-go@0c52d547c9bc32b1aa3301fd7a9cb496313a4491
+      - uses: actions/setup-go@0a12ed9d6a96ab950c8f026ed9f722fe0da7ef32
         with:
           go-version: ^1.16.0
       - name: Download build artifacts
-        uses: actions/download-artifact@65a9edc5881444af0b9093a5e628f2fe47ea3b2e
+        uses: actions/download-artifact@fa0a91b85d4f404e444e00e005971372dc801d16
         with:
           name: build-artifact
           path: dist
@@ -3204,7 +3204,7 @@ jobs:
           git diff --staged --patch --exit-code > .repo.patch || echo "patch_created=true" >> $GITHUB_OUTPUT
       - name: Upload patch
         if: steps.create_patch.outputs.patch_created
-        uses: actions/upload-artifact@65462800fd760344b1a7b4382951275a0abb4808
+        uses: actions/upload-artifact@89ef406dd8d7e03cfd12d9e0a4a378f454709029
         with:
           name: .repo.patch
           path: .repo.patch
@@ -3223,7 +3223,7 @@ jobs:
       - name: Set git config safe.directory
         run: git config --global --add safe.directory $(pwd)
       - name: Download patch
-        uses: actions/download-artifact@65a9edc5881444af0b9093a5e628f2fe47ea3b2e
+        uses: actions/download-artifact@fa0a91b85d4f404e444e00e005971372dc801d16
         with:
           name: .repo.patch
           path: \${{ runner.temp }}
@@ -5042,7 +5042,7 @@ jobs:
           git diff --staged --patch --exit-code > .repo.patch || echo "self_mutation_happened=true" >> $GITHUB_OUTPUT
       - name: Upload patch
         if: steps.self_mutation.outputs.self_mutation_happened
-        uses: actions/upload-artifact@65462800fd760344b1a7b4382951275a0abb4808
+        uses: actions/upload-artifact@89ef406dd8d7e03cfd12d9e0a4a378f454709029
         with:
           name: .repo.patch
           path: .repo.patch
@@ -5056,7 +5056,7 @@ jobs:
         run: cd dist && getfacl -R . > permissions-backup.acl
         continue-on-error: true
       - name: Upload artifact
-        uses: actions/upload-artifact@65462800fd760344b1a7b4382951275a0abb4808
+        uses: actions/upload-artifact@89ef406dd8d7e03cfd12d9e0a4a378f454709029
         with:
           name: build-artifact
           path: dist
@@ -5074,7 +5074,7 @@ jobs:
           ref: \${{ github.event.pull_request.head.ref }}
           repository: \${{ github.event.pull_request.head.repo.full_name }}
       - name: Download patch
-        uses: actions/download-artifact@65a9edc5881444af0b9093a5e628f2fe47ea3b2e
+        uses: actions/download-artifact@fa0a91b85d4f404e444e00e005971372dc801d16
         with:
           name: .repo.patch
           path: \${{ runner.temp }}
@@ -5097,11 +5097,11 @@ jobs:
     permissions: {}
     if: "! needs.build.outputs.self_mutation_happened"
     steps:
-      - uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8
+      - uses: actions/setup-node@1e60f620b9541d16bece96c5465dc8ee9832be0b
         with:
           node-version: 18.x
       - name: Download build artifacts
-        uses: actions/download-artifact@65a9edc5881444af0b9093a5e628f2fe47ea3b2e
+        uses: actions/download-artifact@fa0a91b85d4f404e444e00e005971372dc801d16
         with:
           name: build-artifact
           path: dist
@@ -5126,11 +5126,11 @@ jobs:
         with:
           distribution: temurin
           java-version: 11.x
-      - uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8
+      - uses: actions/setup-node@1e60f620b9541d16bece96c5465dc8ee9832be0b
         with:
           node-version: 18.x
       - name: Download build artifacts
-        uses: actions/download-artifact@65a9edc5881444af0b9093a5e628f2fe47ea3b2e
+        uses: actions/download-artifact@fa0a91b85d4f404e444e00e005971372dc801d16
         with:
           name: build-artifact
           path: dist
@@ -5151,14 +5151,14 @@ jobs:
     permissions: {}
     if: "! needs.build.outputs.self_mutation_happened"
     steps:
-      - uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8
+      - uses: actions/setup-node@1e60f620b9541d16bece96c5465dc8ee9832be0b
         with:
           node-version: 18.x
-      - uses: actions/setup-python@82c7e631bb3cdc910f68e0081d67478d79c6982d
+      - uses: actions/setup-python@39cd14951b08e74b54015e9e001cdefcf80e669f
         with:
           python-version: 3.x
       - name: Download build artifacts
-        uses: actions/download-artifact@65a9edc5881444af0b9093a5e628f2fe47ea3b2e
+        uses: actions/download-artifact@fa0a91b85d4f404e444e00e005971372dc801d16
         with:
           name: build-artifact
           path: dist
@@ -5179,14 +5179,14 @@ jobs:
     permissions: {}
     if: "! needs.build.outputs.self_mutation_happened"
     steps:
-      - uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8
+      - uses: actions/setup-node@1e60f620b9541d16bece96c5465dc8ee9832be0b
         with:
           node-version: 18.x
-      - uses: actions/setup-dotnet@4d6c8fcf3c8f7a60068d26b594648e99df24cee3
+      - uses: actions/setup-dotnet@6bd8b7f7774af54e05809fcc5431931b3eb1ddee
         with:
           dotnet-version: 3.x
       - name: Download build artifacts
-        uses: actions/download-artifact@65a9edc5881444af0b9093a5e628f2fe47ea3b2e
+        uses: actions/download-artifact@fa0a91b85d4f404e444e00e005971372dc801d16
         with:
           name: build-artifact
           path: dist
@@ -5207,14 +5207,14 @@ jobs:
     permissions: {}
     if: "! needs.build.outputs.self_mutation_happened"
     steps:
-      - uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8
+      - uses: actions/setup-node@1e60f620b9541d16bece96c5465dc8ee9832be0b
         with:
           node-version: 18.x
-      - uses: actions/setup-go@0c52d547c9bc32b1aa3301fd7a9cb496313a4491
+      - uses: actions/setup-go@0a12ed9d6a96ab950c8f026ed9f722fe0da7ef32
         with:
           go-version: ^1.16.0
       - name: Download build artifacts
-        uses: actions/download-artifact@65a9edc5881444af0b9093a5e628f2fe47ea3b2e
+        uses: actions/download-artifact@fa0a91b85d4f404e444e00e005971372dc801d16
         with:
           name: build-artifact
           path: dist
@@ -5266,7 +5266,7 @@ jobs:
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
       - name: Setup Node.js
-        uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8
+        uses: actions/setup-node@1e60f620b9541d16bece96c5465dc8ee9832be0b
         with: {}
       - name: Install dependencies
         run: yarn install --check-files --frozen-lockfile
@@ -5276,7 +5276,7 @@ jobs:
         run: cd dist && getfacl -R . > permissions-backup.acl
         continue-on-error: true
       - name: Upload artifact
-        uses: actions/upload-artifact@65462800fd760344b1a7b4382951275a0abb4808
+        uses: actions/upload-artifact@89ef406dd8d7e03cfd12d9e0a4a378f454709029
         with:
           name: build-artifact
           path: dist
@@ -5290,14 +5290,14 @@ jobs:
       CI: "true"
     steps:
       - name: Setup Node.js
-        uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8
+        uses: actions/setup-node@1e60f620b9541d16bece96c5465dc8ee9832be0b
         with: {}
       - name: Setup Go
-        uses: actions/setup-go@0c52d547c9bc32b1aa3301fd7a9cb496313a4491
+        uses: actions/setup-go@0a12ed9d6a96ab950c8f026ed9f722fe0da7ef32
         with:
           go-version: ^1.16.0
       - name: Download build artifacts
-        uses: actions/download-artifact@65a9edc5881444af0b9093a5e628f2fe47ea3b2e
+        uses: actions/download-artifact@fa0a91b85d4f404e444e00e005971372dc801d16
         with:
           name: build-artifact
           path: dist
@@ -5506,7 +5506,7 @@ jobs:
         continue-on-error: true
       - name: Upload artifact
         if: \${{ steps.git_remote.outputs.latest_commit == github.sha }}
-        uses: actions/upload-artifact@65462800fd760344b1a7b4382951275a0abb4808
+        uses: actions/upload-artifact@89ef406dd8d7e03cfd12d9e0a4a378f454709029
         with:
           name: build-artifact
           path: dist
@@ -5546,11 +5546,11 @@ jobs:
       issues: write
     if: needs.release.outputs.tag_exists != 'true' && needs.release.outputs.latest_commit == github.sha
     steps:
-      - uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8
+      - uses: actions/setup-node@1e60f620b9541d16bece96c5465dc8ee9832be0b
         with:
           node-version: 18.x
       - name: Download build artifacts
-        uses: actions/download-artifact@65a9edc5881444af0b9093a5e628f2fe47ea3b2e
+        uses: actions/download-artifact@fa0a91b85d4f404e444e00e005971372dc801d16
         with:
           name: build-artifact
           path: dist
@@ -5589,11 +5589,11 @@ jobs:
       issues: write
     if: needs.release.outputs.tag_exists != 'true' && needs.release.outputs.latest_commit == github.sha
     steps:
-      - uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8
+      - uses: actions/setup-node@1e60f620b9541d16bece96c5465dc8ee9832be0b
         with:
           node-version: 18.x
       - name: Download build artifacts
-        uses: actions/download-artifact@65a9edc5881444af0b9093a5e628f2fe47ea3b2e
+        uses: actions/download-artifact@fa0a91b85d4f404e444e00e005971372dc801d16
         with:
           name: build-artifact
           path: dist
@@ -5640,11 +5640,11 @@ jobs:
         with:
           distribution: temurin
           java-version: 11.x
-      - uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8
+      - uses: actions/setup-node@1e60f620b9541d16bece96c5465dc8ee9832be0b
         with:
           node-version: 18.x
       - name: Download build artifacts
-        uses: actions/download-artifact@65a9edc5881444af0b9093a5e628f2fe47ea3b2e
+        uses: actions/download-artifact@fa0a91b85d4f404e444e00e005971372dc801d16
         with:
           name: build-artifact
           path: dist
@@ -5691,14 +5691,14 @@ jobs:
       issues: write
     if: needs.release.outputs.tag_exists != 'true' && needs.release.outputs.latest_commit == github.sha
     steps:
-      - uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8
+      - uses: actions/setup-node@1e60f620b9541d16bece96c5465dc8ee9832be0b
         with:
           node-version: 18.x
-      - uses: actions/setup-python@82c7e631bb3cdc910f68e0081d67478d79c6982d
+      - uses: actions/setup-python@39cd14951b08e74b54015e9e001cdefcf80e669f
         with:
           python-version: 3.x
       - name: Download build artifacts
-        uses: actions/download-artifact@65a9edc5881444af0b9093a5e628f2fe47ea3b2e
+        uses: actions/download-artifact@fa0a91b85d4f404e444e00e005971372dc801d16
         with:
           name: build-artifact
           path: dist
@@ -5740,14 +5740,14 @@ jobs:
       issues: write
     if: needs.release.outputs.tag_exists != 'true' && needs.release.outputs.latest_commit == github.sha
     steps:
-      - uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8
+      - uses: actions/setup-node@1e60f620b9541d16bece96c5465dc8ee9832be0b
         with:
           node-version: 18.x
-      - uses: actions/setup-dotnet@4d6c8fcf3c8f7a60068d26b594648e99df24cee3
+      - uses: actions/setup-dotnet@6bd8b7f7774af54e05809fcc5431931b3eb1ddee
         with:
           dotnet-version: 3.x
       - name: Download build artifacts
-        uses: actions/download-artifact@65a9edc5881444af0b9093a5e628f2fe47ea3b2e
+        uses: actions/download-artifact@fa0a91b85d4f404e444e00e005971372dc801d16
         with:
           name: build-artifact
           path: dist
@@ -5788,14 +5788,14 @@ jobs:
       issues: write
     if: needs.release.outputs.tag_exists != 'true' && needs.release.outputs.latest_commit == github.sha
     steps:
-      - uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8
+      - uses: actions/setup-node@1e60f620b9541d16bece96c5465dc8ee9832be0b
         with:
           node-version: 18.x
-      - uses: actions/setup-go@0c52d547c9bc32b1aa3301fd7a9cb496313a4491
+      - uses: actions/setup-go@0a12ed9d6a96ab950c8f026ed9f722fe0da7ef32
         with:
           go-version: ^1.16.0
       - name: Download build artifacts
-        uses: actions/download-artifact@65a9edc5881444af0b9093a5e628f2fe47ea3b2e
+        uses: actions/download-artifact@fa0a91b85d4f404e444e00e005971372dc801d16
         with:
           name: build-artifact
           path: dist
@@ -5912,7 +5912,7 @@ jobs:
           git diff --staged --patch --exit-code > .repo.patch || echo "patch_created=true" >> $GITHUB_OUTPUT
       - name: Upload patch
         if: steps.create_patch.outputs.patch_created
-        uses: actions/upload-artifact@65462800fd760344b1a7b4382951275a0abb4808
+        uses: actions/upload-artifact@89ef406dd8d7e03cfd12d9e0a4a378f454709029
         with:
           name: .repo.patch
           path: .repo.patch
@@ -5931,7 +5931,7 @@ jobs:
       - name: Set git config safe.directory
         run: git config --global --add safe.directory $(pwd)
       - name: Download patch
-        uses: actions/download-artifact@65a9edc5881444af0b9093a5e628f2fe47ea3b2e
+        uses: actions/download-artifact@fa0a91b85d4f404e444e00e005971372dc801d16
         with:
           name: .repo.patch
           path: \${{ runner.temp }}
@@ -7750,7 +7750,7 @@ jobs:
           git diff --staged --patch --exit-code > .repo.patch || echo "self_mutation_happened=true" >> $GITHUB_OUTPUT
       - name: Upload patch
         if: steps.self_mutation.outputs.self_mutation_happened
-        uses: actions/upload-artifact@65462800fd760344b1a7b4382951275a0abb4808
+        uses: actions/upload-artifact@89ef406dd8d7e03cfd12d9e0a4a378f454709029
         with:
           name: .repo.patch
           path: .repo.patch
@@ -7764,7 +7764,7 @@ jobs:
         run: cd dist && getfacl -R . > permissions-backup.acl
         continue-on-error: true
       - name: Upload artifact
-        uses: actions/upload-artifact@65462800fd760344b1a7b4382951275a0abb4808
+        uses: actions/upload-artifact@89ef406dd8d7e03cfd12d9e0a4a378f454709029
         with:
           name: build-artifact
           path: dist
@@ -7782,7 +7782,7 @@ jobs:
           ref: \${{ github.event.pull_request.head.ref }}
           repository: \${{ github.event.pull_request.head.repo.full_name }}
       - name: Download patch
-        uses: actions/download-artifact@65a9edc5881444af0b9093a5e628f2fe47ea3b2e
+        uses: actions/download-artifact@fa0a91b85d4f404e444e00e005971372dc801d16
         with:
           name: .repo.patch
           path: \${{ runner.temp }}
@@ -7805,11 +7805,11 @@ jobs:
     permissions: {}
     if: "! needs.build.outputs.self_mutation_happened"
     steps:
-      - uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8
+      - uses: actions/setup-node@1e60f620b9541d16bece96c5465dc8ee9832be0b
         with:
           node-version: 18.x
       - name: Download build artifacts
-        uses: actions/download-artifact@65a9edc5881444af0b9093a5e628f2fe47ea3b2e
+        uses: actions/download-artifact@fa0a91b85d4f404e444e00e005971372dc801d16
         with:
           name: build-artifact
           path: dist
@@ -7834,11 +7834,11 @@ jobs:
         with:
           distribution: temurin
           java-version: 11.x
-      - uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8
+      - uses: actions/setup-node@1e60f620b9541d16bece96c5465dc8ee9832be0b
         with:
           node-version: 18.x
       - name: Download build artifacts
-        uses: actions/download-artifact@65a9edc5881444af0b9093a5e628f2fe47ea3b2e
+        uses: actions/download-artifact@fa0a91b85d4f404e444e00e005971372dc801d16
         with:
           name: build-artifact
           path: dist
@@ -7859,14 +7859,14 @@ jobs:
     permissions: {}
     if: "! needs.build.outputs.self_mutation_happened"
     steps:
-      - uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8
+      - uses: actions/setup-node@1e60f620b9541d16bece96c5465dc8ee9832be0b
         with:
           node-version: 18.x
-      - uses: actions/setup-python@82c7e631bb3cdc910f68e0081d67478d79c6982d
+      - uses: actions/setup-python@39cd14951b08e74b54015e9e001cdefcf80e669f
         with:
           python-version: 3.x
       - name: Download build artifacts
-        uses: actions/download-artifact@65a9edc5881444af0b9093a5e628f2fe47ea3b2e
+        uses: actions/download-artifact@fa0a91b85d4f404e444e00e005971372dc801d16
         with:
           name: build-artifact
           path: dist
@@ -7887,14 +7887,14 @@ jobs:
     permissions: {}
     if: "! needs.build.outputs.self_mutation_happened"
     steps:
-      - uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8
+      - uses: actions/setup-node@1e60f620b9541d16bece96c5465dc8ee9832be0b
         with:
           node-version: 18.x
-      - uses: actions/setup-dotnet@4d6c8fcf3c8f7a60068d26b594648e99df24cee3
+      - uses: actions/setup-dotnet@6bd8b7f7774af54e05809fcc5431931b3eb1ddee
         with:
           dotnet-version: 3.x
       - name: Download build artifacts
-        uses: actions/download-artifact@65a9edc5881444af0b9093a5e628f2fe47ea3b2e
+        uses: actions/download-artifact@fa0a91b85d4f404e444e00e005971372dc801d16
         with:
           name: build-artifact
           path: dist
@@ -7915,14 +7915,14 @@ jobs:
     permissions: {}
     if: "! needs.build.outputs.self_mutation_happened"
     steps:
-      - uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8
+      - uses: actions/setup-node@1e60f620b9541d16bece96c5465dc8ee9832be0b
         with:
           node-version: 18.x
-      - uses: actions/setup-go@0c52d547c9bc32b1aa3301fd7a9cb496313a4491
+      - uses: actions/setup-go@0a12ed9d6a96ab950c8f026ed9f722fe0da7ef32
         with:
           go-version: ^1.16.0
       - name: Download build artifacts
-        uses: actions/download-artifact@65a9edc5881444af0b9093a5e628f2fe47ea3b2e
+        uses: actions/download-artifact@fa0a91b85d4f404e444e00e005971372dc801d16
         with:
           name: build-artifact
           path: dist
@@ -7974,7 +7974,7 @@ jobs:
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
       - name: Setup Node.js
-        uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8
+        uses: actions/setup-node@1e60f620b9541d16bece96c5465dc8ee9832be0b
         with: {}
       - name: Install dependencies
         run: yarn install --check-files --frozen-lockfile
@@ -7984,7 +7984,7 @@ jobs:
         run: cd dist && getfacl -R . > permissions-backup.acl
         continue-on-error: true
       - name: Upload artifact
-        uses: actions/upload-artifact@65462800fd760344b1a7b4382951275a0abb4808
+        uses: actions/upload-artifact@89ef406dd8d7e03cfd12d9e0a4a378f454709029
         with:
           name: build-artifact
           path: dist
@@ -7998,14 +7998,14 @@ jobs:
       CI: "true"
     steps:
       - name: Setup Node.js
-        uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8
+        uses: actions/setup-node@1e60f620b9541d16bece96c5465dc8ee9832be0b
         with: {}
       - name: Setup Go
-        uses: actions/setup-go@0c52d547c9bc32b1aa3301fd7a9cb496313a4491
+        uses: actions/setup-go@0a12ed9d6a96ab950c8f026ed9f722fe0da7ef32
         with:
           go-version: ^1.16.0
       - name: Download build artifacts
-        uses: actions/download-artifact@65a9edc5881444af0b9093a5e628f2fe47ea3b2e
+        uses: actions/download-artifact@fa0a91b85d4f404e444e00e005971372dc801d16
         with:
           name: build-artifact
           path: dist
@@ -8214,7 +8214,7 @@ jobs:
         continue-on-error: true
       - name: Upload artifact
         if: \${{ steps.git_remote.outputs.latest_commit == github.sha }}
-        uses: actions/upload-artifact@65462800fd760344b1a7b4382951275a0abb4808
+        uses: actions/upload-artifact@89ef406dd8d7e03cfd12d9e0a4a378f454709029
         with:
           name: build-artifact
           path: dist
@@ -8254,11 +8254,11 @@ jobs:
       issues: write
     if: needs.release.outputs.tag_exists != 'true' && needs.release.outputs.latest_commit == github.sha
     steps:
-      - uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8
+      - uses: actions/setup-node@1e60f620b9541d16bece96c5465dc8ee9832be0b
         with:
           node-version: 18.x
       - name: Download build artifacts
-        uses: actions/download-artifact@65a9edc5881444af0b9093a5e628f2fe47ea3b2e
+        uses: actions/download-artifact@fa0a91b85d4f404e444e00e005971372dc801d16
         with:
           name: build-artifact
           path: dist
@@ -8297,11 +8297,11 @@ jobs:
       issues: write
     if: needs.release.outputs.tag_exists != 'true' && needs.release.outputs.latest_commit == github.sha
     steps:
-      - uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8
+      - uses: actions/setup-node@1e60f620b9541d16bece96c5465dc8ee9832be0b
         with:
           node-version: 18.x
       - name: Download build artifacts
-        uses: actions/download-artifact@65a9edc5881444af0b9093a5e628f2fe47ea3b2e
+        uses: actions/download-artifact@fa0a91b85d4f404e444e00e005971372dc801d16
         with:
           name: build-artifact
           path: dist
@@ -8348,11 +8348,11 @@ jobs:
         with:
           distribution: temurin
           java-version: 11.x
-      - uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8
+      - uses: actions/setup-node@1e60f620b9541d16bece96c5465dc8ee9832be0b
         with:
           node-version: 18.x
       - name: Download build artifacts
-        uses: actions/download-artifact@65a9edc5881444af0b9093a5e628f2fe47ea3b2e
+        uses: actions/download-artifact@fa0a91b85d4f404e444e00e005971372dc801d16
         with:
           name: build-artifact
           path: dist
@@ -8399,14 +8399,14 @@ jobs:
       issues: write
     if: needs.release.outputs.tag_exists != 'true' && needs.release.outputs.latest_commit == github.sha
     steps:
-      - uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8
+      - uses: actions/setup-node@1e60f620b9541d16bece96c5465dc8ee9832be0b
         with:
           node-version: 18.x
-      - uses: actions/setup-python@82c7e631bb3cdc910f68e0081d67478d79c6982d
+      - uses: actions/setup-python@39cd14951b08e74b54015e9e001cdefcf80e669f
         with:
           python-version: 3.x
       - name: Download build artifacts
-        uses: actions/download-artifact@65a9edc5881444af0b9093a5e628f2fe47ea3b2e
+        uses: actions/download-artifact@fa0a91b85d4f404e444e00e005971372dc801d16
         with:
           name: build-artifact
           path: dist
@@ -8448,14 +8448,14 @@ jobs:
       issues: write
     if: needs.release.outputs.tag_exists != 'true' && needs.release.outputs.latest_commit == github.sha
     steps:
-      - uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8
+      - uses: actions/setup-node@1e60f620b9541d16bece96c5465dc8ee9832be0b
         with:
           node-version: 18.x
-      - uses: actions/setup-dotnet@4d6c8fcf3c8f7a60068d26b594648e99df24cee3
+      - uses: actions/setup-dotnet@6bd8b7f7774af54e05809fcc5431931b3eb1ddee
         with:
           dotnet-version: 3.x
       - name: Download build artifacts
-        uses: actions/download-artifact@65a9edc5881444af0b9093a5e628f2fe47ea3b2e
+        uses: actions/download-artifact@fa0a91b85d4f404e444e00e005971372dc801d16
         with:
           name: build-artifact
           path: dist
@@ -8496,14 +8496,14 @@ jobs:
       issues: write
     if: needs.release.outputs.tag_exists != 'true' && needs.release.outputs.latest_commit == github.sha
     steps:
-      - uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8
+      - uses: actions/setup-node@1e60f620b9541d16bece96c5465dc8ee9832be0b
         with:
           node-version: 18.x
-      - uses: actions/setup-go@0c52d547c9bc32b1aa3301fd7a9cb496313a4491
+      - uses: actions/setup-go@0a12ed9d6a96ab950c8f026ed9f722fe0da7ef32
         with:
           go-version: ^1.16.0
       - name: Download build artifacts
-        uses: actions/download-artifact@65a9edc5881444af0b9093a5e628f2fe47ea3b2e
+        uses: actions/download-artifact@fa0a91b85d4f404e444e00e005971372dc801d16
         with:
           name: build-artifact
           path: dist
@@ -8620,7 +8620,7 @@ jobs:
           git diff --staged --patch --exit-code > .repo.patch || echo "patch_created=true" >> $GITHUB_OUTPUT
       - name: Upload patch
         if: steps.create_patch.outputs.patch_created
-        uses: actions/upload-artifact@65462800fd760344b1a7b4382951275a0abb4808
+        uses: actions/upload-artifact@89ef406dd8d7e03cfd12d9e0a4a378f454709029
         with:
           name: .repo.patch
           path: .repo.patch
@@ -8639,7 +8639,7 @@ jobs:
       - name: Set git config safe.directory
         run: git config --global --add safe.directory $(pwd)
       - name: Download patch
-        uses: actions/download-artifact@65a9edc5881444af0b9093a5e628f2fe47ea3b2e
+        uses: actions/download-artifact@fa0a91b85d4f404e444e00e005971372dc801d16
         with:
           name: .repo.patch
           path: \${{ runner.temp }}
@@ -10440,7 +10440,7 @@ jobs:
           repository: \${{ github.event.pull_request.head.repo.full_name }}
           fetch-depth: 0
       - name: Setup Node.js
-        uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8
+        uses: actions/setup-node@1e60f620b9541d16bece96c5465dc8ee9832be0b
         with:
           node-version: 18.12.0
       - name: Install dependencies
@@ -10462,7 +10462,7 @@ jobs:
           git diff --staged --patch --exit-code > .repo.patch || echo "self_mutation_happened=true" >> $GITHUB_OUTPUT
       - name: Upload patch
         if: steps.self_mutation.outputs.self_mutation_happened
-        uses: actions/upload-artifact@65462800fd760344b1a7b4382951275a0abb4808
+        uses: actions/upload-artifact@89ef406dd8d7e03cfd12d9e0a4a378f454709029
         with:
           name: .repo.patch
           path: .repo.patch
@@ -10476,7 +10476,7 @@ jobs:
         run: cd dist && getfacl -R . > permissions-backup.acl
         continue-on-error: true
       - name: Upload artifact
-        uses: actions/upload-artifact@65462800fd760344b1a7b4382951275a0abb4808
+        uses: actions/upload-artifact@89ef406dd8d7e03cfd12d9e0a4a378f454709029
         with:
           name: build-artifact
           path: dist
@@ -10494,7 +10494,7 @@ jobs:
           ref: \${{ github.event.pull_request.head.ref }}
           repository: \${{ github.event.pull_request.head.repo.full_name }}
       - name: Download patch
-        uses: actions/download-artifact@65a9edc5881444af0b9093a5e628f2fe47ea3b2e
+        uses: actions/download-artifact@fa0a91b85d4f404e444e00e005971372dc801d16
         with:
           name: .repo.patch
           path: \${{ runner.temp }}
@@ -10517,11 +10517,11 @@ jobs:
     permissions: {}
     if: "! needs.build.outputs.self_mutation_happened"
     steps:
-      - uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8
+      - uses: actions/setup-node@1e60f620b9541d16bece96c5465dc8ee9832be0b
         with:
           node-version: 18.12.0
       - name: Download build artifacts
-        uses: actions/download-artifact@65a9edc5881444af0b9093a5e628f2fe47ea3b2e
+        uses: actions/download-artifact@fa0a91b85d4f404e444e00e005971372dc801d16
         with:
           name: build-artifact
           path: dist
@@ -10546,11 +10546,11 @@ jobs:
         with:
           distribution: temurin
           java-version: 11.x
-      - uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8
+      - uses: actions/setup-node@1e60f620b9541d16bece96c5465dc8ee9832be0b
         with:
           node-version: 18.12.0
       - name: Download build artifacts
-        uses: actions/download-artifact@65a9edc5881444af0b9093a5e628f2fe47ea3b2e
+        uses: actions/download-artifact@fa0a91b85d4f404e444e00e005971372dc801d16
         with:
           name: build-artifact
           path: dist
@@ -10571,14 +10571,14 @@ jobs:
     permissions: {}
     if: "! needs.build.outputs.self_mutation_happened"
     steps:
-      - uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8
+      - uses: actions/setup-node@1e60f620b9541d16bece96c5465dc8ee9832be0b
         with:
           node-version: 18.12.0
-      - uses: actions/setup-python@82c7e631bb3cdc910f68e0081d67478d79c6982d
+      - uses: actions/setup-python@39cd14951b08e74b54015e9e001cdefcf80e669f
         with:
           python-version: 3.x
       - name: Download build artifacts
-        uses: actions/download-artifact@65a9edc5881444af0b9093a5e628f2fe47ea3b2e
+        uses: actions/download-artifact@fa0a91b85d4f404e444e00e005971372dc801d16
         with:
           name: build-artifact
           path: dist
@@ -10599,14 +10599,14 @@ jobs:
     permissions: {}
     if: "! needs.build.outputs.self_mutation_happened"
     steps:
-      - uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8
+      - uses: actions/setup-node@1e60f620b9541d16bece96c5465dc8ee9832be0b
         with:
           node-version: 18.12.0
-      - uses: actions/setup-dotnet@4d6c8fcf3c8f7a60068d26b594648e99df24cee3
+      - uses: actions/setup-dotnet@6bd8b7f7774af54e05809fcc5431931b3eb1ddee
         with:
           dotnet-version: 3.x
       - name: Download build artifacts
-        uses: actions/download-artifact@65a9edc5881444af0b9093a5e628f2fe47ea3b2e
+        uses: actions/download-artifact@fa0a91b85d4f404e444e00e005971372dc801d16
         with:
           name: build-artifact
           path: dist
@@ -10627,14 +10627,14 @@ jobs:
     permissions: {}
     if: "! needs.build.outputs.self_mutation_happened"
     steps:
-      - uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8
+      - uses: actions/setup-node@1e60f620b9541d16bece96c5465dc8ee9832be0b
         with:
           node-version: 18.12.0
-      - uses: actions/setup-go@0c52d547c9bc32b1aa3301fd7a9cb496313a4491
+      - uses: actions/setup-go@0a12ed9d6a96ab950c8f026ed9f722fe0da7ef32
         with:
           go-version: ^1.16.0
       - name: Download build artifacts
-        uses: actions/download-artifact@65a9edc5881444af0b9093a5e628f2fe47ea3b2e
+        uses: actions/download-artifact@fa0a91b85d4f404e444e00e005971372dc801d16
         with:
           name: build-artifact
           path: dist
@@ -10686,7 +10686,7 @@ jobs:
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
       - name: Setup Node.js
-        uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8
+        uses: actions/setup-node@1e60f620b9541d16bece96c5465dc8ee9832be0b
         with:
           node-version: 18.12.0
       - name: Install dependencies
@@ -10697,7 +10697,7 @@ jobs:
         run: cd dist && getfacl -R . > permissions-backup.acl
         continue-on-error: true
       - name: Upload artifact
-        uses: actions/upload-artifact@65462800fd760344b1a7b4382951275a0abb4808
+        uses: actions/upload-artifact@89ef406dd8d7e03cfd12d9e0a4a378f454709029
         with:
           name: build-artifact
           path: dist
@@ -10711,15 +10711,15 @@ jobs:
       CI: "true"
     steps:
       - name: Setup Node.js
-        uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8
+        uses: actions/setup-node@1e60f620b9541d16bece96c5465dc8ee9832be0b
         with:
           node-version: 18.12.0
       - name: Setup Go
-        uses: actions/setup-go@0c52d547c9bc32b1aa3301fd7a9cb496313a4491
+        uses: actions/setup-go@0a12ed9d6a96ab950c8f026ed9f722fe0da7ef32
         with:
           go-version: ^1.16.0
       - name: Download build artifacts
-        uses: actions/download-artifact@65a9edc5881444af0b9093a5e628f2fe47ea3b2e
+        uses: actions/download-artifact@fa0a91b85d4f404e444e00e005971372dc801d16
         with:
           name: build-artifact
           path: dist
@@ -10909,7 +10909,7 @@ jobs:
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
       - name: Setup Node.js
-        uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8
+        uses: actions/setup-node@1e60f620b9541d16bece96c5465dc8ee9832be0b
         with:
           node-version: 18.12.0
       - name: Install dependencies
@@ -10932,7 +10932,7 @@ jobs:
         continue-on-error: true
       - name: Upload artifact
         if: \${{ steps.git_remote.outputs.latest_commit == github.sha }}
-        uses: actions/upload-artifact@65462800fd760344b1a7b4382951275a0abb4808
+        uses: actions/upload-artifact@89ef406dd8d7e03cfd12d9e0a4a378f454709029
         with:
           name: build-artifact
           path: dist
@@ -10972,11 +10972,11 @@ jobs:
       issues: write
     if: needs.release.outputs.tag_exists != 'true' && needs.release.outputs.latest_commit == github.sha
     steps:
-      - uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8
+      - uses: actions/setup-node@1e60f620b9541d16bece96c5465dc8ee9832be0b
         with:
           node-version: 18.12.0
       - name: Download build artifacts
-        uses: actions/download-artifact@65a9edc5881444af0b9093a5e628f2fe47ea3b2e
+        uses: actions/download-artifact@fa0a91b85d4f404e444e00e005971372dc801d16
         with:
           name: build-artifact
           path: dist
@@ -11015,11 +11015,11 @@ jobs:
       issues: write
     if: needs.release.outputs.tag_exists != 'true' && needs.release.outputs.latest_commit == github.sha
     steps:
-      - uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8
+      - uses: actions/setup-node@1e60f620b9541d16bece96c5465dc8ee9832be0b
         with:
           node-version: 18.12.0
       - name: Download build artifacts
-        uses: actions/download-artifact@65a9edc5881444af0b9093a5e628f2fe47ea3b2e
+        uses: actions/download-artifact@fa0a91b85d4f404e444e00e005971372dc801d16
         with:
           name: build-artifact
           path: dist
@@ -11066,11 +11066,11 @@ jobs:
         with:
           distribution: temurin
           java-version: 11.x
-      - uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8
+      - uses: actions/setup-node@1e60f620b9541d16bece96c5465dc8ee9832be0b
         with:
           node-version: 18.12.0
       - name: Download build artifacts
-        uses: actions/download-artifact@65a9edc5881444af0b9093a5e628f2fe47ea3b2e
+        uses: actions/download-artifact@fa0a91b85d4f404e444e00e005971372dc801d16
         with:
           name: build-artifact
           path: dist
@@ -11117,14 +11117,14 @@ jobs:
       issues: write
     if: needs.release.outputs.tag_exists != 'true' && needs.release.outputs.latest_commit == github.sha
     steps:
-      - uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8
+      - uses: actions/setup-node@1e60f620b9541d16bece96c5465dc8ee9832be0b
         with:
           node-version: 18.12.0
-      - uses: actions/setup-python@82c7e631bb3cdc910f68e0081d67478d79c6982d
+      - uses: actions/setup-python@39cd14951b08e74b54015e9e001cdefcf80e669f
         with:
           python-version: 3.x
       - name: Download build artifacts
-        uses: actions/download-artifact@65a9edc5881444af0b9093a5e628f2fe47ea3b2e
+        uses: actions/download-artifact@fa0a91b85d4f404e444e00e005971372dc801d16
         with:
           name: build-artifact
           path: dist
@@ -11166,14 +11166,14 @@ jobs:
       issues: write
     if: needs.release.outputs.tag_exists != 'true' && needs.release.outputs.latest_commit == github.sha
     steps:
-      - uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8
+      - uses: actions/setup-node@1e60f620b9541d16bece96c5465dc8ee9832be0b
         with:
           node-version: 18.12.0
-      - uses: actions/setup-dotnet@4d6c8fcf3c8f7a60068d26b594648e99df24cee3
+      - uses: actions/setup-dotnet@6bd8b7f7774af54e05809fcc5431931b3eb1ddee
         with:
           dotnet-version: 3.x
       - name: Download build artifacts
-        uses: actions/download-artifact@65a9edc5881444af0b9093a5e628f2fe47ea3b2e
+        uses: actions/download-artifact@fa0a91b85d4f404e444e00e005971372dc801d16
         with:
           name: build-artifact
           path: dist
@@ -11214,14 +11214,14 @@ jobs:
       issues: write
     if: needs.release.outputs.tag_exists != 'true' && needs.release.outputs.latest_commit == github.sha
     steps:
-      - uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8
+      - uses: actions/setup-node@1e60f620b9541d16bece96c5465dc8ee9832be0b
         with:
           node-version: 18.12.0
-      - uses: actions/setup-go@0c52d547c9bc32b1aa3301fd7a9cb496313a4491
+      - uses: actions/setup-go@0a12ed9d6a96ab950c8f026ed9f722fe0da7ef32
         with:
           go-version: ^1.16.0
       - name: Download build artifacts
-        uses: actions/download-artifact@65a9edc5881444af0b9093a5e628f2fe47ea3b2e
+        uses: actions/download-artifact@fa0a91b85d4f404e444e00e005971372dc801d16
         with:
           name: build-artifact
           path: dist
@@ -11328,7 +11328,7 @@ jobs:
       - name: Set git config safe.directory
         run: git config --global --add safe.directory $(pwd)
       - name: Setup Node.js
-        uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8
+        uses: actions/setup-node@1e60f620b9541d16bece96c5465dc8ee9832be0b
         with:
           node-version: 18.12.0
       - name: Install dependencies
@@ -11342,7 +11342,7 @@ jobs:
           git diff --staged --patch --exit-code > .repo.patch || echo "patch_created=true" >> $GITHUB_OUTPUT
       - name: Upload patch
         if: steps.create_patch.outputs.patch_created
-        uses: actions/upload-artifact@65462800fd760344b1a7b4382951275a0abb4808
+        uses: actions/upload-artifact@89ef406dd8d7e03cfd12d9e0a4a378f454709029
         with:
           name: .repo.patch
           path: .repo.patch
@@ -11361,7 +11361,7 @@ jobs:
       - name: Set git config safe.directory
         run: git config --global --add safe.directory $(pwd)
       - name: Download patch
-        uses: actions/download-artifact@65a9edc5881444af0b9093a5e628f2fe47ea3b2e
+        uses: actions/download-artifact@fa0a91b85d4f404e444e00e005971372dc801d16
         with:
           name: .repo.patch
           path: \${{ runner.temp }}
