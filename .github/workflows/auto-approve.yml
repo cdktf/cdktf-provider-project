@@ -8,7 +8,9 @@ on:
       - labeled
       - ready_for_review
       - reopened
-concurrency: ${{ github.workflow }}-${{ github.head_ref }}
+concurrency:
+  group: ${{ github.workflow }}-${{ github.head_ref }}
+  cancelInProgress: true
 jobs:
   approve:
     runs-on: ubuntu-latest
