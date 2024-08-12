@@ -72,18 +72,18 @@ export class UpgradeNode {
           },
           {
             name: "Set the new minNodeVersion in .projenrc.ts",
-            if: "env.CURRENT_NODEJS_VERSION_SHORT != env.NEW_NODEJS_VERSION_SHORT",
+            if: "env.CURRENT_NODEJS_VERSION_SHORT < env.NEW_NODEJS_VERSION_SHORT",
             run: `sed -i "s/minNodeVersion: \\".*\\",/minNodeVersion: \\"$NEW_NODEJS_VERSION\\",/" ./.projenrc.ts`,
           },
           {
             name: "Activate Projen to propagate the new version everywhere",
-            if: "env.CURRENT_NODEJS_VERSION_SHORT != env.NEW_NODEJS_VERSION_SHORT",
+            if: "env.CURRENT_NODEJS_VERSION_SHORT < env.NEW_NODEJS_VERSION_SHORT",
             run: "yarn projen",
           },
           {
             name: "Get values for pull request",
             id: "latest_version",
-            if: "env.CURRENT_NODEJS_VERSION_SHORT != env.NEW_NODEJS_VERSION_SHORT",
+            if: "env.CURRENT_NODEJS_VERSION_SHORT < env.NEW_NODEJS_VERSION_SHORT",
             run: [
               `echo "value=$NEW_NODEJS_VERSION" >> $GITHUB_OUTPUT`,
               `echo "short=$NEW_NODEJS_VERSION_SHORT" >> $GITHUB_OUTPUT`,
@@ -91,7 +91,7 @@ export class UpgradeNode {
           },
           {
             name: "Create Pull Request",
-            if: "env.CURRENT_NODEJS_VERSION_SHORT != env.NEW_NODEJS_VERSION_SHORT",
+            if: "env.CURRENT_NODEJS_VERSION_SHORT < env.NEW_NODEJS_VERSION_SHORT",
             uses: "peter-evans/create-pull-request@v3",
             with: {
               "commit-message":
