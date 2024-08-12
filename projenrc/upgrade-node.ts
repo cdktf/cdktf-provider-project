@@ -25,7 +25,9 @@ export class UpgradeNode {
       workflowDispatch: {}, // allow manual triggering
     });
 
-    (workflow.concurrency as any) = "${{ github.workflow }}-${{ github.ref }}";
+    (workflow.concurrency as any) = {
+      group: "${{ github.workflow }}-${{ github.ref }}",
+    };
 
     workflow.addJobs({
       upgrade: {

@@ -39,7 +39,7 @@ const project = new cdk.JsiiProject({
   pullRequestTemplate: false,
   jsiiVersion: "~5.3.0",
   typescriptVersion: "~5.3.0", // should always be the same major/minor as JSII
-  peerDeps: ["projen@^0.79.3", "constructs@^10.3.0"],
+  peerDeps: ["projen@^0.85.0", "constructs@^10.3.0"],
   deps: ["change-case", "fs-extra"],
   devDeps: ["@types/fs-extra", "glob", "@types/glob"],
   bundledDeps: ["change-case", "fs-extra"],
@@ -88,6 +88,11 @@ const project = new cdk.JsiiProject({
   },
   projenrcTs: true,
 });
+
+// @typescript-eslint v7+ requires Node.js 18.18, so we are stuck on v6
+// The below lines can probably be removed once Node 18 goes EOL and we upgrade minNodeVersion to 20
+project.addDevDeps("@typescript-eslint/eslint-plugin@^6");
+project.addDevDeps("@typescript-eslint/parser@^6");
 
 project.addFields({ publishConfig: { access: "public" } });
 
