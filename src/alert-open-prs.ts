@@ -71,6 +71,7 @@ export class AlertOpenPrs {
           env: { SLACK_WEBHOOK_URL: slackWebhookUrl },
         },
       ],
+      continueOnError: true, // this job fails sometimes due to Slack timeouts (503s and 504s) but it's really not a big deal if it does
     });
   }
 }
