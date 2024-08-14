@@ -23,7 +23,6 @@ export class AutoApprove {
 
     (workflow.concurrency as any) = {
       group: "${{ github.workflow }}-${{ github.head_ref }}",
-      cancelInProgress: true,
     };
 
     const maintainerStatuses = `fromJSON('["OWNER", "MEMBER", "COLLABORATOR"]')`;
