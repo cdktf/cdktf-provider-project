@@ -343,6 +343,12 @@ export class CdktfProviderProject extends cdk.JsiiProject {
       setSafeDirectory
     );
 
+    // always publish a new GitHub release, even when publishing to a particular package manager fails
+    const releaseWorkflow = this.tryFindObjectFile(
+      ".github/workflows/release.yml"
+    );
+    releaseWorkflow?.addOverride("jobs.release_github.needs", "release");
+
     // ensure we don't fail if the release file is not present
     const checkExistingTagStep = (
       this.release as any
