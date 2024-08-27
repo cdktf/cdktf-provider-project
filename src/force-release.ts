@@ -20,13 +20,11 @@ export class ForceRelease {
       workflowDispatch: {
         inputs: {
           sha: {
-            name: "sha",
             type: "string",
             required: true,
             description: "The sha of the commit to release",
           },
           publish_to_go: {
-            name: "publish_to_go",
             type: "boolean",
             required: true,
             description: "Whether to publish to Go Repository",
