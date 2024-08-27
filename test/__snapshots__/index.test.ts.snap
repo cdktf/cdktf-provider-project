@@ -2568,12 +2568,10 @@ on:
   workflow_dispatch:
     inputs:
       sha:
-        name: sha
         type: string
         required: true
         description: The sha of the commit to release
       publish_to_go:
-        name: publish_to_go
         type: boolean
         required: true
         description: Whether to publish to Go Repository
@@ -5312,12 +5310,10 @@ on:
   workflow_dispatch:
     inputs:
       sha:
-        name: sha
         type: string
         required: true
         description: The sha of the commit to release
       publish_to_go:
-        name: publish_to_go
         type: boolean
         required: true
         description: Whether to publish to Go Repository
@@ -8056,12 +8052,10 @@ on:
   workflow_dispatch:
     inputs:
       sha:
-        name: sha
         type: string
         required: true
         description: The sha of the commit to release
       publish_to_go:
-        name: publish_to_go
         type: boolean
         required: true
         description: Whether to publish to Go Repository
@@ -10804,12 +10798,10 @@ on:
   workflow_dispatch:
     inputs:
       sha:
-        name: sha
         type: string
         required: true
         description: The sha of the commit to release
       publish_to_go:
-        name: publish_to_go
         type: boolean
         required: true
         description: Whether to publish to Go Repository
@@ -12677,7 +12669,7 @@ The repository is managed by [CDKTF Repository Manager](https://github.com/cdktf
   },
   "author": {
     "name": "HashiCorp",
-    "url": "https://hashicorp.com",
+    "url": "https://github.com/cdktf",
     "organization": true
   },
   "devDependencies": {
