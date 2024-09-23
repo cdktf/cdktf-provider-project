@@ -358,10 +358,10 @@ export class CdktfProviderProject extends cdk.JsiiProject {
     const oldExistingTagRun: string = checkExistingTagStep.run;
     prettyAssertEqual(
       oldExistingTagRun.split("\n")[0],
-      "TAG=$(cat dist/dist/releasetag.txt)",
+      "TAG=$(cat dist/releasetag.txt)",
       "release step changed, please check if the workaround still works!"
     );
-    checkExistingTagStep.run = `if [ ! -f dist/dist/releasetag.txt ]; then (echo "exists=true" >> $GITHUB_OUTPUT) && exit 0; fi\n${oldExistingTagRun}`;
+    checkExistingTagStep.run = `if [ ! -f dist/releasetag.txt ]; then (echo "exists=true" >> $GITHUB_OUTPUT) && exit 0; fi\n${oldExistingTagRun}`;
 
     if (!isDeprecated) {
       const { upgrade, pr } = (this.upgradeWorkflow as any).workflows[0].jobs;
@@ -372,7 +372,7 @@ export class CdktfProviderProject extends cdk.JsiiProject {
     // Fix maven issue (https://github.com/cdklabs/publib/pull/777)
     github.GitHub.of(this)?.tryFindWorkflow("release")?.file?.patch(
       JsonPatch.add(
-        "/jobs/release_maven/steps/8/env/MAVEN_OPTS",
+        "/jobs/release_maven/steps/10/env/MAVEN_OPTS",
         // See https://stackoverflow.com/questions/70153962/nexus-staging-maven-plugin-maven-deploy-failed-an-api-incompatibility-was-enco
         "--add-opens=java.base/java.util=ALL-UNNAMED --add-opens=java.base/java.lang.reflect=ALL-UNNAMED --add-opens=java.base/java.text=ALL-UNNAMED --add-opens=java.desktop/java.awt.font=ALL-UNNAMED"
       )

@@ -39,7 +39,7 @@ const project = new cdk.JsiiProject({
   pullRequestTemplate: false,
   jsiiVersion: "~5.3.0",
   typescriptVersion: "~5.3.0", // should always be the same major/minor as JSII
-  peerDeps: ["projen@^0.85.0", "constructs@^10.3.0"],
+  peerDeps: ["projen@^0.87.4", "constructs@^10.3.0"],
   deps: ["change-case", "fs-extra"],
   bundledDeps: ["change-case", "fs-extra"],
   defaultReleaseBranch: "main",
