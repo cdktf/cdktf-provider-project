@@ -44,6 +44,7 @@
     "@types/node": "^18",
     "@typescript-eslint/eslint-plugin": "^6",
     "@typescript-eslint/parser": "^6",
+    "commit-and-tag-version": "^12",
     "constructs": "10.3.0",
     "eslint": "^8",
     "eslint-config-prettier": "^8.10.0",
@@ -55,19 +56,18 @@
     "jest-junit": "^15",
     "jsii": "~5.3.0",
     "jsii-diff": "^1.103.1",
-    "jsii-docgen": "^10.5.4",
+    "jsii-docgen": "^10.5.0",
     "jsii-pacmak": "^1.103.1",
     "jsii-rosetta": "~5.3.0",
     "prettier": "^2.8.8",
-    "projen": "0.85.0",
-    "standard-version": "^9",
+    "projen": "0.87.4",
     "ts-jest": "^29",
     "ts-node": "^10.9.2",
     "typescript": "~5.3.0"
   },
   "peerDependencies": {
     "constructs": "^10.3.0",
-    "projen": "^0.85.0"
+    "projen": "^0.87.4"
   },
   "dependencies": {
     "change-case": "^4.1.2",
