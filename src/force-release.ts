@@ -78,7 +78,7 @@ export class ForceRelease {
         {
           name: "Upload artifact",
           uses: "actions/upload-artifact",
-          with: { name: "build-artifact", path: "dist" },
+          with: { name: "build-artifact", path: "dist", overwrite: true },
         },
       ],
     });
@@ -104,7 +104,7 @@ export class ForceRelease {
         {
           name: "Setup Go",
           uses: "actions/setup-go",
-          with: { "go-version": "^1.16.0" },
+          with: { "go-version": "^1.18.0" },
         },
         {
           name: "Download build artifacts",
@@ -117,15 +117,26 @@ export class ForceRelease {
           continueOnError: true,
         },
         {
-          name: "Prepare Repository",
-          run: "mv dist .repo",
+          name: "Checkout",
+          uses: "actions/checkout",
+          with: {
+            path: ".repo",
+          },
         },
         {
           name: "Install Dependencies",
           run: "cd .repo && yarn install --check-files --frozen-lockfile",
         },
         {
-          name: "Create Artifact",
+          name: "Extract build artifact",
+          run: "tar --strip-components=1 -xzvf dist/js/*.tgz -C .repo",
+        },
+        {
+          name: "Move build artifact out of the way",
+          run: "mv dist dist.old",
+        },
+        {
+          name: "Create go artifact",
           run: "cd .repo && npx projen package:go",
         },
         {
