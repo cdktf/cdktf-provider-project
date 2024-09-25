@@ -175,12 +175,23 @@ export class CdktfProviderProject extends cdk.JsiiProject {
         // If someone knows a better way to do this mutation with minimal custom code, please do so
         prePublishSteps: [
           {
-            name: "Prepare Repository",
-            run: "mv dist .repo",
+            name: "Checkout",
+            uses: "actions/checkout",
+            with: {
+              path: ".repo",
+            },
           },
           {
             name: "Install Dependencies",
             run: "cd .repo && yarn install --check-files --frozen-lockfile",
+          },
+          {
+            name: "Extract build artifact",
+            run: "tar --strip-components=1 -xzvf dist/js/*.tgz -C .repo",
+          },
+          {
+            name: "Move build artifact out of the way",
+            run: "mv dist dist.old",
           },
           {
             name: "Create go artifact",
