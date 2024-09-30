@@ -55,6 +55,13 @@ export class DeprecatePackages {
             uses: "actions/checkout@v4",
           },
           {
+            name: "Setup Node.js",
+            uses: "actions/setup-node",
+            with: {
+              "node-version": project.minNodeVersion,
+            },
+          },
+          {
             name: "Install",
             run: "yarn install",
           },
