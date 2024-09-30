@@ -58,6 +58,13 @@ export class ProviderUpgrade {
             name: "Checkout",
             uses: "actions/checkout@v4",
           },
+          {
+            name: "Setup Node.js",
+            uses: "actions/setup-node",
+            with: {
+              "node-version": project.minNodeVersion,
+            },
+          },
           { run: "yarn install" },
           {
             id: "check_version",
