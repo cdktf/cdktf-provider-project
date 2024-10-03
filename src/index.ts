@@ -95,6 +95,7 @@ const githubActionPinnedVersions = {
     "0723387faaf9b38adef4775cd42cfd5155ed6017", // v5.5.3
   "dessant/lock-threads": "1bf7ec25051fe7c00bdd17e6a7cf3d7bfb7dc771", // v5.0.1
   "hashicorp/setup-copywrite": "32638da2d4e81d56a0764aa1547882fc4d209636", // v1.1.3
+  "hashicorp/setup-terraform": "b9cd54a3c349d3f38e8881555d616ced269862dd", // v3.1.2
   "imjohnbo/issue-bot": "572eed14422c4d6ca37e870f97e7da209422f5bd", // v3.4.4
   "peter-evans/create-pull-request": "c5a7806660adbe173f04e3e038b0ccdcd758773c", // v6.1.0
   "slackapi/slack-github-action": "70cd7be8e40a46e8b0eced40b0de447bdb42f68e", // v1.26.0
