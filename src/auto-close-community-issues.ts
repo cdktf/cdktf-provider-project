@@ -87,7 +87,7 @@ export class AutoCloseCommunityIssues {
         contents: JobPermission.READ,
         pullRequests: JobPermission.WRITE,
       },
-      if: `github.event.pull_request.user.login != 'team-tf-cdk' && !contains(${maintainerStatuses}, github.event.pull_request.author_association)`,
+      if: `github.event.pull_request.user.login != 'team-tf-cdk' && github.actor != 'dependabot[bot]' && !contains(${maintainerStatuses}, github.event.pull_request.author_association)`,
       steps: [
         {
           name: "Checkout",

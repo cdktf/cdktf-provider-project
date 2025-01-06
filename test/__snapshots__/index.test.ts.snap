@@ -142,7 +142,7 @@ jobs:
     permissions:
       contents: read
       pull-requests: write
-    if: github.event.pull_request.user.login != 'team-tf-cdk' && !contains(fromJSON('["OWNER", "MEMBER", "COLLABORATOR", "CONTRIBUTOR"]'), github.event.pull_request.author_association)
+    if: github.event.pull_request.user.login != 'team-tf-cdk' && github.actor != 'dependabot[bot]' && !contains(fromJSON('["OWNER", "MEMBER", "COLLABORATOR", "CONTRIBUTOR"]'), github.event.pull_request.author_association)
     steps:
       - name: Checkout
         uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332
@@ -2369,7 +2369,7 @@ jobs:
     permissions:
       contents: read
       pull-requests: write
-    if: github.event.pull_request.user.login != 'team-tf-cdk' && !contains(fromJSON('["OWNER", "MEMBER", "COLLABORATOR", "CONTRIBUTOR"]'), github.event.pull_request.author_association)
+    if: github.event.pull_request.user.login != 'team-tf-cdk' && github.actor != 'dependabot[bot]' && !contains(fromJSON('["OWNER", "MEMBER", "COLLABORATOR", "CONTRIBUTOR"]'), github.event.pull_request.author_association)
     steps:
       - name: Checkout
         uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332
@@ -5205,7 +5205,7 @@ jobs:
     permissions:
       contents: read
       pull-requests: write
-    if: github.event.pull_request.user.login != 'team-tf-cdk' && !contains(fromJSON('["OWNER", "MEMBER", "COLLABORATOR", "CONTRIBUTOR"]'), github.event.pull_request.author_association)
+    if: github.event.pull_request.user.login != 'team-tf-cdk' && github.actor != 'dependabot[bot]' && !contains(fromJSON('["OWNER", "MEMBER", "COLLABORATOR", "CONTRIBUTOR"]'), github.event.pull_request.author_association)
     steps:
       - name: Checkout
         uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332
@@ -8037,7 +8037,7 @@ jobs:
     permissions:
       contents: read
       pull-requests: write
-    if: github.event.pull_request.user.login != 'team-tf-cdk' && !contains(fromJSON('["OWNER", "MEMBER", "COLLABORATOR", "CONTRIBUTOR"]'), github.event.pull_request.author_association)
+    if: github.event.pull_request.user.login != 'team-tf-cdk' && github.actor != 'dependabot[bot]' && !contains(fromJSON('["OWNER", "MEMBER", "COLLABORATOR", "CONTRIBUTOR"]'), github.event.pull_request.author_association)
     steps:
       - name: Checkout
         uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332
@@ -10873,7 +10873,7 @@ jobs:
     permissions:
       contents: read
       pull-requests: write
-    if: github.event.pull_request.user.login != 'team-tf-cdk' && !contains(fromJSON('["OWNER", "MEMBER", "COLLABORATOR", "CONTRIBUTOR"]'), github.event.pull_request.author_association)
+    if: github.event.pull_request.user.login != 'team-tf-cdk' && github.actor != 'dependabot[bot]' && !contains(fromJSON('["OWNER", "MEMBER", "COLLABORATOR", "CONTRIBUTOR"]'), github.event.pull_request.author_association)
     steps:
       - name: Checkout
         uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332
