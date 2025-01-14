@@ -176,9 +176,9 @@ export class UpgradeNode {
               base: "main",
               branch: "auto/upgrade-node-${{ needs.version.outputs.major }}",
               "commit-message":
-                "chore!: increase minimum supported Node.js version to ${{ needs.version.outputs.major }} in this project only",
+                "chore!: increase minimum supported Node.js version to ${{ needs.version.outputs.major }} for this project only",
               title:
-                "chore!: increase minimum supported Node.js version to ${{ needs.version.outputs.major }} in this project only",
+                "chore!: increase minimum supported Node.js version to ${{ needs.version.outputs.major }} for this project only",
               body: [
                 "This PR increases the minimum supported Node.js version",
                 "to `${{ needs.version.outputs.latest }}` from `${{ needs.version.outputs.current }}`",

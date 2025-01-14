@@ -99,8 +99,8 @@ jobs:
         with:
           base: main
           branch: auto/upgrade-node-${{ needs.version.outputs.major }}
-          commit-message: "chore!: increase minimum supported Node.js version to ${{ needs.version.outputs.major }} in this project only"
-          title: "chore!: increase minimum supported Node.js version to ${{ needs.version.outputs.major }} in this project only"
+          commit-message: "chore!: increase minimum supported Node.js version to ${{ needs.version.outputs.major }} for this project only"
+          title: "chore!: increase minimum supported Node.js version to ${{ needs.version.outputs.major }} for this project only"
           body: |-
             This PR increases the minimum supported Node.js version to `${{ needs.version.outputs.latest }}` from `${{ needs.version.outputs.current }}` because version ${{ needs.version.outputs.current }} is less than 30 days away from EOL. 
 
