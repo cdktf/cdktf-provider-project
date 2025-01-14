@@ -5,6 +5,7 @@
 
 import { cdk } from "projen";
 import { UpgradeDependenciesSchedule } from "projen/lib/javascript";
+import { UpgradeJSIIAndTypeScript } from "./projenrc/upgrade-jsii-typescript";
 import { UpgradeNode } from "./projenrc/upgrade-node";
 import { AutoApprove } from "./src/auto-approve";
 import { Automerge } from "./src/automerge";
@@ -29,6 +30,8 @@ const githubActionPinnedVersions = {
   "peter-evans/create-pull-request": "67ccf781d68cd99b580ae25a5c18a1cc84ffff1f", // v7.0.6
 };
 
+/** JSII and TS should always use the same major/minor version range */
+const typescriptVersion = "~5.4.0";
 const project = new cdk.JsiiProject({
   name: "@cdktf/provider-project",
   author: "HashiCorp",
@@ -37,8 +40,8 @@ const project = new cdk.JsiiProject({
   authorOrganization: true,
   licensed: false, // we do supply our own license file with a custom header
   pullRequestTemplate: false,
-  jsiiVersion: "~5.4.0",
-  typescriptVersion: "~5.4.0", // should always be the same major/minor as JSII
+  typescriptVersion,
+  jsiiVersion: typescriptVersion,
   peerDeps: ["projen@^0.87.4", "constructs@^10.4.2"],
   deps: ["change-case", "fs-extra"],
   bundledDeps: ["change-case", "fs-extra"],
@@ -107,6 +110,7 @@ new CustomizedLicense(project, 2020);
 new LockIssues(project);
 new AutoApprove(project);
 new Automerge(project);
+new UpgradeJSIIAndTypeScript(project, typescriptVersion);
 new UpgradeNode(project);
 
 project.addPackageIgnore("projenrc");

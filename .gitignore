@@ -52,5 +52,6 @@ tsconfig.json
 !/.github/workflows/lock.yml
 !/.github/workflows/auto-approve.yml
 !/.github/workflows/automerge.yml
+!/.github/workflows/upgrade-jsii-typescript.yml
 !/.github/workflows/upgrade-node.yml
 !/.projenrc.ts
