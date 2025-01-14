@@ -100,6 +100,8 @@ project.addDevDeps(
   "@typescript-eslint/eslint-plugin@^6",
   "@typescript-eslint/parser@^6"
 );
+// This is a temporary workaround to allow upgrade-main to succeed until we upgrade to Node 20
+project.package.addPackageResolutions(`cssstyle@4.1.0`);
 
 project.addFields({ publishConfig: { access: "public" } });
 
