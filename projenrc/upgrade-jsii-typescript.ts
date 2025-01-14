@@ -12,6 +12,8 @@ import { generateRandomCron } from "../src/util/random-cron";
  * Auto-updates to the next version a month before the previous JSII version goes EOS
  * Can also be triggered manually with a hard-coded version of JSII/TypeScript as input
  * https://github.com/aws/jsii-compiler/blob/main/README.md#gear-maintenance--support
+ *
+ * NOTE: This script is only used by cdktf-provider-project itself, not by the individual providers
  */
 export class UpgradeJSIIAndTypeScript {
   constructor(project: javascript.NodeProject, typescriptVersion: string) {
