@@ -132,6 +132,11 @@
       "type": "bundled"
     },
     {
+      "name": "cssstyle",
+      "version": "4.1.0",
+      "type": "override"
+    },
+    {
       "name": "constructs",
       "version": "^10.4.2",
       "type": "peer"

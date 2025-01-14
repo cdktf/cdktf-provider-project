@@ -318,6 +318,8 @@ export class CdktfProviderProject extends cdk.JsiiProject {
       "@action-validator/core",
       "@action-validator/cli"
     );
+    // This is a temporary workaround to allow upgrade-main to succeed until we upgrade to Node 20
+    this.package.addPackageResolutions(`cssstyle@4.1.0`);
 
     // Default memory is 7GB: https://docs.github.com/en/actions/using-github-hosted-runners/about-github-hosted-runners#supported-runners-and-hardware-resources
     // Custom Runners we use have 32GB of memory

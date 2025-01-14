@@ -1147,6 +1147,11 @@ scripts
       "type": "override"
     },
     {
+      "name": "cssstyle",
+      "version": "4.1.0",
+      "type": "override"
+    },
+    {
       "name": "cdktf",
       "version": "0.10.3",
       "type": "peer"
@@ -2035,7 +2040,8 @@ You can also visit a hosted version of the documentation on [constructs.dev](htt
     "constructs": "10.0.0"
   },
   "resolutions": {
-    "@types/yargs": "17.0.13"
+    "@types/yargs": "17.0.13",
+    "cssstyle": "4.1.0"
   },
   "keywords": [
     "cdk",
@@ -3664,6 +3670,11 @@ scripts
       "type": "override"
     },
     {
+      "name": "cssstyle",
+      "version": "4.1.0",
+      "type": "override"
+    },
+    {
       "name": "cdktf",
       "version": ">=0.12.2 <0.14.0",
       "type": "peer"
@@ -4631,7 +4642,8 @@ The repository is managed by [CDKTF Repository Manager](https://github.com/cdktf
     "constructs": "10.0.0"
   },
   "resolutions": {
-    "@types/yargs": "17.0.13"
+    "@types/yargs": "17.0.13",
+    "cssstyle": "4.1.0"
   },
   "keywords": [
     "cdk",
@@ -6496,6 +6508,11 @@ scripts
       "type": "override"
     },
     {
+      "name": "cssstyle",
+      "version": "4.1.0",
+      "type": "override"
+    },
+    {
       "name": "cdktf",
       "version": "0.10.3",
       "type": "peer"
@@ -7463,7 +7480,8 @@ The repository is managed by [CDKTF Repository Manager](https://github.com/cdktf
     "constructs": "10.0.0"
   },
   "resolutions": {
-    "@types/yargs": "17.0.13"
+    "@types/yargs": "17.0.13",
+    "cssstyle": "4.1.0"
   },
   "keywords": [
     "cdk",
@@ -9332,6 +9350,11 @@ scripts
       "type": "override"
     },
     {
+      "name": "cssstyle",
+      "version": "4.1.0",
+      "type": "override"
+    },
+    {
       "name": "cdktf",
       "version": "0.10.3",
       "type": "peer"
@@ -10299,7 +10322,8 @@ The repository is managed by [CDKTF Repository Manager](https://github.com/cdktf
     "constructs": "10.0.0"
   },
   "resolutions": {
-    "@types/yargs": "17.0.13"
+    "@types/yargs": "17.0.13",
+    "cssstyle": "4.1.0"
   },
   "keywords": [
     "cdk",
@@ -12184,6 +12208,11 @@ scripts
       "type": "override"
     },
     {
+      "name": "cssstyle",
+      "version": "4.1.0",
+      "type": "override"
+    },
+    {
       "name": "cdktf",
       "version": "^0.20.0",
       "type": "peer"
@@ -13151,7 +13180,8 @@ The repository is managed by [CDKTF Repository Manager](https://github.com/cdktf
     "constructs": "^10.3.0"
   },
   "resolutions": {
-    "@types/yargs": "17.0.13"
+    "@types/yargs": "17.0.13",
+    "cssstyle": "4.1.0"
   },
   "keywords": [
     "acme",
