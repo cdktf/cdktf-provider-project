@@ -39,12 +39,16 @@ export class Automerge {
         steps: [
           {
             name: "Checkout",
-            uses: "actions/checkout@v3",
+            uses: "actions/checkout",
+            with: {
+              ref: "${{ env.GIT_REF }}",
+              repository: "${{ env.GIT_REPO }}",
+            },
           },
           {
             name: "Turn on automerge for this PR by a trusted user or bot",
             if: `github.event.pull_request.user.login == 'team-tf-cdk' || contains(${maintainerStatuses}, github.event.pull_request.author_association) || github.actor == 'dependabot[bot]'`,
-            run: "gh pr merge --auto --squash ${{ github.event.pull_request.number }}",
+            run: "gh pr merge --auto --squash $PR_ID",
             env: {
               GH_TOKEN: "${{ secrets.PROJEN_GITHUB_TOKEN }}",
             },
@@ -52,6 +56,11 @@ export class Automerge {
         ],
         permissions: {
           contents: JobPermission.READ,
+        },
+        env: {
+          GIT_REF: "${{ github.event.pull_request.head.ref }}",
+          GIT_REPO: "${{ github.event.pull_request.head.repo.full_name }}",
+          PR_ID: "${{ github.event.pull_request.number }}",
         },
       },
     });

@@ -9,9 +9,8 @@ import { generateRandomCron } from "../src/util/random-cron";
 
 /**
  * Helper script for upgrading JSII and TypeScript in the right way.
- * This currently isn't automated (the workflow must be manually run)
- * because there is no way to programmatically determine the EOL date
- * of a JSII version range. This can be found at:
+ * Auto-updates to the next version a month before the previous JSII version goes EOS
+ * Can also be triggered manually with a hard-coded version of JSII/TypeScript as input
  * https://github.com/aws/jsii-compiler/blob/main/README.md#gear-maintenance--support
  */
 export class UpgradeJSIIAndTypeScript {
@@ -27,7 +26,7 @@ export class UpgradeJSIIAndTypeScript {
       ],
       workflowDispatch: {
         inputs: {
-          newVersion: {
+          version: {
             description: `New JSII/TypeScript version (e.g. "${plainVersion}"), without carets or tildes`,
             required: false,
             type: "string",
@@ -47,11 +46,11 @@ export class UpgradeJSIIAndTypeScript {
         steps: [
           {
             name: "Checkout",
-            uses: "actions/checkout@v3",
+            uses: "actions/checkout",
           },
           {
             name: "Setup Node.js",
-            uses: "actions/setup-node@v3",
+            uses: "actions/setup-node",
             with: {
               "node-version": project.minNodeVersion,
             },
@@ -71,11 +70,12 @@ export class UpgradeJSIIAndTypeScript {
               `echo "CURRENT_JSII_VERSION_SHORT=$CURRENT_VERSION_SHORT" >> $GITHUB_ENV`,
               `echo "CURRENT_JSII_VERSION_MAJOR=$CURRENT_VERSION_MAJOR" >> $GITHUB_ENV`,
               `echo "CURRENT_JSII_VERSION_MINOR=$CURRENT_VERSION_MINOR" >> $GITHUB_ENV`,
+              `echo "value=$CURRENT_VERSION" >> $GITHUB_OUTPUT`,
             ].join("\n"),
           },
           {
             name: "Get the earliest supported JSII version whose EOS date is at least a month away",
-            if: "${{ ! inputs.new_version }}", // should be newVersion but Projen converts it to snake_case
+            if: "${{ ! inputs.version }}",
             uses: "actions/github-script@v6",
             with: {
               script: [
@@ -89,9 +89,9 @@ export class UpgradeJSIIAndTypeScript {
             // In practice, I couldn't figure out how to do this properly and it wasn't worth the effort
             // name: "Check if the manually-input version actually exists (has been published to NPM)",
             name: "Save the manually-input version to environment variables for comparison",
-            if: "${{ inputs.new_version }}", // should be newVersion but Projen converts it to snake_case
+            if: "${{ inputs.version }}",
             env: {
-              NEW_VERSION: "${{ inputs.new_version }}",
+              NEW_VERSION: "${{ inputs.version }}",
             },
             run: [
               // My command line skillz aren't good enough to figure out how to make the below work (error if the version doesn't exist)
@@ -106,25 +106,22 @@ export class UpgradeJSIIAndTypeScript {
             ].join("\n"),
           },
           {
-            name: "Cancel the rest of the run if the desired version isn't newer than what we have installed already",
-            if: "${{ !((env.NEW_JSII_VERSION_MAJOR > env.CURRENT_JSII_VERSION_MAJOR) || (env.NEW_JSII_VERSION_MINOR > env.CURRENT_JSII_VERSION_MINOR)) }}",
-            env: {
-              GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}",
-              RUN_ID: "${{ github.run_id }}",
-            },
-            run: "gh run cancel $RUN_ID \ngh run watch $RUN_ID",
-          },
-          {
             name: "Output env variables for use in the next job",
             id: "latest_version",
             run: [
               `echo "value=$NEW_JSII_VERSION" >> $GITHUB_OUTPUT`,
               `echo "short=$NEW_JSII_VERSION_SHORT" >> $GITHUB_OUTPUT`,
+              `[[ "$NEW_JSII_VERSION_MAJOR" > "$CURRENT_JSII_VERSION_MAJOR" || ("$NEW_JSII_VERSION_MAJOR" == "$CURRENT_JSII_VERSION_MAJOR" && "$NEW_JSII_VERSION_MINOR" > "$CURRENT_JSII_VERSION_MINOR") ]] && IS_NEWER=true`,
+              `echo "is_newer=$IS_NEWER" >> $GITHUB_OUTPUT`,
             ].join("\n"),
           },
         ],
         outputs: {
-          value: {
+          current: {
+            stepId: "current_version",
+            outputName: "value",
+          },
+          latest: {
             stepId: "latest_version",
             outputName: "value",
           },
@@ -132,24 +129,28 @@ export class UpgradeJSIIAndTypeScript {
             stepId: "latest_version",
             outputName: "short",
           },
+          should_upgrade: {
+            stepId: "latest_version",
+            outputName: "is_newer",
+          },
         },
         permissions: {
           contents: JobPermission.READ,
-          actions: JobPermission.WRITE,
         },
       },
       upgrade: {
         name: "Upgrade JSII & TypeScript",
         runsOn: ["ubuntu-latest"],
         needs: ["version"],
+        if: "always() && needs.version.outputs.should_upgrade",
         steps: [
           {
             name: "Checkout",
-            uses: "actions/checkout@v3",
+            uses: "actions/checkout",
           },
           {
             name: "Setup Node.js",
-            uses: "actions/setup-node@v3",
+            uses: "actions/setup-node",
             with: {
               "node-version": project.minNodeVersion,
             },
@@ -164,16 +165,16 @@ export class UpgradeJSIIAndTypeScript {
           },
           {
             name: "Create Pull Request",
-            uses: "peter-evans/create-pull-request@v3",
+            uses: "peter-evans/create-pull-request",
             with: {
-              branch: "auto/upgrade-jsii-ts-${{ needs.version.outputs.short }}",
               base: "main",
+              branch: "auto/upgrade-jsii-ts-${{ needs.version.outputs.short }}",
               "commit-message":
-                "chore: upgrade jsii & typescript to v${{ needs.version.outputs.short }}",
+                "chore(deps): upgrade jsii & typescript to v${{ needs.version.outputs.short }} in this project only",
               title:
-                "chore: upgrade jsii & typescript to v${{ needs.version.outputs.short }}",
+                "chore(deps): upgrade jsii & typescript to v${{ needs.version.outputs.short }} in this project only",
               body: [
-                "This PR increases the version of JSII and TypeScript to `~${{ needs.version.outputs.value }}` ",
+                "This PR increases the version of JSII and TypeScript to `~${{ needs.version.outputs.latest }}` ",
                 "because the previous version is close to EOL or no longer supported. Support timeline: ",
                 "https://github.com/aws/jsii-compiler/blob/main/README.md#gear-maintenance--support",
               ].join(" "),

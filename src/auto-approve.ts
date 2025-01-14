@@ -33,17 +33,16 @@ export class AutoApprove {
         steps: [
           {
             name: "Checkout PR",
-            uses: "actions/checkout@v4",
+            uses: "actions/checkout",
             with: {
-              ref: "${{ github.event.pull_request.head.ref }}",
-              repository:
-                "${{ github.event.pull_request.head.repo.full_name }}",
+              ref: "${{ env.GIT_REF }}",
+              repository: "${{ env.GIT_REPO }}",
             },
           },
           {
             name: "Auto-approve PRs by other users as team-tf-cdk",
             if: `github.event.pull_request.user.login != 'team-tf-cdk' && (contains(${maintainerStatuses}, github.event.pull_request.author_association) || github.actor == 'dependabot[bot]')`,
-            run: "gh pr review ${{ github.event.pull_request.number }} --approve",
+            run: "gh pr review $PR_ID --approve",
             env: {
               GH_TOKEN: "${{ secrets.PROJEN_GITHUB_TOKEN }}",
             },
@@ -51,7 +50,7 @@ export class AutoApprove {
           {
             name: "Auto-approve PRs by team-tf-cdk as github-actions[bot]",
             if: "github.event.pull_request.user.login == 'team-tf-cdk'",
-            run: "gh pr review ${{ github.event.pull_request.number }} --approve",
+            run: "gh pr review $PR_ID --approve",
             env: {
               GH_TOKEN: "${{ secrets.GITHUB_TOKEN }}",
             },
@@ -60,6 +59,11 @@ export class AutoApprove {
         permissions: {
           contents: JobPermission.READ,
           pullRequests: JobPermission.WRITE,
+        },
+        env: {
+          GIT_REF: "${{ github.event.pull_request.head.ref }}",
+          GIT_REPO: "${{ github.event.pull_request.head.repo.full_name }}",
+          PR_ID: "${{ github.event.pull_request.number }}",
         },
       },
     });
