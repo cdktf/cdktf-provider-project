@@ -59,7 +59,7 @@ export class AutoCloseCommunityIssues {
       steps: [
         {
           name: "Checkout",
-          uses: "actions/checkout@v4",
+          uses: "actions/checkout",
         },
         {
           name: "Auto-close issues by non-collaborators",
@@ -91,7 +91,7 @@ export class AutoCloseCommunityIssues {
       steps: [
         {
           name: "Checkout",
-          uses: "actions/checkout@v4",
+          uses: "actions/checkout",
         },
         {
           name: "Auto-close PRs by non-collaborators",

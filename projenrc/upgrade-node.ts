@@ -77,7 +77,7 @@ export class UpgradeNode {
           {
             name: "Get the earliest supported Node.js version whose EOL date is at least a month away",
             if: "${{ ! inputs.version }}",
-            uses: "actions/github-script@v6",
+            uses: "actions/github-script",
             with: {
               script: [
                 `const script = require('./projenrc/scripts/check-node-versions.js')`,
