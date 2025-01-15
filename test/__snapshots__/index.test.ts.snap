@@ -79,6 +79,7 @@ on:
       - reopened
 concurrency:
   group: \${{ github.workflow }}-\${{ github.head_ref }}
+  cancel-in-progress: true
 jobs:
   approve:
     runs-on: ubuntu-latest
@@ -172,6 +173,7 @@ on:
       - synchronize
 concurrency:
   group: \${{ github.workflow }}-\${{ github.head_ref }}
+  cancel-in-progress: true
 jobs:
   automerge:
     runs-on: ubuntu-latest
@@ -2323,6 +2325,7 @@ on:
       - reopened
 concurrency:
   group: \${{ github.workflow }}-\${{ github.head_ref }}
+  cancel-in-progress: true
 jobs:
   approve:
     runs-on: ubuntu-latest
@@ -2416,6 +2419,7 @@ on:
       - synchronize
 concurrency:
   group: \${{ github.workflow }}-\${{ github.head_ref }}
+  cancel-in-progress: true
 jobs:
   automerge:
     runs-on: ubuntu-latest
@@ -5176,6 +5180,7 @@ on:
       - reopened
 concurrency:
   group: \${{ github.workflow }}-\${{ github.head_ref }}
+  cancel-in-progress: true
 jobs:
   approve:
     runs-on: ubuntu-latest
@@ -5269,6 +5274,7 @@ on:
       - synchronize
 concurrency:
   group: \${{ github.workflow }}-\${{ github.head_ref }}
+  cancel-in-progress: true
 jobs:
   automerge:
     runs-on: ubuntu-latest
@@ -8025,6 +8031,7 @@ on:
       - reopened
 concurrency:
   group: \${{ github.workflow }}-\${{ github.head_ref }}
+  cancel-in-progress: true
 jobs:
   approve:
     runs-on: ubuntu-latest
@@ -8118,6 +8125,7 @@ on:
       - synchronize
 concurrency:
   group: \${{ github.workflow }}-\${{ github.head_ref }}
+  cancel-in-progress: true
 jobs:
   automerge:
     runs-on: ubuntu-latest
@@ -10878,6 +10886,7 @@ on:
       - reopened
 concurrency:
   group: \${{ github.workflow }}-\${{ github.head_ref }}
+  cancel-in-progress: true
 jobs:
   approve:
     runs-on: ubuntu-latest
@@ -10971,6 +10980,7 @@ on:
       - synchronize
 concurrency:
   group: \${{ github.workflow }}-\${{ github.head_ref }}
+  cancel-in-progress: true
 jobs:
   automerge:
     runs-on: ubuntu-latest

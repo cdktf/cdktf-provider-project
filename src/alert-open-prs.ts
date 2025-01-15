@@ -61,7 +61,7 @@ export class AlertOpenPrs {
         {
           name: "Alert Slack on old PRs",
           if: "${{ steps.old_prs.outputs.pr_links }}",
-          uses: "slackapi/slack-github-action@v1.23.0",
+          uses: "slackapi/slack-github-action",
           with: {
             payload: JSON.stringify({
               pr_links:

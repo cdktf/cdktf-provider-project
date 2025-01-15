@@ -50,7 +50,7 @@ export class ProviderUpgrade {
     const steps: JobStep[] = [
       {
         name: "Checkout",
-        uses: "actions/checkout@v4",
+        uses: "actions/checkout",
       },
       {
         name: "Setup Node.js",
@@ -108,7 +108,7 @@ export class ProviderUpgrade {
       {
         name: "Create Pull Request",
         if: newerVersionAvailable,
-        uses: "peter-evans/create-pull-request@v3",
+        uses: "peter-evans/create-pull-request",
         with: {
           branch: "auto/provider-upgrade",
           "commit-message": `${semanticType}: upgrade provider from \`${currentVersion}\` to version \`${newVersion}\``,

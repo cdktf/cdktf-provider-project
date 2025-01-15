@@ -31,7 +31,7 @@ export class LockIssues {
       },
       steps: [
         {
-          uses: "dessant/lock-threads@v4.0.0",
+          uses: "dessant/lock-threads",
           with: {
             "issue-comment":
               `I'm going to lock this issue because it has been closed for at least 7 days.

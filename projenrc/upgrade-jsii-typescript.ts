@@ -63,6 +63,7 @@ export class UpgradeJSIIAndTypeScript {
           },
           {
             name: "Get current JSII version",
+            id: "current_version",
             run: [
               `CURRENT_VERSION=$(npm list jsii --depth=0 --json | jq -r '.dependencies.jsii.version')`,
               `CURRENT_VERSION_SHORT=$(cut -d "." -f 1,2 <<< "$CURRENT_VERSION")`,
@@ -78,7 +79,7 @@ export class UpgradeJSIIAndTypeScript {
           {
             name: "Get the earliest supported JSII version whose EOS date is at least a month away",
             if: "${{ ! inputs.version }}",
-            uses: "actions/github-script@v6",
+            uses: "actions/github-script",
             with: {
               script: [
                 `const script = require('./projenrc/scripts/check-jsii-versions.js')`,
@@ -163,7 +164,7 @@ export class UpgradeJSIIAndTypeScript {
           },
           {
             name: "Run upgrade script",
-            run: "projenrc/scripts/update-jsii-typescript.sh ${{ needs.version.outputs.value }}",
+            run: "projenrc/scripts/update-jsii-typescript.sh ${{ needs.version.outputs.latest }}",
           },
           {
             name: "Create Pull Request",
@@ -176,8 +177,8 @@ export class UpgradeJSIIAndTypeScript {
               title:
                 "chore(deps): upgrade jsii & typescript to v${{ needs.version.outputs.short }} in this project only",
               body: [
-                "This PR increases the version of JSII and TypeScript to `~${{ needs.version.outputs.latest }}` ",
-                "because the previous version is close to EOL or no longer supported. Support timeline: ",
+                "This PR increases the version of JSII and TypeScript to `~${{ needs.version.outputs.latest }}`",
+                "because the previous version is close to EOL or no longer supported. Support timeline:",
                 "https://github.com/aws/jsii-compiler/blob/main/README.md#gear-maintenance--support",
               ].join(" "),
               labels: "auto-approve,automerge,automated",
