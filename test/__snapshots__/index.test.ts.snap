@@ -2304,7 +2304,7 @@ jobs:
           fi
       - name: Alert Slack on old PRs
         if: \${{ steps.old_prs.outputs.pr_links }}
-        uses: slackapi/slack-github-action@37ebaef184d7626c5f204ab8d3baff4262dd30f0
+        uses: slackapi/slack-github-action@485a9d42d3a73031f12ec201c457e2162c45d02d
         env:
           SLACK_WEBHOOK_URL: \${{ secrets.ALERT_PRS_SLACK_WEBHOOK_URL }}
         with:
@@ -5157,7 +5157,7 @@ jobs:
           fi
       - name: Alert Slack on old PRs
         if: \${{ steps.old_prs.outputs.pr_links }}
-        uses: slackapi/slack-github-action@37ebaef184d7626c5f204ab8d3baff4262dd30f0
+        uses: slackapi/slack-github-action@485a9d42d3a73031f12ec201c457e2162c45d02d
         env:
           SLACK_WEBHOOK_URL: \${{ secrets.ALERT_PRS_SLACK_WEBHOOK_URL }}
         with:
@@ -8006,7 +8006,7 @@ jobs:
           fi
       - name: Alert Slack on old PRs
         if: \${{ steps.old_prs.outputs.pr_links }}
-        uses: slackapi/slack-github-action@37ebaef184d7626c5f204ab8d3baff4262dd30f0
+        uses: slackapi/slack-github-action@485a9d42d3a73031f12ec201c457e2162c45d02d
         env:
           SLACK_WEBHOOK_URL: \${{ secrets.ALERT_PRS_SLACK_WEBHOOK_URL }}
         with:
@@ -10859,7 +10859,7 @@ jobs:
           fi
       - name: Alert Slack on old PRs
         if: \${{ steps.old_prs.outputs.pr_links }}
-        uses: slackapi/slack-github-action@37ebaef184d7626c5f204ab8d3baff4262dd30f0
+        uses: slackapi/slack-github-action@485a9d42d3a73031f12ec201c457e2162c45d02d
         env:
           SLACK_WEBHOOK_URL: \${{ secrets.ALERT_PRS_SLACK_WEBHOOK_URL }}
         with:

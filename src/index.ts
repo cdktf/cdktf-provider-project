@@ -98,7 +98,7 @@ const githubActionPinnedVersions = {
   "hashicorp/setup-terraform": "b9cd54a3c349d3f38e8881555d616ced269862dd", // v3.1.2
   "imjohnbo/issue-bot": "572eed14422c4d6ca37e870f97e7da209422f5bd", // v3.4.4
   "peter-evans/create-pull-request": "67ccf781d68cd99b580ae25a5c18a1cc84ffff1f", // v7.0.6
-  "slackapi/slack-github-action": "37ebaef184d7626c5f204ab8d3baff4262dd30f0", // v1.27.0
+  "slackapi/slack-github-action": "485a9d42d3a73031f12ec201c457e2162c45d02d", // v2.0.0
 };
 
 export class CdktfProviderProject extends cdk.JsiiProject {
