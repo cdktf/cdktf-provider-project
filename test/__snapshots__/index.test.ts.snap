@@ -2288,9 +2288,9 @@ jobs:
       - name: Alert Slack on old PRs
         if: \${{ steps.old_prs.outputs.pr_links }}
         uses: slackapi/slack-github-action@485a9d42d3a73031f12ec201c457e2162c45d02d
-        env:
-          SLACK_WEBHOOK_URL: \${{ secrets.ALERT_PRS_SLACK_WEBHOOK_URL }}
         with:
+          webhook: \${{ secrets.ALERT_PRS_SLACK_WEBHOOK_URL }}
+          webhook-type: webhook-trigger
           payload: "{\\"pr_links\\":\\"\${{ join(fromJSON(steps.old_prs.outputs.pr_links), ', ') }}\\"}"
     continue-on-error: true
 ",
@@ -5124,9 +5124,9 @@ jobs:
       - name: Alert Slack on old PRs
         if: \${{ steps.old_prs.outputs.pr_links }}
         uses: slackapi/slack-github-action@485a9d42d3a73031f12ec201c457e2162c45d02d
-        env:
-          SLACK_WEBHOOK_URL: \${{ secrets.ALERT_PRS_SLACK_WEBHOOK_URL }}
         with:
+          webhook: \${{ secrets.ALERT_PRS_SLACK_WEBHOOK_URL }}
+          webhook-type: webhook-trigger
           payload: "{\\"pr_links\\":\\"\${{ join(fromJSON(steps.old_prs.outputs.pr_links), ', ') }}\\"}"
     continue-on-error: true
 ",
@@ -7956,9 +7956,9 @@ jobs:
       - name: Alert Slack on old PRs
         if: \${{ steps.old_prs.outputs.pr_links }}
         uses: slackapi/slack-github-action@485a9d42d3a73031f12ec201c457e2162c45d02d
-        env:
-          SLACK_WEBHOOK_URL: \${{ secrets.ALERT_PRS_SLACK_WEBHOOK_URL }}
         with:
+          webhook: \${{ secrets.ALERT_PRS_SLACK_WEBHOOK_URL }}
+          webhook-type: webhook-trigger
           payload: "{\\"pr_links\\":\\"\${{ join(fromJSON(steps.old_prs.outputs.pr_links), ', ') }}\\"}"
     continue-on-error: true
 ",
@@ -10792,9 +10792,9 @@ jobs:
       - name: Alert Slack on old PRs
         if: \${{ steps.old_prs.outputs.pr_links }}
         uses: slackapi/slack-github-action@485a9d42d3a73031f12ec201c457e2162c45d02d
-        env:
-          SLACK_WEBHOOK_URL: \${{ secrets.ALERT_PRS_SLACK_WEBHOOK_URL }}
         with:
+          webhook: \${{ secrets.ALERT_PRS_SLACK_WEBHOOK_URL }}
+          webhook-type: webhook-trigger
           payload: "{\\"pr_links\\":\\"\${{ join(fromJSON(steps.old_prs.outputs.pr_links), ', ') }}\\"}"
     continue-on-error: true
 ",
