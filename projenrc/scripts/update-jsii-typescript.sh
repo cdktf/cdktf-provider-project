@@ -4,7 +4,7 @@
 
 set -ex
 
-PROJECT_ROOT=$(cd "$(dirname "${BASH_SOURCE:-$0}")/.." && pwd)
+PROJECT_ROOT=$(cd "$(dirname "${BASH_SOURCE:-$0}")/../.." && pwd)
 NEW_VERSION=$1
 
 if [ -z "$NEW_VERSION" ]; then
