@@ -101,9 +101,6 @@ export class ProviderUpgrade {
           `echo "type=$SEMANTIC_TYPE" >> $GITHUB_OUTPUT`,
         ].join("\n"),
       },
-      // generate docs
-      { run: "yarn compile", if: newerVersionAvailable },
-      { run: "yarn docgen", if: newerVersionAvailable },
       // submit a PR
       {
         name: "Create Pull Request",
