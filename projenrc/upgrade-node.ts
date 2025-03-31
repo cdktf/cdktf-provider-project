@@ -159,7 +159,7 @@ export class UpgradeNode {
             name: "Set the new minNodeVersion in .projenrc.ts",
             run: `sed -i "s/minNodeVersion: \\".*\\",/minNodeVersion: \\"$NEW_NODEJS_VERSION\\",/" ./.projenrc.ts`,
             env: {
-              NEW_NODEJS_VERSION: "${{ needs.version.outputs.value }}",
+              NEW_NODEJS_VERSION: "${{ needs.version.outputs.latest }}",
             },
           },
           {
