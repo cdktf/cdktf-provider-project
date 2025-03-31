@@ -88,7 +88,7 @@ jobs:
         run: yarn install
       - name: Set the new minNodeVersion in .projenrc.ts
         env:
-          NEW_NODEJS_VERSION: ${{ needs.version.outputs.value }}
+          NEW_NODEJS_VERSION: ${{ needs.version.outputs.latest }}
         run: 'sed -i "s/minNodeVersion: \".*\",/minNodeVersion: \"$NEW_NODEJS_VERSION\",/" ./.projenrc.ts'
       - name: Activate Projen to propagate the new version everywhere
         env:
