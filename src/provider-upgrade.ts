@@ -53,6 +53,13 @@ export class ProviderUpgrade {
         uses: "actions/checkout",
       },
       {
+        name: "Setup Terraform",
+        uses: "hashicorp/setup-terraform",
+        with: {
+          terraform_wrapper: false,
+        },
+      },
+      {
         name: "Setup Node.js",
         uses: "actions/setup-node",
         with: {
@@ -120,19 +127,6 @@ export class ProviderUpgrade {
         },
       },
     ];
-
-    // @TODO Figure out if this is really necessary; this has not been tested
-    // But I saw https://github.com/hashicorp/setup-terraform/issues/425
-    // so I added this "if" statement as a precaution
-    if (options.workflowRunsOn.includes("ubuntu-latest")) {
-      steps.splice(2, 0, {
-        name: "Setup Terraform",
-        uses: "hashicorp/setup-terraform",
-        with: {
-          terraform_wrapper: false,
-        },
-      });
-    }
 
     workflow.addJobs({
       upgrade: {
