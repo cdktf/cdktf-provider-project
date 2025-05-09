@@ -47,7 +47,7 @@ const project = new cdk.JsiiProject({
   bundledDeps: ["change-case", "fs-extra"],
   defaultReleaseBranch: "main",
   releaseToNpm: true,
-  minNodeVersion: "18.12.0",
+  minNodeVersion: "20.9.0",
   mergify: false,
   prettier: true,
   scripts: {
