@@ -41,9 +41,9 @@
     "@types/fs-extra": "^9.0.13",
     "@types/glob": "^8.1.0",
     "@types/jest": "^29",
-    "@types/node": "^18",
-    "@typescript-eslint/eslint-plugin": "^6",
-    "@typescript-eslint/parser": "^6",
+    "@types/node": "^20",
+    "@typescript-eslint/eslint-plugin": "^7",
+    "@typescript-eslint/parser": "^7",
     "commit-and-tag-version": "^12",
     "constructs": "10.4.2",
     "eslint": "^8",
@@ -77,11 +77,8 @@
     "change-case",
     "fs-extra"
   ],
-  "resolutions": {
-    "cssstyle": "4.1.0"
-  },
   "engines": {
-    "node": ">= 18.12.0"
+    "node": ">= 20.9.0"
   },
   "main": "lib/index.js",
   "license": "MPL-2.0",

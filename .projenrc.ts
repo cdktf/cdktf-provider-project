@@ -47,7 +47,7 @@ const project = new cdk.JsiiProject({
   bundledDeps: ["change-case", "fs-extra"],
   defaultReleaseBranch: "main",
   releaseToNpm: true,
-  minNodeVersion: "18.12.0",
+  minNodeVersion: "20.9.0",
   mergify: false,
   prettier: true,
   scripts: {
@@ -96,15 +96,8 @@ project.addDevDeps(
   "@types/glob",
   "@types/fs-extra",
   "@action-validator/core",
-  "@action-validator/cli",
-  // eslint v9+ and @typescript-eslint v7+ require Node.js 18.18, so we are stuck on v8 and v6 respectively
-  // The below lines can probably be removed once Node 18 goes EOL and we upgrade minNodeVersion to 20
-  "eslint@^8",
-  "@typescript-eslint/eslint-plugin@^6",
-  "@typescript-eslint/parser@^6"
+  "@action-validator/cli"
 );
-// This is a temporary workaround to allow upgrade-main to succeed until we upgrade to Node 20
-project.package.addPackageResolutions(`cssstyle@4.1.0`);
 
 project.addFields({ publishConfig: { access: "public" } });
 
