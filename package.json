@@ -42,8 +42,8 @@
     "@types/glob": "^8.1.0",
     "@types/jest": "^29",
     "@types/node": "^20",
-    "@typescript-eslint/eslint-plugin": "^6",
-    "@typescript-eslint/parser": "^6",
+    "@typescript-eslint/eslint-plugin": "^7",
+    "@typescript-eslint/parser": "^7",
     "commit-and-tag-version": "^12",
     "constructs": "10.4.2",
     "eslint": "^8",
@@ -77,9 +77,6 @@
     "change-case",
     "fs-extra"
   ],
-  "resolutions": {
-    "cssstyle": "4.1.0"
-  },
   "engines": {
     "node": ">= 20.9.0"
   },

@@ -27,12 +27,12 @@
     },
     {
       "name": "@typescript-eslint/eslint-plugin",
-      "version": "^6",
+      "version": "^7",
       "type": "build"
     },
     {
       "name": "@typescript-eslint/parser",
-      "version": "^6",
+      "version": "^7",
       "type": "build"
     },
     {
@@ -130,11 +130,6 @@
     {
       "name": "fs-extra",
       "type": "bundled"
-    },
-    {
-      "name": "cssstyle",
-      "version": "4.1.0",
-      "type": "override"
     },
     {
       "name": "constructs",
