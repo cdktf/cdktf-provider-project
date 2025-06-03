@@ -5,11 +5,8 @@
 
 import { cdk } from "projen";
 import { GithubWorkflow } from "projen/lib/github";
-import { JobPermission } from "projen/lib/github/workflows-model";
-
 interface ForceReleaseOptions {
   workflowRunsOn: string[];
-  repositoryUrl: string;
 }
 
 export class ForceRelease {
@@ -24,171 +21,98 @@ export class ForceRelease {
             required: true,
             description: "The sha of the commit to release",
           },
+          publish_to_npm: {
+            type: "boolean",
+            default: false,
+            description: "Whether or not to publish to NPM",
+          },
+          publish_to_maven: {
+            type: "boolean",
+            default: false,
+            description: "Whether or not to publish to Maven",
+          },
+          publish_to_pypi: {
+            type: "boolean",
+            default: false,
+            description: "Whether or not to publish to PyPi",
+          },
+          publish_to_nuget: {
+            type: "boolean",
+            default: false,
+            description: "Whether or not to publish to NuGet",
+          },
           publish_to_go: {
             type: "boolean",
-            required: true,
-            description: "Whether to publish to Go Repository",
+            default: false,
+            description: "Whether or not to publish to Go",
           },
         },
       },
     });
 
-    workflow.addJob("force-release", {
-      runsOn: workflowRunsOn,
-      permissions: {
-        contents: JobPermission.WRITE,
-      },
-      env: {
-        CI: "true",
-      },
-      steps: [
-        {
-          name: "Checkout",
-          uses: "actions/checkout",
-          with: {
-            ref: "${{ inputs.sha }}",
-            "fetch-depth": 0,
-          },
-        },
-        {
-          name: "Set git config safe.directory",
-          run: "git config --global --add safe.directory $(pwd)",
-        },
-        {
-          name: "Set git identity",
-          run: 'git config user.name "github-actions"\ngit config user.email "github-actions@github.com"',
-        },
-        {
-          name: "Setup Node.js",
-          uses: "actions/setup-node",
-          with: {
-            "node-version": project.minNodeVersion,
-          },
-        },
-        {
-          name: "Install dependencies",
-          run: "yarn install --check-files --frozen-lockfile",
-        },
-        { name: "build", run: "npx projen build" },
-        {
-          name: "Backup artifact permissions",
-          run: "cd dist && getfacl -R . > permissions-backup.acl",
-          continueOnError: true,
-        },
-        {
-          name: "Upload artifact",
-          uses: "actions/upload-artifact",
-          with: { name: "build-artifact", path: "dist", overwrite: true },
-        },
-      ],
+    const releaseWorkflow = project.github?.tryFindWorkflow(
+      "release"
+    ) as GithubWorkflow;
+    const releaseJobs: Array<{ [key: string]: any }> = (releaseWorkflow as any)
+      .jobs;
+
+    // Hacky way of doing a deep copy, otherwise the below modifies the regular release workflow as well
+    for (const [jobName, job] of Object.entries(
+      JSON.parse(JSON.stringify(releaseJobs))
+    )) {
+      if (jobName === "deprecate") {
+        continue; // skip it
+      }
+      if (jobName === "release") {
+        // I clearly am not a developer anymore because I cannot remember how types work, hence all the (any) usage
+        (job as any)["runs-on"] = workflowRunsOn;
+        delete (job as any).outputs.latest_commit;
+        (job as any).steps[0].with.ref = "${{ inputs.sha }}";
+        delete (job as any).steps[7].if;
+        delete (job as any).steps[8].if;
+        (job as any).steps.splice(6, 1);
+
+        workflow.addJob(jobName, job as any);
+      }
+    }
+
+    const publishJobs: Array<{ [key: string]: any }> = (
+      project.release?.publisher as any
+    )._renderJobsForBranch("main", {
+      workflowName: "force-release",
     });
 
-    workflow.addJob("force_release_golang", {
-      name: "Publish to Github Go Repository",
-      needs: ["force-release"],
-      runsOn: workflowRunsOn,
-      permissions: {
-        contents: JobPermission.READ,
-      },
-      env: {
-        CI: "true",
-      },
-      steps: [
-        {
-          name: "Setup Node.js",
-          uses: "actions/setup-node",
-          with: {
-            "node-version": project.minNodeVersion,
-          },
-        },
-        {
-          name: "Setup Go",
-          uses: "actions/setup-go",
-          with: { "go-version": "^1.18.0" },
-        },
-        {
-          name: "Download build artifacts",
-          uses: "actions/download-artifact",
-          with: { name: "build-artifact", path: "dist" },
-        },
-        {
-          name: "Restore build artifact permissions",
-          run: "cd dist && setfacl --restore=permissions-backup.acl",
-          continueOnError: true,
-        },
-        {
-          name: "Checkout",
-          uses: "actions/checkout",
-          with: {
-            path: ".repo",
-          },
-        },
-        {
-          name: "Install Dependencies",
-          run: "cd .repo && yarn install --check-files --frozen-lockfile",
-        },
-        {
-          name: "Extract build artifact",
-          run: "tar --strip-components=1 -xzvf dist/js/*.tgz -C .repo",
-        },
-        {
-          name: "Move build artifact out of the way",
-          run: "mv dist dist.old",
-        },
-        {
-          name: "Create go artifact",
-          run: "cd .repo && npx projen package:go",
-        },
-        {
-          name: "Setup Copywrite tool",
-          uses: "hashicorp/setup-copywrite",
-        },
-        {
-          name: "Copy copywrite hcl file",
-          run: "cp .repo/.copywrite.hcl .repo/dist/go/.copywrite.hcl",
-        },
-        {
-          name: "Add headers using Copywrite tool",
-          run: "cd .repo/dist/go && copywrite headers",
-        },
-        {
-          name: "Remove copywrite hcl file",
-          run: "rm -f .repo/dist/go/.copywrite.hcl",
-        },
-        {
-          name: "Remove some text from the README that doesn't apply to Go",
-          run: [
-            "sed -i 's/# CDKTF prebuilt bindings for/# CDKTF Go bindings for/' .repo/dist/go/*/README.md",
-            // @see https://stackoverflow.com/a/49511949
-            "sed -i -e '/## Available Packages/,/### Go/!b' -e '/### Go/!d;p; s/### Go/## Go Package/' -e 'd' .repo/dist/go/*/README.md",
-            // sed -e is black magic and for whatever reason the string replace doesn't work so let's try it again:
-            "sed -i 's/### Go/## Go Package/' .repo/dist/go/*/README.md",
-            // Just straight up delete these full lines and everything in between them:
-            "sed -i -e '/API.typescript.md/,/You can also visit a hosted version/!b' -e 'd' .repo/dist/go/*/README.md",
-            `sed -i 's|Find auto-generated docs for this provider here:|Find auto-generated docs for this provider [here](https://${options.repositoryUrl}/blob/main/docs/API.go.md).|' .repo/dist/go/*/README.md`,
-            // Just straight up delete these full lines and everything in between them:
-            "sed -i -e '/### Provider Version/,/The provider version can be adjusted/!b' -e 'd' .repo/dist/go/*/README.md",
-          ].join("\n"),
-        },
-        {
-          name: "Copy the README file to the parent directory",
-          run: "cp .repo/dist/go/*/README.md .repo/dist/go/README.md",
-        },
-        {
-          name: "Collect go Artifact",
-          run: "mv .repo/dist dist",
-        },
-        {
-          name: "Release",
-          if: "${{ inputs.publish_to_go }}",
-          env: {
-            GIT_USER_NAME: "CDK for Terraform Team",
-            GIT_USER_EMAIL: "github-team-tf-cdk@hashicorp.com",
-            GITHUB_TOKEN: "${{ secrets.GO_GITHUB_TOKEN }}",
-          },
-          run: "npx -p publib@latest publib-golang",
-        },
-      ],
-    });
+    for (const [jobName, job] of Object.entries(publishJobs)) {
+      job["runs-on"] = workflowRunsOn;
+
+      if (jobName === "release_github") {
+        job.needs = ["release"];
+        job.if = "needs.release.outputs.tag_exists != 'true'";
+        job.steps[2].env.GITHUB_REF = "${{ inputs.sha }}";
+      }
+      if (jobName === "release_npm") {
+        job.if = "${{ inputs.publish_to_npm }}";
+      }
+      if (jobName === "release_maven") {
+        job.if = "${{ inputs.publish_to_maven }}";
+        // I couldn't find a better way to do this so this is manually c&ped from /src/index.ts line 389
+        job.steps[8].env.MAVEN_OPTS =
+          "--add-opens=java.base/java.util=ALL-UNNAMED --add-opens=java.base/java.lang.reflect=ALL-UNNAMED --add-opens=java.base/java.text=ALL-UNNAMED --add-opens=java.desktop/java.awt.font=ALL-UNNAMED";
+      }
+      if (jobName === "release_pypi") {
+        job.if = "${{ inputs.publish_to_pypi }}";
+      }
+      if (jobName === "release_nuget") {
+        job.if = "${{ inputs.publish_to_nuget }}";
+      }
+      if (jobName === "release_golang") {
+        job.if = "${{ inputs.publish_to_go }}";
+      }
+
+      // Delete the steps that create a new GitHub issue for a failed release
+      job.steps.splice(job.steps.length - 2, 2);
+
+      workflow.addJob(jobName, job as any);
+    }
   }
 }
