@@ -67,11 +67,31 @@ export class ForceRelease {
         // I clearly am not a developer anymore because I cannot remember how types work, hence all the (any) usage
         (job as any)["runs-on"] = workflowRunsOn;
         delete (job as any).outputs.latest_commit;
-        (job as any).steps[0].with.ref = "${{ inputs.sha }}";
-        (job as any).steps[4].run = "npx projen unconditional-release";
-        delete (job as any).steps[7].if;
-        delete (job as any).steps[8].if;
-        (job as any).steps.splice(6, 1);
+
+        const gitCheckoutStep = (job as any).steps.find(
+          (it: any) => it.name === "Checkout"
+        );
+        gitCheckoutStep.with.ref = "${{ inputs.sha }}";
+
+        const releaseStep = (job as any).steps.find(
+          (it: any) => it.name === "release"
+        );
+        releaseStep.run = "npx projen unconditional-release";
+
+        const backupStep = (job as any).steps.find(
+          (it: any) => it.name === "Backup artifact permissions"
+        );
+        delete backupStep.if;
+
+        const uploadArtifactStep = (job as any).steps.find(
+          (it: any) => it.name === "Upload artifact"
+        );
+        delete uploadArtifactStep.if;
+
+        const gitRemoteStep = (job as any).steps.findIndex(
+          (it: any) => it.id === "git_remote"
+        );
+        (job as any).steps.splice(gitRemoteStep, 1);
 
         workflow.addJob(jobName, job as any);
       }
@@ -89,15 +109,21 @@ export class ForceRelease {
       if (jobName === "release_github") {
         job.needs = ["release"];
         job.if = "needs.release.outputs.tag_exists != 'true'";
-        job.steps[2].env.GITHUB_REF = "${{ inputs.sha }}";
+        const releaseStep = (job as any).steps.find(
+          (it: any) => it.name === "Release"
+        );
+        releaseStep.env.GITHUB_REF = "${{ inputs.sha }}";
       }
       if (jobName === "release_npm") {
         job.if = "${{ inputs.publish_to_npm }}";
       }
       if (jobName === "release_maven") {
         job.if = "${{ inputs.publish_to_maven }}";
+        const releaseStep = (job as any).steps.find(
+          (it: any) => it.name === "Release"
+        );
         // I couldn't find a better way to do this so this is manually c&ped from /src/index.ts line 389
-        job.steps[8].env.MAVEN_OPTS =
+        releaseStep.env.MAVEN_OPTS =
           "--add-opens=java.base/java.util=ALL-UNNAMED --add-opens=java.base/java.lang.reflect=ALL-UNNAMED --add-opens=java.base/java.text=ALL-UNNAMED --add-opens=java.desktop/java.awt.font=ALL-UNNAMED";
       }
       if (jobName === "release_pypi") {
