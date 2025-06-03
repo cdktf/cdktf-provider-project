@@ -68,6 +68,7 @@ export class ForceRelease {
         (job as any)["runs-on"] = workflowRunsOn;
         delete (job as any).outputs.latest_commit;
         (job as any).steps[0].with.ref = "${{ inputs.sha }}";
+        (job as any).steps[4].run = "npx projen unconditional-release";
         delete (job as any).steps[7].if;
         delete (job as any).steps[8].if;
         (job as any).steps.splice(6, 1);

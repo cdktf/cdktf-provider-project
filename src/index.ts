@@ -451,6 +451,11 @@ export class CdktfProviderProject extends cdk.JsiiProject {
         env: (releaseTask as any)._env,
         condition: "node ./scripts/should-release.js",
       });
+      this.addTask("unconditional-release", {
+        description: releaseTask.description,
+        steps: releaseTask.steps,
+        env: (releaseTask as any)._env,
+      });
 
       const releaseJobSteps: any[] = (
         this.github?.tryFindWorkflow("release") as any
