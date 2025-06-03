@@ -2763,7 +2763,7 @@ jobs:
       - name: Install dependencies
         run: yarn install --check-files --frozen-lockfile
       - name: release
-        run: npx projen release
+        run: npx projen unconditional-release
       - name: Check if version has already been tagged
         id: check_tag_exists
         run: |-
@@ -4283,6 +4283,31 @@ scripts
         }
       ]
     },
+    "unconditional-release": {
+      "name": "unconditional-release",
+      "description": "Prepare a release from \\"main\\" branch",
+      "env": {
+        "RELEASE": "true",
+        "MIN_MAJOR": "1"
+      },
+      "steps": [
+        {
+          "exec": "rm -fr dist"
+        },
+        {
+          "spawn": "bump"
+        },
+        {
+          "spawn": "build"
+        },
+        {
+          "spawn": "unbump"
+        },
+        {
+          "exec": "git diff --ignore-space-at-eol --exit-code"
+        }
+      ]
+    },
     "upgrade": {
       "name": "upgrade",
       "description": "upgrade dependencies",
@@ -4827,6 +4852,7 @@ The repository is managed by [CDKTF Repository Manager](https://github.com/cdktf
     "test": "jest --passWithNoTests",
     "unbump": "npx projen unbump",
     "unconditional-bump": "npx projen unconditional-bump",
+    "unconditional-release": "npx projen unconditional-release",
     "upgrade": "npx projen upgrade",
     "validate-workflows": "npx projen validate-workflows",
     "watch": "npx projen watch",
@@ -5823,7 +5849,7 @@ jobs:
       - name: Install dependencies
         run: yarn install --check-files --frozen-lockfile
       - name: release
-        run: npx projen release
+        run: npx projen unconditional-release
       - name: Check if version has already been tagged
         id: check_tag_exists
         run: |-
@@ -7343,6 +7369,31 @@ scripts
         }
       ]
     },
+    "unconditional-release": {
+      "name": "unconditional-release",
+      "description": "Prepare a release from \\"main\\" branch",
+      "env": {
+        "RELEASE": "true",
+        "MIN_MAJOR": "1"
+      },
+      "steps": [
+        {
+          "exec": "rm -fr dist"
+        },
+        {
+          "spawn": "bump"
+        },
+        {
+          "spawn": "build"
+        },
+        {
+          "spawn": "unbump"
+        },
+        {
+          "exec": "git diff --ignore-space-at-eol --exit-code"
+        }
+      ]
+    },
     "upgrade": {
       "name": "upgrade",
       "description": "upgrade dependencies",
@@ -7887,6 +7938,7 @@ The repository is managed by [CDKTF Repository Manager](https://github.com/cdktf
     "test": "jest --passWithNoTests",
     "unbump": "npx projen unbump",
     "unconditional-bump": "npx projen unconditional-bump",
+    "unconditional-release": "npx projen unconditional-release",
     "upgrade": "npx projen upgrade",
     "validate-workflows": "npx projen validate-workflows",
     "watch": "npx projen watch",
@@ -8883,7 +8935,7 @@ jobs:
       - name: Install dependencies
         run: yarn install --check-files --frozen-lockfile
       - name: release
-        run: npx projen release
+        run: npx projen unconditional-release
       - name: Check if version has already been tagged
         id: check_tag_exists
         run: |-
@@ -10403,6 +10455,31 @@ scripts
         }
       ]
     },
+    "unconditional-release": {
+      "name": "unconditional-release",
+      "description": "Prepare a release from \\"main\\" branch",
+      "env": {
+        "RELEASE": "true",
+        "MIN_MAJOR": "1"
+      },
+      "steps": [
+        {
+          "exec": "rm -fr dist"
+        },
+        {
+          "spawn": "bump"
+        },
+        {
+          "spawn": "build"
+        },
+        {
+          "spawn": "unbump"
+        },
+        {
+          "exec": "git diff --ignore-space-at-eol --exit-code"
+        }
+      ]
+    },
     "upgrade": {
       "name": "upgrade",
       "description": "upgrade dependencies",
@@ -10947,6 +11024,7 @@ The repository is managed by [CDKTF Repository Manager](https://github.com/cdktf
     "test": "jest --passWithNoTests",
     "unbump": "npx projen unbump",
     "unconditional-bump": "npx projen unconditional-bump",
+    "unconditional-release": "npx projen unconditional-release",
     "upgrade": "npx projen upgrade",
     "validate-workflows": "npx projen validate-workflows",
     "watch": "npx projen watch",
@@ -11949,7 +12027,7 @@ jobs:
         with:
           node-version: 18.12.0
       - name: Install dependencies
-        run: yarn install --check-files --frozen-lockfile
+        run: npx projen unconditional-release
       - name: release
         run: npx projen release
       - name: Check for new commits or cancel via faking a SHA if release was cancelled
@@ -13478,6 +13556,31 @@ scripts
         }
       ]
     },
+    "unconditional-release": {
+      "name": "unconditional-release",
+      "description": "Prepare a release from \\"main\\" branch",
+      "env": {
+        "RELEASE": "true",
+        "MIN_MAJOR": "1"
+      },
+      "steps": [
+        {
+          "exec": "rm -fr dist"
+        },
+        {
+          "spawn": "bump"
+        },
+        {
+          "spawn": "build"
+        },
+        {
+          "spawn": "unbump"
+        },
+        {
+          "exec": "git diff --ignore-space-at-eol --exit-code"
+        }
+      ]
+    },
     "upgrade": {
       "name": "upgrade",
       "description": "upgrade dependencies",
@@ -14022,6 +14125,7 @@ The repository is managed by [CDKTF Repository Manager](https://github.com/cdktf
     "test": "jest --passWithNoTests",
     "unbump": "npx projen unbump",
     "unconditional-bump": "npx projen unconditional-bump",
+    "unconditional-release": "npx projen unconditional-release",
     "upgrade": "npx projen upgrade",
     "validate-workflows": "npx projen validate-workflows",
     "watch": "npx projen watch",
