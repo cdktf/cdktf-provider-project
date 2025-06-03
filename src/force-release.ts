@@ -112,7 +112,8 @@ export class ForceRelease {
         const releaseStep = (job as any).steps.find(
           (it: any) => it.name === "Release"
         );
-        releaseStep.env.GITHUB_REF = "${{ inputs.sha }}";
+        releaseStep.env.GITHUB_REF = "${{ inputs.sha }}"; // @todo remove when upgrading Projen
+        releaseStep.env.GITHUB_SHA = "${{ inputs.sha }}";
       }
       if (jobName === "release_npm") {
         job.if = "${{ inputs.publish_to_npm }}";
