@@ -427,10 +427,6 @@ export class CdktfProviderProject extends cdk.JsiiProject {
         slackWebhookUrl: "${{ secrets.ALERT_PRS_SLACK_WEBHOOK_URL }}",
         repository,
       });
-      new ForceRelease(this, {
-        workflowRunsOn,
-        repositoryUrl,
-      });
       new Dependabot(this);
     }
 
@@ -565,6 +561,9 @@ export class CdktfProviderProject extends cdk.JsiiProject {
       packageInfo,
       isDeprecated: !!isDeprecated,
     });
+    if (!isDeprecated) {
+      new ForceRelease(this, { workflowRunsOn });
+    }
   }
 
   private pinGithubActionVersions(pinnedVersions: Record<string, string>) {
