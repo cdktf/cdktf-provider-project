@@ -66,6 +66,10 @@ export class ProviderUpgrade {
           "node-version": project.minNodeVersion,
         },
       },
+      {
+        name: "Setup Copywrite tool",
+        uses: "hashicorp/setup-copywrite",
+      },
       { run: "yarn install" },
       {
         id: "check_version",
@@ -84,6 +88,12 @@ export class ProviderUpgrade {
           CHECKPOINT_DISABLE: "1",
           GH_TOKEN: "${{ secrets.GITHUB_TOKEN }}",
         },
+      },
+      {
+        // Because yarn fetch nukes the contents of /src, we've lost our auto-generated copyright headers
+        name: "Add headers using Copywrite tool",
+        if: newerVersionAvailable,
+        run: "copywrite headers",
       },
       {
         name: "get provider updated version",
