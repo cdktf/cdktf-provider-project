@@ -31,7 +31,7 @@ const githubActionPinnedVersions = {
 };
 
 /** JSII and TS should always use the same major/minor version range */
-const typescriptVersion = "~5.7.0";
+const typescriptVersion = "~5.8.0";
 const project = new cdk.JsiiProject({
   name: "@cdktf/provider-project",
   author: "HashiCorp",
